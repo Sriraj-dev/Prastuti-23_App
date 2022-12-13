@@ -20,7 +20,7 @@ class Utils{
           icon: const Icon(Icons.error,size: 28,color: Colors.white,),
           flushbarPosition: FlushbarPosition.TOP,
           borderRadius: BorderRadius.circular(10),
-        )
+        )..show(context)
     );
   }
 
