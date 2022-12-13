@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/utils/routes/routes.dart';
 import 'package:prastuti_23/views/splash_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
