@@ -24,16 +24,8 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    _navigateToHome();
+    splashViewModel.initiateApp(context);
   }
-
-  _navigateToHome() async{
-    await Future.delayed(Duration(milliseconds: 5500), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginView())
-    );
-  }
-
 
   //TODO: Complete the UI of Splash Screen - Manash/Yash
   @override
@@ -42,7 +34,6 @@ class _SplashViewState extends State<SplashView> {
       child: Stack(
         children: <Widget>[
           VideoWidget(),
-
         ],
       ),
     );
@@ -83,8 +74,9 @@ class _VideoWidgetState extends State<VideoWidget> {
               fit: BoxFit.cover,
               child: SizedBox(
                 width:
-                constraints.maxWidth * _controller.value.aspectRatio,
-                height: constraints.maxHeight,
+                constraints.maxWidth,
+                height:
+                constraints.maxHeight,
                 child: VideoPlayer(_controller),
               ),
             ),
