@@ -74,8 +74,9 @@ class _VideoWidgetState extends State<VideoWidget> {
               fit: BoxFit.cover,
               child: SizedBox(
                 width:
-                constraints.maxWidth * _controller.value.aspectRatio,
-                height: constraints.maxHeight,
+                constraints.maxWidth,
+                height:
+                constraints.maxHeight,
                 child: VideoPlayer(_controller),
               ),
             ),
