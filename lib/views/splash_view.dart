@@ -53,12 +53,11 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/videos/splash_screen_video_mute.mp4')
+    _controller = VideoPlayerController.asset('assets/splash_view/splash_view_video.mp4')
       ..initialize().then((_) {
         _controller.setVolume(0.0);
         _controller.setLooping(true);
         _controller.play();
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
   }
