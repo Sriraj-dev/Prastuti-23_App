@@ -1,10 +1,8 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/views/authentication/login_view.dart';
 import 'package:prastuti_23/views/error_view.dart';
+import 'package:prastuti_23/views/eventsPage/events_view.dart';
 import 'package:prastuti_23/views/splash_view.dart';
 
 class Routes {
@@ -30,6 +28,11 @@ class Routes {
         return MaterialPageRoute(builder:
             (BuildContext context) => const LoginView()
         );
+
+      // Events View
+      case RouteNames.eventsView:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const EventsView());
 
       //Invalid Route Exception
       default:

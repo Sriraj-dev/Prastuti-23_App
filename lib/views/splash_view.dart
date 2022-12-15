@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prastuti_23/config/screen_config.dart';
-import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/view_models/splash_view_model.dart';
-import 'package:prastuti_23/views/authentication/login_view.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashView extends StatefulWidget {
@@ -18,6 +16,7 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     SizeConfig.init(context);
   }
 
@@ -27,12 +26,11 @@ class _SplashViewState extends State<SplashView> {
     splashViewModel.initiateApp(context);
   }
 
-  //TODO: Complete the UI of Splash Screen - Manash/Yash
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
-        children: <Widget>[
+        children: const <Widget>[
           VideoWidget(),
         ],
       ),

@@ -9,7 +9,8 @@ final isLoggingIn = StateNotifierProvider<AuthViewModelNotifier, bool>
   ((ref)=>AuthViewModelNotifier());
 
 final isLoggingOut = StateNotifierProvider<AuthViewModelNotifier, bool>(
-        (ref) => AuthViewModelNotifier());
+    (ref) => AuthViewModelNotifier());
+
 
 class AuthViewModelNotifier extends StateNotifier<bool>{
 
@@ -29,14 +30,14 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
     //await Future.delayed(const Duration(seconds: 3));
 
     try {
-      final result =  await _googleSignIn.signIn();
+     final result =  await _googleSignIn.signIn();
 
-      print("Google SignIn Headers _---_> ${result!.authHeaders}");
-
-      result.authentication.then((googleKey){
-        //TODO: Need to register the user from our backend.
-        print("The TOkens are -> ${googleKey.accessToken} , ${googleKey.idToken}");
-      });
+     print("Google SignIn Headers _---_> ${result!.authHeaders}");
+     
+     result.authentication.then((googleKey){
+      //TODO: Need to register the user from our backend.
+      print("The TOkens are -> ${googleKey.accessToken} , ${googleKey.idToken}");
+     });
 
       //If the user is Successfully LoggedIn
       if (result != null) {

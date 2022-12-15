@@ -11,8 +11,8 @@ class SplashViewModel{
 
     await Future.delayed(const Duration(milliseconds: 4000));
 
-    Navigator.of(context).pop();
-    Navigator.of(context).pushNamed(RouteNames.loginView);
+    
+    Navigator.of(context).popAndPushNamed(RouteNames.loginView);
   }
 
 }
