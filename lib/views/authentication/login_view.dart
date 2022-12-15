@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:prastuti_23/animations/login_view_animation.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -11,9 +13,20 @@ class LoginView extends StatefulWidget {
   _LoginViewState createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  AuthViewModelNotifier authViewModel = AuthViewModelNotifier();
+class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   int _currentPage = 0;
+
+  LoginViewAnimation loginAnimation = LoginViewAnimation();
+  late final animationController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    animationController = Get.put(loginAnimation);
+    loginAnimation.initiateLogoAnimation(this);
+    loginAnimation.initiatePageAnimation(this);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +35,23 @@ class _LoginViewState extends State<LoginView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-
-          Container(
-          child: Image.asset(
-            "assets/login_view/prastuti'23_logo_1.png",
-            height: SizeConfig.height * 0.20,
+          Obx(()=>Opacity(
+            opacity: animationController.logoOpacityValue.value,
+            child: Container(
+                child: Image.asset(
+                  "assets/login_view/prastuti'23_logo_1.png",
+                  height: SizeConfig.height * 0.2,
+                ),
+              ),
+            )
           ),
-        ),
-
+          
           Container(
             height: SizeConfig.heightPercent*60,
             child: PageView.builder(
               itemCount: images.length,
               onPageChanged: (int page) {
+                loginAnimation.restartPageAnimation();
                 setState(() {
                   _currentPage = page;
                 });
@@ -49,54 +66,73 @@ class _LoginViewState extends State<LoginView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(32),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 10,
-                                  offset: Offset(0, 5),
+                          Obx(
+                            ()=> Padding(
+                              padding:  EdgeInsets.only(
+                                left: (1.0-animationController.pagePaddingValue.value)*100,
+                              ),
+                              child: Opacity(
+                                opacity: animationController.pagePaddingValue.value,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(32),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 5,
+                                        blurRadius: 10,
+                                        offset: Offset(0, 5),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Image.asset(images[index],scale: 1.2,),
                                 ),
-                              ],
+                              ),
                             ),
-                            child: Image.asset(images[index],scale: 1.2,),
                           ),
                         ],
                       ),
                       const SizedBox(height: 30,),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title[index],
-                            style: const TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                              fontFamily: "Roboto",
-                              fontSize: 40,
+                      Obx(
+                        ()=> Padding(
+                          padding:  EdgeInsets.only(
+                                top: (1.0-animationController.pagePaddingValue.value)*75,),
+                          child: Opacity(
+                            opacity: animationController.pagePaddingValue.value,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  title[index],
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    decoration: TextDecoration.none,
+                                    fontFamily: "Roboto",
+                                    fontSize: 40,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.15,
+                                  width: MediaQuery.of(context).size.width * 0.80,
+                                  child: Text(
+                                    detail[index],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        decoration: TextDecoration.none,
+                                        fontFamily: "Roboto",
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.normal),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                              ],
                             ),
-                            textAlign: TextAlign.start,
                           ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.15,
-                            width: MediaQuery.of(context).size.width * 0.80,
-                            child: Text(
-                              detail[index],
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                  fontFamily: "Roboto",
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.normal),
-                              textAlign: TextAlign.start,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ]
                   ),
