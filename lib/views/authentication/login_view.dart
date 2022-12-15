@@ -24,7 +24,6 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     animationController = Get.put(loginAnimation);
-    loginAnimation.initiateLogoAnimation(this);
     loginAnimation.initiatePageAnimation(this);
   }
 
@@ -35,15 +34,20 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Obx(()=>Opacity(
-            opacity: animationController.logoOpacityValue.value,
-            child: Container(
-                child: Image.asset(
-                  "assets/login_view/prastuti'23_logo_1.png",
-                  height: SizeConfig.height * 0.2,
-                ),
+          TweenAnimationBuilder(
+            tween: Tween<double>(begin: 0,end: 1),
+            duration: const Duration(seconds: 3),
+            builder: ((context,double value, child) => Opacity(
+                  opacity: value,
+                  child: child,
+                )
               ),
-            )
+            child: Container(
+                    child: Image.asset(
+                      "assets/login_view/prastuti'23_logo_1.png",
+                      height: SizeConfig.height * 0.2,
+                    ),
+                  ),
           ),
           
           Container(
