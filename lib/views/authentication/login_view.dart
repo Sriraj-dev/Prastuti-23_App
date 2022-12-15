@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:prastuti_23/view_models/login_view_model.dart';
+import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class LoginView extends StatefulWidget {
@@ -14,9 +11,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  LoginViewModelNotifier loginViewModel = LoginViewModelNotifier();
+  AuthViewModelNotifier authViewModel = AuthViewModelNotifier();
 
-  //TODO: UI of the Login Screen (Google Auth Most Probably) - Manash/Yash
   //TODO: Floating Action Button is just for your reference
   // You can customise the Buttons(UI) as per your design
   //I will implement the OnTap/OnPressed Functions if u r not getting it..
@@ -34,7 +30,7 @@ class _LoginViewState extends State<LoginView> {
             height: MediaQuery.of(context).size.height*0.08,
             child: Container(
               width: MediaQuery.of(context).size.width*0.6,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/login_view/prastuti'23_logo_1.png"),
                       fit: BoxFit.fitWidth
@@ -89,7 +85,7 @@ class _LoginViewState extends State<LoginView> {
                                 children: [
                                   Text(
                                     title[index],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       decoration: TextDecoration.none,
                                       fontFamily: "Roboto",
@@ -105,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
                                     width: MediaQuery.of(context).size.width*0.80,
                                     child: Text(
                                       detail[index],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         decoration: TextDecoration.none,
                                         fontFamily: "Roboto",
@@ -137,7 +133,7 @@ class _LoginViewState extends State<LoginView> {
                 AnimatedSmoothIndicator(
                   activeIndex: _currentPage,
                   count: 3,
-                  effect: WormEffect(
+                  effect: const WormEffect(
                     activeDotColor: Color(0xff272727),
                     dotHeight: 5.0
                   ),
@@ -145,20 +141,28 @@ class _LoginViewState extends State<LoginView> {
                 Container(
                   width: MediaQuery.of(context).size.width*0.43,
                 ),
-                ElevatedButton(
-                  // OnPressed to be implemented
-                  onPressed: () {
-                    // TODO: Google Login to be implemented by Siraj bhaiya
+                Consumer(
+                  builder: (context,ref,child){
+                    bool isLoading = ref.watch(isLoggingIn);
+
+                    return (isLoading)?
+                    //TODO: Loading Widget UI - Manash / Yash
+                    CircularProgressIndicator():
+                    ElevatedButton(
+                    onPressed: () {
+                      ref.read(isLoggingIn.notifier).login(context: context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(right: 20),
+                      height: 50,
+                      child: Image.asset('assets/login_view/google.png'),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      backgroundColor: Colors.transparent,
+                      ),
+                    );
                   },
-                  child: Container(
-                    padding: EdgeInsets.only(right: 20),
-                    height: 50,
-                    child: Image.asset('assets/login_view/google.png'),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: StadiumBorder(),
-                    backgroundColor: Colors.transparent,
-                  ),
                 )
               ],
             ),
@@ -167,162 +171,6 @@ class _LoginViewState extends State<LoginView> {
       )
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //
-  //   return SafeArea(
-  //     child: Scaffold(
-  //       body: Stack(
-  //         children: [
-  //           LiquidSwipe(
-  //             pages: [
-  //               Container(
-  //                 width: MediaQuery.of(context).size.width,
-  //                 color: Color.fromARGB(26, 13, 27, 196),
-  //                 child: Column(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //                   children: [
-  //                     Image.asset('assets/login_view/sample_image_01.jpg'),
-  //                     Column(
-  //                       children: [
-  //                         Text(
-  //                           'About Us',
-  //                           style: TextStyle(
-  //                             fontSize: 45,
-  //                             fontWeight: FontWeight.bold,
-  //                             color: Color.fromARGB(255, 13, 27, 196),
-  //                             fontFamily: 'Roboto',
-  //                             shadows: [
-  //                               Shadow(
-  //                                 offset: Offset(2.0, 2.0),
-  //                                 blurRadius: 3.0,
-  //                                 color: Color.fromARGB(129, 13, 27, 196),
-  //                               ),
-  //                             ],
-  //                           ),
-  //                         ),
-  //                         Text(aboutUs),
-  //                       ],
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //               Container(
-  //                 width: MediaQuery.of(context).size.width,
-  //                 color: Colors.white,
-  //                 child: Column(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                   children: [
-  //                     Image.asset('assets/login_view/sample_image_02.png'),
-  //                     Column(
-  //                       children: [
-  //                         Text('Hi'),
-  //                         Text('Hi'),
-  //                       ],
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //               Container(
-  //                 width: MediaQuery.of(context).size.width,
-  //                 color: Colors.white,
-  //                 child: Column(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                   children: [
-  //                     Image.asset('assets/login_view/sample_image_01.jpg'),
-  //                     Column(
-  //                       children: [
-  //                         Text('Hi'),
-  //                         Text('Hi'),
-  //                       ],
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //               Container(
-  //                 width: MediaQuery.of(context).size.width,
-  //                 color: Colors.white,
-  //                 child: Column(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                   children: [
-  //                     Image.asset('assets/login_view/sample_image_02.png'),
-  //                     Column(
-  //                       children: [
-  //                         Text('Hi'),
-  //                         Text('Hi'),
-  //                       ],
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ],
-  //             onPageChangeCallback: onPageChangedCallBack,
-  //             slideIconWidget: const Icon(Icons.arrow_back_ios),
-  //             enableSideReveal: true,
-  //           ),
-  //           Positioned(
-  //               left: MediaQuery.of(context).size.width*0.2,
-  //               top: MediaQuery.of(context).size.height*0.025,
-  //               height: MediaQuery.of(context).size.height*0.08,
-  //               child: Container(
-  //                 width: MediaQuery.of(context).size.width*0.6,
-  //                 decoration: BoxDecoration(
-  //                     image: DecorationImage(
-  //                         image: AssetImage("assets/login_view/prastuti'23_logo_1.png"),
-  //                         fit: BoxFit.fitWidth
-  //                     )
-  //                 ),
-  //               )
-  //           ),
-  //           Positioned(
-  //             left: MediaQuery.of(context).size.width*0.05,
-  //             bottom: MediaQuery.of(context).size.height*0.03,
-  //             height: MediaQuery.of(context).size.height*0.1,
-  //             child: Container(
-  //               width: MediaQuery.of(context).size.width*0.9,
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //                 children: [
-  //                   AnimatedSmoothIndicator(
-  //                     activeIndex: controller.currentPage,
-  //                     count: 3,
-  //                     effect: WormEffect(
-  //                       activeDotColor: Color(0xff272727),
-  //                       dotHeight: 5.0
-  //                     ),
-  //                   ),
-  //                   Container(
-  //                     width: MediaQuery.of(context).size.width*0.2,
-  //                   ),
-  //                   ElevatedButton(
-  //                     // OnPressed to be implemented
-  //                     onPressed: () {},
-  //                     child: Container(
-  //                       height: 50,
-  //                       child: Column(
-  //                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                         children: [
-  //                           Text(
-  //                             'Google Login',
-  //                             style: TextStyle(
-  //                               fontWeight: FontWeight.bold,
-  //                               fontSize: 20,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     )
-  //                   )
-  //                 ],
-  //               ),
-  //             )
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }
 
 
