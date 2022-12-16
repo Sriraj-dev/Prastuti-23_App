@@ -11,6 +11,7 @@ final isLoggingIn = StateNotifierProvider<AuthViewModelNotifier, bool>
 final isLoggingOut = StateNotifierProvider<AuthViewModelNotifier, bool>(
     (ref) => AuthViewModelNotifier());
 
+
 class AuthViewModelNotifier extends StateNotifier<bool>{
 
   AuthViewModelNotifier() : super (false);
@@ -73,20 +74,71 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
 
 }
 
-List<String> title =[
-  "About Us",
-  "Enthralling Events",
-  "Exciting Rewards"
-];
-
-List<String> detail = [
-  "Annual departmental fest of the department of Electrical Engineering, Prastuti provides curious minds a platform to lean, compete and develop their technical skills",
-  "The 21st iteration brings a series of 6 intellectual and innovative events with workshops and fun challenging problem statements",
-  "Tempeting Prizes to win through different competitions, Access to Guest Lectures by expert in the field, Excellent learning opportunities"
-];
-
-List<String> images = [
-  "assets/login_view/sample_image_01.jpg",
-  "assets/login_view/sample_image_02.png",
-  "assets/login_view/sample_image_01.jpg",
-];
+Widget SignInButton(int, WidgetRef, BuildContext, bool) {
+  if (int < 2) {
+    return ElevatedButton(
+      onPressed: () {
+        null;
+      },
+      child: Image.asset('assets/login_view/google.png'),
+      style: ElevatedButton.styleFrom(
+        shape: const CircleBorder(),
+        backgroundColor: Colors.black,
+        fixedSize: Size(60, 60),
+        shadowColor: Colors.grey,
+        elevation: 15,
+      ),
+    );
+  } else {
+    return ElevatedButton(
+      onPressed: () {
+        WidgetRef.read(isLoggingIn.notifier).login(context: BuildContext);
+      },
+      child: bool
+          ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                height: 15,
+                width: 15,
+                child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+              ),
+              Text(
+                "Please Wait...",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              )
+            ],
+          )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                    height: 35,
+                    width: 35,
+                    child: Image.asset('assets/login_view/google.png')),
+                Container(
+                  width: 10,
+                ),
+                Text(
+                  "Log In",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+      style: ElevatedButton.styleFrom(
+        shape: const StadiumBorder(),
+        backgroundColor: Colors.black,
+        fixedSize: Size(143, 50),
+        shadowColor: Colors.grey,
+        elevation: 15,
+      ),
+    );
+  }
+}
