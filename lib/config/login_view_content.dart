@@ -1,4 +1,3 @@
-
 List<String> title =[
   "About Us",
   "Enthralling Events",
@@ -14,8 +13,8 @@ List<String> detail = [
 ];
 
 List<String> images = [
-  "assets/login_view/awards.png",
+  "assets/login_view/about_us.png",
   "assets/login_view/events.png",
+  "assets/login_view/about_us.png",
   "assets/login_view/awards.png",
-  "assets/login_view/events.png",
 ];
