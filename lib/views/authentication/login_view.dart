@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/login_view_animation.dart';
 import 'package:prastuti_23/config/color_palette.dart';
@@ -32,159 +34,191 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        color: AppTheme().primaryColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TweenAnimationBuilder(
-              tween: Tween<double>(begin: 0,end: 1),
-              duration: const Duration(seconds: 4),
-              builder: ((context,double value, child) => Opacity(
-                    opacity: value,
-                    child: child,
-                  )
-                ),
+    return ScreenUtilInit(
+        builder: (context, child) =>
+            SafeArea(
               child: Container(
-                padding: EdgeInsets.only(right: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                color: AppTheme().primaryColor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      "assets/login_view/prastuti'23_logo_1.png",
-                      height: SizeConfig.height * 0.07,
+                    TweenAnimationBuilder(
+                      tween: Tween<double>(begin: 0, end: 1),
+                      duration: const Duration(seconds: 4),
+                      builder: ((context, double value, child) =>
+                          Opacity(
+                            opacity: value,
+                            child: child,
+                          )
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.only(right: 30.sp),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Image.asset(
+                              "assets/login_view/prastuti'23_logo_1.png",
+                              height: SizeConfig.height * 0.07.sp,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
+                    Container(
+                      height: 30.sp,
+                    ),
+                    Container(
+                      height: SizeConfig.heightPercent * 70.sp,
+                      child: PageView.builder(
+                        itemCount: images.length,
+                        onPageChanged: (int page) {
+                          loginAnimation.restartPageAnimation();
+                          setState(() {
+                            _currentPage = page;
+                          });
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.width * 0.1.sp),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceAround,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Obx(
+                                            () =>
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                left: (1.0 - animationController
+                                                    .pagePaddingValue.value) *
+                                                    100,
+                                              ),
+                                              child: Opacity(
+                                                opacity: animationController
+                                                    .pagePaddingValue.value,
+                                                child: Container(
+                                                  height: SizeConfig.height*0.4.sp,
+                                                  width: SizeConfig.width*0.8.sp,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .circular(32.sp),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Color.fromARGB(
+                                                            255, 17, 102, 157),
+                                                        spreadRadius: 5.sp,
+                                                        blurRadius: 10.sp,
+                                                        offset: Offset(0.sp, 5.sp),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: FittedBox(
+                                                    child: Image.asset(
+                                                      images[index]
+                                                    ),
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 30.sp),
+                                  Obx(
+                                        () =>
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            top: (1.0 - animationController
+                                                .pagePaddingValue.value) * 75),
+                                          child: Opacity(
+                                            opacity: animationController
+                                                .pagePaddingValue.value,
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                Container(
+                                                  height: SizeConfig.height*0.07.sp,
+                                                  width: SizeConfig.width*0.8.sp,
+                                                  child: AutoSizeText(
+                                                    title[index],
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      decoration: TextDecoration
+                                                          .none,
+                                                      fontFamily: "Roboto",
+                                                      fontSize: 40.sp,
+                                                    ),
+                                                    textAlign: TextAlign.start,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 15.sp,
+                                                ),
+                                                SizedBox(
+                                                  height: SizeConfig.height * 0.15.sp,
+                                                  width: SizeConfig.width * 0.80.sp,
+                                                  child: AutoSizeText(
+                                                    detail[index],
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        decoration: TextDecoration
+                                                            .none,
+                                                        fontFamily: "Roboto",
+                                                        fontSize: 17.sp,
+                                                        fontWeight: FontWeight
+                                                            .normal),
+                                                    textAlign: TextAlign.start,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                  ),
+                                ]
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 15.sp),
+                            child: AnimatedSmoothIndicator(
+                              activeIndex: _currentPage,
+                              count: 4,
+                              effect: WormEffect(
+                                activeDotColor: Colors.black,
+                                dotHeight: 6.0.sp,
+                                dotWidth: 10.sp,
+                              ),
+                            ),
+                          ),
+                          Consumer(builder: (context, ref, child) {
+                            bool isLoading = ref.watch(isLoggingIn);
+                            return (SignInButton(
+                                _currentPage, ref, context, isLoading));
+                          })
+                        ],
+                      ),
+                    ),
+
                   ],
                 ),
               ),
             ),
-            Container(
-              height: 30,
-            ),
-            Container(
-              height: SizeConfig.heightPercent*70,
-              child: PageView.builder(
-                itemCount: images.length,
-                onPageChanged: (int page) {
-                  loginAnimation.restartPageAnimation();
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: SizeConfig.width*0.1),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Obx(
-                              ()=> Padding(
-                                padding:  EdgeInsets.only(
-                                  left: (1.0-animationController.pagePaddingValue.value)*100,
-                                ),
-                                child: Opacity(
-                                  opacity: animationController.pagePaddingValue.value,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(32),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color.fromARGB(255, 17, 102, 157),
-                                          spreadRadius: 5,
-                                          blurRadius: 10,
-                                          offset: Offset(0, 5),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Image.asset(images[index],scale: 1,),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 30,),
-                        Obx(
-                          ()=> Padding(
-                            padding:  EdgeInsets.only(
-                                  top: (1.0-animationController.pagePaddingValue.value)*75,),
-                            child: Opacity(
-                              opacity: animationController.pagePaddingValue.value,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    title[index],
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      decoration: TextDecoration.none,
-                                      fontFamily: "Roboto",
-                                      fontSize: 40,
-                                    ),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height * 0.15,
-                                    width: MediaQuery.of(context).size.width * 0.80,
-                                    child: Text(
-                                      detail[index],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          decoration: TextDecoration.none,
-                                          fontFamily: "Roboto",
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.normal),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ]
-                    ),
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: AnimatedSmoothIndicator(
-                      activeIndex: _currentPage,
-                      count: 4,
-                      effect: const WormEffect(
-                        activeDotColor: Colors.black,
-                        dotHeight: 6.0,
-                        dotWidth: 10,
-                      ),
-                    ),
-                  ),
-                  Consumer(builder: (context, ref, child) {
-                    bool isLoading = ref.watch(isLoggingIn);
-                    return (SignInButton(_currentPage, ref, context, isLoading));
-                  })
-                ],
-              ),
-            ),
-
-          ],
-        ),
-      ),
+        designSize: const Size(375.0, 728.0),
     );
   }
 }
@@ -199,9 +233,9 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         backgroundColor: Color.fromARGB(255, 21, 63, 94),
-        fixedSize: Size(60, 60),
+        fixedSize: Size(60.sp, 60.sp),
         shadowColor: Color.fromARGB(255, 17, 44, 61),
-        elevation: 12,
+        elevation: 12.sp,
       ),
     );
   } else {
@@ -214,8 +248,8 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            height: 15,
-            width: 15,
+            height: 15.sp,
+            width: 15.sp,
             child: CircularProgressIndicator(
               color: Colors.white,
             ),
@@ -223,7 +257,7 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
           Text(
             "Please Wait...",
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 15.sp,
             ),
           )
         ],
@@ -232,16 +266,16 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-              height: 35,
-              width: 35,
+              height: 35.sp,
+              width: 35.sp,
               child: Image.asset('assets/login_view/google.png')),
           Container(
-            width: 10,
+            width: 10.sp,
           ),
           Text(
             "Log In",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 20.sp,
               fontWeight: FontWeight.bold,
             ),
           )
@@ -250,9 +284,9 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
         backgroundColor: Color.fromARGB(255, 21, 63, 94),
-        fixedSize: Size(150, 60),
+        fixedSize: Size(150.sp, 60.sp),
         shadowColor: Color.fromARGB(255, 17, 44, 61),
-        elevation: 15,
+        elevation: 15.sp,
       ),
     );
   }
