@@ -11,6 +11,7 @@ final isLoggingIn = StateNotifierProvider<AuthViewModelNotifier, bool>
 final isLoggingOut = StateNotifierProvider<AuthViewModelNotifier, bool>(
     (ref) => AuthViewModelNotifier());
 
+
 class AuthViewModelNotifier extends StateNotifier<bool>{
 
   AuthViewModelNotifier() : super (false);

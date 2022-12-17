@@ -257,5 +257,3 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
     );
   }
 }
-
-
