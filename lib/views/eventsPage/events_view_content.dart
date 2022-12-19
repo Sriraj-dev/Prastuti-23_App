@@ -7,11 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:prastuti_23/config/color_palette.dart';
 
 List<String> event_images = [
-  "assets/events_view/codigo.png",
-  "assets/events_view/consilium.png",
-  "assets/events_view/cryptex.png",
-  "assets/events_view/hackathon.png",
-  "assets/events_view/recognizance.png",
+  "assets/events_view/codigo.jpg",
+  "assets/events_view/consilium.jpg",
+  "assets/events_view/cryptex.jpg",
+  "assets/events_view/hackathon.jpg",
+  "assets/events_view/recognizance.jpg",
   "assets/events_view/simulim.jpg",
 ];
 

@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 
 class AppTheme{
 
-  Color primaryColor = const Color.fromARGB(255, 0, 76, 125);
-  Color backgroundColor = const Color(0xFFF2F2F2);
+  //Color primaryColor = const Color.fromARGB(255, 0, 76, 125);
+  Color primaryColor = const Color(0xFF004C7D);
+  Color secondaryColor = const Color(0xFF4B7CB2);
+  Color backgroundColor = const Color(0xFFDBF2FF);
 
 }
 
