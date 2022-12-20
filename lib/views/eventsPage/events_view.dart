@@ -15,14 +15,12 @@ class EventsView extends StatefulWidget {
 class _EventsViewState extends State<EventsView> with SingleTickerProviderStateMixin{
 
   final _selectedEvent = 0.obs;
-  EventsViewAnimation eventsViewAnimation = EventsViewAnimation();
-  late final animationController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    animationController = Get.put(eventsViewAnimation);
+    print("Init State is running in EventsView ---------");
     eventsViewAnimation.initiatePageAnimation(this);
   }
 
@@ -35,91 +33,83 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme().backgroundColor,
-
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 0,top: 50,left: 0,right: 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Obx(() => Opacity(
-                      opacity: animationController.pagePaddingValue.value,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: (1 - animationController
-                                        .pagePaddingValue.value) * 30),
-                        child: Text(
-                          titles[_selectedEvent.value],
-                          style: TextStyle(
-                              fontSize: 55,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppTheme().backgroundColor,
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 00,top: 0,left: 0,right: 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Obx(() => Opacity(
+                        opacity: animationController.pagePaddingValue.value,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: (1 - animationController
+                                          .pagePaddingValue.value) * 30),
+                          child: Text(
+                            titles[_selectedEvent.value],
+                            style: TextStyle(
+                                fontSize: 35,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                    ) ,
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Obx(
-                    () => Opacity(
-                      opacity: animationController.pagePaddingValue.value,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            left: (1 -
-                                    animationController
-                                        .pagePaddingValue.value) *
-                                30),
-                        child: Text(
-                          desc[_selectedEvent.value],
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                            ),
+                      ) ,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Obx(
+                      () => Opacity(
+                        opacity: animationController.pagePaddingValue.value,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: (1 -
+                                      animationController
+                                          .pagePaddingValue.value) *
+                                  30),
+                          child: Text(
+                            desc[_selectedEvent.value],
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-                height: SizeConfig.heightPercent * 25,
-                child: PageView.builder(
-                    controller: PageController(viewportFraction: 0.88),
-                    itemCount: titles.length,
-                    onPageChanged: ((value) {
-                      _selectedEvent.value = value;
-                      eventsViewAnimation.restartPageAnimation();
-                    }),
-                    itemBuilder: (context, index) {
-                      return event_image(index);
-                    }),
-              )
-          ],
+              Container(
+                  height: SizeConfig.heightPercent * 25,
+                  child: PageView.builder(
+                      controller: PageController(viewportFraction: 0.88),
+                      itemCount: titles.length,
+                      onPageChanged: ((value) {
+                        _selectedEvent.value = value;
+                        eventsViewAnimation.restartPageAnimation();
+                      }),
+                      itemBuilder: (context, index) {
+                        return event_image(index);
+                      }),
+                )
+            ],
+          ),
         ),
-      ),
-
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppTheme().backgroundColor,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "home"),
-          BottomNavigationBarItem(icon: Icon(Icons.person),label: "profile"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings),label: "settings"),
-        ],
       ),
     );
   }
 
   Widget event_image(int index){
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 8,right: 8,bottom: 30,top: 10),
       child: Material(
         borderRadius: BorderRadius.circular(30),
         elevation: 0,
