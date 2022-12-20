@@ -107,7 +107,7 @@ Widget drawer() {
                 child: Text(
                   "Logout",
                   style: TextStyle(
-                      fontWeight: FontWeight.w400, color: Colors.white),
+                      fontWeight: FontWeight.w500, color: Colors.white),
                 ),
               ),
             ),

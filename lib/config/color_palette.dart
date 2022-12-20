@@ -9,7 +9,13 @@ class AppTheme{
   Color primaryColor = const Color(0xFF004C7D);
   Color secondaryColor = const Color(0xFF4B7CB2);
   Color backgroundColor = const Color(0xFFDBF2FF);
+  
+  //Add TextStyles - Yash
+  //refer GoogleFonts package
 
+  //refer these fontStyles:
+  //outfit
+  
 }
 
 class TextColour{
