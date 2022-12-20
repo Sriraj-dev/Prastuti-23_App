@@ -3,6 +3,9 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
+EventsViewAnimation eventsViewAnimation = EventsViewAnimation();
+final animationController = Get.put(eventsViewAnimation);
+
 class EventsViewAnimation extends GetxController{
   RxDouble pagePaddingValue = 0.0.obs;
   late Animation<double> pageAnimation;
