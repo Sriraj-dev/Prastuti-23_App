@@ -2,6 +2,7 @@
 
 
 import 'package:get/get.dart';
+import 'package:prastuti_23/animations/home_view_animation.dart';
 
 HomeViewModel homeViewModel = HomeViewModel();
 final homeViewController = Get.put(homeViewModel);
@@ -15,5 +16,6 @@ class HomeViewModel extends GetxController{
   changeSelectedView(int value){
     print("Changing the SelectedView to $value");
     _selectedView.value = value;
+    drawerAnimationController.reverse();
   }
 }

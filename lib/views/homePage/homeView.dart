@@ -50,7 +50,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
       child: drawer(),
       builder: (context,child){
         return Scaffold(
-          appBar: AppBar(
+          appBar: (homeViewController.selectedView == 1)?null:
+          AppBar(
             elevation: 0,
             backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
             leading: Center(
@@ -71,13 +72,21 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               //We have Our View Pages Here :
               Obx(() => Opacity(
                 opacity: opacityAnimation.value,
-                child: views[homeViewController.selectedView]),),
+                child: GestureDetector(
+                  onTap: (){
+                    if(drawerAnimationController.isCompleted) 
+                      drawerAnimationController.reverse();
+                  },
+                  child: views[homeViewController.selectedView])
+                ),
+              ),
 
 
               //This is the CustomDrawer :
               Positioned(
                 left: drawerAnimation.value,
-                top: SizeConfig.heightPercent*10,
+                top: (homeViewController.selectedView == 1)?SizeConfig.heightPercent*10:
+                SizeConfig.heightPercent*7,
                 child: Opacity(
                   opacity: drawerAnimationController.value,
                   child: child,
