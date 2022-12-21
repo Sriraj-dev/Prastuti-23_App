@@ -13,10 +13,14 @@ class LoginViewAnimation extends GetxController{
 
   initiatePageAnimation(obj){
     pageAnimationController = AnimationController(
-      vsync: obj, duration: const Duration(milliseconds: 1000),
+      vsync: obj, duration: const Duration(milliseconds: 800),
     );
     pageAnimation =
-        Tween<double>(begin: 0, end: 1).animate(pageAnimationController);
+        Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
+          parent: pageAnimationController,
+          curve: Curves.decelerate
+          )
+        );
     pageAnimation.addListener(() {
       pagePaddingValue.value = pageAnimation.value;
     });

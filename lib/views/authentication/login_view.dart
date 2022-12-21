@@ -33,6 +33,13 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   }
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    SizeConfig.init(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
         builder: (context, child) =>
@@ -147,7 +154,11 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                               width: SizeConfig.width*0.8.sp,
                                               child: AutoSizeText(
                                                 title[index],
-                                                style: AppTheme().headText1.copyWith(
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  decoration: TextDecoration
+                                                      .none,
+                                                  fontFamily: "Poppins",
                                                   fontSize: 40.sp,
                                                 ),
                                                 textAlign: TextAlign.start,
