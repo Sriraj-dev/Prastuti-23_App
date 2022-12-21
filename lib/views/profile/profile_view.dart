@@ -58,7 +58,11 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   ),
                 ),
                 title: Text("Your Profile"),
+                stretch: true,
                 flexibleSpace: FlexibleSpaceBar(
+                  stretchModes: [
+                    StretchMode.zoomBackground
+                  ],
                   background: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
