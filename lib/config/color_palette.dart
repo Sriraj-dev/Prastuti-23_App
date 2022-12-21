@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 
+
 class AppTheme{
 
   //Color primaryColor = const Color.fromARGB(255, 0, 76, 125);
@@ -11,6 +12,21 @@ class AppTheme{
   Color backgroundColor = const Color(0xFFDBF2FF);
   
   //Add TextStyles - Yash
+
+final headText1 =  const TextStyle(
+  color: Colors.white,
+  decoration: TextDecoration
+      .none,
+  fontFamily: "Roboto",
+  fontSize: 40,
+);
+final headText2 = const TextStyle(
+  color: Colors.white,
+  decoration: TextDecoration
+      .none,
+  fontFamily: "Roboto",
+  fontSize: 16,
+);
   //refer GoogleFonts package
 
   //refer these fontStyles:

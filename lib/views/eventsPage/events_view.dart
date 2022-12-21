@@ -54,10 +54,10 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                           .pagePaddingValue.value) * 30),
                           child: Text(
                             titles[_selectedEvent.value],
-                            style: TextStyle(
-                                fontSize: 35,
+                            style: AppTheme().headText1.copyWith(
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
                       ) ,
@@ -76,10 +76,9 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                   30),
                           child: Text(
                             desc[_selectedEvent.value],
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
+                            style: AppTheme().headText2.copyWith(
+                              color: Colors.black
+                            ),
                           ),
                         ),
                       ),

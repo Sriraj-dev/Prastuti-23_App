@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:prastuti_23/config/color_palette.dart';
 
 
 class ErrorView extends StatefulWidget {
@@ -15,9 +17,12 @@ class _ErrorViewState extends State<ErrorView> {
   //TODO: UI of Error Screen - Manash/Yash
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
-        child: Text("This is a Error Screen!!"),
+        child: Text("This is a Error Screen!!",
+        style: AppTheme().headText1.copyWith(
+          fontSize: 40.sp,
+        )),
       ),
     );
   }

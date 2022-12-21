@@ -147,11 +147,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                               width: SizeConfig.width*0.8.sp,
                                               child: AutoSizeText(
                                                 title[index],
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  decoration: TextDecoration
-                                                      .none,
-                                                  fontFamily: "Roboto",
+                                                style: AppTheme().headText1.copyWith(
                                                   fontSize: 40.sp,
                                                 ),
                                                 textAlign: TextAlign.start,
@@ -162,14 +158,11 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                               width: SizeConfig.width * 0.80.sp,
                                               child: AutoSizeText(
                                                 detail[index],
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    decoration: TextDecoration
-                                                        .none,
-                                                    fontFamily: "Roboto",
-                                                    fontSize: 17.sp,
+                                                style: AppTheme().headText2.copyWith(
                                                     fontWeight: FontWeight
-                                                        .normal),
+                                                        .normal,
+                                                  fontSize: 16.sp,
+                                                ),
                                                 textAlign: TextAlign.start,
                                               ),
                                             ),
@@ -250,8 +243,9 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
                         ),
                         Text(
                           "Please Wait...",
-                          style: TextStyle(
-                            fontSize: 15.sp,
+                          style: AppTheme().headText2.copyWith(
+                            color: Colors.black,
+                            fontSize: 16.sp,
                           ),
                         )
                       ],
@@ -268,7 +262,7 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
                         ),
                         Text(
                           "Log In",
-                          style: TextStyle(
+                          style: AppTheme().headText2.copyWith(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
                           ),
