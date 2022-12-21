@@ -4,6 +4,7 @@ import 'package:prastuti_23/views/authentication/login_view.dart';
 import 'package:prastuti_23/views/error_view.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
 import 'package:prastuti_23/views/homePage/homeView.dart';
+import 'package:prastuti_23/views/profile/profile_view.dart';
 import 'package:prastuti_23/views/splash_view.dart';
 
 class Routes {
@@ -35,9 +36,15 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) => const EventsView());
 
+      
+      //Home View
       case RouteNames.homeView:
         return MaterialPageRoute(
             builder: (BuildContext context) => const HomeView());
+
+      case RouteNames.profileView:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ProfileView());
 
       //Invalid Route Exception
       default:
