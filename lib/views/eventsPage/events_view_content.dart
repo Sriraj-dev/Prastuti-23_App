@@ -5,14 +5,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:prastuti_23/config/color_palette.dart';
+import 'package:prastuti_23/config/image_paths.dart';
 
 List<String> event_images = [
-  "assets/events_view/codigo.jpg",
-  "assets/events_view/consilium.jpg",
-  "assets/events_view/cryptex.jpg",
-  "assets/events_view/hackathon.jpg",
-  "assets/events_view/recognizance.jpg",
-  "assets/events_view/simulim.jpg",
+  ImagePaths.codigo,
+  ImagePaths.consilium,
+  ImagePaths.cryptex,
+  ImagePaths.hackathon,
+  ImagePaths.recognizance,
+  ImagePaths.simulim,
 ];
 
 List<String> titles = [

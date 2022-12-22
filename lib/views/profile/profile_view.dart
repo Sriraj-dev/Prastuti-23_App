@@ -72,7 +72,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                           CircleAvatar(
                             radius: 60,
                             backgroundColor: Colors.white,
-                            backgroundImage: AssetImage("assets/temp_pic.jpg"),
+                            backgroundImage: AssetImage(ImagePaths.temp_pic),
                           ),
       
                           Column(
