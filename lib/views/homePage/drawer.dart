@@ -42,18 +42,19 @@ Widget drawer() {
                           children: [
                             Text(
                               "Prastuti' 23",
-                              style: TextStyle(
-                                  fontSize: 16,
+                              style: AppTheme().headText2.copyWith(
                                   fontWeight: FontWeight.w500,
-                                  color: AppTheme().secondaryColor),
+                                  color: AppTheme().secondaryColor
+                              ),
                             ),
                             Text(
                               "Annual Departmental fest",
                               overflow: TextOverflow.fade,
-                              style: TextStyle(
+                              style: AppTheme().headText2.copyWith(
                                   fontSize: 13,
                                   color: Colors.black,
-                                  overflow: TextOverflow.fade),
+                                  overflow: TextOverflow.fade
+                              ),
                             )
                           ],
                         ),
