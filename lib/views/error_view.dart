@@ -20,9 +20,7 @@ class _ErrorViewState extends State<ErrorView> {
     return  Scaffold(
       body: Center(
         child: Text("This is a Error Screen!!",
-        style: AppTheme().headText1.copyWith(
-          fontSize: 40.sp,
-        )),
+        ),
       ),
     );
   }

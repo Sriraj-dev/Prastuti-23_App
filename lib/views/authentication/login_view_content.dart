@@ -1,3 +1,5 @@
+import 'package:prastuti_23/config/image_paths.dart';
+
 List<String> title =[
   "About Us",
   "Enthralling Events",
@@ -13,8 +15,8 @@ List<String> detail = [
 ];
 
 List<String> images = [
-  "assets/login_view/about_us.png",
-  "assets/login_view/events.png",
-  "assets/login_view/about_us.png",
-  "assets/login_view/awards.png",
+  ImagePaths.about_us,
+  ImagePaths.events,
+  ImagePaths.about_us,
+  ImagePaths.awards,
 ];

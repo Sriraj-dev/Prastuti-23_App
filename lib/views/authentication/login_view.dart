@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/login_view_animation.dart';
 import 'package:prastuti_23/config/color_palette.dart';
+import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -67,7 +68,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "assets/login_view/prastuti'23_logo_1.png",
+                            ImagePaths.prastuti_logo_1,
                             height: SizeConfig.height * 0.09.sp,
                           ),
                         ],
@@ -228,7 +229,7 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
       onPressed: () {
         null;
       },
-      child: Image.asset('assets/login_view/google.png'),
+      child: Image.asset(ImagePaths.google_logo),
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         backgroundColor: Color.fromARGB(255, 21, 63, 94),
@@ -267,7 +268,7 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
                         Container(
                             height: 35.sp,
                             width: 35.sp,
-                            child: Image.asset('assets/login_view/google.png')),
+                            child: Image.asset(ImagePaths.google_logo)),
                         Container(
                           width: 10.sp,
                         ),
