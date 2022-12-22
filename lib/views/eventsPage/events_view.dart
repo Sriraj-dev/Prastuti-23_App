@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
@@ -65,21 +66,70 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                     SizedBox(
                       height: 15,
                     ),
-                    Obx(
-                      () => Opacity(
-                        opacity: animationController.pagePaddingValue.value,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: (1 -
-                                      animationController
-                                          .pagePaddingValue.value) *
-                                  30),
-                          child: Text(
-                            desc[_selectedEvent.value],
-                            style: AppTheme().headText2.copyWith(
-                              color: Colors.black
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Obx(
+                        () => Opacity(
+                          opacity: animationController.pagePaddingValue.value,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: (1 -
+                                        animationController
+                                            .pagePaddingValue.value) *
+                                    30),
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: SizeConfig.height*0.4575,
+                              child: ListView(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(bottom: 10),
+                                    child: Text(
+                                      desc[_selectedEvent.value],
+                                      style: AppTheme().headText2.copyWith(
+                                          color: Colors.black
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'TIMELINE',
+                                    style: AppTheme().headText2.copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1
+                                    ),
+                                  ),
+                                  TimeLineStart('Event', 'Detail'),
+                                  TimeLine('Event', 'Detail'),
+                                  TimeLine('Event', 'Detail'),
+                                  TimeLine('Event', 'Detail'),
+                                  TimeLine('Event', 'Detail'),
+                                  TimeLine('Event', 'Detail'),
+                                  TimeLine('Event', 'Detail'),
+                                  TimeLineEnd('Event', 'Detail'),
+                                ]
+                              ),
                             ),
                           ),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: AutoSizeText(
+                          'Register',
+                          style: AppTheme().headText2.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          shape: const StadiumBorder(),
+                          backgroundColor: AppTheme().primaryColor,
+                          shadowColor: AppTheme().primaryColor.withOpacity(0.5),
+                          elevation: 10,
+                          fixedSize: Size(140, 40),
                         ),
                       ),
                     ),
@@ -137,4 +187,163 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
+  Widget TimeLineStart(String event, String detail) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: Row(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 2,
+                height: 30,
+                color: Colors.transparent,
+              ),
+              Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/events_view/completed.png'),
+                    fit: BoxFit.cover,
+                  )
+                ),
+              ),
+              Container(
+                width: 2,
+                height: 30,
+                color: Colors.black,
+              )
+            ],
+          ),
+          Container(
+            height: 50,
+            padding: EdgeInsets.only(left: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TimeLineEvent(event),
+                TimeLineDetail(detail)
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget TimeLine(String event, String detail) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: Row(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 2,
+                height: 30,
+                color: Colors.black,
+              ),
+              Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/events_view/completed.png'),
+                      fit: BoxFit.cover,
+                    )
+                ),
+              ),
+              Container(
+                width: 2,
+                height: 30,
+                color: Colors.black,
+              )
+            ],
+          ),
+          Container(
+            height: 50,
+            padding: EdgeInsets.only(left: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TimeLineEvent(event),
+                TimeLineDetail(detail)
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget TimeLineEnd(String event, String detail) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: Row(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 2,
+                height: 30,
+                color: Colors.black,
+              ),
+              Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/events_view/completed.png'),
+                      fit: BoxFit.cover,
+                    )
+                ),
+              ),
+              Container(
+                width: 2,
+                height: 30,
+                color: Colors.transparent,
+              )
+            ],
+          ),
+          Container(
+            height: 50,
+            padding: EdgeInsets.only(left: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TimeLineEvent(event),
+                TimeLineDetail(detail)
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget TimeLineEvent(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+        fontFamily: 'Roboto'
+      ),
+    );
+  }
+
+  Widget TimeLineDetail(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 15,
+          fontFamily: 'Roboto'
+      ),
+    );
+  }
 }

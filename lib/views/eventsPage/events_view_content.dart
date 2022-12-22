@@ -26,10 +26,10 @@ List<String> titles = [
 ];
 
 List<String> desc = [
-  "This is a codigo event",
+  "Consilium involves introduction to digital electronics from basics of Boolean algebra to FSM designing and optimisation for max efficiency.",
   "This is a consilium event",
-  "This is a cryptex event",
+  "Consilium involves introduction to digital electronics from basics of Boolean algebra to FSM designing and optimisation for max efficiency.",
   "This is a codigo event",
-  "This is a consilium event",
+  "Consilium involves introduction to digital electronics from basics of Boolean algebra to FSM designing and optimisation for max efficiency.",
   "This is a cryptex event"
 ];
