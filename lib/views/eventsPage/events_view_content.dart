@@ -33,3 +33,13 @@ List<String> desc = [
   "Consilium involves introduction to digital electronics from basics of Boolean algebra to FSM designing and optimisation for max efficiency.",
   "This is a cryptex event"
 ];
+
+List<String> status = [
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+];
+

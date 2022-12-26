@@ -63,7 +63,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         ),
                       ) ,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Padding(
@@ -79,7 +79,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                     30),
                             child: SizedBox(
                               width: double.infinity,
-                              height: SizeConfig.height*0.4575,
+                              height: SizeConfig.height*0.485,
                               child: ListView(
                                 children: [
                                   Container(
@@ -99,14 +99,14 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                       letterSpacing: 1
                                     ),
                                   ),
-                                  TimeLineStart('Event', 'Detail'),
-                                  TimeLine('Event', 'Detail'),
-                                  TimeLine('Event', 'Detail'),
-                                  TimeLine('Event', 'Detail'),
-                                  TimeLine('Event', 'Detail'),
-                                  TimeLine('Event', 'Detail'),
-                                  TimeLine('Event', 'Detail'),
-                                  TimeLineEnd('Event', 'Detail'),
+                                  TimeLineFirst('Started', 'Date and time', 'ended'),
+                                  TimeLine('Workshop 1', 'Date and time', 'ended'),
+                                  TimeLine('Workshop 2', 'Date and time', 'ended'),
+                                  TimeLine('Workshop 3', 'Date and time', 'onGoing'),
+                                  TimeLine('Problem Statement', 'Date and time', 'coming'),
+                                  TimeLine('Submission', 'Date and time', 'coming'),
+                                  TimeLine('Result', 'Date and time', 'coming'),
+                                  TimeLineLast('Prize', 'Detail', 'coming'),
                                 ]
                               ),
                             ),
@@ -187,7 +187,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  Widget TimeLineStart(String event, String detail) {
+  Widget TimeLineFirst(String event, String detail, String status) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Row(
@@ -205,7 +205,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/events_view/completed.png'),
+                    image: AssetImage(_setImage(status)),
                     fit: BoxFit.cover,
                   )
                 ),
@@ -233,7 +233,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  Widget TimeLine(String event, String detail) {
+  Widget TimeLine(String event, String detail, String status) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Row(
@@ -251,7 +251,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/events_view/completed.png'),
+                      image: AssetImage(_setImage(status)),
                       fit: BoxFit.cover,
                     )
                 ),
@@ -279,7 +279,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  Widget TimeLineEnd(String event, String detail) {
+  Widget TimeLineLast(String event, String detail, String status) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Row(
@@ -297,7 +297,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/events_view/completed.png'),
+                      image: AssetImage(_setImage(status)),
                       fit: BoxFit.cover,
                     )
                 ),
@@ -313,6 +313,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
             height: 50,
             padding: EdgeInsets.only(left: 20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TimeLineEvent(event),
@@ -345,5 +346,19 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
           fontFamily: 'Roboto'
       ),
     );
+  }
+
+  String _setImage(String status){
+    String statusImage = '';
+    if (status == 'onGoing') {
+      statusImage = "assets/events_view/ongoing.png";
+    }
+    else if (status == 'ended') {
+      statusImage = "assets/events_view/ended.png";
+    }
+    else {
+      statusImage = "assets/events_view/coming.png";
+    }
+    return statusImage;
   }
 }
