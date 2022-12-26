@@ -240,12 +240,12 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       String eventImage,
       String eventName,
       String teamName,
-      String teamMember,
+      String stage,
       String score,
       String date) {
     return GestureDetector(
       onTap: () {
-
+        /// TODO: Implement onTap
       },
       child: Container(
         height: SizeConfig.height*0.2,
@@ -257,7 +257,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                 top: 0,
                 left: 45,
                 child: Container(
-                  height: SizeConfig.height*0.16,
+                  height: SizeConfig.height*0.165,
                   width: SizeConfig.width*0.78,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -281,48 +281,48 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 )
                               )
                             ),
-                            // Row(
-                            //   children: [
-                            //     Container(
-                            //       height: SizeConfig.height*0.02,
-                            //       width: SizeConfig.height*0.02,
-                            //       decoration: BoxDecoration(
-                            //         image: DecorationImage(
-                            //           image: AssetImage(_statusImage('ended')),
-                            //           fit: BoxFit.cover
-                            //         )
-                            //       ),
-                            //     ),
-                            //     const SizedBox(
-                            //       width: 10,
-                            //     ),
-                            //     AutoSizeText(
-                            //         'status of event',
-                            //         style: GoogleFonts.catamaran(
-                            //             textStyle: TextStyle(
-                            //               fontSize: 20,
-                            //             )
-                            //         )
-                            //     ),
-                            //   ],
-                            // ),
                             AutoSizeText(
                                 teamName,
                                 style: GoogleFonts.manrope(
                                     textStyle: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
                                     )
                                 )
                             ),
-                            AutoSizeText(
-                                teamMember,
-                                style: GoogleFonts.manrope(
-                                    textStyle: TextStyle(
-                                        fontSize: 16,
+                            Row(
+                              children: [
+                                Container(
+                                  height: SizeConfig.height*0.02,
+                                  width: SizeConfig.height*0.02,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(_statusImage('ended')),
+                                      fit: BoxFit.cover
                                     )
-                                )
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                AutoSizeText(
+                                    stage,
+                                    style: GoogleFonts.manrope(
+                                        textStyle: TextStyle(
+                                          fontSize: 15,
+                                        )
+                                    )
+                                ),
+                              ],
                             ),
+                            // AutoSizeText(
+                            //     teamMember,
+                            //     style: GoogleFonts.manrope(
+                            //         textStyle: TextStyle(
+                            //             fontSize: 16,
+                            //         )
+                            //     )
+                            // ),
                             const SizedBox(
                               height: 5,
                             ),
@@ -394,8 +394,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
             Positioned(
                 top: 15,
                 child: Container(
-                  height: SizeConfig.height*0.105,
-                  width: SizeConfig.height*0.105,
+                  height: SizeConfig.height*0.12,
+                  width: SizeConfig.height*0.12,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(eventImage),
@@ -415,5 +415,21 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         ),
       ),
     );
+  }
+
+  /// Isko Utils me daal ke krne ka kosis kiye pr hua nhi to ise dekh lijiyega ek baar
+
+  String _statusImage(String status){
+    String statusImage = '';
+    if (status == 'onGoing') {
+      statusImage = "assets/events_view/ongoing.png";
+    }
+    else if (status == 'ended') {
+      statusImage = "assets/events_view/ended.png";
+    }
+    else {
+      statusImage = "assets/events_view/coming.png";
+    }
+    return statusImage;
   }
 }
