@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +10,8 @@ import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
+
+import '../eventsPage/events_view_content.dart';
 
 
 class ProfileView extends StatefulWidget {
@@ -155,7 +160,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
             body: TabBarView(
               controller: _tabController,
               children: [
-                buildList(events),
+                regEvent(regEvents),
                 buildList(teams),
                 buildList(requests)
               ]
@@ -191,11 +196,224 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
           itemCount: list.length,
     );
   }
+
+  Widget regEvent(List<List<String>> regEvents) {
+
+    if(regEvents.isEmpty){
+      return const Center(
+        child: Text("You have no registered event"),
+      );
+    }
+
+    return ListView.separated(
+      itemBuilder: (context,index){
+        return RegEvents(
+            regEvents[index][0],
+            regEvents[index][1],
+            regEvents[index][2],
+            regEvents[index][3],
+            regEvents[index][4],
+            regEvents[index][5]
+        );
+      },
+      physics: const BouncingScrollPhysics(),
+      separatorBuilder: (context, index) =>Center(
+          child: Container(
+            height: 0,
+            width: SizeConfig.widthPercent*90,
+            color: Colors.grey,
+          )
+      ),
+      itemCount: regEvents.length,
+    );
+  }
+
   void _onDrawerTapped() {
     if (drawerAnimationController.isCompleted) {
       drawerAnimationController.reverse();
     } else {
       drawerAnimationController.forward();
     }
+  }
+
+  Widget RegEvents(
+      String eventImage,
+      String eventName,
+      String teamName,
+      String teamMember,
+      String score,
+      String date) {
+    return GestureDetector(
+      onTap: () {
+
+      },
+      child: Container(
+        height: SizeConfig.height*0.2,
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+        color: Colors.transparent,
+        child: Stack(
+          children: [
+            Positioned(
+                top: 0,
+                left: 45,
+                child: Container(
+                  height: SizeConfig.height*0.16,
+                  width: SizeConfig.width*0.78,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: AppTheme().secondaryColor.withOpacity(0.3),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: SizeConfig.width*0.7,
+                        padding: EdgeInsets.only(top: 10, left: 55),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              eventName,
+                              style: GoogleFonts.manrope(
+                                textStyle: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w900,
+                                )
+                              )
+                            ),
+                            // Row(
+                            //   children: [
+                            //     Container(
+                            //       height: SizeConfig.height*0.02,
+                            //       width: SizeConfig.height*0.02,
+                            //       decoration: BoxDecoration(
+                            //         image: DecorationImage(
+                            //           image: AssetImage(_statusImage('ended')),
+                            //           fit: BoxFit.cover
+                            //         )
+                            //       ),
+                            //     ),
+                            //     const SizedBox(
+                            //       width: 10,
+                            //     ),
+                            //     AutoSizeText(
+                            //         'status of event',
+                            //         style: GoogleFonts.catamaran(
+                            //             textStyle: TextStyle(
+                            //               fontSize: 20,
+                            //             )
+                            //         )
+                            //     ),
+                            //   ],
+                            // ),
+                            AutoSizeText(
+                                teamName,
+                                style: GoogleFonts.manrope(
+                                    textStyle: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold
+                                    )
+                                )
+                            ),
+                            AutoSizeText(
+                                teamMember,
+                                style: GoogleFonts.manrope(
+                                    textStyle: TextStyle(
+                                        fontSize: 16,
+                                    )
+                                )
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(right: 5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: SizeConfig.height*0.0175,
+                                        width: SizeConfig.height*0.0259,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage("assets/profile_view/score.png"),
+                                                fit: BoxFit.cover
+                                            )
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      AutoSizeText(
+                                          score,
+                                          style: GoogleFonts.catamaran(
+                                              textStyle: TextStyle(
+                                                fontSize: 16,
+                                              )
+                                          )
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: SizeConfig.height*0.02,
+                                        width: SizeConfig.height*0.02,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage("assets/profile_view/calendar.png"),
+                                                fit: BoxFit.cover
+                                            )
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      AutoSizeText(
+                                          date,
+                                          style: GoogleFonts.catamaran(
+                                              textStyle: TextStyle(
+                                                fontSize: 16,
+                                              )
+                                          )
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+            ),
+            Positioned(
+                top: 15,
+                child: Container(
+                  height: SizeConfig.height*0.105,
+                  width: SizeConfig.height*0.105,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(eventImage),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [BoxShadow(
+                      color: AppTheme().secondaryColor,
+                      blurRadius: 5.0,
+                      spreadRadius: 2.0,
+                      offset: Offset(5, 5)
+                    )]
+                  ),
+                )
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
