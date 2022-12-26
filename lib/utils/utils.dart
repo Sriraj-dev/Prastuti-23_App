@@ -2,6 +2,8 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:flutter/material.dart';
 
+import '../config/image_paths.dart';
+
 class Utils{
 
   static flushBarMessage({String? message, BuildContext? context,Color? bgColor}){
@@ -22,4 +24,19 @@ class Utils{
         )..show(context)
     );
   }
+
+  static String statusImage(String status) {
+    String statusImage = '';
+    if (status == 'onGoing') {
+      statusImage = ImagePaths.ongoing;
+    }
+    else if (status == 'ended') {
+      statusImage = ImagePaths.ended;
+    }
+    else {
+      statusImage = ImagePaths.coming;
+    }
+    return statusImage;
+  }
+
 }
