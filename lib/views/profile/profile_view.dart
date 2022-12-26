@@ -161,7 +161,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               controller: _tabController,
               children: [
                 regEvent(regEvents),
-                buildList(teams),
+                teamsList(regTeams),
                 buildList(requests)
               ]
             )
@@ -180,22 +180,167 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     }
 
     return ListView.separated(
-          itemBuilder: (context,index){
-            return ListTile(
-              title: Text(list[index]),
-            );
-          },
-          physics: const BouncingScrollPhysics(),
-          separatorBuilder: (context, index) =>Center(
-            child: Container(
-              height: 0,
-              width: SizeConfig.widthPercent*90,
-              color: Colors.grey,
-            )
-          ),
-          itemCount: list.length,
+      itemBuilder: (context,index){
+        return ListTile(
+          title: Text(list[index]),
+        );
+      },
+      physics: const BouncingScrollPhysics(),
+      separatorBuilder: (context, index) =>Center(
+          child: Container(
+            height: 0,
+            width: SizeConfig.widthPercent*90,
+            color: Colors.grey,
+          )
+      ),
+      itemCount: list.length,
     );
   }
+
+  bool isExpanded = false;
+
+  Widget teamsList(List<List<String>> teamsList) {
+
+    if(teamsList.isEmpty){
+      return const Center(
+        child: Text("You have no registered event"),
+      );
+    }
+
+    return ListView.separated(
+      itemBuilder: (context,index){
+        return TeamsList(
+            regTeams[index][0],
+            regTeams[index][1],
+            regTeams[index][2],
+            regTeams[index][3],
+            regTeams[index][4],
+        );
+      },
+      physics: const BouncingScrollPhysics(),
+      separatorBuilder: (context, index) =>Center(
+          child: Container(
+            height: 0,
+            width: SizeConfig.widthPercent*90,
+            color: Colors.grey,
+          )
+      ),
+      itemCount: regEvents.length,
+    );
+  }
+
+  Widget TeamsList(
+      String eventImage,
+      String teamName,
+      String teamMember01,
+      String teamMember02,
+      String teamMember03) {
+    return GestureDetector(
+      onTap: () {
+        /// TODO: Implement onTap
+      },
+      child: Container(
+        margin: EdgeInsets.fromLTRB(20, 20, 30, 0),
+        color: Colors.transparent,
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.only(left: 20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color.fromARGB(255, 155, 181, 211),
+                      boxShadow: [BoxShadow(
+                          color: AppTheme().primaryColor.withOpacity(0.5),
+                          blurRadius: 7.0,
+                          spreadRadius: 3.0,
+                          offset: Offset(7, 7)
+                      )]
+                  ),
+                  child: ExpansionTile(
+                    expandedAlignment: Alignment.centerLeft,
+                    title: AutoSizeText(
+                      teamName,
+                      style: GoogleFonts.manrope(
+                          textStyle: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        color: isExpanded? Colors.black : Colors.black,
+                      ),
+                    ),
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: AutoSizeText(
+                          teamMember01,
+                          style: GoogleFonts.manrope(
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                            )
+                          )
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: AutoSizeText(
+                            teamMember02,
+                            style: GoogleFonts.manrope(
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                )
+                            )
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                        child: AutoSizeText(
+                            teamMember03,
+                            style: GoogleFonts.manrope(
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                )
+                            )
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
+                    onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  height: SizeConfig.height*0.05,
+                  width: SizeConfig.height*0.05,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(eventImage),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [BoxShadow(
+                          color: AppTheme().secondaryColor,
+                          blurRadius: 5.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(5, 5)
+                      )]
+                  ),
+                )
+              ]
+            ),
+            SizedBox(
+              height: 10,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
 
   Widget regEvent(List<List<String>> regEvents) {
 
@@ -228,14 +373,6 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     );
   }
 
-  void _onDrawerTapped() {
-    if (drawerAnimationController.isCompleted) {
-      drawerAnimationController.reverse();
-    } else {
-      drawerAnimationController.forward();
-    }
-  }
-
   Widget RegEvents(
       String eventImage,
       String eventName,
@@ -261,7 +398,13 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   width: SizeConfig.width*0.78,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: AppTheme().secondaryColor.withOpacity(0.3),
+                      color: Color.fromARGB(255, 155, 181, 211),
+                      boxShadow: [BoxShadow(
+                          color: AppTheme().primaryColor.withOpacity(0.5),
+                          blurRadius: 7.0,
+                          spreadRadius: 3.0,
+                          offset: Offset(7, 7)
+                      )]
                   ),
                   child: Column(
                     children: [
@@ -415,6 +558,14 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         ),
       ),
     );
+  }
+
+  void _onDrawerTapped() {
+    if (drawerAnimationController.isCompleted) {
+      drawerAnimationController.reverse();
+    } else {
+      drawerAnimationController.forward();
+    }
   }
 
   /// Isko Utils me daal ke krne ka kosis kiye pr hua nhi to ise dekh lijiyega ek baar

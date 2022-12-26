@@ -14,6 +14,7 @@ List<String> event_images = [
   ImagePaths.hackathon,
   ImagePaths.recognizance,
   ImagePaths.simulim,
+  ImagePaths.temp_pic
 ];
 
 List<String> titles = [
@@ -22,24 +23,18 @@ List<String> titles = [
   "CRYPTEX",
   "HACKATHON",
   "RECOGNIZANCE",
-  "SIMULIM"
+  "SIMULIM",
+  "OSCILLION"
 ];
 
 List<String> desc = [
+  "A competitive programming event that involves the application of various data structure and algorithms to check participants' problem solving skills.",
   "Consilium involves introduction to digital electronics from basics of Boolean algebra to FSM designing and optimisation for max efficiency.",
-  "This is a consilium event",
-  "Consilium involves introduction to digital electronics from basics of Boolean algebra to FSM designing and optimisation for max efficiency.",
-  "This is a codigo event",
-  "Consilium involves introduction to digital electronics from basics of Boolean algebra to FSM designing and optimisation for max efficiency.",
-  "This is a cryptex event"
+  "This is cryptex event",
+  "This is a hackathon event",
+  "This event focuses on machine learning and data to build robust solutions in the electrical domaim",
+  "Based on the field of Power Electronics, the event introduces participants to MATLAB and Simulink to develop understanding of core concepts",
+  "The event aims to introduce the participants to the world of analog Electronics and the systems it helps us create to interact with the real world."
 ];
 
-List<String> status = [
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-];
 
