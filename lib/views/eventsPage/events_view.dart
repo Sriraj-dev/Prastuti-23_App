@@ -6,6 +6,8 @@ import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 
+import '../../utils/utils.dart';
+
 class EventsView extends StatefulWidget {
   const EventsView({Key? key}) : super(key: key);
 
@@ -146,7 +148,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         eventsViewAnimation.restartPageAnimation();
                       }),
                       itemBuilder: (context, index) {
-                        return event_image(index);
+                        return eventImage(index);
                       }),
                 )
             ],
@@ -156,7 +158,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  Widget event_image(int index){
+  Widget eventImage(int index){
     return Padding(
       padding: const EdgeInsets.only(left: 8,right: 8,bottom: 30,top: 10),
       child: Material(
@@ -205,7 +207,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(_setImage(status)),
+                    image: AssetImage(_statusImage(status)),
                     fit: BoxFit.cover,
                   )
                 ),
@@ -251,7 +253,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(_setImage(status)),
+                      image: AssetImage(_statusImage(status)),
                       fit: BoxFit.cover,
                     )
                 ),
@@ -297,7 +299,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(_setImage(status)),
+                      image: AssetImage(_statusImage(status)),
                       fit: BoxFit.cover,
                     )
                 ),
@@ -348,7 +350,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  String _setImage(String status){
+  String _statusImage(String status){
     String statusImage = '';
     if (status == 'onGoing') {
       statusImage = "assets/events_view/ongoing.png";
