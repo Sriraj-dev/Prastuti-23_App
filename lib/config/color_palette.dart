@@ -2,6 +2,7 @@
 //TODO: Dark and Light Color Themes from Design Team.
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class AppTheme{
@@ -10,21 +11,22 @@ class AppTheme{
   Color primaryColor = const Color(0xFF004C7D);
   Color secondaryColor = const Color(0xFF4B7CB2);
   Color backgroundColor = const Color(0xFFDBF2FF);
-  
-  //Add TextStyles - Yash
 
-final headText1 =  const TextStyle(
+  
+  //Added TextStyles by Yash
+
+final headText1 =   GoogleFonts.openSans(
   color: Colors.white,
   decoration: TextDecoration
       .none,
-  fontFamily: "Roboto",
+
   fontSize: 40,
 );
-final headText2 = const TextStyle(
+final headText2 =  GoogleFonts.poppins(
   color: Colors.white,
   decoration: TextDecoration
       .none,
-  fontFamily: "Roboto",
+
   fontSize: 16,
 );
   //refer GoogleFonts package

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
@@ -66,7 +67,12 @@ Widget drawer() {
                   ),
                   ListTile(
                     onTap: ()=>homeViewController.changeSelectedView(0),
-                    title: Text("Events"),
+                    title: Text("Events",
+                    style: AppTheme().headText2.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 16,
+                    ),),
                     leading: Icon(
                       Icons.event_note_rounded,
                       color: AppTheme().secondaryColor,
@@ -74,7 +80,12 @@ Widget drawer() {
                   ),
                   ListTile(
                     onTap: () =>homeViewController.changeSelectedView(1),
-                    title: Text("Profile"),
+                    title: Text("Profile",
+                        style: AppTheme().headText2.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16,
+                        )),
                     leading: Icon(
                       Icons.person,
                       color: AppTheme().secondaryColor,
@@ -82,7 +93,12 @@ Widget drawer() {
                   ),
                   ListTile(
                     onTap: ()=>homeViewController.changeSelectedView(2),
-                    title: Text("About us"),
+                    title: Text("About us",
+                        style: AppTheme().headText2.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16,
+                        )),
                     leading: Icon(
                       Icons.info_outline_rounded,
                       color: AppTheme().secondaryColor,
@@ -90,7 +106,12 @@ Widget drawer() {
                   ),
                   ListTile(
                     onTap: () {},
-                    title: Text("Contact us"),
+                    title: Text("Contact us",
+                        style: AppTheme().headText2.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16,
+                        )),
                     leading: Icon(
                       Icons.phone,
                       color: AppTheme().secondaryColor,

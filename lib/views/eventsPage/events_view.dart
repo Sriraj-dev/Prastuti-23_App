@@ -2,7 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
+import 'package:prastuti_23/config/Status.dart';
 import 'package:prastuti_23/config/color_palette.dart';
+import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 
@@ -207,7 +209,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(_statusImage(status)),
+                    image: AssetImage(Status.statusImage(status)),
                     fit: BoxFit.cover,
                   )
                 ),
@@ -253,7 +255,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(_statusImage(status)),
+                      image: AssetImage(Status.statusImage(status)),
                       fit: BoxFit.cover,
                     )
                 ),
@@ -299,7 +301,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(_statusImage(status)),
+                      image: AssetImage(Status.statusImage(status)),
                       fit: BoxFit.cover,
                     )
                 ),
@@ -350,17 +352,5 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  String _statusImage(String status){
-    String statusImage = '';
-    if (status == 'onGoing') {
-      statusImage = "assets/events_view/ongoing.png";
-    }
-    else if (status == 'ended') {
-      statusImage = "assets/events_view/ended.png";
-    }
-    else {
-      statusImage = "assets/events_view/coming.png";
-    }
-    return statusImage;
-  }
+ 
 }

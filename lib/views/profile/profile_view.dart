@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
+import 'package:prastuti_23/config/Status.dart';
 import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
@@ -91,22 +92,13 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 ),
                               ),
                               Text("palakurthi.sriraj.eee20@itbhu.ac.in",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
+                                style: AppTheme().headText2,
                               ),
                               Text("IIT BHU Varanasi",
-                                style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                ),
+                                style: AppTheme().headText2,
                               ),
                               Text("+91 8074821478",
-                                style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        color: Colors.white,
-                                ),
+                                style: AppTheme().headText2,
                               )
                             ],
                           ),
@@ -235,7 +227,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       drawerAnimationController.forward();
     }
   }
-
+  Status status = new Status();
+  
   Widget RegEvents(
       String eventImage,
       String eventName,
@@ -292,12 +285,13 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                             ),
                             Row(
                               children: [
+
                                 Container(
                                   height: SizeConfig.height*0.02,
                                   width: SizeConfig.height*0.02,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(_statusImage('ended')),
+                                      image: AssetImage(Status.statusImage('ended')),
                                       fit: BoxFit.cover
                                     )
                                   ),
@@ -338,7 +332,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                         width: SizeConfig.height*0.0259,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage("assets/profile_view/score.png"),
+                                                image: AssetImage(ImagePaths.score),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -363,7 +357,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                         width: SizeConfig.height*0.02,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage("assets/profile_view/calendar.png"),
+                                                image: AssetImage(ImagePaths.calender),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -417,19 +411,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     );
   }
 
-  /// Isko Utils me daal ke krne ka kosis kiye pr hua nhi to ise dekh lijiyega ek baar
 
-  String _statusImage(String status){
-    String statusImage = '';
-    if (status == 'onGoing') {
-      statusImage = "assets/events_view/ongoing.png";
-    }
-    else if (status == 'ended') {
-      statusImage = "assets/events_view/ended.png";
-    }
-    else {
-      statusImage = "assets/events_view/coming.png";
-    }
-    return statusImage;
-  }
+
+
 }

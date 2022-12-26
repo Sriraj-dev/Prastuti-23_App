@@ -21,5 +21,12 @@ class ImagePaths{
   static const hackathon = "assets/events_view/hackathon.jpg";
   static const recognizance = "assets/events_view/recognizance.jpg";
   static const simulim = "assets/events_view/simulim.jpg";
+  static const calender = "assets/profile_view/calendar.png";
+  //Status
+  static const ongoing = "assets/events_view/ongoing.png";
+  static const  ended = "assets/events_view/ended.png";
+  static const coming = "assets/events_view/coming.png";
+  //Score
+  static const score = "assets/profile_view/score.png";
 
 }
