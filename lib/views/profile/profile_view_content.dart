@@ -11,16 +11,16 @@ List<String> events = [
   "Simulim"
 ];
 
-List<String> teams = [
-  "Team Blaze",
-  "Silent Knights" ,
-  "Gladiators"
-];
-
 List<String> requests = [];
 
 List<List<String>> regEvents = [
   [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022'],
   [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022'],
   [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022']
+];
+
+List<List<String>> regTeams = [
+  [ImagePaths.temp_pic, 'Team Name', 'Team Member 01', 'Team Member 02', 'Team Member 03'],
+  [ImagePaths.temp_pic, 'Team Name', 'Team Member 01', 'Team Member 02', 'Team Member 03'],
+  [ImagePaths.temp_pic, 'Team Name', 'Team Member 01', 'Team Member 02', 'Team Member 03']
 ];
