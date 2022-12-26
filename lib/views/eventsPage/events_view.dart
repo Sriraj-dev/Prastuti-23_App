@@ -103,14 +103,58 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                       letterSpacing: 1
                                     ),
                                   ),
-                                  TimeLineFirst('Started', 'Date and time', 'ended'),
-                                  TimeLine('Workshop 1', 'Date and time', 'ended'),
-                                  TimeLine('Workshop 2', 'Date and time', 'ended'),
-                                  TimeLine('Workshop 3', 'Date and time', 'onGoing'),
-                                  TimeLine('Problem Statement', 'Date and time', 'coming'),
-                                  TimeLine('Submission', 'Date and time', 'coming'),
-                                  TimeLine('Result', 'Date and time', 'coming'),
-                                  TimeLineLast('Prize', 'Detail', 'coming'),
+                                  TimeLineFirst(
+                                    'Started',
+                                    'Bla Bla Bla Bla',
+                                    'ended',
+                                    '12/12/22',
+                                    '17 : 00'
+                                  ),
+                                  TimeLine(
+                                      'Workshop 1',
+                                      'Bla Bla Bla Bla',
+                                      'ended',
+                                      '12/12/22',
+                                      '17 : 00'
+                                  ),
+                                  TimeLine(
+                                      'Workshop 2',
+                                      'Bla Bla Bla Bla',
+                                      'ended',
+                                      '12/12/22',
+                                      '17 : 00'
+                                  ),
+                                  TimeLine(
+                                      'Workshop 3',
+                                      'Bla Bla Bla Bla',
+                                      'onGoing',
+                                      '12/12/22',
+                                      '17 : 00'
+                                  ),
+                                  TimeLine('Problem Statement',
+                                      'Bla Bla Bla Bla',
+                                      'coming',
+                                      '12/12/22',
+                                      '17 : 00'
+                                  ),
+                                  TimeLine('Submission',
+                                      'Bla Bla Bla Bla',
+                                      'coming',
+                                      '12/12/22',
+                                      '17 : 00'
+                                  ),
+                                  TimeLine('Result',
+                                      'Bla Bla Bla Bla',
+                                      'coming',
+                                      '12/12/22',
+                                      '17 : 00'
+                                  ),
+                                  TimeLineLast('Prize',
+                                      'Bla Bla Bla Bla',
+                                      'coming',
+                                      '12/12/22',
+                                      '17 : 00'
+                                  ),
                                 ]
                               ),
                             ),
@@ -191,7 +235,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  Widget TimeLineFirst(String event, String detail, String status) {
+  Widget TimeLineFirst(String event, String detail, String status, String date, String time) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Row(
@@ -222,13 +266,86 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
             ],
           ),
           Container(
-            height: 50,
-            padding: EdgeInsets.only(left: 20),
-            child: Column(
+            padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+            margin: EdgeInsets.only(left: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color.fromARGB(255, 181, 200, 232),
+              boxShadow: [BoxShadow(
+                  color: AppTheme().primaryColor.withOpacity(0.5),
+                  blurRadius: 7.0,
+                  spreadRadius: 3.0,
+                  offset: Offset(7, 7)
+              )]
+            ),
+            height: SizeConfig.height*0.07,
+            width: SizeConfig.width*0.7,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TimeLineEvent(event),
-                TimeLineDetail(detail)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeLineEvent(event),
+                    TimeLineDetail(detail)
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: SizeConfig.height*0.015,
+                          width: SizeConfig.height*0.015,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/profile_view/calendar.png'),
+                              fit: BoxFit.cover
+                            )
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          date,
+                          style: TextStyle(
+                            fontSize: 12
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: SizeConfig.height*0.015,
+                          width: SizeConfig.height*0.015,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/events_view/clock.png'),
+                                  fit: BoxFit.cover
+                              )
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          time,
+                          style: TextStyle(
+                              fontSize: 12
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
           )
@@ -237,7 +354,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  Widget TimeLine(String event, String detail, String status) {
+  Widget TimeLine(String event, String detail, String status, String date, String time) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Row(
@@ -268,13 +385,86 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
             ],
           ),
           Container(
-            height: 50,
-            padding: EdgeInsets.only(left: 20),
-            child: Column(
+            padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+            margin: EdgeInsets.only(left: 20),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color.fromARGB(255, 181, 200, 232),
+                boxShadow: [BoxShadow(
+                    color: AppTheme().primaryColor.withOpacity(0.5),
+                    blurRadius: 7.0,
+                    spreadRadius: 3.0,
+                    offset: Offset(7, 7)
+                )]
+            ),
+            height: SizeConfig.height*0.07,
+            width: SizeConfig.width*0.7,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TimeLineEvent(event),
-                TimeLineDetail(detail)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeLineEvent(event),
+                    TimeLineDetail(detail)
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: SizeConfig.height*0.015,
+                          width: SizeConfig.height*0.015,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/profile_view/calendar.png'),
+                                  fit: BoxFit.cover
+                              )
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          date,
+                          style: TextStyle(
+                              fontSize: 12
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: SizeConfig.height*0.015,
+                          width: SizeConfig.height*0.015,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/events_view/clock.png'),
+                                  fit: BoxFit.cover
+                              )
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          time,
+                          style: TextStyle(
+                              fontSize: 12
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
           )
@@ -283,7 +473,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
-  Widget TimeLineLast(String event, String detail, String status) {
+  Widget TimeLineLast(String event, String detail, String status, String date, String time) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Row(
@@ -314,14 +504,86 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
             ],
           ),
           Container(
-            height: 50,
-            padding: EdgeInsets.only(left: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+            margin: EdgeInsets.only(left: 20),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color.fromARGB(255, 181, 200, 232),
+                boxShadow: [BoxShadow(
+                    color: AppTheme().primaryColor.withOpacity(0.5),
+                    blurRadius: 7.0,
+                    spreadRadius: 3.0,
+                    offset: Offset(7, 7)
+                )]
+            ),
+            height: SizeConfig.height*0.07,
+            width: SizeConfig.width*0.7,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TimeLineEvent(event),
-                TimeLineDetail(detail)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeLineEvent(event),
+                    TimeLineDetail(detail)
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: SizeConfig.height*0.015,
+                          width: SizeConfig.height*0.015,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/profile_view/calendar.png'),
+                                  fit: BoxFit.cover
+                              )
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          date,
+                          style: TextStyle(
+                              fontSize: 12
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          height: SizeConfig.height*0.015,
+                          width: SizeConfig.height*0.015,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/events_view/clock.png'),
+                                  fit: BoxFit.cover
+                              )
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          time,
+                          style: TextStyle(
+                              fontSize: 12
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
           )
@@ -342,7 +604,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
   }
 
   Widget TimeLineDetail(String text) {
-    return Text(
+    return AutoSizeText(
       text,
       style: TextStyle(
           fontWeight: FontWeight.normal,
