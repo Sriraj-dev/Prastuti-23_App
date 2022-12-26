@@ -20,7 +20,7 @@ List<String> teams = [
 List<String> requests = [];
 
 List<List<String>> regEvents = [
-  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Team Member', '250', '12/12/2022'],
-  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Team Member', '250', '12/12/2022'],
-  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Team Member', '250', '12/12/2022']
+  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022'],
+  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022'],
+  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022']
 ];
