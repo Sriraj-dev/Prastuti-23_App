@@ -119,7 +119,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                         controller: _tabController,
                         tabs: const [
                           Tab(
-                            text: "Events", 
+                            text: "Events",
                           ),
                           Tab(
                             text: "Teams",
@@ -243,7 +243,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   padding: EdgeInsets.only(left: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 155, 181, 211),
+                      color: Color.fromARGB(255, 181, 200, 232),
                       boxShadow: [BoxShadow(
                           color: AppTheme().primaryColor.withOpacity(0.5),
                           blurRadius: 7.0,
@@ -390,7 +390,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   width: SizeConfig.width*0.78,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 155, 181, 211),
+                      color: Color.fromARGB(255, 181, 200, 232),
                       boxShadow: [BoxShadow(
                           color: AppTheme().primaryColor.withOpacity(0.5),
                           blurRadius: 7.0,
@@ -451,14 +451,6 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 ),
                               ],
                             ),
-                            // AutoSizeText(
-                            //     teamMember,
-                            //     style: GoogleFonts.manrope(
-                            //         textStyle: TextStyle(
-                            //             fontSize: 16,
-                            //         )
-                            //     )
-                            // ),
                             const SizedBox(
                               height: 5,
                             ),
