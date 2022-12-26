@@ -2,12 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
-import 'package:prastuti_23/config/Status.dart';
 import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 
+import '../../config/Status.dart';
 import '../../utils/utils.dart';
 
 class EventsView extends StatefulWidget {
@@ -57,7 +57,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         child: Padding(
                           padding: EdgeInsets.only(left: (1 - animationController
                                           .pagePaddingValue.value) * 30),
-                          child: Text(
+                          child: AutoSizeText(
                             titles[_selectedEvent.value],
                             style: AppTheme().headText1.copyWith(
                                 color: Colors.black,
@@ -68,7 +68,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                       ) ,
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),

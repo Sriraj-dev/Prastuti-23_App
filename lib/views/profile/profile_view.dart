@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
-import 'package:prastuti_23/config/Status.dart';
 import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
+import '../../config/Status.dart';
 import '../eventsPage/events_view_content.dart';
 
 
@@ -560,9 +560,4 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       drawerAnimationController.forward();
     }
   }
-
-  /// Isko Utils me daal ke krne ka kosis kiye pr hua nhi to ise dekh lijiyega ek baar
-
-
-
 }
