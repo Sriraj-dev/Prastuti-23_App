@@ -10,8 +10,8 @@ import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
-
-import '../../config/Status.dart';
+import '../../data/response/status.dart';
+import '../../utils/utils.dart';
 import '../eventsPage/events_view_content.dart';
 
 
@@ -245,7 +245,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       borderRadius: BorderRadius.circular(20),
                       color: Color.fromARGB(255, 181, 200, 232),
                       boxShadow: [BoxShadow(
-                          color: AppTheme().primaryColor.withOpacity(0.5),
+                          color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 7.0,
                           spreadRadius: 3.0,
                           offset: Offset(7, 7)
@@ -392,7 +392,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                     borderRadius: BorderRadius.circular(20),
                       color: Color.fromARGB(255, 181, 200, 232),
                       boxShadow: [BoxShadow(
-                          color: AppTheme().primaryColor.withOpacity(0.5),
+                          color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 7.0,
                           spreadRadius: 3.0,
                           offset: Offset(7, 7)
@@ -433,7 +433,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                   width: SizeConfig.height*0.02,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(Status.statusImage('ended')),
+                                      image: AssetImage(Utils.statusImage('ended')),
                                       fit: BoxFit.cover
                                     )
                                   ),

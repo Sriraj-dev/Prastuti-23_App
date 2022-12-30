@@ -6,8 +6,6 @@ import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
-
-import '../../config/Status.dart';
 import '../../utils/utils.dart';
 
 class EventsView extends StatefulWidget {
@@ -48,7 +46,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.only(left: 20, right: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -237,7 +235,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
 
   Widget TimeLineFirst(String event, String detail, String status, String date, String time) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: const EdgeInsets.only(left: 10),
       child: Row(
         children: [
           Column(
@@ -253,7 +251,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(Status.statusImage(status)),
+                    image: AssetImage(Utils.statusImage(status)),
                     fit: BoxFit.cover,
                   )
                 ),
@@ -270,9 +268,9 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
             margin: EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color.fromARGB(255, 181, 200, 232),
+              color: Color.fromARGB(255, 212, 228, 255),
               boxShadow: [BoxShadow(
-                  color: AppTheme().primaryColor.withOpacity(0.5),
+                  color: AppTheme().primaryColor.withOpacity(0.2),
                   blurRadius: 7.0,
                   spreadRadius: 3.0,
                   offset: Offset(7, 7)
@@ -310,12 +308,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          date,
-                          style: TextStyle(
-                            fontSize: 12
-                          ),
-                        ),
+                        TimeLineSchedule(date)
                       ],
                     ),
                     SizedBox(
@@ -336,12 +329,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          time,
-                          style: TextStyle(
-                              fontSize: 12
-                          ),
-                        ),
+                        TimeLineSchedule(time)
                       ],
                     ),
                   ],
@@ -372,7 +360,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(Status.statusImage(status)),
+                      image: AssetImage(Utils.statusImage(status)),
                       fit: BoxFit.cover,
                     )
                 ),
@@ -389,9 +377,9 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
             margin: EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Color.fromARGB(255, 181, 200, 232),
+                color: Color.fromARGB(255, 212, 228, 255),
                 boxShadow: [BoxShadow(
-                    color: AppTheme().primaryColor.withOpacity(0.5),
+                    color: AppTheme().primaryColor.withOpacity(0.2),
                     blurRadius: 7.0,
                     spreadRadius: 3.0,
                     offset: Offset(7, 7)
@@ -429,12 +417,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          date,
-                          style: TextStyle(
-                              fontSize: 12
-                          ),
-                        ),
+                        TimeLineSchedule(date),
                       ],
                     ),
                     SizedBox(
@@ -455,12 +438,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          time,
-                          style: TextStyle(
-                              fontSize: 12
-                          ),
-                        ),
+                        TimeLineSchedule(time)
                       ],
                     ),
                   ],
@@ -491,7 +469,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 width: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(Status.statusImage(status)),
+                      image: AssetImage(Utils.statusImage(status)),
                       fit: BoxFit.cover,
                     )
                 ),
@@ -508,9 +486,9 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
             margin: EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Color.fromARGB(255, 181, 200, 232),
+                color: Color.fromARGB(255, 212, 228, 255),
                 boxShadow: [BoxShadow(
-                    color: AppTheme().primaryColor.withOpacity(0.5),
+                    color: AppTheme().primaryColor.withOpacity(0.2),
                     blurRadius: 7.0,
                     spreadRadius: 3.0,
                     offset: Offset(7, 7)
@@ -548,12 +526,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          date,
-                          style: TextStyle(
-                              fontSize: 12
-                          ),
-                        ),
+                        TimeLineSchedule(date),
                       ],
                     ),
                     SizedBox(
@@ -574,12 +547,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          time,
-                          style: TextStyle(
-                              fontSize: 12
-                          ),
-                        ),
+                        TimeLineSchedule(time),
                       ],
                     ),
                   ],
@@ -598,7 +566,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 20,
-        fontFamily: 'Roboto'
+        fontFamily: 'Roboto',
       ),
     );
   }
@@ -614,5 +582,13 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     );
   }
 
+  Widget TimeLineSchedule(String sch){
+    return AutoSizeText(
+      sch,
+      style: TextStyle(
+          fontSize: 12
+      ),
+    );
+  }
  
 }
