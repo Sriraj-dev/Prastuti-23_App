@@ -11,7 +11,6 @@ class HomeViewAnimation{
   void initiateHomeAnimation(obj){
     drawerAnimationController = AnimationController(
         vsync: obj, duration: const Duration(milliseconds: 500));
-    //TODO: Decide a Proper Curve
     drawerAnimation = Tween<double>(begin: -300, end: 20).animate(
         CurvedAnimation(
             parent: drawerAnimationController,
