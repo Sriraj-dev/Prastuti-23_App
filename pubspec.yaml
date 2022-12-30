@@ -46,6 +46,7 @@ dependencies:
   google_fonts: ^3.0.1
   tab_indicator_styler: ^2.0.0
   shimmer: ^2.0.0
+  lottie: ^2.1.0
 
 dev_dependencies:
   flutter_test:

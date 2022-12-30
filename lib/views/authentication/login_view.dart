@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:prastuti_23/animations/login_view_animation.dart';
 import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/image_paths.dart';
@@ -45,14 +47,24 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
     return ScreenUtilInit(
         builder: (context, child) =>
             Container(
-              color: AppTheme().primaryColor,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                  AppTheme().primaryColor,
+                  AppTheme().primaryColor,
+                  AppTheme().secondaryColor
+                ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter
+                )
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
               height: 30.sp,
-            ),
+              ),
                   TweenAnimationBuilder(
                     tween: Tween<double>(begin: 0, end: 1),
                     duration: const Duration(seconds: 4),
@@ -155,11 +167,10 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                               width: SizeConfig.width*0.8.sp,
                                               child: AutoSizeText(
                                                 title[index],
-                                                style: TextStyle(
+                                                style: GoogleFonts.poppins(
                                                   color: Colors.white,
                                                   decoration: TextDecoration
                                                       .none,
-                                                  fontFamily: "Poppins",
                                                   fontSize: 40.sp,
                                                 ),
                                                 textAlign: TextAlign.start,
@@ -199,7 +210,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                             activeIndex: _currentPage,
                             count: 4,
                             effect: WormEffect(
-                              activeDotColor: Colors.black,
+                              activeDotColor: AppTheme().kSecondaryColor,
                               dotHeight: 6.0.sp,
                               dotWidth: 6.0.sp,
                             ),
@@ -223,7 +234,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
 }
 
 Widget SignInButton(int, WidgetRef, BuildContext, bool) {
-  return AnimatedSwitcher(
+  return AnimatedContainer(
     duration: const Duration(milliseconds: 500),
     child: (int <3 )?ElevatedButton(
       onPressed: () {
