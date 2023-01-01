@@ -37,4 +37,51 @@ List<String> desc = [
   "The event aims to introduce the participants to the world of analog Electronics and the systems it helps us create to interact with the real world."
 ];
 
+List<List<Map<String,dynamic>>> timeLines = [
+  [
+    {
+      "title" : "Workshop 1",
+      "date": "Jan 15",
+      "slot": "5:00 - 6:00pm",
+      "isCompleted" : true,
+    },
+    {
+      "title": "Workshop 2",
+      "date": "Jan 20",
+      "slot": "5:00 - 6:00pm",
+      "isCompleted": true,
+    },
+    {
+      "title": "Workshop 3",
+      "date": "Jan 25",
+      "slot": "5:00 - 6:00pm",
+      "isCompleted": true,
+    },
+    {
+      "title": "Problem Statement",
+      "date": "Jan 27",
+      "slot": "5:00 - 6:00pm",
+      "isCompleted": false,
+    },
+    {
+      "title": "Evaluation",
+      "date": "Feb 1",
+      "slot": "",
+      "isCompleted": false,
+    },
+    {
+      "title": "Results",
+      "date": "Feb 4",
+      "slot": "",
+      "isCompleted": false,
+    }
+  ],
+  [],
+  [],
+  [],
+  [],
+  [],
+  []
+];
+
 

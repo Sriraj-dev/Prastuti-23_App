@@ -14,13 +14,13 @@ List<String> events = [
 List<String> requests = [];
 
 List<List<String>> regEvents = [
-  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022'],
-  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022'],
-  [ImagePaths.temp_pic, 'Event Name', 'Team Name', 'Stage of Event', '250', '12/12/2022']
+  [ImagePaths.codigo, 'Codigo', 'Team Blaze', 'Stage of Event', '220', '12/12/2022'],
+  [ImagePaths.cryptex, 'Cryptex', 'Predators', 'Stage of Event', '250', '12/12/2022'],
+  [ImagePaths.hackathon, 'Hackathon', 'Spammers', 'Stage of Event', '145', '12/12/2022']
 ];
 
-List<List<String>> regTeams = [
-  [ImagePaths.temp_pic, 'Team Name', 'Team Member 01', 'Team Member 02', 'Team Member 03'],
-  [ImagePaths.temp_pic, 'Team Name', 'Team Member 01', 'Team Member 02', 'Team Member 03'],
-  [ImagePaths.temp_pic, 'Team Name', 'Team Member 01', 'Team Member 02', 'Team Member 03']
+List<List<dynamic>> regTeams = [
+  [ImagePaths.events, 'Team Blaze', ['Manash', 'Yash', 'Sriraj']],
+  [ImagePaths.awards, 'Predators', ['Charvith', 'Gautam', 'Kishore']],
+  [ImagePaths.events, 'Spammers', ['Gokul', 'Gopi']]
 ];

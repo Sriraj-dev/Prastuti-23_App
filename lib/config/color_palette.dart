@@ -12,10 +12,14 @@ class AppTheme{
   Color secondaryColor = const Color(0xFF4B7CB2);
   Color backgroundColor = const Color(0xFFDBF2FF);
   Color kSecondaryColor = const Color(0xFFDEA01E);
+
+  Color kRedLight = Color(0xFFEDF4FE);
+  Color kRed = Color(0xFFFBE4E6);
+  Color kReddark = Color(0xFFF08A8E);
   
   //Added TextStyles by Yash
 
-final headText1 =   GoogleFonts.openSans(
+final headText1 =   GoogleFonts.comicNeue(
   color: Colors.white,
   decoration: TextDecoration
       .none,

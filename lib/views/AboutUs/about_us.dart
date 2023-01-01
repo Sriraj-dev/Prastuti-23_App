@@ -20,7 +20,7 @@ class _AboutUsViewState extends State<AboutUsView> {
       body: Center(
         child: Text("About Us Page!!!",
         style: AppTheme().headText1.copyWith(
-          fontSize: 40.sp
+          fontSize: 40
         ),
         ),
       ),
