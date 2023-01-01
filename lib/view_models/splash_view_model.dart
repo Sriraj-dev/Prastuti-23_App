@@ -9,7 +9,7 @@ class SplashViewModel{
   initiateApp(BuildContext context)async{
     //TODO: Check User Session using SharedPreferences - Sriraj
 
-    await Future.delayed(const Duration(milliseconds: 4000));
+    await Future.delayed(const Duration(seconds: 4));
 
     
     Navigator.of(context).popAndPushNamed(RouteNames.loginView);

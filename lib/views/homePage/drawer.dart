@@ -15,7 +15,7 @@ Widget drawer() {
     borderRadius: BorderRadius.circular(20),
     child: Container(
       height: SizeConfig.heightPercent * 50,
-      width: SizeConfig.widthPercent * 65,
+      width: SizeConfig.widthPercent * 62,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: AppTheme().backgroundColor),
@@ -27,38 +27,22 @@ Widget drawer() {
               height: SizeConfig.heightPercent * 40,
               child: ListView(
                 children: [
+                  SizedBox(height: 5,),
                   Row(
                     children: [
                       Image.asset(
                         ImagePaths.prastuti_logo,
-                        scale: 1.5,
+                        scale: 1.2,
                       ),
                       SizedBox(
                         width: 20,
                       ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Prastuti' 23",
-                              style: AppTheme().headText2.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  color: AppTheme().secondaryColor
-                              ),
-                            ),
-                            Text(
-                              "Annual Departmental fest",
-                              overflow: TextOverflow.fade,
-                              style: AppTheme().headText2.copyWith(
-                                  fontSize: 13,
-                                  color: Colors.black,
-                                  overflow: TextOverflow.fade
-                              ),
-                            )
-                          ],
-                        ),
+                      Text(
+                        "Prastuti' 23",
+                        style: AppTheme().headText2.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: AppTheme().secondaryColor),
                       ),
                     ],
                   ),
@@ -71,7 +55,7 @@ Widget drawer() {
                     style: AppTheme().headText2.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.normal,
-                      fontSize: 16,
+                      fontSize: 17,
                     ),),
                     leading: Icon(
                       Icons.event_note_rounded,
@@ -84,7 +68,7 @@ Widget drawer() {
                         style: AppTheme().headText2.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.normal,
-                          fontSize: 16,
+                          fontSize: 17,
                         )),
                     leading: Icon(
                       Icons.person,
@@ -97,7 +81,7 @@ Widget drawer() {
                         style: AppTheme().headText2.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.normal,
-                          fontSize: 16,
+                          fontSize: 17,
                         )),
                     leading: Icon(
                       Icons.info_outline_rounded,
@@ -105,12 +89,12 @@ Widget drawer() {
                     ),
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () => homeViewController.changeSelectedView(3),
                     title: Text("Contact us",
                         style: AppTheme().headText2.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.normal,
-                          fontSize: 16,
+                          fontSize: 17,
                         )),
                     leading: Icon(
                       Icons.phone,

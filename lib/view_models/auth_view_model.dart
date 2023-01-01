@@ -27,37 +27,41 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
     state = true;
     // ignore: todo
     //TODO: Implement the Functionality of LOGIN - Sriraj
-    //await Future.delayed(const Duration(seconds: 3));
-
-    try {
-     final result =  await _googleSignIn.signIn();
-
-     print("Google SignIn Headers _---_> ${result!.authHeaders}");
-     
-     result.authentication.then((googleKey){
-      //TODO: Need to register the user from our backend.
-      print("The TOkens are -> ${googleKey.accessToken} , ${googleKey.idToken}");
-     });
-
-      //If the user is Successfully LoggedIn
-      if (result != null) {
-        Utils.flushBarMessage(
+    await Future.delayed(const Duration(seconds: 3));
+    Utils.flushBarMessage(
             message: "Successfully Logged In",
             context: context,
             bgColor: Colors.green);
-      } else {
-        //Handle the case when the user is not logged In!
-        //Basically show a FlushBar with the error
 
-        Utils.flushBarMessage(
-            message: "Failed to Login!!",
-            context: context,
-            bgColor: Colors.red);
-      }
+    // try {
+    //  final result =  await _googleSignIn.signIn();
 
-    } catch (error) {
-      print(error);
-    }
+    //  print("Google SignIn Headers _---_> ${result!.authHeaders}");
+     
+    //  result.authentication.then((googleKey){
+    //   //TODO: Need to register the user from our backend.
+    //   print("The TOkens are -> ${googleKey.accessToken} , ${googleKey.idToken}");
+    //  });
+
+    //   //If the user is Successfully LoggedIn
+    //   if (result != null) {
+    //     Utils.flushBarMessage(
+    //         message: "Successfully Logged In",
+    //         context: context,
+    //         bgColor: Colors.green);
+    //   } else {
+    //     //Handle the case when the user is not logged In!
+    //     //Basically show a FlushBar with the error
+
+    //     Utils.flushBarMessage(
+    //         message: "Failed to Login!!",
+    //         context: context,
+    //         bgColor: Colors.red);
+    //   }
+
+    // } catch (error) {
+    //   print(error);
+    // }
 
     state = false;
   }

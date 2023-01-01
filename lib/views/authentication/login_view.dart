@@ -9,6 +9,7 @@ import 'package:prastuti_23/animations/login_view_animation.dart';
 import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -101,7 +102,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                         });
                       },
                       itemBuilder: (BuildContext context, int index) {
-                        return Column(
+                        return (_currentPage != index)?Container()
+                        :Column(
                             children: [
                               SizedBox(height: 20.sp,),
                               Row(
@@ -249,9 +251,11 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
         elevation: 12.sp,
       ),
     ): ElevatedButton(
-              onPressed: () {
-                WidgetRef.read(isLoggingIn.notifier)
+              onPressed: () async {
+                await WidgetRef.read(isLoggingIn.notifier)
                     .login(context: BuildContext);
+                
+                Navigator.of(BuildContext).pushNamed(RouteNames.homeView);
               },
               child: bool
                   ? Row(
