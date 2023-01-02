@@ -11,7 +11,11 @@ List<String> events = [
   "Simulim"
 ];
 
-List<String> requests = [];
+List<String> requests = [
+  'Team Blaze',
+  'Predators',
+  'Spammers'
+];
 
 List<List<String>> regEvents = [
   [ImagePaths.codigo, 'Codigo', 'Team Blaze', 'Stage of Event', '220', '12/12/2022'],
