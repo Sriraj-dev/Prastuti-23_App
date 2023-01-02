@@ -82,17 +82,14 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                         children: [
                           Image.asset(
                             ImagePaths.prastuti_logo_1,
-                            height: SizeConfig.height * 0.09.sp,
+                            height: SizeConfig.height * 0.07.sp,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 30.sp,
-                  ),
                   Container(
-                    height: SizeConfig.heightPercent * 70.sp,
+                    height: SizeConfig.heightPercent * 65.sp,
                     child: PageView.builder(
                       itemCount: images.length,
                       onPageChanged: (int page) {
@@ -121,7 +118,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                             child: Opacity(
                                               opacity: animationController
                                                   .pagePaddingValue.value,
-                                              child: Container(                                              
+                                              child: Container(
                                                 height: SizeConfig.height*0.3.sp,
                                                 width: SizeConfig.width*0.7.sp,
                                                 decoration: BoxDecoration(
