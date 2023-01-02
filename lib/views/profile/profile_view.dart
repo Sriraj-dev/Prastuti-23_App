@@ -161,7 +161,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               children: [
                 buildEventsList(regEvents),
                 buildTeamsList(regTeams),
-                buildList(requests)
+                buildRequestList(requests)
               ]
             )
           ),
@@ -170,9 +170,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     );
   }
 
-  Widget buildList(List<String> list) {
+  Widget buildRequestList(List<String> requests) {
 
-    if(list.isEmpty){
+    if(requests.isEmpty){
       return const Center(
         child: Text("You have no pending requests"),
       );
@@ -180,9 +180,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
 
     return ListView.separated(
       itemBuilder: (context,index){
-        return ListTile(
-          title: Text(list[index]),
-        );
+        return RequestWidget(requests[index]);
       },
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) =>Center(
@@ -192,7 +190,97 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
             color: Colors.grey,
           )
       ),
-      itemCount: list.length,
+      itemCount: requests.length,
+    );
+  }
+
+  Widget RequestWidget(String teamName) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Color.fromARGB(255, 181, 200, 232),
+          boxShadow: [BoxShadow(
+              color: AppTheme().primaryColor.withOpacity(0.3),
+              blurRadius: 4.0,
+              spreadRadius: 3.0,
+              offset: Offset(4, 4)
+          )]
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AutoSizeText(
+          teamName,
+          style: AppTheme().headText1.copyWith(
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+              fontSize: 22
+          ),
+          ),
+          Row(
+            children: [
+              AcceptButton(),
+              RejectButton()
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget AcceptButton(){
+    return ElevatedButton(
+      onPressed: () {
+        /// TODO: Implement Action - Sriraj
+      },
+      child: AutoSizeText(
+        'Accept',
+        style: AppTheme().headText2.copyWith(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+            )
+        ),
+        backgroundColor: Colors.green,
+        shadowColor: Colors.greenAccent,
+        elevation: 5,
+        fixedSize: Size(80, 30),
+      ),
+    );
+  }
+
+  Widget RejectButton(){
+    return ElevatedButton(
+      onPressed: () {
+        /// TODO: Implement Action - Sriraj
+      },
+      child: AutoSizeText(
+        'Reject',
+        style: AppTheme().headText2.copyWith(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+          )
+        ),
+        backgroundColor: Colors.red,
+        shadowColor: Colors.redAccent,
+        elevation: 5,
+        fixedSize: Size(80, 30),
+      ),
     );
   }
 

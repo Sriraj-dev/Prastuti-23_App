@@ -265,6 +265,9 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
                             color: Colors.white,
                           ),
                         ),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Text(
                           "Please Wait...",
                           style: AppTheme().headText2.copyWith(
