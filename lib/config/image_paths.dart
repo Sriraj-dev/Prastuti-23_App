@@ -10,6 +10,7 @@ class ImagePaths{
   static const google_logo = "assets/login_view/google.png";
   static const prastuti_logo_1 = "assets/login_view/prastuti'23_logo_1.png";
   static const temp_pic = "assets/temp_pic.jpg";
+  static const profile_pic = "assets/profile_view/profile_pic.png";
   //login view content
   static const about_us = "assets/login_view/about_us.png";
   static const awards = "assets/login_view/awards.png";
