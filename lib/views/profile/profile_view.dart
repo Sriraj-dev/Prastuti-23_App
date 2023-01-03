@@ -276,8 +276,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               bottomRight: Radius.circular(20),
           )
         ),
-        backgroundColor: Colors.red,
-        shadowColor: Colors.redAccent,
+        backgroundColor: Colors.red[400],
+        shadowColor: Colors.redAccent.withOpacity(0.6),
         elevation: 5,
         fixedSize: Size(80, 30),
       ),

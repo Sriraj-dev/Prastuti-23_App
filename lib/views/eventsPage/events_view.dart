@@ -54,41 +54,38 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                       child: Padding(
                         padding: EdgeInsets.only(left: (1 - animationController
                                         .pagePaddingValue.value) * 0),
-                        child: Container(
-                          width: double.infinity,
-                          child: FittedBox(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  titles[_selectedEvent.value],
-                                  style: AppTheme().headText1.copyWith(
-                                      color: AppTheme().primaryColor,
-                                      fontWeight: FontWeight.w400
-                                  ),
+                        child: FittedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                titles[_selectedEvent.value],
+                                style: AppTheme().headText1.copyWith(
+                                    color: AppTheme().primaryColor,
+                                    fontWeight: FontWeight.w400
                                 ),
-                                const SizedBox(width: 20,),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: AutoSizeText(
-                                    'Register',
-                                    style: AppTheme().headText2.copyWith(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const StadiumBorder(),
-                                    backgroundColor: AppTheme().kSecondaryColor,
-                                    shadowColor: AppTheme()
-                                        .kSecondaryColor
-                                        .withOpacity(0.5),
-                                    elevation: 5,
-                                    fixedSize: Size(140, 40),
-                                  ),
+                              ),
+                              const SizedBox(width: 20,),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: AutoSizeText(
+                                  'Register',
+                                  style: AppTheme().headText2.copyWith(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                 ),
-                              ],
-                            ),
+                                style: ElevatedButton.styleFrom(
+                                  shape: const StadiumBorder(),
+                                  backgroundColor: AppTheme().kSecondaryColor,
+                                  shadowColor: AppTheme()
+                                      .kSecondaryColor
+                                      .withOpacity(0.5),
+                                  elevation: 5,
+                                  fixedSize: Size(140, 40),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
