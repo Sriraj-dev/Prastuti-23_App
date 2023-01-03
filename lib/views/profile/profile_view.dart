@@ -196,7 +196,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
 
   Widget RequestWidget(String teamName) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+      margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
