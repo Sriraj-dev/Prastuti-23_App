@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/utils/utils.dart';
+import 'package:prastuti_23/view_models/notification_view_model.dart';
 
 final isLoggingIn = StateNotifierProvider<AuthViewModelNotifier, bool>
   ((ref)=>AuthViewModelNotifier());
@@ -32,6 +33,12 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
             message: "Successfully Logged In",
             context: context,
             bgColor: Colors.green);
+
+
+  //if the user has no playerId then call
+  NotificationServices().getPlayerId();
+
+  //send this playerId to the Backend
 
     // try {
     //  final result =  await _googleSignIn.signIn();
