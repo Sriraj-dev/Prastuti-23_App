@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/view_models/splash_view_model.dart';
 import 'package:video_player/video_player.dart';
@@ -62,6 +63,7 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     return Center(
       child: _controller.value.isInitialized
           ? LayoutBuilder(

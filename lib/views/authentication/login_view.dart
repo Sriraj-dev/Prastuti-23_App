@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +30,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
 
   LoginViewAnimation loginAnimation = LoginViewAnimation();
   late final animationController;
+  late PageController _pageController;
+
 
   @override
   void initState() {
@@ -35,6 +39,26 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
     super.initState();
     animationController = Get.put(loginAnimation);
     loginAnimation.initiatePageAnimation(this);
+    _pageController = PageController(initialPage: 0);
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  _startTimer() async {
+    await Future.delayed(Duration(seconds: 1));
+    Timer.periodic(Duration(milliseconds: 2000), (timer) {
+      if (_pageController.page! >= images.length - 1) {
+        timer.cancel();
+        // _pageController.jumpToPage(0);
+      } else {
+        _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.linear);
+      }
+    });
   }
 
   @override
@@ -48,7 +72,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: AppTheme().secondaryColor
+      systemNavigationBarColor: AppTheme().secondaryColor,
+      systemNavigationBarIconBrightness: Brightness.light,
     ));
 
     return ScreenUtilInit(
@@ -97,6 +122,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                   Container(
                     height: SizeConfig.heightPercent * 70.sp,
                     child: PageView.builder(
+                      controller: _pageController,
                       itemCount: images.length,
                       onPageChanged: (int page) {
                         loginAnimation.restartPageAnimation();
@@ -242,7 +268,7 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
       onPressed: () {
         null;
       },
-      child: Image.asset(ImagePaths.google_logo),
+      child: Image.asset(ImagePaths.google_logo_grey),
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         backgroundColor: Color.fromARGB(255, 21, 63, 94),
