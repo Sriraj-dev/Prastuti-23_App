@@ -72,7 +72,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: AppTheme().secondaryColor
+      systemNavigationBarColor: AppTheme().secondaryColor,
+      systemNavigationBarIconBrightness: Brightness.light,
     ));
 
     return ScreenUtilInit(
@@ -267,7 +268,7 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
       onPressed: () {
         null;
       },
-      child: Image.asset(ImagePaths.google_logo),
+      child: Image.asset(ImagePaths.google_logo_grey),
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         backgroundColor: Color.fromARGB(255, 21, 63, 94),

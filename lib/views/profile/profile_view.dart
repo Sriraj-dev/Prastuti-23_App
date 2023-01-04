@@ -93,19 +93,19 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Sriraj",
+                              AutoSizeText("Sriraj",
                                 style: AppTheme().headText1.copyWith(
                                   fontSize: 22,
                                   color: Colors.white
                                 ),
                               ),
-                              Text("palakurthi.sriraj.eee20@itbhu.ac.in",
+                              AutoSizeText("palakurthi.sriraj.eee20@itbhu.ac.in",
                                 style: AppTheme().headText2,
                               ),
-                              Text("IIT BHU Varanasi",
+                              AutoSizeText("IIT BHU Varanasi",
                                 style: AppTheme().headText2,
                               ),
-                              Text("+91 8074821478",
+                              AutoSizeText("+91 8074821478",
                                 style: AppTheme().headText2,
                               )
                             ],
