@@ -50,6 +50,7 @@ dependencies:
   timeline_tile: ^2.0.0
   onesignal_flutter: ^3.5.0
   url_launcher: ^6.1.7
+  blobs: ^2.0.0
   
 
 dev_dependencies:
