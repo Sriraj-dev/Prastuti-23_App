@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,6 +42,12 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   }
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: AppTheme().backgroundColor,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));
+
     return Container(
       color: AppTheme().primaryColor,
       child: SafeArea(

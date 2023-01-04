@@ -40,7 +40,8 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: AppTheme().backgroundColor
+      systemNavigationBarColor: AppTheme().backgroundColor,
+      systemNavigationBarIconBrightness: Brightness.dark,
     ));
 
     return SafeArea(
