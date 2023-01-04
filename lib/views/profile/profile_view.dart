@@ -219,12 +219,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               fontSize: 22
           ),
           ),
-          Row(
-            children: [
-              AcceptButton(),
-              RejectButton()
-            ],
-          )
+          AcceptButton()
         ],
       ),
     );
@@ -243,41 +238,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         ),
       ),
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
-            )
-        ),
-        backgroundColor: Colors.green,
-        shadowColor: Colors.greenAccent,
-        elevation: 5,
-        fixedSize: Size(80, 30),
-      ),
-    );
-  }
-
-  Widget RejectButton(){
-    return ElevatedButton(
-      onPressed: () {
-        /// TODO: Implement Action - Sriraj
-      },
-      child: AutoSizeText(
-        'Reject',
-        style: AppTheme().headText2.copyWith(
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-          )
-        ),
-        backgroundColor: Colors.red[400],
-        shadowColor: Colors.redAccent.withOpacity(0.6),
+        shape: StadiumBorder(),
+        backgroundColor: AppTheme().secondaryColor,
+        shadowColor: AppTheme().primaryColor,
         elevation: 5,
         fixedSize: Size(80, 30),
       ),
