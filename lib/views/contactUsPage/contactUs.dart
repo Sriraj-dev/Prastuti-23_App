@@ -42,12 +42,12 @@ class _ContactUsViewState extends State<ContactUsView> {
     await Future.delayed(Duration(seconds: 1));
     Timer.periodic(Duration(milliseconds: 3000), (timer) {
       if (_eventController.page! >= 2) {
-        _eventController.jumpToPage(0);
+        timer.cancel();
       } else {
         _eventController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
       }
       if (_teamController.page! >= 5) {
-        _teamController.jumpToPage(0);
+        timer.cancel();
       } else {
         _teamController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
       }
