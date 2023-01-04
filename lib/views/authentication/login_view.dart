@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -45,6 +46,11 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: AppTheme().secondaryColor
+    ));
+
     return ScreenUtilInit(
         builder: (context, child) =>
             Container(
@@ -82,7 +88,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                         children: [
                           Image.asset(
                             ImagePaths.prastuti_logo_1,
-                            height: SizeConfig.height * 0.09.sp,
+                            height: SizeConfig.height * 0.075.sp,
                           ),
                         ],
                       ),
@@ -166,11 +172,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                               width: SizeConfig.width*0.8.sp,
                                               child: AutoSizeText(
                                                 title[index],
-                                                style: GoogleFonts.poppins(
-                                                  color: Colors.white,
-                                                  decoration: TextDecoration
-                                                      .none,
-                                                  fontSize: 40.sp,
+                                                style: AppTheme().headText1.copyWith(
+                                                  fontWeight: FontWeight.w900
                                                 ),
                                                 textAlign: TextAlign.start,
                                               ),
@@ -271,7 +274,7 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
                         Text(
                           "Please Wait...",
                           style: AppTheme().headText2.copyWith(
-                            color: Colors.black,
+                            color: Colors.white,
                             fontSize: 16.sp,
                           ),
                         )

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
 import 'package:prastuti_23/config/color_palette.dart';
@@ -37,6 +38,11 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: AppTheme().backgroundColor
+    ));
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppTheme().backgroundColor,
