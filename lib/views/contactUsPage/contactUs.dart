@@ -19,6 +19,7 @@ class _ContactUsViewState extends State<ContactUsView> {
 
   late PageController _eventController;
   late PageController _teamController;
+  late Timer _timer;
   int _currentEvent = 0;
   int _currentTeam = 0;
 
@@ -35,19 +36,20 @@ class _ContactUsViewState extends State<ContactUsView> {
   void dispose() {
     _eventController.dispose();
     _teamController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
   _startTimer() async {
     await Future.delayed(Duration(seconds: 1));
-    Timer.periodic(Duration(milliseconds: 3000), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 3000), (timer) {
       if (_eventController.page! >= 2) {
-        timer.cancel();
+        _eventController.jumpTo(0);
       } else {
         _eventController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
       }
       if (_teamController.page! >= 5) {
-        timer.cancel();
+        _teamController.jumpTo(0);
       } else {
         _teamController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
       }

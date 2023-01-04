@@ -1,0 +1,4 @@
+
+const String about_us_01 = "Prastuti is annual technical departmental fest of Electrical Department of Indian Institute of Technology IIT BHU. We carry with us decades of legacy and have a notable presence pan India. This year we are back with the 21st iteration in the  month of April.";
+const String about_us_02 = "Prastuti started in 2001 as an All India Students’ Paper Presentation Contest organised by the Electrical Engineering Society (EES). Since then, Prastuti has grown in stature and, through its nationwide notability, has impacted many technically curious minds with a first-hand experience of the fast-paced technological world.";
+const String about_us_03 = "The Electrical Engineering department of IIT (BHU), Varanasi, following its glorious legacy, proudly presents the 21st iteration of its annual fiesta in April. Emerging even better this year, Prastuti brings a series of intellectual and innovative events, taking you to the technological renaissance.";
