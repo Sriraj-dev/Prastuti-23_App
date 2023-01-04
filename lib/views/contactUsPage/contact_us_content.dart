@@ -14,6 +14,12 @@ List<String> convenor_names = [
   "Vikram",
 ];
 
+List<String> convenor_phone = [
+  "8840655308",
+  "7985843341",
+  "8707078472",
+];
+
 List<String> event_name = [
   "CODIGO",
   "CONSILIUM",
@@ -28,6 +34,14 @@ List<String> event_heads_names = [
   'Nilay',
   'Vidit',
   'Astitva',
+];
+
+List<String> event_heads_phone = [
+  '6367433427',
+  '9923266285',
+  '9328208189',
+  '6352912056',
+  '7828004967',
 ];
 
 List<String> event_head_images = [
@@ -64,6 +78,20 @@ List<String> team_leads_names = [
   'Utkarsh',
   'Harsh',
   'Akshit'
+];
+
+List<String> team_leads_phone = [
+  '8074821478',
+  '7858940936',
+  '7906366325',
+  '9926552265',
+  '9493853339',
+  '9763236553',
+  '9166376649',
+  '9001065868',
+  '7000814112',
+  '9579108954',
+  '9521241690'
 ];
 
 List<String> team_name = [
