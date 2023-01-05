@@ -24,13 +24,6 @@ class Event_Timeline extends StatelessWidget {
         ),
       ),
     ):
-    // ListView.builder(
-    //   physics: const BouncingScrollPhysics(),
-    //   itemBuilder: (context,index){
-    //     return _subEvent(timeline[index],index==0,index == timeline.length-1);
-    //   },
-    //   itemCount: timeline.length,
-    // );
     Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +101,7 @@ class Event_Timeline extends StatelessWidget {
           Text(eventDetail['title'],
             style: AppTheme().headText1.copyWith(
               color: Colors.black,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w500,
               fontSize: 16
             ),
           ),
@@ -116,7 +109,7 @@ class Event_Timeline extends StatelessWidget {
           Text(
             eventDetail['slot'],
             style: AppTheme().headText2.copyWith(
-                color: Colors.black, fontSize: 14),
+                color: Colors.grey[700], fontSize: 14),
           )
         ],
       ),

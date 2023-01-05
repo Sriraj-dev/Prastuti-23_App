@@ -30,6 +30,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
 
   LoginViewAnimation loginAnimation = LoginViewAnimation();
   late final animationController;
+  late Timer _timer;
   late PageController _pageController;
 
 
@@ -46,12 +47,13 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   @override
   void dispose() {
     _pageController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
   _startTimer() async {
     await Future.delayed(Duration(seconds: 1));
-    Timer.periodic(Duration(milliseconds: 2000), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 3000), (timer) {
       if (_pageController.page! >= images.length - 1) {
         timer.cancel();
         // _pageController.jumpToPage(0);

@@ -515,9 +515,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                             )
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
+                      
                                       AutoSizeText(
                                           score,
                                           style: AppTheme().headText2.copyWith(
@@ -539,7 +537,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                         ),
                                       ),
                                       const SizedBox(
-                                        width: 10,
+                                        width: 5,
                                       ),
                                       AutoSizeText(
                                           date,

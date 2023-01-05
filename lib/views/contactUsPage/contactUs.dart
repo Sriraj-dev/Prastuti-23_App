@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/views/contactUsPage/contact_us_content.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsView extends StatefulWidget {
@@ -71,14 +73,12 @@ class _ContactUsViewState extends State<ContactUsView> {
               width: SizeConfig.width*0.95,
               height: SizeConfig.height*0.28,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                 children: [
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SizedBox(
-                        height: 23,
-                      ),
                       contactWidget(
                         convenor_images[1],
                         convenor_names[1],
@@ -89,26 +89,17 @@ class _ContactUsViewState extends State<ContactUsView> {
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      contactWidget(
-                        convenor_images[0],
-                        convenor_names[0],
-                        'Convenor',
-                        convenor_phone[0],
-                        "LinkedIn",
-                        SizeConfig.width*0.28,
-                      ),
-                      SizedBox(
-                        height: 23,
-                      ),
-                    ],
+                  contactWidget(
+                    convenor_images[0],
+                    convenor_names[0],
+                    'Convenor',
+                    convenor_phone[0],
+                    "LinkedIn",
+                    SizeConfig.width*0.28,
                   ),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SizedBox(
-                        height: 23,
-                      ),
                       contactWidget(
                         convenor_images[2],
                         convenor_names[2],
@@ -126,15 +117,41 @@ class _ContactUsViewState extends State<ContactUsView> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: AutoSizeText(
-                      'TEAM LEADS',
-                      style: GoogleFonts.comicNeue(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: AppTheme().primaryColor
-                      )
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                     AnimatedSmoothIndicator(
+                        activeIndex: _currentTeam,
+                        count: ((team_name.length + 1) / 2).toInt(),
+                        effect: WormEffect(
+                          activeDotColor: AppTheme().backgroundColor,
+                          dotColor: AppTheme().backgroundColor,
+                          dotHeight: 6.0.sp,
+                          dotWidth: 6.0.sp,
+                        ),
+                      ),
+                      Center(
+                        child: AutoSizeText(
+                            'TEAM LEADS',
+                            style: GoogleFonts.comicNeue(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: AppTheme().primaryColor
+                            )
+                        ),
+                      ),
+                      AnimatedSmoothIndicator(
+                        activeIndex: _currentTeam,
+                        count: ((team_name.length + 1) / 2).toInt(),
+                        effect: WormEffect(
+                          activeDotColor: AppTheme().kSecondaryColor,
+                          dotHeight: 4.5.sp,
+                          dotWidth: 4.5.sp,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -184,15 +201,38 @@ class _ContactUsViewState extends State<ContactUsView> {
                   ),
                 ),
               
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: AutoSizeText(
-                    'EVENT HEADS',
-                    style: GoogleFonts.comicNeue(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme().primaryColor
-                    )
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AnimatedSmoothIndicator(
+                        activeIndex: _currentEvent,
+                        count: ((event_name.length + 1) / 2).toInt(),
+                        effect: WormEffect(
+                          activeDotColor: AppTheme().backgroundColor,
+                          dotColor: AppTheme().backgroundColor,
+                          dotHeight: 6.0.sp,
+                          dotWidth: 6.0.sp,
+                        ),
+                      ),
+                      Center(
+                        child: AutoSizeText('EVENT HEADS',
+                            style: GoogleFonts.comicNeue(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: AppTheme().primaryColor)),
+                      ),
+                      AnimatedSmoothIndicator(
+                        activeIndex: _currentEvent,
+                        count: ((event_name.length + 1) / 2).toInt(),
+                        effect: WormEffect(
+                          activeDotColor: AppTheme().kSecondaryColor,
+                          dotHeight: 4.5.sp,
+                          dotWidth: 4.5.sp,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(

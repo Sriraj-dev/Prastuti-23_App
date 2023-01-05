@@ -54,7 +54,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
       child: drawer(),
       builder: (context,child){
         return Scaffold(
-          appBar: (homeViewController.selectedView == 1)?null:
+          appBar: (homeViewController.selectedView == 1 || homeViewController.selectedView==0)?null:
           AppBar(
             elevation: 0,
             backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
@@ -90,7 +90,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               //This is the CustomDrawer :
               Positioned(
                 left: drawerAnimation.value,
-                top: (homeViewController.selectedView == 1)?SizeConfig.heightPercent*10:
+                top: (homeViewController.selectedView == 1 ||
+                          homeViewController.selectedView == 0)?SizeConfig.heightPercent*15:
                 SizeConfig.heightPercent*7,
                 child: Opacity(
                   opacity: drawerAnimationController.value,

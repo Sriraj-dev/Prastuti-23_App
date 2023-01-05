@@ -70,6 +70,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                 height: SizeConfig.height*0.89,
                 width: SizeConfig.width*0.95,
                 child: ListView(
+                  physics: BouncingScrollPhysics(),
                   children: [
                     AutoSizeText(
                         'ABOUT US',
@@ -82,7 +83,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                     AutoSizeText(
                       about_us_01,
                       style: AppTheme().headText1.copyWith(
-                          fontSize: 20,
+                          fontSize: 18,
+                          letterSpacing: 0.7,
                           fontWeight: FontWeight.bold,
                           color: AppTheme().primaryColor
                       ),
@@ -93,7 +95,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                     AutoSizeText(
                       about_us_02,
                       style: AppTheme().headText1.copyWith(
-                          fontSize: 20,
+                          fontSize: 18,
+                          letterSpacing: 0.7,
                           fontWeight: FontWeight.bold,
                           color: AppTheme().primaryColor
                       ),
@@ -104,7 +107,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                     AutoSizeText(
                       about_us_03,
                       style: AppTheme().headText1.copyWith(
-                          fontSize: 20,
+                          fontSize: 18,
+                          letterSpacing: 0.7,
                           fontWeight: FontWeight.bold,
                           color: AppTheme().primaryColor
                       ),
