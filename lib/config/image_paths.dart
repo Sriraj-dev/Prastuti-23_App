@@ -59,4 +59,10 @@ class ImagePaths{
   static const video = "assets/contact_us/team_leads/Utkarsh_video.jpg";
   static const finance_1 = "assets/contact_us/team_leads/Harsh Goyal_finance.jpg";
   static const events_head = "assets/contact_us/team_leads/Akshit Sharma_events.jpg";
+
+  //about_us
+  static const instagram_squared = "assets/about_us/instagram.png";
+  static const linkedin_squared = "assets/about_us/linkedin.png";
+  static const prastuti_logo_squared = "assets/about_us/prastuti_logo.png";
+  static const gmail_squared = "assets/about_us/gmail.png";
 }

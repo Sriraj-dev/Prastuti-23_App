@@ -9,6 +9,8 @@ import 'package:prastuti_23/config/color_palette.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/aboutUs/about_us_content.dart';
 
+import '../../config/image_paths.dart';
+
 class AboutUsView extends StatefulWidget {
   const AboutUsView({Key? key}) : super(key: key);
 
@@ -124,12 +126,52 @@ class _AboutUsViewState extends State<AboutUsView> {
                           fontSize: 40,
                         )
                     ),
-
+                    SizedBox(
+                      height: 20,
+                    ),
+                    AutoSizeText(
+                        'REACH US ON',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.notoSerif(
+                          color: AppTheme().primaryColor,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 30,
+                        )
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          about_us_icons(ImagePaths.instagram_squared),
+                          about_us_icons(ImagePaths.gmail_squared),
+                          about_us_icons(ImagePaths.linkedin_squared),
+                          about_us_icons(ImagePaths.prastuti_logo_squared)
+                        ],
+                      ),
+                    )
                   ],
                 ),
               )
           )
         ],
+      ),
+    );
+  }
+
+  Widget about_us_icons (String image) {
+    return Container(
+      height: SizeConfig.height*0.05,
+      width: SizeConfig.height*0.05,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(image),
+              fit: BoxFit.cover
+          )
       ),
     );
   }

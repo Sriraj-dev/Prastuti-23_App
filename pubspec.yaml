@@ -85,6 +85,7 @@ flutter:
     - assets/contact_us/
     - assets/contact_us/event_heads/
     - assets/contact_us/team_leads/
+    - assets/about_us/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
