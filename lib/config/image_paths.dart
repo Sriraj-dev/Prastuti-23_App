@@ -11,7 +11,6 @@ class ImagePaths{
   static const google_logo_grey = "assets/login_view/google_grey.png";
   static const prastuti_logo_1 = "assets/login_view/prastuti'23_logo_1.png";
   static const temp_pic = "assets/temp_pic.jpg";
-  static const profile_pic = "assets/profile_view/profile_pic.png";
 
   //login view content
   static const about_us = "assets/login_view/about_us.png";
@@ -27,13 +26,11 @@ class ImagePaths{
   static const simulim = "assets/events_view/simulim.jpg";
   static const calender = "assets/profile_view/calendar.png";
 
-  //Status
-  static const ongoing = "assets/events_view/ongoing.png";
-  static const  ended = "assets/events_view/ended.png";
-  static const coming = "assets/events_view/coming.png";
-
-  //Score
+  //profile_view
   static const score = "assets/profile_view/score.png";
+  static const add = "assets/profile_view/add.png";
+  static const calendar = "assets/profile_view/calendar.png";
+  static const profile_pic = "assets/profile_view/profile_pic.png";
 
   //convenors
   static const co_convenor_1 = "assets/contact_us/co_convenor_1.jpg";

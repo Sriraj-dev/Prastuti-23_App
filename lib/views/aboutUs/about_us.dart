@@ -85,32 +85,32 @@ class _AboutUsViewState extends State<AboutUsView> {
                     AutoSizeText(
                       about_us_01,
                       style: AppTheme().headText1.copyWith(
-                          fontSize: 18,
-                          letterSpacing: 0.7,
-                          fontWeight: FontWeight.bold,
-                          color: AppTheme().primaryColor
+                        fontSize: 18,
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.bold,
+                        color: AppTheme().primaryColor,
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     AutoSizeText(
                       about_us_02,
                       style: AppTheme().headText1.copyWith(
                           fontSize: 18,
-                          letterSpacing: 0.7,
+                          letterSpacing: 1,
                           fontWeight: FontWeight.bold,
                           color: AppTheme().primaryColor
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     AutoSizeText(
                       about_us_03,
                       style: AppTheme().headText1.copyWith(
                           fontSize: 18,
-                          letterSpacing: 0.7,
+                          letterSpacing: 1,
                           fontWeight: FontWeight.bold,
                           color: AppTheme().primaryColor
                       ),

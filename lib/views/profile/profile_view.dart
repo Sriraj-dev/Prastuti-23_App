@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/color_palette.dart';
@@ -167,7 +168,33 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               controller: _tabController,
               children: [
                 buildEventsList(regEvents),
-                buildTeamsList(regTeams),
+                Stack(
+                  children: [
+                    buildTeamsList(regTeams),
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: Container(
+                        alignment: Alignment.bottomRight,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: SizedBox(
+                              height: 35.sp,
+                              width: 35.sp,
+                              child: Image.asset(ImagePaths.add)
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            backgroundColor: AppTheme().primaryColor,
+                            fixedSize: Size(45.sp, 45.sp),
+                            shadowColor: AppTheme().primaryColor,
+                            elevation: 15.sp,
+                          ),
+                        ),
+                      )
+                    )
+                  ],
+                ),
                 buildRequestList(requests)
               ]
             )
@@ -284,7 +311,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
             color: Colors.grey,
           )
       ),
-      itemCount: regEvents.length,
+      itemCount: regTeams.length,
     );
   }
 
