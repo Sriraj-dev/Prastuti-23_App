@@ -54,7 +54,7 @@ class ImagePaths{
   static const social = "assets/contact_us/team_leads/Smriti Jain_media.jpg";
   static const design = "assets/contact_us/team_leads/Alluru Sai Rushitha_design.jpg";
   static const content = "assets/contact_us/team_leads/Kunal Yewale_content.jpg";
-  static const marketing = "assets/contact_us/team_leads/Yash_Varshney_marketing.jpeg";
+  static const marketing = "assets/contact_us/team_leads/Yash_Varshney_marketing.jpg";
   static const pr = "assets/contact_us/team_leads/Krishanpal Dudi_pr.jpg";
   static const video = "assets/contact_us/team_leads/Utkarsh_video.jpg";
   static const finance_1 = "assets/contact_us/team_leads/Harsh Goyal_finance.jpg";
