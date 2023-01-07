@@ -12,6 +12,7 @@ import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/views/contactUsPage/contact_us_content.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ContactUsView extends StatefulWidget {
   const ContactUsView({Key? key}) : super(key: key);
@@ -68,6 +69,7 @@ class _ContactUsViewState extends State<ContactUsView> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppTheme().backgroundColor,
       body: Center(
@@ -89,7 +91,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                         convenor_names[1],
                         'Co-Convenor',
                         convenor_phone[1],
-                        "LinkedIn",
+                        convenor_linkedIn[1],
                         SizeConfig.width*0.28,
                       ),
                     ],
@@ -99,7 +101,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                     convenor_names[0],
                     'Convenor',
                     convenor_phone[0],
-                    "LinkedIn",
+                    convenor_linkedIn[0],
                     SizeConfig.width*0.28,
                   ),
                   Column(
@@ -108,9 +110,9 @@ class _ContactUsViewState extends State<ContactUsView> {
                       contactWidget(
                         convenor_images[2],
                         convenor_names[2],
-                        convenor_phone[2],
-                        "LinkedIn",
                         'Co-Convenor',
+                        convenor_phone[2],
+                        convenor_linkedIn[2],
                         SizeConfig.width*0.28,
                       ),
                     ],
@@ -181,7 +183,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                     team_leads_names[2*index],
                                     team_name[2*index],
                                     team_leads_phone[2*index],
-                                    "LinkedIn",
+                                    team_leads_linkedIn[2*index],
                                     SizeConfig.width*0.30,
                                   ),
                                 ):Container(),
@@ -192,8 +194,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                                     team_leads_images[2*index+1],
                                     team_leads_names[2*index+1],
                                     team_name[2*index+1],
-                                    team_leads_phone[2 * index],
-                                    "LinkedIn",
+                                    team_leads_phone[2 * index+1],
+                                    team_leads_linkedIn[2 * index+1],
                                     SizeConfig.width*0.30,
                                   ),
                                 ):SizedBox(width: 0,),
@@ -276,7 +278,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                     event_heads_names[2*index],
                                     event_name[2*index],
                                     event_heads_phone[2*index],
-                                    "",
+                                    event_heads_linkedIn[2*index],
                                     SizeConfig.width*0.30,
                                   ),
                                 ):SizedBox(width: 0),
@@ -288,7 +290,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                     event_heads_names[2*index+1],
                                     event_name[2*index+1],
                                     event_heads_phone[2 * index+1],
-                                    "",
+                                    event_heads_linkedIn[2 * index+1],
                                     SizeConfig.width*0.30,
                                   ),
                                 ):SizedBox(width: 0),
@@ -404,19 +406,9 @@ class _ContactUsViewState extends State<ContactUsView> {
                               ),
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: ()async{
-                              final web = Uri.parse(
-                                'https://www.linkedin.com/in/sriraj-palakurthi-ab86061bb/',
-                              );
-                              if (await canLaunchUrl(web)) {
-                                launchUrl(web);
-                              } else {
-                                Utils.flushBarMessage(
-                                    message: "Could not Launch LinkedIn currently!",
-                                    context: context,
-                                    bgColor: Colors.redAccent);
-                              }
+                              launchURL(linkedin);
                             },
                             child: Container(
                               height: SizeConfig.height*0.035,
@@ -460,5 +452,16 @@ class _ContactUsViewState extends State<ContactUsView> {
         ],
       ),
     );
+  }
+
+  launchURL(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    } else {
+      Utils.flushBarMessage(
+          message: "Could not Launch LinkedIn currently!",
+          context: context,
+          bgColor: Colors.redAccent);
+    }
   }
 }
