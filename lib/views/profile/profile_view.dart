@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/color_palette.dart';
@@ -23,9 +24,13 @@ class ProfileView extends StatefulWidget {
   State<ProfileView> createState() => _ProfileViewState();
 }
 
+enum ButtonState { init, loading, done }
+
 class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin{
 
   late TabController _tabController;
+  ButtonState state = ButtonState.init;
+  bool isAnimating = true;
 
   @override
   void initState() {
@@ -42,7 +47,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   }
   @override
   Widget build(BuildContext context) {
-
+    // final isDone = state == ButtonState.done;
+    // final isStretched = isAnimating || state == ButtonState.init;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: AppTheme().backgroundColor,
       systemNavigationBarIconBrightness: Brightness.dark,
@@ -167,7 +173,33 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               controller: _tabController,
               children: [
                 buildEventsList(regEvents),
-                buildTeamsList(regTeams),
+                Stack(
+                  children: [
+                    buildTeamsList(regTeams),
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: Container(
+                        alignment: Alignment.bottomRight,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: SizedBox(
+                              height: 35.sp,
+                              width: 35.sp,
+                              child: Image.asset(ImagePaths.add)
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            backgroundColor: AppTheme().primaryColor,
+                            fixedSize: Size(45.sp, 45.sp),
+                            shadowColor: AppTheme().primaryColor,
+                            elevation: 15.sp,
+                          ),
+                        ),
+                      )
+                    )
+                  ],
+                ),
                 buildRequestList(requests)
               ]
             )
@@ -202,6 +234,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   }
 
   Widget RequestWidget(String teamName) {
+    final bool isStretched = isAnimating || state == ButtonState.init;
+    final bool isDone = state == ButtonState.done;
+    final width = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
@@ -226,22 +261,35 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               fontSize: 22
           ),
           ),
-          AcceptButton()
+          AnimatedContainer(
+            alignment: Alignment.center,
+            duration: Duration(milliseconds: 2000),
+            curve: Curves.easeIn,
+            width: state == ButtonState.init ?  90:40,
+            onEnd: () => setState(() => isAnimating = !isAnimating),
+            child: isStretched ? AcceptButton() : LoadingTick(isDone),
+            // isStretched ? RejectButton() : LoadingCancel(isDone),
+          )
         ],
       ),
     );
   }
 
-  Widget AcceptButton(){
+  Widget AcceptButton() {
     return ElevatedButton(
-      onPressed: () {
-        /// TODO: Implement Action - Sriraj
+      onPressed: () async {
+        setState(() => state = ButtonState.loading);
+        await Future.delayed(Duration(seconds: 3));
+        setState(() => state = ButtonState.done);
+        print("hello lmao dead");
       },
-      child: AutoSizeText(
-        'Accept',
-        style: AppTheme().headText2.copyWith(
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
+      child: FittedBox(
+        child: AutoSizeText(
+          'Accept',
+          style: AppTheme().headText2.copyWith(
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
       style: ElevatedButton.styleFrom(
@@ -253,6 +301,63 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       ),
     );
   }
+
+  // Widget RejectButton() {
+  //   return ElevatedButton(
+  //     onPressed: () async {
+  //       setState(() => state = ButtonState.loading);
+  //       await Future.delayed(Duration(seconds: 3));
+  //       setState(() => state = ButtonState.done);
+  //       await Future.delayed(Duration(seconds: 3));
+  //       setState(() => state = ButtonState.init);
+  //
+  //     },
+  //     child: AutoSizeText(
+  //       'Reject',
+  //       style: AppTheme().headText2.copyWith(
+  //             fontSize: 15,
+  //             fontWeight: FontWeight.w400,
+  //           ),
+  //     ),
+  //     style: ElevatedButton.styleFrom(
+  //       shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.only(
+  //         topRight: Radius.circular(20),
+  //         bottomRight: Radius.circular(20),
+  //       )),
+  //       backgroundColor: Colors.red,
+  //       shadowColor: Colors.redAccent,
+  //       elevation: 5,
+  //       fixedSize: Size(80, 30),
+  //     ),
+  //   );
+  // }
+  Widget LoadingTick(bool isDone) {
+    final color = isDone ? Colors.green[800] : AppTheme().primaryColor;
+    return Container(
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+      child: Center(
+        child: isDone
+            ? Icon(
+          Icons.done,
+          size: 30,
+          color: Colors.white,
+        )
+            : CircularProgressIndicator(color: Colors.white),
+      ),
+    );
+  }
+
+  // Widget LoadingCancel(bool isDone){
+  //   final color = isDone ? Colors.red[700] : AppTheme().primaryColor;
+  //   return Container(
+  //     decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+  //     child: Center(
+  //       child: isDone ? Icon(Icons.cancel_outlined, size: 20, color: Colors.white,):CircularProgressIndicator(color: Colors.white),
+  //
+  //     ),
+  //   );
+  // }
 
   bool isExpanded = false;
 
@@ -284,7 +389,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
             color: Colors.grey,
           )
       ),
-      itemCount: regEvents.length,
+      itemCount: regTeams.length,
     );
   }
 

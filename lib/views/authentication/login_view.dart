@@ -314,7 +314,8 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
                         Container(
                             height: 35.sp,
                             width: 35.sp,
-                            child: Image.asset(ImagePaths.google_logo)),
+                            child: Image.asset(ImagePaths.google_logo)
+                        ),
                         Container(
                           width: 10.sp,
                         ),
