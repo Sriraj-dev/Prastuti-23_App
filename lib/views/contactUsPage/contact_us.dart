@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:math' as math;
 import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -124,116 +124,120 @@ class _ContactUsViewState extends State<ContactUsView> {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                     AnimatedSmoothIndicator(
-                        activeIndex: _currentTeam,
-                        count: ((team_name.length + 1) / 2).toInt(),
-                        effect: WormEffect(
-                          activeDotColor: AppTheme().backgroundColor,
-                          dotColor: AppTheme().backgroundColor,
-                          dotHeight: 6.0.sp,
-                          dotWidth: 6.0.sp,
-                        ),
-                      ),
-                      Center(
-                        child: AutoSizeText(
-                            'TEAM LEADS',
-                            style: GoogleFonts.comicNeue(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: AppTheme().primaryColor
-                            )
-                        ),
-                      ),
-                      AnimatedSmoothIndicator(
-                        activeIndex: _currentTeam,
-                        count: ((team_name.length + 1) / 2).toInt(),
-                        effect: WormEffect(
-                          activeDotColor: AppTheme().kSecondaryColor,
-                          dotHeight: 4.5.sp,
-                          dotWidth: 4.5.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onHorizontalDragCancel: () {
-                    _timerTeam.cancel();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    height: SizeConfig.height*0.25,
-                    width: SizeConfig.width*0.9,
-                    child: PageView.builder(
-                      controller: _teamController,
-                      itemCount: ((team_name.length+1)/2).toInt(),
-                      onPageChanged: (int team) {
-                        setState(() {
-                          _currentTeam = team;
-                        });
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return (_currentTeam != index)?Container()
-                            : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            (2*index < team_name.length)?Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: contactWidget(
-                                team_leads_images[2*index],
-                                team_leads_names[2*index],
-                                team_name[2*index],
-                                team_leads_phone[2*index],
-                                "LinkedIn",
-                                SizeConfig.width*0.30,
-                              ),
-                            ):Container(),
-
-                            (2*index+1 < team_name.length)?Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: contactWidget(
-                                team_leads_images[2*index+1],
-                                team_leads_names[2*index+1],
-                                team_name[2*index+1],
-                                team_leads_phone[2 * index],
-                                "LinkedIn",
-                                SizeConfig.width*0.30,
-                              ),
-                            ):SizedBox(width: 0,),
-                          ],
-                        );
-                      },
+                  child: Center(
+                    child: AutoSizeText(
+                        'TEAM LEADS',
+                        style: GoogleFonts.comicNeue(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme().primaryColor
+                        )
                     ),
                   ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 35,
+                      child: Transform.rotate(
+                        angle: math.pi/2,
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: _currentTeam,
+                          count: ((team_name.length + 1) / 2).toInt(),
+                          effect: WormEffect(
+                            activeDotColor: AppTheme().kSecondaryColor,
+                            dotHeight: 4.5.sp,
+                            dotWidth: 4.5.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onHorizontalDragCancel: () {
+                        _timerTeam.cancel();
+                      },
+                      child: Container(
+                        height: SizeConfig.height*0.25,
+                        width: SizeConfig.width*0.8,
+                        child: PageView.builder(
+                          controller: _teamController,
+                          itemCount: ((team_name.length+1)/2).toInt(),
+                          onPageChanged: (int team) {
+                            setState(() {
+                              _currentTeam = team;
+                            });
+                          },
+                          itemBuilder: (BuildContext context, int index) {
+                            return (_currentTeam != index)?Container()
+                                : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                (2*index < team_name.length)?Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: contactWidget(
+                                    team_leads_images[2*index],
+                                    team_leads_names[2*index],
+                                    team_name[2*index],
+                                    team_leads_phone[2*index],
+                                    "LinkedIn",
+                                    SizeConfig.width*0.30,
+                                  ),
+                                ):Container(),
+
+                                (2*index+1 < team_name.length)?Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: contactWidget(
+                                    team_leads_images[2*index+1],
+                                    team_leads_names[2*index+1],
+                                    team_name[2*index+1],
+                                    team_leads_phone[2 * index],
+                                    "LinkedIn",
+                                    SizeConfig.width*0.30,
+                                  ),
+                                ):SizedBox(width: 0,),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 35,
+                      child: Transform.rotate(
+                        angle: math.pi/2,
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: _currentTeam,
+                          count: ((team_name.length + 1) / 2).toInt(),
+                          effect: WormEffect(
+                            activeDotColor: AppTheme().backgroundColor,
+                            dotColor: AppTheme().backgroundColor,
+                            dotHeight: 6.0.sp,
+                            dotWidth: 6.0.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AnimatedSmoothIndicator(
-                        activeIndex: _currentEvent,
-                        count: ((event_name.length + 1) / 2).toInt(),
-                        effect: WormEffect(
-                          activeDotColor: AppTheme().backgroundColor,
-                          dotColor: AppTheme().backgroundColor,
-                          dotHeight: 6.0.sp,
-                          dotWidth: 6.0.sp,
-                        ),
-                      ),
-                      Center(
-                        child: AutoSizeText('EVENT HEADS',
-                            style: GoogleFonts.comicNeue(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: AppTheme().primaryColor)),
-                      ),
-                      AnimatedSmoothIndicator(
+                  child: Center(
+                    child: AutoSizeText('EVENT HEADS',
+                        style: GoogleFonts.comicNeue(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme().primaryColor)),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Transform.rotate(
+                      angle: math.pi/2,
+                      child: AnimatedSmoothIndicator(
                         activeIndex: _currentEvent,
                         count: ((event_name.length + 1) / 2).toInt(),
                         effect: WormEffect(
@@ -242,59 +246,73 @@ class _ContactUsViewState extends State<ContactUsView> {
                           dotWidth: 4.5.sp,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onHorizontalDragCancel: () {
-                    _timerEvent.cancel();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    height: SizeConfig.height*0.25,
-                    width: SizeConfig.width*0.9,
-                    child: PageView.builder(
-                      controller: _eventController,
-                      itemCount: ((event_name.length+1)/2).toInt(),
-                      onPageChanged: (int event) {
-                        setState(() {
-                          _currentEvent = event;
-                        });
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return (_currentEvent != index)?Container()
-                            : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            (2*index < event_name.length)?Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: contactWidget(
-                                event_head_images[2*index],
-                                event_heads_names[2*index],
-                                event_name[2*index],
-                                event_heads_phone[2*index],
-                                "",
-                                SizeConfig.width*0.30,
-                              ),
-                            ):Container(),
-
-                            (2*index+1 < event_name.length)?Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: contactWidget(
-                                event_head_images[2*index+1],
-                                event_heads_names[2*index+1],
-                                event_name[2*index+1],
-                                event_heads_phone[2 * index+1],
-                                "",
-                                SizeConfig.width*0.30,
-                              ),
-                            ):SizedBox(width: 0,),
-                          ],
-                        );
-                      },
                     ),
-                  ),
+                    GestureDetector(
+                      onHorizontalDragCancel: () {
+                        _timerEvent.cancel();
+                      },
+                      child: Container(
+                        height: SizeConfig.height*0.25,
+                        width: SizeConfig.width*0.8,
+                        child: PageView.builder(
+                          controller: _eventController,
+                          itemCount: ((event_name.length+1)/2).toInt(),
+                          onPageChanged: (int event) {
+                            setState(() {
+                              _currentEvent = event;
+                            });
+                          },
+                          itemBuilder: (BuildContext context, int index) {
+                            return (_currentEvent != index)?Container()
+                                : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+
+                                (2*index < event_name.length)?Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: contactWidget(
+                                    event_head_images[2*index],
+                                    event_heads_names[2*index],
+                                    event_name[2*index],
+                                    event_heads_phone[2*index],
+                                    "",
+                                    SizeConfig.width*0.30,
+                                  ),
+                                ):SizedBox(width: 0),
+
+                                (2*index+1 < event_name.length)?Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: contactWidget(
+                                    event_head_images[2*index+1],
+                                    event_heads_names[2*index+1],
+                                    event_name[2*index+1],
+                                    event_heads_phone[2 * index+1],
+                                    "",
+                                    SizeConfig.width*0.30,
+                                  ),
+                                ):SizedBox(width: 0),
+
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Transform.rotate(
+                      angle: math.pi/2,
+                      child: AnimatedSmoothIndicator(
+                        activeIndex: _currentEvent,
+                        count: ((event_name.length + 1) / 2).toInt(),
+                        effect: WormEffect(
+                          activeDotColor: AppTheme().backgroundColor,
+                          dotColor: AppTheme().backgroundColor,
+                          dotHeight: 4.5.sp,
+                          dotWidth: 4.5.sp,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 ],
             ),
