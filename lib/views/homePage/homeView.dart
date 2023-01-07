@@ -6,7 +6,7 @@ import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/view_models/home_view_model.dart';
 import 'package:prastuti_23/views/AboutUs/about_us.dart';
-import 'package:prastuti_23/views/contactUsPage/contactUs.dart';
+import 'package:prastuti_23/views/contactUsPage/contact_us.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
 import 'package:prastuti_23/views/homePage/drawer.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
