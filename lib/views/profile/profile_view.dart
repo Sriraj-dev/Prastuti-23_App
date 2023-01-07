@@ -31,6 +31,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   late TabController _tabController;
   ButtonState state = ButtonState.init;
   bool isAnimating = true;
+  bool isPressed = false;
 
   @override
   void initState() {
@@ -236,7 +237,6 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   Widget RequestWidget(String teamName) {
     final bool isStretched = isAnimating || state == ButtonState.init;
     final bool isDone = state == ButtonState.done;
-    final width = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
@@ -261,15 +261,19 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               fontSize: 22
           ),
           ),
-          AnimatedContainer(
-            alignment: Alignment.center,
-            duration: Duration(milliseconds: 2000),
-            curve: Curves.easeIn,
-            width: state == ButtonState.init ?  90:40,
-            onEnd: () => setState(() => isAnimating = !isAnimating),
-            child: isStretched ? AcceptButton() : LoadingTick(isDone),
-            // isStretched ? RejectButton() : LoadingCancel(isDone),
-          )
+          Row(
+            children: [
+              AnimatedContainer(
+                alignment: Alignment.center,
+                duration: Duration(milliseconds: 2000),
+                curve: Curves.easeIn,
+                width: state == ButtonState.init ?  90:40,
+                onEnd: () => setState(() => isAnimating = !isAnimating),
+                child: isStretched ? AcceptButton() : LoadingTick(isDone),
+              ),
+              !isPressed? RejectButton() : Container(),
+            ],
+          ),
         ],
       ),
     );
@@ -278,6 +282,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   Widget AcceptButton() {
     return ElevatedButton(
       onPressed: () async {
+        isPressed = !isPressed;
         setState(() => state = ButtonState.loading);
         await Future.delayed(Duration(seconds: 3));
         setState(() => state = ButtonState.done);
@@ -298,6 +303,25 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         shadowColor: AppTheme().primaryColor,
         elevation: 5,
         fixedSize: Size(80, 30),
+      ),
+    );
+  }
+
+  Widget RejectButton() {
+    return GestureDetector(
+      onTap: () {
+        /// TODO: Implement Reject Request -Sriraj
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 5),
+        height: 13,
+        width: 13,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/profile_view/cancel.png"),
+                fit: BoxFit.cover
+            )
+        ),
       ),
     );
   }
