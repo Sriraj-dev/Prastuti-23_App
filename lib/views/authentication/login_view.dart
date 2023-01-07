@@ -121,112 +121,117 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  Container(
-                    height: SizeConfig.heightPercent * 70.sp,
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: images.length,
-                      onPageChanged: (int page) {
-                        loginAnimation.restartPageAnimation();
-                        setState(() {
-                          _currentPage = page;
-                        });
-                      },
-                      itemBuilder: (BuildContext context, int index) {
-                        return (_currentPage != index)?Container()
-                        :Column(
-                            children: [
-                              SizedBox(height: 20.sp,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Obx(
-                                        () =>
-                                        Container(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                              left: (1.0 - animationController
-                                                  .pagePaddingValue.value) *
-                                                  100,
-                                            ),
-                                            child: Opacity(
-                                              opacity: animationController
-                                                  .pagePaddingValue.value,
-                                              child: Container(
-                                                height: SizeConfig.height*0.3.sp,
-                                                width: SizeConfig.width*0.7.sp,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(32.sp),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Color.fromARGB(
-                                                          255, 17, 102, 157),
-                                                      spreadRadius: 5.sp,
-                                                      blurRadius: 10.sp,
-                                                      offset: Offset(0.sp, 5.sp),
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: FittedBox(
-                                                  child: Image.asset(
-                                                    images[index]
+                  GestureDetector(
+                    onHorizontalDragCancel: () {
+                      _timer.cancel();
+                    },
+                    child: Container(
+                      height: SizeConfig.heightPercent * 70.sp,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: images.length,
+                        onPageChanged: (int page) {
+                          loginAnimation.restartPageAnimation();
+                          setState(() {
+                            _currentPage = page;
+                          });
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          return (_currentPage != index)?Container()
+                          :Column(
+                              children: [
+                                SizedBox(height: 20.sp,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Obx(
+                                          () =>
+                                          Container(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                left: (1.0 - animationController
+                                                    .pagePaddingValue.value) *
+                                                    100,
+                                              ),
+                                              child: Opacity(
+                                                opacity: animationController
+                                                    .pagePaddingValue.value,
+                                                child: Container(
+                                                  height: SizeConfig.height*0.3.sp,
+                                                  width: SizeConfig.width*0.7.sp,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .circular(32.sp),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Color.fromARGB(
+                                                            255, 17, 102, 157),
+                                                        spreadRadius: 5.sp,
+                                                        blurRadius: 10.sp,
+                                                        offset: Offset(0.sp, 5.sp),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  fit: BoxFit.fill,
+                                                  child: FittedBox(
+                                                    child: Image.asset(
+                                                      images[index]
+                                                    ),
+                                                    fit: BoxFit.fill,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: SizeConfig.heightPercent*8.sp),
-                              Obx(
-                                    () =>
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        top: (1.0 - animationController
-                                            .pagePaddingValue.value) * SizeConfig.heightPercent*6),
-                                      child: Opacity(
-                                        opacity: animationController
-                                            .pagePaddingValue.value,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start,
-                                          children: [
-                                            Container(
-                                              height: SizeConfig.height*0.07.sp,
-                                              width: SizeConfig.width*0.8.sp,
-                                              child: AutoSizeText(
-                                                title[index],
-                                                style: AppTheme().headText1.copyWith(
-                                                  fontWeight: FontWeight.w900
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: SizeConfig.heightPercent*8.sp),
+                                Obx(
+                                      () =>
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          top: (1.0 - animationController
+                                              .pagePaddingValue.value) * SizeConfig.heightPercent*6),
+                                        child: Opacity(
+                                          opacity: animationController
+                                              .pagePaddingValue.value,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment
+                                                .start,
+                                            children: [
+                                              Container(
+                                                height: SizeConfig.height*0.07.sp,
+                                                width: SizeConfig.width*0.8.sp,
+                                                child: AutoSizeText(
+                                                  title[index],
+                                                  style: AppTheme().headText1.copyWith(
+                                                    fontWeight: FontWeight.w900
+                                                  ),
+                                                  textAlign: TextAlign.start,
                                                 ),
-                                                textAlign: TextAlign.start,
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: SizeConfig.height * 0.15.sp,
-                                              width: SizeConfig.width * 0.80.sp,
-                                              child: AutoSizeText(
-                                                detail[index],
-                                                style: AppTheme().headText2.copyWith(
-                                                    fontWeight: FontWeight
-                                                        .normal,
-                                                  fontSize: 16.sp,
+                                              SizedBox(
+                                                height: SizeConfig.height * 0.15.sp,
+                                                width: SizeConfig.width * 0.80.sp,
+                                                child: AutoSizeText(
+                                                  detail[index],
+                                                  style: AppTheme().headText2.copyWith(
+                                                      fontWeight: FontWeight
+                                                          .normal,
+                                                    fontSize: 16.sp,
+                                                  ),
+                                                  textAlign: TextAlign.start,
                                                 ),
-                                                textAlign: TextAlign.start,
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              ),
-                            ]
-                        );
-                      },
+                                ),
+                              ]
+                          );
+                        },
+                      ),
                     ),
                   ),
                   Padding(
