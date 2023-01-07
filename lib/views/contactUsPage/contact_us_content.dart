@@ -20,6 +20,12 @@ List<String> convenor_phone = [
   "8707078472",
 ];
 
+List<String> convenor_linkedIn = [
+  "https://www.linkedin.com/in/piyush-yadav-ba6b591bb",
+  "https://www.linkedin.com/in/vaibhav45",
+  "https://www.linkedin.com/in/vikram-pratap-singh-199096214",
+];
+
 List<String> event_name = [
   "CODIGO",
   "CONSILIUM",
@@ -42,6 +48,14 @@ List<String> event_heads_phone = [
   '9328208189',
   '6352912056',
   '7828004967',
+];
+
+List<String> event_heads_linkedIn = [
+  '',
+  '',
+  'https://www.linkedin.com/in/nilay-mundra-163732237',
+  'https://www.linkedin.com/in/vidit-agarwal-734236200',
+  'https://www.linkedin.com/in/astitva-gupta-26798312b',
 ];
 
 List<String> event_head_images = [
@@ -80,6 +94,21 @@ List<String> team_leads_names = [
   'Akshit'
 ];
 
+List<String> team_leads_linkedIn = [
+  'https://www.linkedin.com/in/sriraj-palakurthi-ab86061bb',
+  'https://www.linkedin.com/in/sumant-chaudhary-276011200',
+  '',
+  'https://www.linkedin.com/in/smriti-jain-904460207',
+  'https://www.linkedin.com/in/sai-rushitha-alluru-818653201',
+  'https://www.linkedin.com/in/kunal-yewale-1b005520b',
+  'https://www.linkedin.com/in/yash-varshney-b68316200',
+  'https://www.linkedin.com/in/krishanpal-dudi-a91667217',
+  '',
+  '',
+  ''
+];
+
+
 List<String> team_leads_phone = [
   '8074821478',
   '7858940936',
@@ -107,3 +136,4 @@ List<String> team_name = [
   'Finance Team',
   'Events Team'
 ];
+
