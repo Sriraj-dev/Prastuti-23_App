@@ -24,7 +24,8 @@ class _ContactUsViewState extends State<ContactUsView> {
 
   late PageController _eventController;
   late PageController _teamController;
-  late Timer _timer;
+  late Timer _timerTeam;
+  late Timer _timerEvent;
   int _currentEvent = 0;
   int _currentTeam = 0;
 
@@ -41,22 +42,26 @@ class _ContactUsViewState extends State<ContactUsView> {
   void dispose() {
     _eventController.dispose();
     _teamController.dispose();
-    _timer.cancel();
+    _timerTeam.cancel();
+    _timerEvent.cancel();
     super.dispose();
   }
 
   _startTimer() async {
     await Future.delayed(Duration(seconds: 1));
-    _timer = Timer.periodic(Duration(milliseconds: 3000), (timer) {
+    _timerTeam = Timer.periodic(Duration(milliseconds: 3000), (timer) {
+      if (_teamController.page! >= 5) {
+        _teamController.jumpTo(0);
+
+      } else {
+        _teamController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+      }
+    });
+    _timerEvent = Timer.periodic(Duration(milliseconds: 3000), (timer) {
       if (_eventController.page! >= 2) {
         _eventController.jumpTo(0);
       } else {
         _eventController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
-      }
-      if (_teamController.page! >= 5) {
-        _teamController.jumpTo(0);
-      } else {
-        _teamController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
       }
     });
   }
@@ -154,50 +159,55 @@ class _ContactUsViewState extends State<ContactUsView> {
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  height: SizeConfig.height*0.25,
-                  width: SizeConfig.width*0.9,
-                  child: PageView.builder(
-                    controller: _teamController,
-                    itemCount: ((team_name.length+1)/2).toInt(),
-                    onPageChanged: (int team) {
-                      setState(() {
-                        _currentTeam = team;
-                      });
-                    },
-                    itemBuilder: (BuildContext context, int index) {
-                      return (_currentTeam != index)?Container()
-                          : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          (2*index < team_name.length)?Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: contactWidget(
-                              team_leads_images[2*index],
-                              team_leads_names[2*index],
-                              team_name[2*index],
-                              team_leads_phone[2*index],
-                              "LinkedIn",
-                              SizeConfig.width*0.30,
-                            ),
-                          ):Container(),
+                GestureDetector(
+                  onHorizontalDragCancel: () {
+                    _timerTeam.cancel();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    height: SizeConfig.height*0.25,
+                    width: SizeConfig.width*0.9,
+                    child: PageView.builder(
+                      controller: _teamController,
+                      itemCount: ((team_name.length+1)/2).toInt(),
+                      onPageChanged: (int team) {
+                        setState(() {
+                          _currentTeam = team;
+                        });
+                      },
+                      itemBuilder: (BuildContext context, int index) {
+                        return (_currentTeam != index)?Container()
+                            : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            (2*index < team_name.length)?Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: contactWidget(
+                                team_leads_images[2*index],
+                                team_leads_names[2*index],
+                                team_name[2*index],
+                                team_leads_phone[2*index],
+                                "LinkedIn",
+                                SizeConfig.width*0.30,
+                              ),
+                            ):Container(),
 
-                          (2*index+1 < team_name.length)?Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: contactWidget(
-                              team_leads_images[2*index+1],
-                              team_leads_names[2*index+1],
-                              team_name[2*index+1],
-                              team_leads_phone[2 * index],
-                              "LinkedIn",
-                              SizeConfig.width*0.30,
-                            ),
-                          ):SizedBox(width: 0,),
-                        ],
-                      );
-                    },
+                            (2*index+1 < team_name.length)?Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: contactWidget(
+                                team_leads_images[2*index+1],
+                                team_leads_names[2*index+1],
+                                team_name[2*index+1],
+                                team_leads_phone[2 * index],
+                                "LinkedIn",
+                                SizeConfig.width*0.30,
+                              ),
+                            ):SizedBox(width: 0,),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
               
@@ -235,50 +245,55 @@ class _ContactUsViewState extends State<ContactUsView> {
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  height: SizeConfig.height*0.25,
-                  width: SizeConfig.width*0.9,
-                  child: PageView.builder(
-                    controller: _eventController,
-                    itemCount: ((event_name.length+1)/2).toInt(),
-                    onPageChanged: (int event) {
-                      setState(() {
-                        _currentEvent = event;
-                      });
-                    },
-                    itemBuilder: (BuildContext context, int index) {
-                      return (_currentEvent != index)?Container()
-                          : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          (2*index < event_name.length)?Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: contactWidget(
-                              event_head_images[2*index],
-                              event_heads_names[2*index],
-                              event_name[2*index],
-                              event_heads_phone[2*index],
-                              "",
-                              SizeConfig.width*0.30,
-                            ),
-                          ):Container(),
+                GestureDetector(
+                  onHorizontalDragCancel: () {
+                    _timerEvent.cancel();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    height: SizeConfig.height*0.25,
+                    width: SizeConfig.width*0.9,
+                    child: PageView.builder(
+                      controller: _eventController,
+                      itemCount: ((event_name.length+1)/2).toInt(),
+                      onPageChanged: (int event) {
+                        setState(() {
+                          _currentEvent = event;
+                        });
+                      },
+                      itemBuilder: (BuildContext context, int index) {
+                        return (_currentEvent != index)?Container()
+                            : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            (2*index < event_name.length)?Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: contactWidget(
+                                event_head_images[2*index],
+                                event_heads_names[2*index],
+                                event_name[2*index],
+                                event_heads_phone[2*index],
+                                "",
+                                SizeConfig.width*0.30,
+                              ),
+                            ):Container(),
 
-                          (2*index+1 < event_name.length)?Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: contactWidget(
-                              event_head_images[2*index+1],
-                              event_heads_names[2*index+1],
-                              event_name[2*index+1],
-                              event_heads_phone[2 * index+1],
-                              "",
-                              SizeConfig.width*0.30,
-                            ),
-                          ):SizedBox(width: 0,),
-                        ],
-                      );
-                    },
+                            (2*index+1 < event_name.length)?Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: contactWidget(
+                                event_head_images[2*index+1],
+                                event_heads_names[2*index+1],
+                                event_name[2*index+1],
+                                event_heads_phone[2 * index+1],
+                                "",
+                                SizeConfig.width*0.30,
+                              ),
+                            ):SizedBox(width: 0,),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ),
                 ],
