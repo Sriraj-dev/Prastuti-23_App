@@ -72,20 +72,7 @@ Widget drawer() {
               ),
             ),
             ListTile(
-              onTap: ()=>homeViewController.changeSelectedView(2),
-              title: Text("About us",
-                  style: AppTheme().headText2.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 17,
-                  )),
-              leading: Icon(
-                Icons.info_outline_rounded,
-                color: AppTheme().secondaryColor,
-              ),
-            ),
-            ListTile(
-              onTap: () => homeViewController.changeSelectedView(3),
+              onTap: () => homeViewController.changeSelectedView(2),
               title: Text("Contact us",
                   style: AppTheme().headText2.copyWith(
                     color: Colors.black,
@@ -94,6 +81,19 @@ Widget drawer() {
                   )),
               leading: Icon(
                 Icons.phone,
+                color: AppTheme().secondaryColor,
+              ),
+            ),
+            ListTile(
+              onTap: () => homeViewController.changeSelectedView(3),
+              title: Text("About us",
+                  style: AppTheme().headText2.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 17,
+                      )),
+              leading: Icon(
+                Icons.info_outline_rounded,
                 color: AppTheme().secondaryColor,
               ),
             ),

@@ -26,8 +26,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   List<Widget> views = [
     EventsView(),
     ProfileView(),
+    ContactUsView(),
     AboutUsView(),
-    ContactUsView()
   ];
 
   HomeViewAnimation homeViewAnimation = HomeViewAnimation();
