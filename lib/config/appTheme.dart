@@ -33,11 +33,6 @@ final headText2 =  GoogleFonts.catamaran(
 
   fontSize: 16,
 );
-  //refer GoogleFonts package
-
-  //refer these fontStyles:
-  //outfit
-  
 }
 
 class TextColour{

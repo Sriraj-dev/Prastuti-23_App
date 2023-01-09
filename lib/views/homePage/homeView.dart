@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
-import 'package:prastuti_23/config/color_palette.dart';
-import 'package:prastuti_23/config/image_paths.dart';
+import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/view_models/home_view_model.dart';
 import 'package:prastuti_23/views/AboutUs/about_us.dart';
 import 'package:prastuti_23/views/contactUsPage/contact_us.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
 import 'package:prastuti_23/views/homePage/drawer.dart';
-import 'package:prastuti_23/views/loading/events_view_loading.dart';
-import 'package:prastuti_23/views/loading/profile_view_loading.dart';
 import 'package:prastuti_23/views/profile/profile_view.dart';
 
 class HomeView extends StatefulWidget {

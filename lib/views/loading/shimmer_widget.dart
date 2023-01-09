@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prastuti_23/config/color_palette.dart';
+import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:shimmer/shimmer.dart';
 

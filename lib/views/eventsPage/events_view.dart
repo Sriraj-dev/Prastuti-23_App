@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
-import 'package:prastuti_23/config/color_palette.dart';
+import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/eventsPage/event_timeline.dart';
