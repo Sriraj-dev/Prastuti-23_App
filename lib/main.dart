@@ -6,7 +6,7 @@ import 'package:prastuti_23/utils/routes/routes.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
 import 'package:flutter/services.dart';
 
-import 'config/color_palette.dart';
+import 'config/appTheme.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

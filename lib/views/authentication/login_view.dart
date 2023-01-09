@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:prastuti_23/animations/login_view_animation.dart';
-import 'package:prastuti_23/config/color_palette.dart';
+import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
@@ -268,10 +268,10 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   }
 }
 
-Widget SignInButton(int, WidgetRef, BuildContext, bool) {
+Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading) {
   return AnimatedContainer(
     duration: const Duration(milliseconds: 500),
-    child: (int <3 )?ElevatedButton(
+    child: (page <3 )?ElevatedButton(
       onPressed: () {
         null;
       },
@@ -285,12 +285,10 @@ Widget SignInButton(int, WidgetRef, BuildContext, bool) {
       ),
     ): ElevatedButton(
               onPressed: () async {
-                await WidgetRef.read(isLoggingIn.notifier)
-                    .login(context: BuildContext);
-                
-                Navigator.of(BuildContext).pushNamed(RouteNames.homeView);
+                await ref.read(isLoggingIn.notifier)
+                    .login(context: context);
               },
-              child: bool
+              child: isLoading
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

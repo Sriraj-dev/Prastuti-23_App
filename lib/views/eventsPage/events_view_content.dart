@@ -4,7 +4,7 @@
 //Events model need to be created in models folder ..and then work on them
 
 import 'package:flutter/cupertino.dart';
-import 'package:prastuti_23/config/color_palette.dart';
+import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 
 List<String> event_images = [

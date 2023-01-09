@@ -1,7 +1,10 @@
 import 'dart:core';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:prastuti_23/config/env.dart';
+import 'package:prastuti_23/repositories/auth_repository.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/view_models/notification_view_model.dart';
@@ -9,68 +12,48 @@ import 'package:prastuti_23/view_models/notification_view_model.dart';
 final isLoggingIn = StateNotifierProvider<AuthViewModelNotifier, bool>
   ((ref)=>AuthViewModelNotifier());
 
-final isLoggingOut = StateNotifierProvider<AuthViewModelNotifier, bool>(
-    (ref) => AuthViewModelNotifier());
-
 
 class AuthViewModelNotifier extends StateNotifier<bool>{
 
   AuthViewModelNotifier() : super (false);
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(
+   clientId: Env.webClientId,
     scopes: [
       'email',
     ],
   );
 
-  Future<void> login({BuildContext? context})async{
+  Future<void> login({required BuildContext context})async{
 
     state = true;
-    // ignore: todo
-    //TODO: Implement the Functionality of LOGIN - Sriraj
-    await Future.delayed(const Duration(seconds: 3));
-    Utils.flushBarMessage(
-            message: "Successfully Logged In",
-            context: context,
-            bgColor: Colors.green);
+    //NotificationServices().getPlayerId();
 
+    try {
+      final result =  await _googleSignIn.signIn();
+      if(result==null){state =false; return ;}
+      
+      result.authentication.then((googleKey)async{
+        log(googleKey.idToken!);
 
-  //if the user has no playerId then call
-  NotificationServices().getPlayerId();
+        //Apne backend server pe login kro.
+        //AuthRepository().loginApi(googleKey.idToken!);
+      });
 
-  //send this playerId to the Backend
+      Utils.flushBarMessage(
+      message: "Successfully Logged In",
+      context: context,
+      bgColor: Colors.green);
 
-    // try {
-    //  final result =  await _googleSignIn.signIn();
+      Navigator.of(context).pushNamed(RouteNames.homeView);
+      state = false;
 
-    //  print("Google SignIn Headers _---_> ${result!.authHeaders}");
-     
-    //  result.authentication.then((googleKey){
-    //   //TODO: Need to register the user from our backend.
-    //   print("The TOkens are -> ${googleKey.accessToken} , ${googleKey.idToken}");
-    //  });
-
-    //   //If the user is Successfully LoggedIn
-    //   if (result != null) {
-    //     Utils.flushBarMessage(
-    //         message: "Successfully Logged In",
-    //         context: context,
-    //         bgColor: Colors.green);
-    //   } else {
-    //     //Handle the case when the user is not logged In!
-    //     //Basically show a FlushBar with the error
-
-    //     Utils.flushBarMessage(
-    //         message: "Failed to Login!!",
-    //         context: context,
-    //         bgColor: Colors.red);
-    //   }
-
-    // } catch (error) {
-    //   print(error);
-    // }
-
-    state = false;
+    } catch (error) {
+      Utils.flushBarMessage(
+          message: "Failed to Login!!", context: context, bgColor: Colors.red);
+      
+      state = false;
+    }
   }
 
   Future<void> logout({BuildContext? context})async{
@@ -78,9 +61,10 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
     state = true;
     await _googleSignIn.disconnect();
 
+    state = false;
     Navigator.of(context!).pop();
     Navigator.of(context).pushNamed(RouteNames.loginView);
-    state = false;
+    
   }
 
 }

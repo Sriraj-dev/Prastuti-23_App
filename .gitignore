@@ -30,6 +30,9 @@
 .pub-cache/
 .pub/
 /build/
+/android/app/myKey.jks
+/android/app/google-services.json
+/lib/config/env.dart
 
 # Web related
 lib/generated_plugin_registrant.dart

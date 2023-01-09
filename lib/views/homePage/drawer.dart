@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:prastuti_23/config/color_palette.dart';
+import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/home_view_model.dart';
 
 
@@ -98,19 +100,28 @@ Widget drawer() {
               ),
             ),
             SizedBox(height: 5,),
-            Container(
-              height: SizeConfig.heightPercent * 5,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: AppTheme().primaryColor),
-              child: Center(
-                child: Text(
-                  "Logout",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500, color: Colors.white),
+            Consumer(builder: (context, ref, child) {
+              bool isLoading = ref.watch(isLoggingIn);
+              return InkWell(
+                onTap: () async {
+                  await ref.read(isLoggingIn.notifier)
+                      .logout(context: context);
+                },
+                child: Container(
+                  height: SizeConfig.heightPercent * 5,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: AppTheme().primaryColor),
+                  child: Center(
+                    child: (isLoading)?CircularProgressIndicator():Text(
+                      "Logout",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, color: Colors.white),
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            }),
           ],
         ),
       ),
