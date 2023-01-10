@@ -8,4 +8,5 @@ class RouteNames{
   static const String homeView = "/home";
   static const String eventsView = "/events";
   static const String profileView = "/profile";
+  static const String aboutusView = "/aboutus";
 }

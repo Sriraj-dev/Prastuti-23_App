@@ -177,7 +177,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 (2*index < team_name.length)?Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(horizontal: 17),
                                   child: contactWidget(
                                     team_leads_images[2*index],
                                     team_leads_names[2*index],
@@ -189,7 +189,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                 ):Container(),
 
                                 (2*index+1 < team_name.length)?Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(horizontal: 17),
                                   child: contactWidget(
                                     team_leads_images[2*index+1],
                                     team_leads_names[2*index+1],
@@ -272,7 +272,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                               children: [
 
                                 (2*index < event_name.length)?Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(horizontal: 17),
                                   child: contactWidget(
                                     event_head_images[2*index],
                                     event_heads_names[2*index],
@@ -284,7 +284,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                 ):SizedBox(width: 0),
 
                                 (2*index+1 < event_name.length)?Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  padding: const EdgeInsets.symmetric(horizontal: 17),
                                   child: contactWidget(
                                     event_head_images[2*index+1],
                                     event_heads_names[2*index+1],
