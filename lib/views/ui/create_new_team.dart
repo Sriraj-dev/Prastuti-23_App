@@ -2,9 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../config/appTheme.dart';
-import '../config/image_paths.dart';
-import '../config/screen_config.dart';
+import '../../config/appTheme.dart';
+import '../../config/image_paths.dart';
+import '../../config/screen_config.dart';
 
 class CreateNewTeam extends StatefulWidget {
   const CreateNewTeam({Key? key}) : super(key: key);

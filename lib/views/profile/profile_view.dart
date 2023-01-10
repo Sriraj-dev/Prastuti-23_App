@@ -14,7 +14,8 @@ import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../data/response/status.dart';
 import '../../utils/utils.dart';
-import '../create_new_team.dart';
+import '../ui/add_new_member.dart';
+import '../ui/create_new_team.dart';
 import '../eventsPage/events_view_content.dart';
 
 
@@ -497,6 +498,10 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       dividerColor: Colors.transparent
                     ),
                     child: ExpansionTile(
+                      iconColor: selectedAppTheme.isDarkMode?
+                      Colors.white:Colors.black,
+                      collapsedIconColor: selectedAppTheme.isDarkMode?
+                      Colors.white:Colors.black,
                       expandedAlignment: Alignment.topLeft,
                       title: AutoSizeText(
                         teamName,
@@ -529,17 +534,23 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                              child: Row(
-                                  children: [
-                                    Icon(Icons.add_box_rounded,color: AppTheme().primaryColor_Dark),
-                                    Text("New Member",
-                                      style: AppTheme().headText2.copyWith(
-                                        color: selectedAppTheme.isDarkMode?
-                                        Colors.white:Colors.black,
-                                        fontSize: 16
-                                      ),
-                                    )
-                                  ],
+                              child: GestureDetector(
+                                onTap: () => showDialog(
+                                  context: context,
+                                  builder: (context) => AddNewMember(),
+                                ),
+                                child: Row(
+                                    children: [
+                                      Icon(Icons.add_box_rounded,color: AppTheme().primaryColor_Dark),
+                                      Text("New Member",
+                                        style: AppTheme().headText2.copyWith(
+                                          color: selectedAppTheme.isDarkMode?
+                                          Colors.white:Colors.black,
+                                          fontSize: 16
+                                        ),
+                                      )
+                                    ],
+                                ),
                               ),
                             ),
                             SizedBox(height: 10,)
