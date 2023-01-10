@@ -71,7 +71,8 @@ class _ContactUsViewState extends State<ContactUsView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: AppTheme().backgroundColor,
+      backgroundColor: selectedAppTheme.isDarkMode?
+      AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,7 +133,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                         style: GoogleFonts.comicNeue(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            color: AppTheme().primaryColor
+                            color: selectedAppTheme.isDarkMode?
+                            Colors.white:AppTheme().primaryColor
                         )
                     ),
                   ),
@@ -148,7 +150,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                           activeIndex: _currentTeam,
                           count: ((team_name.length + 1) / 2).toInt(),
                           effect: WormEffect(
-                            activeDotColor: AppTheme().kSecondaryColor,
+                            activeDotColor: selectedAppTheme.isDarkMode?
+                            AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                             dotHeight: 4.5.sp,
                             dotWidth: 4.5.sp,
                           ),
@@ -213,8 +216,10 @@ class _ContactUsViewState extends State<ContactUsView> {
                           activeIndex: _currentTeam,
                           count: ((team_name.length + 1) / 2).toInt(),
                           effect: WormEffect(
-                            activeDotColor: AppTheme().backgroundColor,
-                            dotColor: AppTheme().backgroundColor,
+                            activeDotColor: selectedAppTheme.isDarkMode?
+                            AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+                            dotColor: selectedAppTheme.isDarkMode?
+                            AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
                             dotHeight: 6.0.sp,
                             dotWidth: 6.0.sp,
                           ),
@@ -231,7 +236,10 @@ class _ContactUsViewState extends State<ContactUsView> {
                         style: GoogleFonts.comicNeue(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            color: AppTheme().primaryColor)),
+                            color: selectedAppTheme.isDarkMode?
+                            AppTheme().primaryColor_Dark:AppTheme().primaryColor
+                        )
+                    ),
                   ),
                 ),
                 Row(
@@ -243,7 +251,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                         activeIndex: _currentEvent,
                         count: ((event_name.length + 1) / 2).toInt(),
                         effect: WormEffect(
-                          activeDotColor: AppTheme().kSecondaryColor,
+                          activeDotColor: selectedAppTheme.isDarkMode?
+                          AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                           dotHeight: 4.5.sp,
                           dotWidth: 4.5.sp,
                         ),
@@ -307,8 +316,10 @@ class _ContactUsViewState extends State<ContactUsView> {
                         activeIndex: _currentEvent,
                         count: ((event_name.length + 1) / 2).toInt(),
                         effect: WormEffect(
-                          activeDotColor: AppTheme().backgroundColor,
-                          dotColor: AppTheme().backgroundColor,
+                          activeDotColor: selectedAppTheme.isDarkMode?
+                          AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+                          dotColor: selectedAppTheme.isDarkMode?
+                          AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
                           dotHeight: 4.5.sp,
                           dotWidth: 4.5.sp,
                         ),
@@ -347,9 +358,10 @@ class _ContactUsViewState extends State<ContactUsView> {
                 width: width,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: AppTheme().backgroundColor,
+                    color: AppTheme().backgroundColor_Dark,
                     boxShadow: [BoxShadow(
-                        color: AppTheme().primaryColor.withOpacity(0.3),
+                        color: selectedAppTheme.isDarkMode?
+                        AppTheme().primaryColor_Dark.withOpacity(0.3):AppTheme().primaryColor.withOpacity(0.3),
                         blurRadius: 4.0,
                         spreadRadius: 3.0,
                         offset: Offset(4, 4)
@@ -364,7 +376,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                       AutoSizeText(
                         name,
                         style: AppTheme().headText1.copyWith(
-                            color: AppTheme().primaryColor,
+                            color: selectedAppTheme.isDarkMode?
+                            Colors.white:AppTheme().primaryColor,
                             fontSize: 18,
                             fontWeight: FontWeight.bold
                         ),
@@ -372,7 +385,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                       AutoSizeText(
                         position,
                         style: AppTheme().headText2.copyWith(
-                          color: AppTheme().primaryColor,
+                          color: selectedAppTheme.isDarkMode?
+                          Colors.white:AppTheme().primaryColor,
                           fontSize: 15,
                         ),
                       ),
@@ -441,7 +455,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                     ),
                     borderRadius: BorderRadius.circular(60),
                     boxShadow: [BoxShadow(
-                        color: AppTheme().secondaryColor.withOpacity(0.5),
+                        color: selectedAppTheme.isDarkMode?
+                        AppTheme().secondaryColor_Dark.withOpacity(0.5):AppTheme().secondaryColor.withOpacity(0.5),
                         blurRadius: 1.0,
                         spreadRadius: 1.0,
                         offset: Offset(0, 4)

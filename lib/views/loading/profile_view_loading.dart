@@ -25,15 +25,18 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppTheme().primaryColor,
+      color: selectedAppTheme.isDarkMode?
+      AppTheme().primaryColor_Dark:AppTheme().primaryColor,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: AppTheme().backgroundColor,
+          backgroundColor: selectedAppTheme.isDarkMode?
+          AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
           body: NestedScrollView(
               headerSliverBuilder: ((context, innerBoxIsScrolled) => [
                     SliverAppBar(
                       pinned: true,
-                      backgroundColor: AppTheme().primaryColor,
+                      backgroundColor: selectedAppTheme.isDarkMode?
+                      AppTheme().primaryColor_Dark:AppTheme().primaryColor,
                       expandedHeight: SizeConfig.heightPercent * 35,
                       leading: Center(
                         child: InkWell(
@@ -71,7 +74,8 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CircularProgressIndicator(
-                                      color: AppTheme().kSecondaryColor,
+                                      color: selectedAppTheme.isDarkMode?
+                                      AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                                     )
                                   ],
                                 ),
@@ -85,7 +89,8 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                             Size.fromHeight(AppBar().preferredSize.height),
                         child: Container(
                           width: double.maxFinite,
-                          color: AppTheme().backgroundColor,
+                          color: selectedAppTheme.isDarkMode?
+                          AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
                           child: Center(
                             child: TabBar(
                               isScrollable: true,
@@ -103,7 +108,8 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                               ],
                               indicatorSize: TabBarIndicatorSize.tab,
                               indicator: MaterialIndicator(
-                                color: AppTheme().kSecondaryColor,
+                                color: selectedAppTheme.isDarkMode?
+                                AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                                 height: 2,
                                 topLeftRadius: 8,
                                 topRightRadius: 8,
@@ -111,7 +117,8 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                                 bottomRightRadius: 8,
                                 tabPosition: TabPosition.bottom,
                               ),
-                              labelColor: AppTheme().kSecondaryColor,
+                              labelColor: selectedAppTheme.isDarkMode?
+                              AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                               labelStyle: AppTheme().headText2.copyWith(
                                   fontSize: 15, fontWeight: FontWeight.w700),
                               unselectedLabelStyle: AppTheme()
@@ -119,7 +126,8 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                                   .copyWith(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400),
-                              unselectedLabelColor: Colors.black,
+                              unselectedLabelColor: selectedAppTheme.isDarkMode?
+                              Colors.white:Colors.black,
                             ),
                           ),
                         ),

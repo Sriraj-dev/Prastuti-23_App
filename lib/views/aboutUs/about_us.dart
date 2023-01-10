@@ -22,7 +22,8 @@ class _AboutUsViewState extends State<AboutUsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme().backgroundColor,
+      backgroundColor: selectedAppTheme.isDarkMode?
+      AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
 
       body: Stack(
         alignment: Alignment.center,
@@ -39,8 +40,10 @@ class _AboutUsViewState extends State<AboutUsView> {
               styles:  BlobStyles(
                 color:  Colors.green,
                 gradient:  LinearGradient(
-                    colors: [AppTheme().kSecondaryColor.withOpacity(0.5),
-                      AppTheme().kReddark])
+                    colors: [selectedAppTheme.isDarkMode?
+                    AppTheme().kSecondaryColor_Dark.withOpacity(0.5):AppTheme().kSecondaryColor.withOpacity(0.5),
+                      selectedAppTheme.isDarkMode?
+                      AppTheme().kReddark_Dark:AppTheme().kReddark])
                     .createShader(Rect.fromLTRB(0, 0, 300, 300)),
                 strokeWidth:3,
               ),
@@ -58,8 +61,10 @@ class _AboutUsViewState extends State<AboutUsView> {
               styles:  BlobStyles(
                 color:  Colors.green,
                 gradient:  LinearGradient(
-                  colors: [AppTheme().kRed.withOpacity(0.5),
-                  AppTheme().kSecondaryColor.withOpacity(0.5)])
+                  colors: [selectedAppTheme.isDarkMode?
+                  AppTheme().kRed_Dark.withOpacity(0.5):AppTheme().kRed.withOpacity(0.5),
+                    selectedAppTheme.isDarkMode?
+                    AppTheme().kSecondaryColor_Dark.withOpacity(0.5):AppTheme().kSecondaryColor.withOpacity(0.5)])
                     .createShader(Rect.fromLTRB(0, 0, 10, 10)),
                 strokeWidth:3,
               ),
@@ -77,7 +82,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                     AutoSizeText(
                         'ABOUT US',
                         style: GoogleFonts.notoSerif(
-                          color: AppTheme().primaryColor,
+                          color: selectedAppTheme.isDarkMode?
+                          Colors.white:AppTheme().primaryColor,
                           fontWeight: FontWeight.w800,
                           fontSize: 60,
                         )
@@ -88,7 +94,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                           fontSize: 18,
                           letterSpacing: 1,
                           fontWeight: FontWeight.bold,
-                          color: AppTheme().primaryColor
+                          color: selectedAppTheme.isDarkMode?
+                          Colors.white:AppTheme().primaryColor,
                       ),
                       textAlign: TextAlign.justify,
                     ),
@@ -98,7 +105,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                     AutoSizeText(
                         'SPONSORS',
                         style: GoogleFonts.notoSerif(
-                          color: AppTheme().primaryColor,
+                          color: selectedAppTheme.isDarkMode?
+                          Colors.white:AppTheme().primaryColor,
                           fontWeight: FontWeight.w800,
                           fontSize: 40,
                         )
@@ -110,7 +118,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                         'REACH US ON',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.notoSerif(
-                          color: AppTheme().primaryColor,
+                          color: selectedAppTheme.isDarkMode?
+                          Colors.white:AppTheme().primaryColor,
                           fontWeight: FontWeight.w800,
                           fontSize: 30,
                         )

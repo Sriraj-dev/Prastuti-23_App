@@ -21,10 +21,12 @@ class _CreateNewTeamState extends State<CreateNewTeam> {
         width: SizeConfig.width*0.75,
         height: SizeConfig.height*0.31,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: selectedAppTheme.isDarkMode?
+          Colors.black:Colors.white,
           borderRadius: BorderRadius.circular(20.0),
           boxShadow: [BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: selectedAppTheme.isDarkMode?
+              Colors.white.withOpacity(0.3):Colors.black.withOpacity(0.3),
               blurRadius: 4.0,
               spreadRadius: 3.0,
               offset: Offset(4, 4)
@@ -56,7 +58,8 @@ class _CreateNewTeamState extends State<CreateNewTeam> {
             AutoSizeText(
               'Create New Team',
               style: AppTheme().headText1.copyWith(
-                  color: Colors.black,
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 20
               ),
@@ -92,7 +95,8 @@ class _CreateNewTeamState extends State<CreateNewTeam> {
                     height: 40,
                     decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.black
+                          color: selectedAppTheme.isDarkMode?
+                          Colors.white:Colors.black
                         ),
                         borderRadius: BorderRadius.circular(20.0),
                         // boxShadow: [BoxShadow(
@@ -106,7 +110,8 @@ class _CreateNewTeamState extends State<CreateNewTeam> {
                       child: Text(
                           'Create',
                           style: GoogleFonts.catamaran(
-                            color: Colors.black,
+                            color: selectedAppTheme.isDarkMode?
+                            Colors.white:Colors.black,
                             fontWeight: FontWeight.bold,
                           )
                       ),

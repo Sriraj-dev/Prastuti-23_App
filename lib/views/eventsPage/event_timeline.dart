@@ -14,7 +14,8 @@ class Event_Timeline extends StatelessWidget {
     return (timelines.length==0)?Center(
       child: Text("Timeline of this event will be released soon!!",
         style: AppTheme().headText2.copyWith(
-          color: AppTheme().secondaryColor
+          color: selectedAppTheme.isDarkMode?
+          Colors.white:AppTheme().secondaryColor
         ),
       ),
     ):
@@ -44,11 +45,13 @@ class Event_Timeline extends StatelessWidget {
               width: 15,
               indicator: Container(
                 decoration: BoxDecoration(
-                  color: AppTheme().backgroundColor,
+                  color: selectedAppTheme.isDarkMode?
+                  AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
                   shape: BoxShape.circle,
                   border: Border.all(width: 5,
                   color:  eventDetail.isCompleted!
-                              ? AppTheme().kSecondaryColor
+                              ? selectedAppTheme.isDarkMode?
+                  AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor
                               : Colors.grey
                   )
                 ),
@@ -57,7 +60,8 @@ class Event_Timeline extends StatelessWidget {
             afterLineStyle: LineStyle(
               thickness: 2,
               color: eventDetail.isCompleted!
-                    ? AppTheme().kSecondaryColor
+                    ? selectedAppTheme.isDarkMode?
+              AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor
                     : Colors.grey
             ),
           ),
@@ -69,7 +73,8 @@ class Event_Timeline extends StatelessWidget {
             children: [
               Text(eventDetail.date??"",
                 style: AppTheme().headText2.copyWith(
-                  color: Colors.black
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:Colors.black
                 ),
               ),
               _buildCard(eventDetail)
@@ -94,7 +99,8 @@ class Event_Timeline extends StatelessWidget {
         children: [
           Text(eventDetail.title??"",
             style: AppTheme().headText1.copyWith(
-              color: Colors.black,
+              color: selectedAppTheme.isDarkMode?
+              Colors.white:Colors.black,
               fontWeight: FontWeight.w500,
               fontSize: 16
             ),
@@ -103,7 +109,8 @@ class Event_Timeline extends StatelessWidget {
           Text(
             eventDetail.slot??"",
             style: AppTheme().headText2.copyWith(
-                color: Colors.grey[700], fontSize: 14),
+                color: selectedAppTheme.isDarkMode?
+                Colors.white:Colors.grey[700], fontSize: 14),
           )
         ],
       ),

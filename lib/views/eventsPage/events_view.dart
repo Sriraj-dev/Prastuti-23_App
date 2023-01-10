@@ -49,22 +49,26 @@ class _EventsViewState extends State<EventsView>
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: AppTheme().backgroundColor,
-      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: selectedAppTheme.isDarkMode?
+      AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
+      Brightness.light:Brightness.dark,
     ));
 
     return Container(
-      color: AppTheme().backgroundColor,
+      color: selectedAppTheme.isDarkMode?
+      AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
       child: SafeArea(
         child: Consumer(builder: (context, ref, child) {
           final allEventsList = ref.watch(eventsProvider);
           return allEventsList.when(
-            error: ((e, stackTrace) => const ErrorView()),
-            loading: () => const Events_view_skeleton(),
-            data: (allEvents) {
-              List<Events> events = allEvents.events as List<Events>;
-              return Scaffold(
-                backgroundColor: AppTheme().backgroundColor,
+              error: ((e, stackTrace) => const ErrorView()),
+              loading: ()=>const Events_view_skeleton(),
+              data: (allEvents){
+                List<Events> events = allEvents.events as List<Events>;
+                return Scaffold(
+                backgroundColor: selectedAppTheme.isDarkMode?
+                AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
                 appBar: buildAppBar(events),
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +99,8 @@ class _EventsViewState extends State<EventsView>
                                                 "Invalid")
                                             .toUpperCase(),
                                         style: AppTheme().headText1.copyWith(
-                                            color: AppTheme().primaryColor,
+                                            color: selectedAppTheme.isDarkMode?
+                                            Colors.white:AppTheme().primaryColor,
                                             fontWeight: FontWeight.w400),
                                       ),
                                       const SizedBox(
@@ -125,10 +130,11 @@ class _EventsViewState extends State<EventsView>
                                         style: ElevatedButton.styleFrom(
                                           shape: const StadiumBorder(),
                                           backgroundColor:
-                                              AppTheme().kSecondaryColor,
-                                          shadowColor: AppTheme()
-                                              .kSecondaryColor
-                                              .withOpacity(0.5),
+                                          selectedAppTheme.isDarkMode?
+                                          AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                                          shadowColor: selectedAppTheme.isDarkMode?
+                                          AppTheme().kSecondaryColor_Dark.withOpacity(0.5):
+                                          AppTheme().kSecondaryColor.withOpacity(0.5),
                                           elevation: 5,
                                           fixedSize: Size(140, 40),
                                         ),
@@ -170,8 +176,9 @@ class _EventsViewState extends State<EventsView>
                                               style: AppTheme()
                                                   .headText2
                                                   .copyWith(
-                                                      color: AppTheme()
-                                                          .secondaryColor),
+                                                      color: selectedAppTheme.isDarkMode?
+                                                      Colors.white:AppTheme().secondaryColor
+                                              ),
                                             ),
                                           ),
                                           Row(
@@ -184,8 +191,8 @@ class _EventsViewState extends State<EventsView>
                                                 children: [
                                                   Icon(
                                                     Icons.people_alt_rounded,
-                                                    color: AppTheme()
-                                                        .kSecondaryColor,
+                                                    color: selectedAppTheme.isDarkMode?
+                                                    AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -199,8 +206,9 @@ class _EventsViewState extends State<EventsView>
                                                     style: AppTheme()
                                                         .headText2
                                                         .copyWith(
-                                                            color: AppTheme()
-                                                                .secondaryColor),
+                                                            color: selectedAppTheme.isDarkMode?
+                                                            Colors.white:AppTheme().secondaryColor
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -211,8 +219,8 @@ class _EventsViewState extends State<EventsView>
                                                   Icon(
                                                     Icons
                                                         .sports_gymnastics_outlined,
-                                                    color: AppTheme()
-                                                        .kSecondaryColor,
+                                                    color: selectedAppTheme.isDarkMode?
+                                                    AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -226,8 +234,9 @@ class _EventsViewState extends State<EventsView>
                                                     style: AppTheme()
                                                         .headText2
                                                         .copyWith(
-                                                            color: AppTheme()
-                                                                .secondaryColor),
+                                                            color: selectedAppTheme.isDarkMode?
+                                                            Colors.white:AppTheme().secondaryColor
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -238,13 +247,17 @@ class _EventsViewState extends State<EventsView>
                                               dividerColor: Colors.transparent,
                                             ),
                                             child: ExpansionTile(
+                                              iconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
+                                              collapsedIconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
                                               title: Text(
                                                 "Timeline",
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                        color: AppTheme()
-                                                            .primaryColor,
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
                                                         fontWeight:
                                                             FontWeight.w500),
                                               ),
@@ -262,13 +275,17 @@ class _EventsViewState extends State<EventsView>
                                                 dividerColor:
                                                     Colors.transparent),
                                             child: ExpansionTile(
+                                              iconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
+                                              collapsedIconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
                                               title: Text(
                                                 "Rules",
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                        color: AppTheme()
-                                                            .primaryColor,
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
                                                         fontWeight:
                                                             FontWeight.w500),
                                               ),
@@ -285,13 +302,17 @@ class _EventsViewState extends State<EventsView>
                                                 dividerColor:
                                                     Colors.transparent),
                                             child: ExpansionTile(
+                                              iconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
+                                              collapsedIconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
                                               title: Text(
                                                 "Rewards",
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                        color: AppTheme()
-                                                            .primaryColor,
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
                                                         fontWeight:
                                                             FontWeight.w500),
                                               ),
@@ -343,35 +364,38 @@ class _EventsViewState extends State<EventsView>
 
   AppBar buildAppBar(List<Events> events) {
     return AppBar(
-      elevation: 0,
-      backgroundColor:
-          AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
-      leading: Center(
-        child: InkWell(
-          onTap: _onDrawerTapped,
-          child: AnimatedIcon(
-            icon: AnimatedIcons.menu_close,
-            color: AppTheme().secondaryColor,
-            size: 33,
-            progress: drawerAnimationController.view,
-          ),
-        ),
-      ),
-      actions: [
-        Obx((() => AnimatedSmoothIndicator(
-              activeIndex: _selectedEvent.value,
-              count: events.length,
-              effect: WormEffect(
-                activeDotColor: AppTheme().kSecondaryColor,
-                dotHeight: 6.0.sp,
-                dotWidth: 6.0.sp,
+            elevation: 0,
+            backgroundColor: selectedAppTheme.isDarkMode?
+            AppTheme().backgroundColor_Dark.withOpacity(opacityAnimation.value)
+            :AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
+            leading: Center(
+              child: InkWell(
+                onTap: _onDrawerTapped,
+                child: AnimatedIcon(
+                  icon: AnimatedIcons.menu_close,
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:AppTheme().secondaryColor,
+                  size: 33,
+                  progress: drawerAnimationController.view,
+                ),
               ),
-            ))),
-        SizedBox(
-          width: 15,
-        ),
-      ],
-    );
+            ),
+            actions: [
+              Obx((() => 
+                AnimatedSmoothIndicator(
+                activeIndex: _selectedEvent.value,
+                count: events.length,
+                effect: WormEffect(
+                  activeDotColor: selectedAppTheme.isDarkMode?
+                  AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                  dotHeight: 6.0.sp,
+                  dotWidth: 6.0.sp,
+                ),
+              )
+              )),
+              SizedBox(width: 15,),
+            ],
+          );
   }
 
   Widget eventImage(String image) {
@@ -390,7 +414,8 @@ class _EventsViewState extends State<EventsView>
             //TODO: decide shadow color .
             boxShadow: [
               BoxShadow(
-                color: AppTheme().secondaryColor.withOpacity(0.5),
+                color: selectedAppTheme.isDarkMode?
+                AppTheme().secondaryColor_Dark.withOpacity(0.5):AppTheme().secondaryColor.withOpacity(0.5),
                 spreadRadius: 6,
                 blurRadius: 10,
                 offset: Offset(0, 5),
