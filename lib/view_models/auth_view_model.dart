@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -36,6 +37,13 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
       result.authentication.then((googleKey)async{
         log(googleKey.idToken!);
 
+         Dio dio = new Dio();
+        Response response = await dio.get(
+            'https://www.googleapis.com/oauth2/v1/tokeninfo?id_token=' +
+                googleKey.idToken!);
+        print(response.data); 
+
+        
         //Apne backend server pe login kro.
         //AuthRepository().loginApi(googleKey.idToken!);
       });

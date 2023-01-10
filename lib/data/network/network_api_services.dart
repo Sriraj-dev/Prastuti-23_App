@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:prastuti_23/data/app_exceptions.dart';
 import 'package:prastuti_23/data/network/base_api_services.dart';
 import 'package:http/http.dart' as http;
+import 'package:prastuti_23/utils/utils.dart';
 
 
 class NetworkApiServices extends BaseApiServices{
@@ -14,6 +16,7 @@ class NetworkApiServices extends BaseApiServices{
     try{
       final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 20));
 
+      print("The get Api Response is - ${response.body}");
       responseJson = checkResponse(response);
     }on SocketException{
       throw FetchDataException("No Internet Connection");
