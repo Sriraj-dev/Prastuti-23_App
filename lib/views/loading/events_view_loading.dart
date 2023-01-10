@@ -26,7 +26,8 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppTheme().backgroundColor,
+        backgroundColor: selectedAppTheme.isDarkMode?
+        AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
         body: Padding(
           padding: const EdgeInsets.only(bottom: 20, top: 10, left: 0, right: 0),
           child: SingleChildScrollView(
@@ -61,7 +62,8 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             children: [
                               Icon(
                                 Icons.people_alt_rounded,
-                                color: AppTheme().kSecondaryColor,
+                                color: selectedAppTheme.isDarkMode?
+                                AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                               ),
                               SizedBox(
                                 width: 5,
@@ -74,7 +76,8 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             children: [
                               Icon(
                                 Icons.sports_gymnastics_outlined,
-                                color: AppTheme().kSecondaryColor,
+                                color: selectedAppTheme.isDarkMode?
+                                AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
                               ),
                               SizedBox(
                                 width: 5,
@@ -94,7 +97,9 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Timeline",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: AppTheme().secondaryColor),
+                                .copyWith(color: selectedAppTheme.isDarkMode?
+                            AppTheme().secondaryColor_Dark:AppTheme().secondaryColor
+                            ),
                           ),
                           children: [
                             skeleton(20, SizeConfig.widthPercent*70)
@@ -109,7 +114,9 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Rules",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: AppTheme().secondaryColor),
+                                .copyWith(color: selectedAppTheme.isDarkMode?
+                            AppTheme().secondaryColor_Dark:AppTheme().secondaryColor
+                            ),
                           ),
                           children: [
                             skeleton(20, SizeConfig.widthPercent * 70)
@@ -124,7 +131,9 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Rewards",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: AppTheme().secondaryColor),
+                                .copyWith(color: selectedAppTheme.isDarkMode?
+                            AppTheme().secondaryColor_Dark:AppTheme().secondaryColor
+                            ),
                           ),
                           children: [
                             skeleton(20, SizeConfig.widthPercent * 70)

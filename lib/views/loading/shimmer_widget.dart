@@ -15,6 +15,8 @@ Widget skeleton(double height, double width) {
               color: Colors.white, borderRadius: BorderRadius.circular(10)),
         ),
         baseColor: Colors.grey.withOpacity(0.04),
-        highlightColor: AppTheme().backgroundColor),
+        highlightColor: selectedAppTheme.isDarkMode?
+        AppTheme().backgroundColor_Dark:AppTheme().backgroundColor
+    ),
   );
 }

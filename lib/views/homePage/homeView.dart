@@ -56,13 +56,16 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
           appBar: (homeViewController.selectedView == 1 || homeViewController.selectedView==0)?null:
           AppBar(
             elevation: 0,
-            backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
+            backgroundColor: selectedAppTheme.isDarkMode?
+            AppTheme().backgroundColor_Dark.withOpacity(opacityAnimation.value)
+              :AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
             leading: Center(
               child: InkWell(
                 onTap: _onDrawerTapped,
                 child: AnimatedIcon(
                   icon: AnimatedIcons.menu_close,
-                  color: AppTheme().secondaryColor,
+                  color: selectedAppTheme.isDarkMode?
+                  AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
                   size: 33,
                   progress: drawerAnimationController.view,
                 ),
