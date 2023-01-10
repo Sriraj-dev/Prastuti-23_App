@@ -1,6 +1,7 @@
 
 
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 

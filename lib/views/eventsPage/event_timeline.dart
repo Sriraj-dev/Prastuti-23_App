@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class Event_Timeline extends StatelessWidget {
 
-  List<Map<String,dynamic>> timeline;
-  Event_Timeline({Key? key,required this.timeline}) : super(key: key);
+  List<Timeline> timelines;
+  Event_Timeline({Key? key,required this.timelines}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return (timeline.length==0)?Center(
+    return (timelines.length==0)?Center(
       child: Text("Timeline of this event will be released soon!!",
         style: AppTheme().headText2.copyWith(
           color: AppTheme().secondaryColor
@@ -21,13 +22,13 @@ class Event_Timeline extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for(int i=0;i<timeline.length;i++)
-         _subEvent(timeline[i],i==0, i==timeline.length-1)
+        for(int i=0;i<timelines.length;i++)
+         _subEvent(timelines[i],i==0, i==timelines.length-1)
       ],
     );
   }
 
-  Widget _subEvent(Map<String,dynamic> eventDetail,bool isFirst,bool isLast){
+  Widget _subEvent(Timeline eventDetail,bool isFirst,bool isLast){
     return Row(
       children: [
         Container(
@@ -46,7 +47,7 @@ class Event_Timeline extends StatelessWidget {
                   color: AppTheme().backgroundColor,
                   shape: BoxShape.circle,
                   border: Border.all(width: 5,
-                  color:  eventDetail["isCompleted"]
+                  color:  eventDetail.isCompleted!
                               ? AppTheme().kSecondaryColor
                               : Colors.grey
                   )
@@ -55,7 +56,7 @@ class Event_Timeline extends StatelessWidget {
             ),
             afterLineStyle: LineStyle(
               thickness: 2,
-              color: eventDetail["isCompleted"]
+              color: eventDetail.isCompleted!
                     ? AppTheme().kSecondaryColor
                     : Colors.grey
             ),
@@ -66,7 +67,7 @@ class Event_Timeline extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(eventDetail['date'],
+              Text(eventDetail.date??"",
                 style: AppTheme().headText2.copyWith(
                   color: Colors.black
                 ),
@@ -79,7 +80,7 @@ class Event_Timeline extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(eventDetail){
+  Widget _buildCard(Timeline eventDetail){
     return Container(
       width: SizeConfig.widthPercent*50,
       decoration: BoxDecoration(
@@ -91,7 +92,7 @@ class Event_Timeline extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(eventDetail['title'],
+          Text(eventDetail.title??"",
             style: AppTheme().headText1.copyWith(
               color: Colors.black,
               fontWeight: FontWeight.w500,
@@ -100,7 +101,7 @@ class Event_Timeline extends StatelessWidget {
           ),
           SizedBox(height: 10,),
           Text(
-            eventDetail['slot'],
+            eventDetail.slot??"",
             style: AppTheme().headText2.copyWith(
                 color: Colors.grey[700], fontSize: 14),
           )

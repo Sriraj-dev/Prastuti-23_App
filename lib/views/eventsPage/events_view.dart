@@ -1,17 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
-import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/models/eventListModel.dart';
+import 'package:prastuti_23/views/error_view.dart';
 import 'package:prastuti_23/views/eventsPage/event_timeline.dart';
 import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
+import 'package:prastuti_23/views/loading/events_view_loading.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../utils/utils.dart';
+import '../../view_models/events_view_model.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({Key? key}) : super(key: key);
@@ -26,15 +29,12 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print("Init State is running in EventsView ---------");
     eventsViewAnimation.initiatePageAnimation(this);
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     SizeConfig.init(context);
   }
@@ -50,242 +50,290 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
     return Container(
       color: AppTheme().backgroundColor,
       child: SafeArea(
-        child: Scaffold(
-          backgroundColor: AppTheme().backgroundColor,
-          appBar: AppBar(
-              elevation: 0,
-              backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
-              leading: Center(
-                child: InkWell(
-                  onTap: _onDrawerTapped,
-                  child: AnimatedIcon(
-                    icon: AnimatedIcons.menu_close,
-                    color: AppTheme().secondaryColor,
-                    size: 33,
-                    progress: drawerAnimationController.view,
-                  ),
-                ),
-              ),
-              actions: [
-                Obx((() => 
-                  AnimatedSmoothIndicator(
-                  activeIndex: _selectedEvent.value,
-                  count: titles.length,
-                  effect: WormEffect(
-                    activeDotColor: AppTheme().kSecondaryColor,
-                    dotHeight: 6.0.sp,
-                    dotWidth: 6.0.sp,
-                  ),
-                )
-                )),
-                SizedBox(width: 15,),
-              ],
-            ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 15),
-                child: Column(
+        child:   Consumer(builder: (context, ref, child) {
+          final allEventsList = ref.watch(eventsProvider);
+          return allEventsList.when(
+              error: ((e, stackTrace) => const ErrorView()),
+              loading: ()=>const Events_view_skeleton(),
+              data: (allEvents){
+                List<Events> events = allEvents.events as List<Events>;
+                return Scaffold(
+                backgroundColor: AppTheme().backgroundColor,
+                appBar: buildAppBar(events),
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Obx(() => Opacity(
-                        opacity: animationController.pagePaddingValue.value,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: (1 - animationController
-                                          .pagePaddingValue.value) * 0),
-                          child: FittedBox(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  titles[_selectedEvent.value],
-                                  style: AppTheme().headText1.copyWith(
-                                      color: AppTheme().primaryColor,
-                                      fontWeight: FontWeight.w400
-                                  ),
-                                ),
-                                const SizedBox(width: 20,),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: AutoSizeText(
-                                    'Register',
-                                    style: AppTheme().headText2.copyWith(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const StadiumBorder(),
-                                    backgroundColor: AppTheme().kSecondaryColor,
-                                    shadowColor: AppTheme()
-                                        .kSecondaryColor
-                                        .withOpacity(0.5),
-                                    elevation: 5,
-                                    fixedSize: Size(140, 40),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ) ,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 3),
-                      child: Obx(
-                        () => Opacity(
-                          opacity: animationController.pagePaddingValue.value,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: (1 -
-                                        animationController
-                                            .pagePaddingValue.value) *
-                                    25),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: SizeConfig.height*0.52,
-                              child: ListView(
-                                physics: const BouncingScrollPhysics(),
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.only(bottom: 10),
-                                    child: Text(
-                                      desc[_selectedEvent.value],
-                                      style: AppTheme().headText2.copyWith(
-                                          color: AppTheme().secondaryColor
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(
+                            () => Opacity(
+                              opacity:
+                                  animationController.pagePaddingValue.value,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: (1 -
+                                            animationController
+                                                .pagePaddingValue.value) *
+                                        0),
+                                child: FittedBox(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Icon(Icons.people_alt_rounded,
-                                          color: AppTheme().kSecondaryColor,),
-                                          SizedBox(width: 5,),
-                                          Text("103",
-                                          style: AppTheme().headText2.copyWith(
-                                            color: AppTheme().secondaryColor
-                                          ),
-                                        )
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.sports_gymnastics_outlined,
-                                          color: AppTheme().kSecondaryColor,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          "Solo Event",
-                                          style: AppTheme().headText2.copyWith(
-                                              color: AppTheme().secondaryColor),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                  ),
-                                  Theme(
-                                    data: Theme.of(context).copyWith(
-                                      dividerColor: Colors.transparent,
-                                    ),
-                                    child: ExpansionTile(
-                                      title: Text(
-                                        "Timeline",
-                                        style: AppTheme().headText2.copyWith(
-                                          color: AppTheme().primaryColor,
-                                          fontWeight: FontWeight.w500
-                                        ),
-                                      ),
-                                  
-                                      children: [
-                                        Event_Timeline(timeline: timeLines[_selectedEvent.value]),
-                                      ],
-                                    ),
-                                  ),
-                                  Theme(
-                                    data: Theme.of(context).copyWith(
-                                      dividerColor: Colors.transparent
-                                    ),
-                                    child: ExpansionTile(
-                                    title: Text(
-                                      "Rules",
-                                      style: AppTheme()
-                                          .headText2
-                                          .copyWith(
-                                            color: AppTheme().primaryColor,
-                                            fontWeight: FontWeight.w500
-                                          ),
-                                    ),
-                                    children: const [
                                       Text(
-                                          "Rules for this event will be announced soon!!")
+                                        (events[_selectedEvent.value].name??"Invalid").toUpperCase(),
+                                        style: AppTheme().headText1.copyWith(
+                                            color: AppTheme().primaryColor,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {},
+                                        child: AutoSizeText(
+                                          'Register',
+                                          style: AppTheme().headText2.copyWith(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          shape: const StadiumBorder(),
+                                          backgroundColor:
+                                              AppTheme().kSecondaryColor,
+                                          shadowColor: AppTheme()
+                                              .kSecondaryColor
+                                              .withOpacity(0.5),
+                                          elevation: 5,
+                                          fixedSize: Size(140, 40),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-                                Theme(
-                                      data: Theme.of(context).copyWith(
-                                          dividerColor: Colors.transparent),
-                                      child: ExpansionTile(
-                                        title: Text(
-                                          "Rewards",
-                                          style: AppTheme()
-                                              .headText2
-                                              .copyWith(color: AppTheme().primaryColor,
-                                              fontWeight: FontWeight.w500
-                                            ),
-                                        ),
-                                        children: const [
-                                          Text(
-                                              "Rewards for this event will be announced soon!!")
-                                        ],
-                                      ),
-                                    )
-                                  
-                                ]
                               ),
                             ),
                           ),
-                        ),
+                          const SizedBox(height: 10,),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 3),
+                            child: Obx(
+                              () => Opacity(
+                                opacity:
+                                    animationController.pagePaddingValue.value,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: (1 -
+                                              animationController
+                                                  .pagePaddingValue.value) *
+                                          25),
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    height: SizeConfig.height * 0.52,
+                                    child: ListView(
+                                        physics: const BouncingScrollPhysics(),
+                                        children: [
+                                          Container(
+                                            padding:
+                                                EdgeInsets.only(bottom: 10),
+                                            child: Text(
+                                              events[_selectedEvent.value].description??"",
+                                              style: AppTheme()
+                                                  .headText2
+                                                  .copyWith(
+                                                      color: AppTheme()
+                                                          .secondaryColor),
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.people_alt_rounded,
+                                                    color: AppTheme()
+                                                        .kSecondaryColor,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    (events[_selectedEvent.value].noOfParticipants??0).toString(),
+                                                    style: AppTheme()
+                                                        .headText2
+                                                        .copyWith(
+                                                            color: AppTheme()
+                                                                .secondaryColor),
+                                                  )
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons
+                                                        .sports_gymnastics_outlined,
+                                                    color: AppTheme()
+                                                        .kSecondaryColor,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    (events[_selectedEvent.value].teamEvent!)?"Team Event":"Solo Event",
+                                                    style: AppTheme()
+                                                        .headText2
+                                                        .copyWith(
+                                                            color: AppTheme()
+                                                                .secondaryColor),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Theme(
+                                            data: Theme.of(context).copyWith(
+                                              dividerColor: Colors.transparent,
+                                            ),
+                                            child: ExpansionTile(
+                                              title: Text(
+                                                "Timeline",
+                                                style: AppTheme()
+                                                    .headText2
+                                                    .copyWith(
+                                                        color: AppTheme()
+                                                            .primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                              children: [
+                                                Event_Timeline(timelines: events[_selectedEvent.value].timeline!,),
+                                              ],
+                                            ),
+                                          ),
+                                          Theme(
+                                            data: Theme.of(context).copyWith(
+                                                dividerColor:
+                                                    Colors.transparent),
+                                            child: ExpansionTile(
+                                              title: Text(
+                                                "Rules",
+                                                style: AppTheme()
+                                                    .headText2
+                                                    .copyWith(
+                                                        color: AppTheme()
+                                                            .primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                              children: [
+                                                Text(
+                                                    events[_selectedEvent.value].rules??"")
+                                              ],
+                                            ),
+                                          ),
+                                          Theme(
+                                            data: Theme.of(context).copyWith(
+                                                dividerColor:
+                                                    Colors.transparent),
+                                            child: ExpansionTile(
+                                              title: Text(
+                                                "Rewards",
+                                                style: AppTheme()
+                                                    .headText2
+                                                    .copyWith(
+                                                        color: AppTheme()
+                                                            .primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                              children:  [
+                                                Text(
+                                                    events[_selectedEvent.value]
+                                                            .rewards ??"")
+                                              ],
+                                            ),
+                                          )
+                                        ]),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                  height: SizeConfig.heightPercent * 25,
-                  child: PageView.builder(
-                      controller: PageController(viewportFraction: 0.88),
-                      itemCount: titles.length,
-                      onPageChanged: ((value) {
-                        _selectedEvent.value = value;
-                        eventsViewAnimation.restartPageAnimation();
-                      }),
-                      itemBuilder: (context, index) {
-                        return eventImage(index);
-                      }
+                      buildPageView(events)
+                    ],
                   ),
-                )
-            ],
-          ),
-        ),
+                );
+              },
+            );
+        }),
       ),
     );
   }
 
-  Widget eventImage(int index){
+  Container buildPageView(List<Events> events) {
+    return Container(
+                    height: SizeConfig.heightPercent * 25,
+                    child: PageView.builder(
+                        controller: PageController(viewportFraction: 0.88),
+                        itemCount: events.length,
+                        onPageChanged: ((value) {
+                          _selectedEvent.value = value;
+                          eventsViewAnimation.restartPageAnimation();
+                        }),
+                        itemBuilder: (context, index) {
+                          String image = event_images[(events[index].name??"Codigo").toUpperCase()]!;
+                          return eventImage(image);
+                        }),
+                  );
+  }
+
+  AppBar buildAppBar(List<Events> events) {
+    return AppBar(
+            elevation: 0,
+            backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
+            leading: Center(
+              child: InkWell(
+                onTap: _onDrawerTapped,
+                child: AnimatedIcon(
+                  icon: AnimatedIcons.menu_close,
+                  color: AppTheme().secondaryColor,
+                  size: 33,
+                  progress: drawerAnimationController.view,
+                ),
+              ),
+            ),
+            actions: [
+              Obx((() => 
+                AnimatedSmoothIndicator(
+                activeIndex: _selectedEvent.value,
+                count: events.length,
+                effect: WormEffect(
+                  activeDotColor: AppTheme().kSecondaryColor,
+                  dotHeight: 6.0.sp,
+                  dotWidth: 6.0.sp,
+                ),
+              )
+              )),
+              SizedBox(width: 15,),
+            ],
+          );
+  }
+
+  Widget eventImage(String image){
     return Padding(
       padding: const EdgeInsets.only(left: 8,right: 8,bottom: 30,top: 10),
       child: Material(
@@ -308,7 +356,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
               ),
             ],
             image: DecorationImage(
-                image: AssetImage(event_images[index]),
+                image: AssetImage(image),
                 fit: BoxFit.cover),
           ),
         ),
