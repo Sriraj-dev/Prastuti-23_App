@@ -14,6 +14,7 @@ import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../data/response/status.dart';
 import '../../utils/utils.dart';
+import '../create_new_team.dart';
 import '../eventsPage/events_view_content.dart';
 
 
@@ -179,22 +180,50 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                     buildTeamsList(regTeams),
                     Positioned(
                       bottom: 10,
-                      right: 10,
+                      right: 30,
                       child: Container(
-                        alignment: Alignment.bottomRight,
+                        alignment: Alignment.bottomCenter,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) => CreateNewTeam(),
+                          ),
                           child: SizedBox(
-                              height: 35.sp,
-                              width: 35.sp,
-                              child: Image.asset(ImagePaths.add)
+                              height: 35,
+                              width: SizeConfig.width*0.8,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 15,
+                                    height: 15,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(ImagePaths.add),
+                                        fit: BoxFit.cover
+                                      )
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  AutoSizeText(
+                                      'Create New Team',
+                                      style: AppTheme().headText2.copyWith(
+                                          color: Colors.white
+                                      )
+                                  ),
+                                ],
+                              )
                           ),
                           style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                             backgroundColor: AppTheme().primaryColor,
-                            fixedSize: Size(45.sp, 45.sp),
+                            fixedSize: Size(SizeConfig.width*0.8, 45),
                             shadowColor: AppTheme().primaryColor,
-                            elevation: 15.sp,
+                            elevation: 5,
                           ),
                         ),
                       )
@@ -238,11 +267,11 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     final bool isStretched = isAnimating || state == ButtonState.init;
     final bool isDone = state == ButtonState.done;
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
+      margin: EdgeInsets.fromLTRB(35, 20, 35, 10),
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Color.fromARGB(255, 181, 200, 232),
+          color: AppTheme().secondaryColorLight,
           boxShadow: [BoxShadow(
               color: AppTheme().primaryColor.withOpacity(0.3),
               blurRadius: 4.0,
@@ -318,7 +347,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         width: 13,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/profile_view/cancel.png"),
+                image: AssetImage(ImagePaths.cancel),
                 fit: BoxFit.cover
             )
         ),
@@ -426,7 +455,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         /// TODO: Implement onTap
       },
       child: Container(
-        margin: EdgeInsets.fromLTRB(20, 20, 30, 0),
+        margin: EdgeInsets.fromLTRB(30, 20, 40, 0),
         color: Colors.transparent,
         child: Column(
           children: [
@@ -437,7 +466,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   padding: EdgeInsets.only(left: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 181, 200, 232),
+                      color: AppTheme().secondaryColorLight,
                       boxShadow: [BoxShadow(
                           color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 4.0,
@@ -456,7 +485,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                         style: AppTheme().headText1.copyWith(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
-                          fontSize: 22
+                          fontSize: 20
                         ),
                       ),
                       children: [
@@ -591,7 +620,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   width: SizeConfig.width*0.68,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 181, 200, 232),
+                      color: AppTheme().secondaryColorLight,
                       boxShadow: [BoxShadow(
                           color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 4.0,

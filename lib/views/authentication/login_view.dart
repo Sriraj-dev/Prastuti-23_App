@@ -164,8 +164,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                                         .circular(32.sp),
                                                     boxShadow: [
                                                       BoxShadow(
-                                                        color: Color.fromARGB(
-                                                            255, 17, 102, 157),
+                                                        color: AppTheme().primaryColorLight,
                                                         spreadRadius: 5.sp,
                                                         blurRadius: 10.sp,
                                                         offset: Offset(0.sp, 5.sp),
@@ -278,9 +277,9 @@ Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading
       child: Image.asset(ImagePaths.google_logo_grey),
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
-        backgroundColor: Color.fromARGB(255, 21, 63, 94),
+        backgroundColor: AppTheme().primaryColorDark,
         fixedSize: Size(50.sp, 50.sp),
-        shadowColor: Color.fromARGB(255, 17, 44, 61),
+        shadowColor: AppTheme().primaryColorExtraDark,
         elevation: 12.sp,
       ),
     ): ElevatedButton(
@@ -333,9 +332,9 @@ Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading
                     ),
               style: ElevatedButton.styleFrom(
                 shape: const StadiumBorder(),
-                backgroundColor: Color.fromARGB(255, 21, 63, 94),
+                backgroundColor: AppTheme().primaryColorDark,
                 fixedSize: Size(140.sp, 50.sp),
-                shadowColor: Color.fromARGB(255, 17, 44, 61),
+                shadowColor: AppTheme().primaryColorExtraDark,
                 elevation: 15.sp,
               ),
             )

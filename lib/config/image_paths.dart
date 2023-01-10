@@ -31,6 +31,8 @@ class ImagePaths{
   static const add = "assets/profile_view/add.png";
   static const calendar = "assets/profile_view/calendar.png";
   static const profile_pic = "assets/profile_view/profile_pic.png";
+  static const cancel_02 = "assets/profile_view/cancel_02.png";
+  static const cancel = "assets/profile_view/cancel.png";
 
   //convenors
   static const co_convenor_1 = "assets/contact_us/co_convenor_1.jpg";

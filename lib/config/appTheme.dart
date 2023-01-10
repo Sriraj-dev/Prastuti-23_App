@@ -12,6 +12,10 @@ class AppTheme{
   Color secondaryColor = const Color(0xFF4B7CB2);
   Color backgroundColor = const Color(0xFFDBF2FF);
   Color kSecondaryColor = const Color(0xFFDEA01E);
+  Color secondaryColorLight = const Color.fromARGB(255, 181, 200, 232);
+  Color primaryColorDark = Color.fromARGB(255, 21, 63, 94);
+  Color primaryColorExtraDark = Color.fromARGB(255, 17, 44, 61);
+  Color primaryColorLight = Color.fromARGB(255, 17, 102, 157);
 
   Color kRedLight = Color(0xFFEDF4FE);
   Color kRed = Color(0xFFFBE4E6);
