@@ -78,14 +78,16 @@ class _AboutUsViewState extends State<AboutUsView> {
               SizedBox(
                 height: 20,
               ),
-              AutoSizeText(
-                  'SPONSORS',
-                  style: GoogleFonts.notoSerif(
-                    color: selectedAppTheme.isDarkMode?
-                    Colors.white:AppTheme().primaryColor,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 40,
-                  )
+              Center(
+                child: AutoSizeText(
+                    'SPONSORS',
+                    style: GoogleFonts.notoSerif(
+                      color: selectedAppTheme.isDarkMode?
+                      Colors.white:AppTheme().primaryColor,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 40,
+                    )
+                ),
               ),
               SizedBox(
                 height: 20,

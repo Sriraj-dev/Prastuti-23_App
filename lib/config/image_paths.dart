@@ -7,6 +7,8 @@ import 'package:prastuti_23/config/appTheme.dart';
 
 class ImagePaths{
 
+  // Suffix "dark/light" after name is to indicate app theme in which it is to be used
+
   //TODO: Add All the Image Paths Here and Use them in the Code - Yash
   static const  prastuti_logo = "assets/prastuti_logo.png";
   static const google_logo = "assets/login_view/google.png";
@@ -68,11 +70,14 @@ class ImagePaths{
   static const prastuti_logo_squared = "assets/about_us/prastuti_logo.png";
   static const gmail_squared = "assets/about_us/gmail.png";
   static const github_squared = "assets/about_us/github.png";
-  static const bulb = "assets/about_us/bulb.png";
+  static String bulb = selectedAppTheme.isDarkMode?
+  "assets/about_us/bulb_dark.png":"assets/about_us/bulb_light.png";
 
   //registration:
-  static const male_icon = "assets/registrationForm/male.png";
-  static const female_icon = "assets/registrationForm/female.png";
+  static String male_icon = selectedAppTheme.isDarkMode?
+  "assets/registrationForm/male_dark.png":"assets/registrationForm/male_light.png";
+  static String female_icon = selectedAppTheme.isDarkMode?
+  "assets/registrationForm/female_dark.png":"assets/registrationForm/female_light.png";
   static const prastuti_CLogo = "assets/registrationForm/prastutiTLogo.png";
 
   //Background Image

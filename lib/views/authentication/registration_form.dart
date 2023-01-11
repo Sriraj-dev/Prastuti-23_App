@@ -209,7 +209,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                             "Interests:",
                             style: GoogleFonts.lato(
                                 fontSize: 16,
-                                color: AppTheme().primaryColor,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor,
                                 fontWeight: FontWeight.bold),
                           ),
                           buildChoiceChips(),
@@ -238,8 +239,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                           });
                                         }),
                                     Container(
-                                      height: SizeConfig.height * 0.03,
-                                      width: SizeConfig.height * 0.03,
+                                      height: SizeConfig.height * 0.04,
+                                      width: SizeConfig.height * 0.04,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: AssetImage(ImagePaths.male_icon),
@@ -262,8 +263,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                           });
                                         }),
                                         Container(
-                                      height: SizeConfig.height * 0.03,
-                                      width: SizeConfig.height * 0.03,
+                                      height: SizeConfig.height * 0.04,
+                                      width: SizeConfig.height * 0.04,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: AssetImage(
@@ -279,7 +280,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       ),
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 15,
                     ),
                     ElevatedButton(
                       onPressed: () async{
@@ -314,7 +315,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       ),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     Text(
                       "Please fill the mandatory fields to proceed",
