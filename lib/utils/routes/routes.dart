@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/views/authentication/login_view.dart';
+import 'package:prastuti_23/views/authentication/registration_form.dart';
 import 'package:prastuti_23/views/error_view.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
 import 'package:prastuti_23/views/homePage/homeView.dart';
@@ -37,6 +38,10 @@ class Routes {
       case RouteNames.eventsView:
         return MaterialPageRoute(
             builder: (BuildContext context) => const EventsView());
+
+      case RouteNames.registrationForm:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const RegistrationForm());
 
       
       //Home View
