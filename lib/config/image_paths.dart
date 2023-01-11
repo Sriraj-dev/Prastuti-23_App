@@ -45,6 +45,7 @@ class ImagePaths{
   static const recognizance_image = "assets/contact_us/event_heads/Vidit.png";
   static const consilium_image = "assets/contact_us/event_heads/Ayush Pal.jpg";
   static const hackoverflow_image = "assets/contact_us/event_heads/Nilay Mundra.jpg";
+  static const WhatsApp = "assets/events_view/whatsapp.png";
 
   //team_leads
   static const app = "assets/contact_us/team_leads/Sriraj_app.jpg";

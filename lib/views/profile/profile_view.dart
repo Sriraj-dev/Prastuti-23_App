@@ -516,16 +516,14 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                               ),
                   
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                              padding: const EdgeInsets.symmetric(horizontal: 55,vertical: 5),
                               child: ElevatedButton(
                                 onPressed: () => showDialog(
                                   context: context,
                                   builder: (context) => AddNewMember(),
                                 ),
                                 child: SizedBox(
-
                                     height: 35,
-                                    width: SizeConfig.width*0.8,
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
@@ -542,14 +540,12 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                         SizedBox(
                                           width: 10,
                                         ),
-                                        FittedBox(
-                                          child: Text(
-                                              'Add Member',
-                                              style: AppTheme().headText2.copyWith(
-                                                fontSize: 15
-                                                  
-                                              )
-                                          ),
+                                        Text(
+                                            'Add Member',
+                                            style: AppTheme().headText2.copyWith(
+                                              fontSize: 15
+
+                                            )
                                         ),
                                       ],
                                     )
@@ -558,11 +554,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(60.0),
                                   ),
-                                  backgroundColor: selectedAppTheme.isDarkMode?
-                                  AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
-                                  fixedSize: Size(SizeConfig.width*0.35, 20),
-                                  shadowColor: selectedAppTheme.isDarkMode?
-                                  AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+                                  backgroundColor: AppTheme().secondaryColor,
+                                 // fixedSize: Size(SizeConfig.width*0.35, 20),
+                                  shadowColor: AppTheme().primaryColor,
                                   elevation: 5,
 
              
