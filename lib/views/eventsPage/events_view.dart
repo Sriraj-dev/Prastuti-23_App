@@ -50,12 +50,6 @@ class _EventsViewState extends State<EventsView>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: AppTheme().backgroundColor,
-      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
-      Brightness.light:Brightness.dark,
-    ));
-
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
@@ -48,6 +49,13 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: AppTheme().backgroundColor,
+      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
+      Brightness.light:Brightness.dark,
+    ));
+
     return AnimatedBuilder(
       animation: drawerAnimationController,
       child: drawer(),
@@ -62,7 +70,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                 onTap: _onDrawerTapped,
                 child: AnimatedIcon(
                   icon: AnimatedIcons.menu_close,
-                  color: AppTheme().secondaryColor,
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:AppTheme().secondaryColor,
                   size: 33,
                   progress: drawerAnimationController.view,
                 ),
@@ -77,7 +86,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                 opacity: opacityAnimation.value,
                 child: GestureDetector(
                   onTap: (){
-                    if(drawerAnimationController.isCompleted) 
+                    if(drawerAnimationController.isCompleted)
                       drawerAnimationController.reverse();
                   },
                   child: views[homeViewController.selectedView]
