@@ -5,11 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:prastuti_23/config/env.dart';
+
+import 'package:prastuti_23/models/UserModel.dart';
+import 'package:prastuti_23/repositories/auth_repository.dart';
+
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/utils/utils.dart';
+import 'package:prastuti_23/view_models/notification_view_model.dart';
 
 final isLoggingIn = StateNotifierProvider<AuthViewModelNotifier, bool>
   ((ref)=>AuthViewModelNotifier());
+
+
+late User currentUser;
 
 
 class AuthViewModelNotifier extends StateNotifier<bool>{
@@ -26,7 +34,7 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
   Future<void> login({required BuildContext context})async{
 
     state = true;
-    //NotificationServices().getPlayerId();
+    
 
     try {
       final result =  await _googleSignIn.signIn();
@@ -35,15 +43,13 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
       result.authentication.then((googleKey)async{
         log(googleKey.idToken!);
 
-         Dio dio = new Dio();
-        Response response = await dio.get(
-            'https://www.googleapis.com/oauth2/v1/tokeninfo?id_token=' +
-                googleKey.idToken!);
-        print(response.data); 
+        dynamic currentUserModel = (await AuthRepository().loginApi(googleKey.idToken!));
+        currentUser = currentUserModel.user!;
 
-        
-        //Apne backend server pe login kro.
-        //AuthRepository().loginApi(googleKey.idToken!);
+        if(currentUser.appId ==" " || currentUser.appId!.isEmpty){
+          NotificationServices().getPlayerId();      
+          //update PlayerId in backend;
+        }
       });
 
       Utils.flushBarMessage(
@@ -53,7 +59,6 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
 
       Navigator.of(context).pushNamed(RouteNames.homeView);
       state = false;
-
     } catch (error) {
       //throw error;
       print(error);

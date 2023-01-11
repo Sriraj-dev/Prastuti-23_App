@@ -4,12 +4,19 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/models/eventListModel.dart';
+import 'package:prastuti_23/view_models/auth_view_model.dart';
+import 'package:prastuti_23/view_models/events_view_model.dart';
+import 'package:prastuti_23/view_models/profile_view_model.dart';
+import 'package:prastuti_23/views/error_view.dart';
+import 'package:prastuti_23/views/loading/shimmer_widget.dart';
 import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../data/response/status.dart';
@@ -48,8 +55,6 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   }
   @override
   Widget build(BuildContext context) {
-    // final isDone = state == ButtonState.done;
-    // final isStretched = isAnimating || state == ButtonState.init;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: AppTheme().backgroundColor,
       systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
@@ -238,9 +243,31 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               ]
             )
           ),
+          floatingActionButton: (_tabController.index==1)?buildFAB():null,
         ),
       ),
     );
+  }
+
+  Container buildFAB() {
+    return Container(
+                      alignment: Alignment.bottomRight,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: SizedBox(
+                            height: 35.sp,
+                            width: 35.sp,
+                            child: Image.asset(ImagePaths.add)
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          backgroundColor: AppTheme().primaryColor,
+                          fixedSize: Size(45.sp, 45.sp),
+                          shadowColor: AppTheme().primaryColor,
+                          elevation: 15.sp,
+                        ),
+                      ),
+                    );
   }
 
   Widget buildRequestList(List<String> requests) {
@@ -316,11 +343,11 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   Widget AcceptButton() {
     return ElevatedButton(
       onPressed: () async {
-        isPressed = !isPressed;
-        setState(() => state = ButtonState.loading);
-        await Future.delayed(Duration(seconds: 3));
-        setState(() => state = ButtonState.done);
-        print("hello lmao dead");
+        // isPressed = !isPressed;
+        // setState(() => state = ButtonState.loading);
+        // await Future.delayed(Duration(seconds: 3));
+        // setState(() => state = ButtonState.done);
+        // print("hello lmao dead");
       },
       child: FittedBox(
         child: AutoSizeText(
@@ -360,36 +387,6 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     );
   }
 
-  // Widget RejectButton() {
-  //   return ElevatedButton(
-  //     onPressed: () async {
-  //       setState(() => state = ButtonState.loading);
-  //       await Future.delayed(Duration(seconds: 3));
-  //       setState(() => state = ButtonState.done);
-  //       await Future.delayed(Duration(seconds: 3));
-  //       setState(() => state = ButtonState.init);
-  //
-  //     },
-  //     child: AutoSizeText(
-  //       'Reject',
-  //       style: AppTheme().headText2.copyWith(
-  //             fontSize: 15,
-  //             fontWeight: FontWeight.w400,
-  //           ),
-  //     ),
-  //     style: ElevatedButton.styleFrom(
-  //       shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.only(
-  //         topRight: Radius.circular(20),
-  //         bottomRight: Radius.circular(20),
-  //       )),
-  //       backgroundColor: Colors.red,
-  //       shadowColor: Colors.redAccent,
-  //       elevation: 5,
-  //       fixedSize: Size(80, 30),
-  //     ),
-  //   );
-  // }
   Widget LoadingTick(bool isDone) {
     final color = isDone ? Colors.green[800] : AppTheme().primaryColor;
     return Container(
@@ -406,18 +403,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     );
   }
 
-  // Widget LoadingCancel(bool isDone){
-  //   final color = isDone ? Colors.red[700] : AppTheme().primaryColor;
-  //   return Container(
-  //     decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-  //     child: Center(
-  //       child: isDone ? Icon(Icons.cancel_outlined, size: 20, color: Colors.white,):CircularProgressIndicator(color: Colors.white),
-  //
-  //     ),
-  //   );
-  // }
-
-  bool isExpanded = false;
+  //bool isExpanded = false;
 
   Widget buildTeamsList(List<List<dynamic>> teamsList) {
 
@@ -575,7 +561,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                           ],
                         ),
                       ],
-                      onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
+                      //onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
                     ),
                   ),
                 ),
@@ -609,7 +595,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   }
 
 
-  Widget buildEventsList(List<List<String>> regEvents) {
+  Widget buildEventsList(List<Events> regEvents) {
 
     if(regEvents.isEmpty){
       return Center(
@@ -625,12 +611,12 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     return ListView.separated(
       itemBuilder: (context,index){
         return RegEvents(
-           eventImage: regEvents[index][0],
-           eventName: regEvents[index][1],
-           teamName: regEvents[index][2],
-           stage: regEvents[index][3],
-           score: regEvents[index][4],
-           date: regEvents[index][5]
+           eventImage: event_images[(regEvents[index].name!).toUpperCase()]!,
+           eventName: regEvents[index].name!,
+           teamName: "Ongoing",
+           stage: "Useless",
+           score: "220",
+           date: "12/02/2023"
         );
       },
       physics: const BouncingScrollPhysics(),
