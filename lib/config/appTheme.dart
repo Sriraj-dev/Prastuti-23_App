@@ -68,5 +68,5 @@ class BtnColor {
 }
 
 class selectedAppTheme {
-  static bool isDarkMode = true;
+  static bool isDarkMode = false;
 }

@@ -534,7 +534,7 @@ class _EventsViewState extends State<EventsView>
                 "Select a Team to register",
                 style: AppTheme().headText1.copyWith(
                     fontSize: 16,
-                    color: Colors.black,
+                    color: AppTheme().primaryColor,
                     fontWeight: FontWeight.w900),
               ),
             ],
