@@ -503,7 +503,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.person_rounded,color: AppTheme().primaryColor),
+                                    Icon(Icons.person_rounded,color: AppTheme().kSecondaryColor),
                                     Text(e,
                                       style: AppTheme().headText2.copyWith(
                                         color: selectedAppTheme.isDarkMode?
@@ -517,22 +517,55 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                              child: GestureDetector(
-                                onTap: () => showDialog(
+                              child: ElevatedButton(
+                                onPressed: () => showDialog(
                                   context: context,
                                   builder: (context) => AddNewMember(),
                                 ),
-                                child: Row(
-                                    children: [
-                                      Icon(Icons.add_box_rounded,color: AppTheme().primaryColor),
-                                      Text("New Member",
-                                        style: AppTheme().headText2.copyWith(
-                                          color: selectedAppTheme.isDarkMode?
-                                          Colors.white:Colors.black,
-                                          fontSize: 16
+                                child: SizedBox(
+
+                                    height: 35,
+                                    width: SizeConfig.width*0.8,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 10,
+                                          height: 10,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(ImagePaths.add),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
                                         ),
-                                      )
-                                    ],
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        FittedBox(
+                                          child: Text(
+                                              'Add Member',
+                                              style: AppTheme().headText2.copyWith(
+                                                fontSize: 15
+                                                  
+                                              )
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(60.0),
+                                  ),
+                                  backgroundColor: selectedAppTheme.isDarkMode?
+                                  AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
+                                  fixedSize: Size(SizeConfig.width*0.35, 20),
+                                  shadowColor: selectedAppTheme.isDarkMode?
+                                  AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+                                  elevation: 5,
+
+             
                                 ),
                               ),
                             ),
