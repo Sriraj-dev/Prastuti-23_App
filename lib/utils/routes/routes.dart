@@ -24,7 +24,7 @@ class Routes {
       //ErrorView
       case RouteNames.errorView:
         return MaterialPageRoute(builder:
-            (BuildContext context)=>const ErrorView()
+            (BuildContext context)=>ErrorView(error: '',)
         );
 
       //LoginView
@@ -56,7 +56,7 @@ class Routes {
       //Invalid Route Exception
       default:
         return MaterialPageRoute(builder:
-            (BuildContext context)=>const ErrorView()
+            (BuildContext context)=>ErrorView()
         );
     }
   }

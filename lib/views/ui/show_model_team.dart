@@ -27,50 +27,57 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
       );
     }
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Positioned(
-          top: 10,
-          child: Column(
-            children: [
-              Container(
-                height: 5,
-                width: 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4), color: Colors.grey),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                "Select a Team to register",
-                style: AppTheme().headText1.copyWith(
-                    fontSize: 16,
-                    color: selectedAppTheme.isDarkMode?
-                    Colors.white:Colors.black,
-                    fontWeight: FontWeight.w900),
-              ),
-            ],
+    return Container(
+      decoration: BoxDecoration(
+          color: selectedAppTheme.isDarkMode?
+          Colors.black:Colors.white,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(27), topRight: Radius.circular(27))
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            top: 10,
+            child: Column(
+              children: [
+                Container(
+                  height: 5,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4), color: Colors.grey),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "Select a Team to register",
+                  style: AppTheme().headText1.copyWith(
+                      fontSize: 16,
+                      color: selectedAppTheme.isDarkMode?
+                      Colors.white:Colors.black,
+                      fontWeight: FontWeight.w900),
+                ),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 27),
-          child: ListView.separated(
-            itemBuilder: (context, index) {
-              return EventsTeamsWidget(requests[index]);
-            },
-            physics: const BouncingScrollPhysics(),
-            separatorBuilder: (context, index) => Center(
-                child: Container(
-                  height: 0,
-                  width: SizeConfig.widthPercent * 90,
-                  color: Colors.grey,
-                )),
-            itemCount: requests.length,
-          ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 27),
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                return EventsTeamsWidget(requests[index]);
+              },
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (context, index) => Center(
+                  child: Container(
+                    height: 0,
+                    width: SizeConfig.widthPercent * 90,
+                    color: Colors.grey,
+                  )),
+              itemCount: requests.length,
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -82,12 +89,11 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
         padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color.fromARGB(255, 181, 200, 232),
+            color: selectedAppTheme.isDarkMode?
+            Color.fromARGB(255, 33, 45, 63):Color.fromARGB(255, 181, 200, 232),
             boxShadow: [
               BoxShadow(
-                  color: selectedAppTheme.isDarkMode?
-                  AppTheme().primaryColor_Dark.withOpacity(0.3)
-                      :AppTheme().primaryColor.withOpacity(0.3),
+                  color: AppTheme().primaryColor.withOpacity(0.3),
                   blurRadius: 4.0,
                   spreadRadius: 3.0,
                   offset: Offset(4, 4))
@@ -125,10 +131,8 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
       ),
       style: ElevatedButton.styleFrom(
         shape: StadiumBorder(),
-        backgroundColor: selectedAppTheme.isDarkMode?
-        AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
-        shadowColor: selectedAppTheme.isDarkMode?
-        AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+        backgroundColor: AppTheme().secondaryColor,
+        shadowColor: AppTheme().primaryColor,
         elevation: 5,
         fixedSize: Size(80, 30),
       ),
@@ -136,8 +140,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
   }
 
   Widget LoadingTick(bool isDone) {
-    final color = isDone ? Colors.green[800] : selectedAppTheme.isDarkMode?
-    AppTheme().primaryColor_Dark:AppTheme().primaryColor;
+    final color = isDone ? Colors.green[800] : AppTheme().primaryColor;
     return Container(
       decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       child: Center(

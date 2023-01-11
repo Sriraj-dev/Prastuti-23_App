@@ -25,18 +25,15 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: selectedAppTheme.isDarkMode?
-      AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+      color: AppTheme().primaryColor,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: selectedAppTheme.isDarkMode?
-          AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+          backgroundColor: AppTheme().backgroundColor,
           body: NestedScrollView(
               headerSliverBuilder: ((context, innerBoxIsScrolled) => [
                     SliverAppBar(
                       pinned: true,
-                      backgroundColor: selectedAppTheme.isDarkMode?
-                      AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+                      backgroundColor: AppTheme().primaryColor,
                       expandedHeight: SizeConfig.heightPercent * 35,
                       leading: Center(
                         child: InkWell(
@@ -74,8 +71,7 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CircularProgressIndicator(
-                                      color: selectedAppTheme.isDarkMode?
-                                      AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                                      color: AppTheme().kSecondaryColor,
                                     )
                                   ],
                                 ),
@@ -89,8 +85,7 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                             Size.fromHeight(AppBar().preferredSize.height),
                         child: Container(
                           width: double.maxFinite,
-                          color: selectedAppTheme.isDarkMode?
-                          AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+                          color: AppTheme().backgroundColor,
                           child: Center(
                             child: TabBar(
                               isScrollable: true,
@@ -108,8 +103,7 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                               ],
                               indicatorSize: TabBarIndicatorSize.tab,
                               indicator: MaterialIndicator(
-                                color: selectedAppTheme.isDarkMode?
-                                AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                                color: AppTheme().kSecondaryColor,
                                 height: 2,
                                 topLeftRadius: 8,
                                 topRightRadius: 8,
@@ -117,8 +111,7 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                                 bottomRightRadius: 8,
                                 tabPosition: TabPosition.bottom,
                               ),
-                              labelColor: selectedAppTheme.isDarkMode?
-                              AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                              labelColor: AppTheme().kSecondaryColor,
                               labelStyle: AppTheme().headText2.copyWith(
                                   fontSize: 15, fontWeight: FontWeight.w700),
                               unselectedLabelStyle: AppTheme()

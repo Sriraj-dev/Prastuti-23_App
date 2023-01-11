@@ -45,13 +45,11 @@ class Event_Timeline extends StatelessWidget {
               width: 15,
               indicator: Container(
                 decoration: BoxDecoration(
-                  color: selectedAppTheme.isDarkMode?
-                  AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+                  color: AppTheme().backgroundColor,
                   shape: BoxShape.circle,
                   border: Border.all(width: 5,
                   color:  eventDetail.isCompleted!
-                              ? selectedAppTheme.isDarkMode?
-                  AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor
+                              ? AppTheme().kSecondaryColor
                               : Colors.grey
                   )
                 ),
@@ -60,8 +58,7 @@ class Event_Timeline extends StatelessWidget {
             afterLineStyle: LineStyle(
               thickness: 2,
               color: eventDetail.isCompleted!
-                    ? selectedAppTheme.isDarkMode?
-              AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor
+                    ? AppTheme().kSecondaryColor
                     : Colors.grey
             ),
           ),

@@ -53,25 +53,21 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     // final isDone = state == ButtonState.done;
     // final isStretched = isAnimating || state == ButtonState.init;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: selectedAppTheme.isDarkMode?
-      AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+      systemNavigationBarColor: AppTheme().backgroundColor,
       systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
       Brightness.light:Brightness.dark,
     ));
 
     return Container(
-      color: selectedAppTheme.isDarkMode?
-      AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+      color: AppTheme().primaryColor,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: selectedAppTheme.isDarkMode?
-          AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+          backgroundColor: AppTheme().backgroundColor,
           body: NestedScrollView(
             headerSliverBuilder: ((context, innerBoxIsScrolled)=>[
               SliverAppBar(
                 pinned: true,
-                backgroundColor: selectedAppTheme.isDarkMode?
-                AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+                backgroundColor: AppTheme().primaryColor,
                 expandedHeight: SizeConfig.heightPercent*35,
                 leading: Center(
                   child: InkWell(
@@ -133,8 +129,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   preferredSize: Size.fromHeight(AppBar().preferredSize.height),
                   child: Container(
                     width: double.maxFinite,
-                    color: selectedAppTheme.isDarkMode?
-                    AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+                    color: AppTheme().backgroundColor,
                     child: Center(
                       child: TabBar(
                         isScrollable: true,
@@ -152,8 +147,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                         ],
                         indicatorSize: TabBarIndicatorSize.tab,
                         indicator: MaterialIndicator(
-                          color: selectedAppTheme.isDarkMode?
-                          AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                          color: AppTheme().kSecondaryColor,
                           height: 2,
                           topLeftRadius: 8,
                           topRightRadius: 8,
@@ -161,8 +155,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                           bottomRightRadius: 8,
                           tabPosition: TabPosition.bottom,
                         ),
-                        labelColor: selectedAppTheme.isDarkMode?
-                        AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                        labelColor: AppTheme().kSecondaryColor,
                         labelStyle: AppTheme().headText2.copyWith(
                           fontSize: 15,
                           fontWeight: FontWeight.w700
@@ -228,11 +221,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            backgroundColor: selectedAppTheme.isDarkMode?
-                            AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+                            backgroundColor: AppTheme().primaryColor,
                             fixedSize: Size(SizeConfig.width*0.8, 45),
-                            shadowColor: selectedAppTheme.isDarkMode?
-                            AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+                            shadowColor: AppTheme().primaryColor,
                             elevation: 5,
                           ),
                         ),
@@ -281,10 +272,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: AppTheme().secondaryColorLight_Dark,
+          color: AppTheme().secondaryColorLight,
           boxShadow: [BoxShadow(
-              color: selectedAppTheme.isDarkMode?
-              AppTheme().primaryColor_Dark.withOpacity(0.3):AppTheme().primaryColor.withOpacity(0.3),
+              color: AppTheme().primaryColor.withOpacity(0.3),
               blurRadius: 4.0,
               spreadRadius: 3.0,
               offset: Offset(4, 4)
@@ -340,10 +330,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       ),
       style: ElevatedButton.styleFrom(
         shape: StadiumBorder(),
-        backgroundColor: selectedAppTheme.isDarkMode?
-        AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
-        shadowColor: selectedAppTheme.isDarkMode?
-        AppTheme().primaryColor_Dark:AppTheme().primaryColor,
+        backgroundColor: AppTheme().secondaryColor,
+        shadowColor: AppTheme().primaryColor,
         elevation: 5,
         fixedSize: Size(80, 30),
       ),
@@ -400,8 +388,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   //   );
   // }
   Widget LoadingTick(bool isDone) {
-    final color = isDone ? Colors.green[800] : selectedAppTheme.isDarkMode?
-    AppTheme().primaryColor_Dark:AppTheme().primaryColor;
+    final color = isDone ? Colors.green[800] : AppTheme().primaryColor;
     return Container(
       decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       child: Center(
@@ -436,8 +423,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         child: Text("You have no registered event",
         style: AppTheme()
               .headText2
-              .copyWith(fontSize: 17, color: selectedAppTheme.isDarkMode?
-        AppTheme().secondaryColor_Dark:AppTheme().secondaryColor),
+              .copyWith(fontSize: 17, color: AppTheme().secondaryColor),
         ),
       );
     }
@@ -482,12 +468,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   padding: EdgeInsets.only(left: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: selectedAppTheme.isDarkMode?
-                      AppTheme().secondaryColorLight_Dark:AppTheme().secondaryColorLight,
+                      color: AppTheme().secondaryColorLight,
                       boxShadow: [BoxShadow(
-                          color: selectedAppTheme.isDarkMode?
-                          AppTheme().primaryColor_Dark.withOpacity(0.3)
-                          :AppTheme().primaryColor.withOpacity(0.3),
+                          color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 4.0,
                           spreadRadius: 3.0,
                           offset: Offset(4, 4)
@@ -520,7 +503,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.person_rounded,color: AppTheme().primaryColor_Dark),
+                                    Icon(Icons.person_rounded,color: AppTheme().primaryColor),
                                     Text(e,
                                       style: AppTheme().headText2.copyWith(
                                         color: selectedAppTheme.isDarkMode?
@@ -541,7 +524,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 ),
                                 child: Row(
                                     children: [
-                                      Icon(Icons.add_box_rounded,color: AppTheme().primaryColor_Dark),
+                                      Icon(Icons.add_box_rounded,color: AppTheme().primaryColor),
                                       Text("New Member",
                                         style: AppTheme().headText2.copyWith(
                                           color: selectedAppTheme.isDarkMode?
@@ -572,8 +555,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       ),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [BoxShadow(
-                          color: selectedAppTheme.isDarkMode?
-                          AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
+                          color: AppTheme().secondaryColor,
                           blurRadius: 1.0,
                           spreadRadius: 1.0,
                           offset: Offset(3, 3)
@@ -599,8 +581,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         child: Text("You have no registered events!!",
           style: AppTheme().headText2.copyWith(
             fontSize: 17,
-            color: selectedAppTheme.isDarkMode?
-            AppTheme().secondaryColor_Dark:AppTheme().secondaryColor
+            color: AppTheme().secondaryColor
           ),
         ),
       );
@@ -654,12 +635,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   width: SizeConfig.width*0.68,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                      color: selectedAppTheme.isDarkMode?
-                      AppTheme().secondaryColorLight_Dark:AppTheme().secondaryColorLight,
+                      color: AppTheme().secondaryColorLight,
                       boxShadow: [BoxShadow(
-                          color: selectedAppTheme.isDarkMode?
-                          AppTheme().primaryColor_Dark.withOpacity(0.3)
-                          :AppTheme().primaryColor.withOpacity(0.3),
+                          color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 4.0,
                           spreadRadius: 3.0,
                           offset: Offset(4, 4)
@@ -689,8 +667,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                   teamName,
                                   style: AppTheme().headText2.copyWith(
                                       fontSize: 16,
-                                      color: selectedAppTheme.isDarkMode?
-                                      AppTheme().primaryColor_Dark:AppTheme().primaryColor
+                                      color: AppTheme().primaryColor
                                   ),
                                 ),
                               ],
@@ -770,8 +747,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                     ),
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [BoxShadow(
-                      color: selectedAppTheme.isDarkMode?
-                      AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
+                      color: AppTheme().secondaryColor,
                       blurRadius: 1.0,
                       spreadRadius: 1.0,
                       offset: Offset(4, 4)
