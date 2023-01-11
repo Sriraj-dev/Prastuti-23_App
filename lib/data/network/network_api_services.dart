@@ -14,7 +14,12 @@ class NetworkApiServices extends BaseApiServices{
 
     dynamic responseJson;
     try{
-      final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 20));
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+        "Content-Type": "application/json"
+        }
+      ).timeout(const Duration(seconds: 20));
 
       print("The get Api Response is - ${response.body}");
       responseJson = checkResponse(response);
@@ -26,17 +31,24 @@ class NetworkApiServices extends BaseApiServices{
   }
 
   @override
-  Future getPostApiResponse(String url,dynamic data) async {
+  Future getPostApiResponse(String url,Map<String,dynamic> data) async {
     dynamic responseJson;
     try{
+      print("data into post - $data");
       final response = await http.post(
           Uri.parse(url),
-        body: json.encode(data)
+        body: json.encode(data),
+        headers: {
+            "Content-Type": "application/json"
+          }
       ).timeout(const Duration(seconds: 20));
 
+      print("Post req response - ${response.body}");
       responseJson = checkResponse(response);
     }on SocketException{
       throw FetchDataException("No Internet Connection");
+    }catch(e){
+      throw e;
     }
 
     return responseJson;
