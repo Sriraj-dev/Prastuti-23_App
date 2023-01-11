@@ -185,7 +185,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                 Consumer(builder: (context, ref, child) {
                   final allEventsList = ref.watch(eventsProvider);
                   return allEventsList.when(
-                    error: ((error, stackTrace) => ErrorView()), 
+                    error: ((error, stackTrace) => ErrorView(error: error.toString(),)), 
                     loading: (() => skeleton(40, 40)),
                     data: ((data) {
                       List<Events> currEvents = data.events as List<Events>;
@@ -206,7 +206,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                     data: ((data){
                       return buildTeamsList(regTeams);
                     }), 
-                    error: ((error, stackTrace) => ErrorView()), 
+                    error: ((error, stackTrace) => ErrorView(error: error.toString(),)), 
                     loading: (() => skeleton(40, 40))
                   );
                 }),

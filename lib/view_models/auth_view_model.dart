@@ -11,6 +11,7 @@ import 'package:prastuti_23/repositories/auth_repository.dart';
 
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/utils/utils.dart';
+import 'package:prastuti_23/view_models/notification_view_model.dart';
 
 final isLoggingIn = StateNotifierProvider<AuthViewModelNotifier, bool>
   ((ref)=>AuthViewModelNotifier());
