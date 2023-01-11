@@ -14,8 +14,6 @@ import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../data/response/status.dart';
 import '../../utils/utils.dart';
-import '../ui/add_new_member.dart';
-import '../ui/create_new_team.dart';
 import '../eventsPage/events_view_content.dart';
 
 
@@ -188,7 +186,12 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                         child: ElevatedButton(
                           onPressed: () => showDialog(
                               context: context,
-                              builder: (context) => CreateNewTeam(),
+                              builder: (context) => Utils().DialogBox(
+                                  'Create New Team',
+                                  'Enter Team Name',
+                                  'Create',
+                                  context
+                              )
                           ),
                           child: SizedBox(
                               height: 35,
@@ -520,7 +523,12 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                               child: ElevatedButton(
                                 onPressed: () => showDialog(
                                   context: context,
-                                  builder: (context) => AddNewMember(),
+                                  builder: (context) => Utils().DialogBox(
+                                      'Add New Member',
+                                      'Enter Email ID',
+                                      'Add',
+                                      context
+                                  )
                                 ),
                                 child: SizedBox(
                                     height: 35,
@@ -722,7 +730,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                           score,
                                           style: AppTheme().headText2.copyWith(
                                             color: selectedAppTheme.isDarkMode?
-                                            Colors.white:Colors.black
+                                            Colors.white:Colors.black,
+                                            fontSize: 14
                                           )
                                       ),
                                     ],
@@ -746,7 +755,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                           date,
                                           style: AppTheme().headText2.copyWith(
                                             color: selectedAppTheme.isDarkMode?
-                                            Colors.white:Colors.black
+                                            Colors.white:Colors.black,
+                                            fontSize: 12
                                           )
                                       ),
                                     ],
