@@ -14,7 +14,8 @@ import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../data/response/status.dart';
 import '../../utils/utils.dart';
-import '../create_new_team.dart';
+import '../ui/add_new_member.dart';
+import '../ui/create_new_team.dart';
 import '../eventsPage/events_view_content.dart';
 
 
@@ -497,6 +498,10 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       dividerColor: Colors.transparent
                     ),
                     child: ExpansionTile(
+                      iconColor: selectedAppTheme.isDarkMode?
+                      Colors.white:Colors.black,
+                      collapsedIconColor: selectedAppTheme.isDarkMode?
+                      Colors.white:Colors.black,
                       expandedAlignment: Alignment.topLeft,
                       title: AutoSizeText(
                         teamName,
@@ -532,7 +537,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                               child: ElevatedButton(
                                 onPressed: () => showDialog(
                                   context: context,
-                                  builder: (context) => CreateNewTeam(),
+                                  builder: (context) => AddNewMember(),
                                 ),
                                 child: SizedBox(
 
@@ -576,6 +581,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                   shadowColor: selectedAppTheme.isDarkMode?
                                   AppTheme().primaryColor_Dark:AppTheme().primaryColor,
                                   elevation: 5,
+
+             
                                 ),
                               ),
                             ),
