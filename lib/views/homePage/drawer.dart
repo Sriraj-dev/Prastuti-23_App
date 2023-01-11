@@ -20,8 +20,7 @@ Widget drawer() {
       width: SizeConfig.widthPercent * 62,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: selectedAppTheme.isDarkMode?
-          AppTheme().backgroundColor_Dark:AppTheme().backgroundColor),
+          color: AppTheme().backgroundColor),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10).copyWith(bottom: 18),
         child: Column(
@@ -61,8 +60,7 @@ Widget drawer() {
               ),),
               leading: Icon(
                 Icons.event_note_rounded,
-                color: selectedAppTheme.isDarkMode?
-                AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
+                color: AppTheme().secondaryColor,
               ),
             ),
             ListTile(
@@ -76,8 +74,7 @@ Widget drawer() {
                   )),
               leading: Icon(
                 Icons.person,
-                color: selectedAppTheme.isDarkMode?
-                AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
+                color: AppTheme().secondaryColor,
               ),
             ),
             ListTile(
@@ -91,8 +88,7 @@ Widget drawer() {
                   )),
               leading: Icon(
                 Icons.phone,
-                color: selectedAppTheme.isDarkMode?
-                AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
+                color: AppTheme().secondaryColor,
               ),
             ),
             ListTile(
@@ -106,8 +102,7 @@ Widget drawer() {
                       )),
               leading: Icon(
                 Icons.info_outline_rounded,
-                color: selectedAppTheme.isDarkMode?
-                AppTheme().secondaryColor_Dark:AppTheme().secondaryColor,
+                color: AppTheme().secondaryColor,
               ),
             ),
             SizedBox(height: 5,),
@@ -122,8 +117,7 @@ Widget drawer() {
                   height: SizeConfig.heightPercent * 5,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: selectedAppTheme.isDarkMode?
-                      AppTheme().primaryColor_Dark:AppTheme().primaryColor
+                      color: AppTheme().primaryColor
                   ),
                   child: Center(
                     child: (isLoading)?SizedBox(

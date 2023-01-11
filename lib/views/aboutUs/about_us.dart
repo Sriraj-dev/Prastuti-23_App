@@ -22,8 +22,7 @@ class _AboutUsViewState extends State<AboutUsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: selectedAppTheme.isDarkMode?
-      AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+      backgroundColor: AppTheme().backgroundColor,
 
       body: Stack(
         alignment: Alignment.center,
@@ -40,10 +39,7 @@ class _AboutUsViewState extends State<AboutUsView> {
               styles:  BlobStyles(
                 color:  Colors.green,
                 gradient:  LinearGradient(
-                    colors: [selectedAppTheme.isDarkMode?
-                    AppTheme().kSecondaryColor_Dark.withOpacity(0.5):AppTheme().kSecondaryColor.withOpacity(0.5),
-                      selectedAppTheme.isDarkMode?
-                      AppTheme().kReddark_Dark:AppTheme().kReddark])
+                    colors: [AppTheme().kSecondaryColor.withOpacity(0.5), AppTheme().kReddark])
                     .createShader(Rect.fromLTRB(0, 0, 300, 300)),
                 strokeWidth:3,
               ),
@@ -61,10 +57,7 @@ class _AboutUsViewState extends State<AboutUsView> {
               styles:  BlobStyles(
                 color:  Colors.green,
                 gradient:  LinearGradient(
-                  colors: [selectedAppTheme.isDarkMode?
-                  AppTheme().kRed_Dark.withOpacity(0.5):AppTheme().kRed.withOpacity(0.5),
-                    selectedAppTheme.isDarkMode?
-                    AppTheme().kSecondaryColor_Dark.withOpacity(0.5):AppTheme().kSecondaryColor.withOpacity(0.5)])
+                  colors: [AppTheme().kRed.withOpacity(0.5), AppTheme().kSecondaryColor.withOpacity(0.5)])
                     .createShader(Rect.fromLTRB(0, 0, 10, 10)),
                 strokeWidth:3,
               ),

@@ -50,26 +50,23 @@ class _EventsViewState extends State<EventsView>
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: selectedAppTheme.isDarkMode?
-      AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+      systemNavigationBarColor: AppTheme().backgroundColor,
       systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
       Brightness.light:Brightness.dark,
     ));
 
     return Container(
-      color: selectedAppTheme.isDarkMode?
-      AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+      color: AppTheme().backgroundColor,
       child: SafeArea(
         child: Consumer(builder: (context, ref, child) {
           final allEventsList = ref.watch(eventsProvider);
           return allEventsList.when(
-              error: ((e, stackTrace) => const ErrorView()),
+              error: ((e, stackTrace) => ErrorView(error: e.toString(),)),
               loading: ()=>const Events_view_skeleton(),
               data: (allEvents){
                 List<Events> events = allEvents.events as List<Events>;
                 return Scaffold(
-                backgroundColor: selectedAppTheme.isDarkMode?
-                AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+                backgroundColor: AppTheme().backgroundColor,
                 appBar: buildAppBar(events),
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,12 +127,8 @@ class _EventsViewState extends State<EventsView>
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           shape: const StadiumBorder(),
-                                          backgroundColor:
-                                          selectedAppTheme.isDarkMode?
-                                          AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
-                                          shadowColor: selectedAppTheme.isDarkMode?
-                                          AppTheme().kSecondaryColor_Dark.withOpacity(0.5):
-                                          AppTheme().kSecondaryColor.withOpacity(0.5),
+                                          backgroundColor: AppTheme().kSecondaryColor,
+                                          shadowColor: AppTheme().kSecondaryColor.withOpacity(0.5),
                                           elevation: 5,
                                           fixedSize: Size(140, 40),
                                         ),
@@ -192,8 +185,7 @@ class _EventsViewState extends State<EventsView>
                                                 children: [
                                                   Icon(
                                                     Icons.people_alt_rounded,
-                                                    color: selectedAppTheme.isDarkMode?
-                                                    AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                                                    color: AppTheme().kSecondaryColor,
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -220,8 +212,7 @@ class _EventsViewState extends State<EventsView>
                                                   Icon(
                                                     Icons
                                                         .sports_gymnastics_outlined,
-                                                    color: selectedAppTheme.isDarkMode?
-                                                    AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                                                    color: AppTheme().kSecondaryColor,
                                                   ),
                                                   SizedBox(
                                                     width: 5,
@@ -366,9 +357,7 @@ class _EventsViewState extends State<EventsView>
   AppBar buildAppBar(List<Events> events) {
     return AppBar(
             elevation: 0,
-            backgroundColor: selectedAppTheme.isDarkMode?
-            AppTheme().backgroundColor_Dark.withOpacity(opacityAnimation.value)
-            :AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
+            backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
             leading: Center(
               child: InkWell(
                 onTap: _onDrawerTapped,
@@ -387,8 +376,7 @@ class _EventsViewState extends State<EventsView>
                 activeIndex: _selectedEvent.value,
                 count: events.length,
                 effect: WormEffect(
-                  activeDotColor: selectedAppTheme.isDarkMode?
-                  AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                  activeDotColor: AppTheme().kSecondaryColor,
                   dotHeight: 6.0.sp,
                   dotWidth: 6.0.sp,
                 ),
@@ -415,8 +403,7 @@ class _EventsViewState extends State<EventsView>
             //TODO: decide shadow color .
             boxShadow: [
               BoxShadow(
-                color: selectedAppTheme.isDarkMode?
-                AppTheme().secondaryColor_Dark.withOpacity(0.5):AppTheme().secondaryColor.withOpacity(0.5),
+                color: AppTheme().secondaryColor.withOpacity(0.5),
                 spreadRadius: 6,
                 blurRadius: 10,
                 offset: Offset(0, 5),

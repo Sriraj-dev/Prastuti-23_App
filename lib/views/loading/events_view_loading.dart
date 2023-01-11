@@ -4,6 +4,8 @@ import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/loading/shimmer_widget.dart';
 
+import '../../animations/home_view_animation.dart';
+
 class Events_view_skeleton extends StatefulWidget {
   const Events_view_skeleton({Key? key}) : super(key: key);
 
@@ -26,8 +28,22 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: selectedAppTheme.isDarkMode?
-        AppTheme().backgroundColor_Dark:AppTheme().backgroundColor,
+        backgroundColor: AppTheme().backgroundColor,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
+          leading: Center(
+            child: InkWell(
+              child: AnimatedIcon(
+                icon: AnimatedIcons.menu_close,
+                color: selectedAppTheme.isDarkMode?
+                Colors.white:AppTheme().secondaryColor,
+                size: 33,
+                progress: drawerAnimationController.view,
+              ),
+            ),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.only(bottom: 20, top: 10, left: 0, right: 0),
           child: SingleChildScrollView(
@@ -62,8 +78,7 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             children: [
                               Icon(
                                 Icons.people_alt_rounded,
-                                color: selectedAppTheme.isDarkMode?
-                                AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                                color: AppTheme().kSecondaryColor,
                               ),
                               SizedBox(
                                 width: 5,
@@ -76,8 +91,7 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             children: [
                               Icon(
                                 Icons.sports_gymnastics_outlined,
-                                color: selectedAppTheme.isDarkMode?
-                                AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                                color: AppTheme().kSecondaryColor,
                               ),
                               SizedBox(
                                 width: 5,
@@ -97,8 +111,7 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Timeline",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: selectedAppTheme.isDarkMode?
-                            AppTheme().secondaryColor_Dark:AppTheme().secondaryColor
+                                .copyWith(color: AppTheme().secondaryColor
                             ),
                           ),
                           children: [
@@ -114,8 +127,7 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Rules",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: selectedAppTheme.isDarkMode?
-                            AppTheme().secondaryColor_Dark:AppTheme().secondaryColor
+                                .copyWith(color: AppTheme().secondaryColor
                             ),
                           ),
                           children: [
@@ -131,8 +143,7 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Rewards",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: selectedAppTheme.isDarkMode?
-                            AppTheme().secondaryColor_Dark:AppTheme().secondaryColor
+                                .copyWith(color: AppTheme().secondaryColor
                             ),
                           ),
                           children: [

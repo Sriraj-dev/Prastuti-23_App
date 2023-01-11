@@ -74,7 +74,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: AppTheme().secondaryColor_Dark,
+      systemNavigationBarColor: AppTheme().secondaryColor,
       systemNavigationBarIconBrightness: Brightness.light,
     ));
 
@@ -83,11 +83,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: selectedAppTheme.isDarkMode?[
-                  AppTheme().primaryColor_Dark,
-                  AppTheme().primaryColor_Dark,
-                  AppTheme().secondaryColor_Dark
-                ]:[
+                  colors: [
                     AppTheme().primaryColor,
                     AppTheme().primaryColor,
                     AppTheme().secondaryColor
@@ -173,6 +169,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                                         spreadRadius: 5,
                                                         blurRadius: 10,
                                                         offset: Offset(0, 5),
+
                                                       ),
                                                     ],
                                                   ),
@@ -340,11 +337,9 @@ Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading
                     ),
               style: ElevatedButton.styleFrom(
                 shape: const StadiumBorder(),
-                backgroundColor: selectedAppTheme.isDarkMode?
-                AppTheme().primaryColorDark_Dark:AppTheme().primaryColorDark,
+                backgroundColor: AppTheme().primaryColorDark,
                 fixedSize: Size(140.sp, 50.sp),
-                shadowColor: selectedAppTheme.isDarkMode?
-                AppTheme().primaryColorExtraDark_Dark:AppTheme().primaryColorExtraDark,
+                shadowColor: AppTheme().primaryColorExtraDark,
                 elevation: 15.sp,
               ),
             )
