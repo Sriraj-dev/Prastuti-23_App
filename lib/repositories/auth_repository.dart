@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:http/http.dart';
 import 'package:prastuti_23/config/app_endpoints.dart';
 import 'package:prastuti_23/data/network/base_api_services.dart';
 import 'package:prastuti_23/data/network/network_api_services.dart';
@@ -18,6 +19,8 @@ class AuthRepository{
     dynamic response =
         await _apiServices.getPostApiResponse(AppEndPoints.loginUrl, data);
 
-    return response = UserModel.fromJson(json.decode(response.body));
+    if(response.statusCode == 200){
+      return response = UserModel.fromJson(json.decode(response.body));
+    }else return UserModel();
   }
 }

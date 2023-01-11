@@ -19,7 +19,7 @@ class TeamModel {
 class Team {
   String? sId;
   String? teamName;
-  List<dynamic>? eventsParticipated;
+  List<dynamic>? eventsParticipated; // eventIds.
   List<Members>? members;
   int? memberCount;
   List<String>? pendingRequests;

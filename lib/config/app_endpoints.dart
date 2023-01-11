@@ -7,6 +7,9 @@ class AppEndPoints{
   //authentication Urls:
   static const String loginUrl = baseUrl + "/login";
 
+  // //registrationForm:
+  // static const String registrationUrl = baseUrl+"/registrationForm";
+
   //Events:
   static const String eventsUrl = baseUrl + "/events";
   static const String _eventByIdUrl = baseUrl + "/events";

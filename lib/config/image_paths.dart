@@ -65,4 +65,10 @@ class ImagePaths{
   static const linkedin_squared = "assets/about_us/linkedin.png";
   static const prastuti_logo_squared = "assets/about_us/prastuti_logo.png";
   static const gmail_squared = "assets/about_us/gmail.png";
+  static const github_squared = "assets/about_us/github.png";
+
+  //registration:
+  static const male_icon = "assets/registrationForm/male.png";
+  static const female_icon = "assets/registrationForm/female.png";
+  static const prastuti_CLogo = "assets/registrationForm/prastutiTLogo.png";
 }

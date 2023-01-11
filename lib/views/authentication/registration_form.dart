@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/utils/routes/route_names.dart';
+import 'package:prastuti_23/view_models/auth_view_model.dart';
+import 'package:prastuti_23/view_models/registration_view_model.dart';
 import 'package:prastuti_23/views/ui/choice_chips.dart';
 
 class RegistrationForm extends StatefulWidget {
@@ -14,7 +19,15 @@ class RegistrationForm extends StatefulWidget {
 
 class _RegistrationFormState extends State<RegistrationForm> {
   List<ChoiceChipData> choiceChips = ChoiceChips.all;
+  TextEditingController college = new TextEditingController();
+  TextEditingController phone = new TextEditingController();
+  TextEditingController linkedIn = new TextEditingController();
+  TextEditingController insta = new TextEditingController();
+  TextEditingController github = new TextEditingController();
+  List<String> socialUrls = [];
   List<String> interests = [];
+  String gender = "Male";
+  RxBool isLoading = false.obs;
 
   @override
   void didChangeDependencies() {
@@ -27,177 +40,283 @@ class _RegistrationFormState extends State<RegistrationForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme().backgroundColor,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: AppTheme().primaryColor,
-          ),
-        ),
-      ),
-      body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 30),
-          child: Container(
-            color: AppTheme().backgroundColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Create Account",
-                  style: GoogleFonts.poppins(
-                    fontSize: 25,
-                    color: AppTheme().primaryColor,
-                    fontWeight: FontWeight.w500,
+      appBar: buildAppBar(),
+      body: SingleChildScrollView(
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 0),
+            child: Container(
+              color: AppTheme().backgroundColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    ImagePaths.prastuti_CLogo,
+                    scale: 2,
                   ),
-                ),
-                Text(
-                  "complete your profile",
-                  style: GoogleFonts.lato(
-                    fontSize: 16,
-                    color: AppTheme().secondaryColor,
-                    fontWeight: FontWeight.w400,
+                  Text(
+                    "Create Account",
+                    style: GoogleFonts.poppins(
+                      fontSize: 25,
+                      color: AppTheme().primaryColor,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: SizeConfig.heightPercent * 50,
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.person_outline_outlined),
-                          SizedBox(
-                            width: 10,
+                  Text(
+                    "complete your profile",
+                    style: GoogleFonts.lato(
+                      fontSize: 16,
+                      color: AppTheme().secondaryColor,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: SizeConfig.heightPercent * 50,
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.person_outline_outlined),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "currentUser.name??",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Text(
+                                  "currentUser.emailId??""",
+                                  style: GoogleFonts.lato(
+                                    color: AppTheme().primaryColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: inputField(
+                            controller: college,
+                            icon: Icon(
+                              Icons.assured_workload_outlined,
+                              color: AppTheme().primaryColor,
+                            ),
+                            hintText: "COLLEGE",
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: inputField(
+                            controller: phone,
+                            icon: Icon(
+                              Icons.phone_android_outlined,
+                              color: AppTheme().primaryColor,
+                            ),
+                            hintText: "PHONE",
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: inputField(
+                            controller: linkedIn,
+                            icon: Container(
+                              height: SizeConfig.height * 0.04,
+                              width: SizeConfig.height * 0.04,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          ImagePaths.linkedin_squared),
+                                      fit: BoxFit.cover)),
+                            ),
+                            hintText: "LINKEDIN URL",
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: inputField(
+                            controller: insta,
+                            icon: Container(
+                              height: SizeConfig.height * 0.04,
+                              width: SizeConfig.height * 0.04,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          ImagePaths.instagram_squared),
+                                      fit: BoxFit.cover)),
+                            ),
+                            hintText: "INSTA URL",
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: inputField(
+                            controller: github,
+                            icon: Container(
+                              height: SizeConfig.height * 0.04,
+                              width: SizeConfig.height * 0.04,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage(ImagePaths.github_squared),
+                                      fit: BoxFit.cover)),
+                            ),
+                            hintText: "GITHUB URL",
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Interests:",
+                          style: GoogleFonts.lato(
+                              fontSize: 16,
+                              color: AppTheme().primaryColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        buildChoiceChips(),
+                        Text(
+                          "Gender:",
+                          style: GoogleFonts.lato(
+                              fontSize: 16,
+                              color: AppTheme().primaryColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Container(
+                          width: SizeConfig.widthPercent * 65,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                "Sriraj",
-                                style: GoogleFonts.poppins(
-                                  color: Colors.grey,
-                                ),
+                              Row(
+                                children: [
+                                  Radio(
+                                    activeColor: AppTheme().kSecondaryColor,
+                                      value: "Male",
+                                      groupValue: gender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gender = value.toString();
+                                        });
+                                      }),
+                                  Container(
+                                    height: SizeConfig.height * 0.03,
+                                    width: SizeConfig.height * 0.03,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                ImagePaths.male_icon),
+                                            fit: BoxFit.cover)),
+                                  )
+                                ],
                               ),
-                              Text(
-                                "Psriraj1902@gmail.com",
-                                style: GoogleFonts.lato(
-                                  color: AppTheme().primaryColor,
-                                ),
-                              )
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Radio(
+                                    activeColor: AppTheme().kSecondaryColor,
+                                      value: "Female",
+                                      groupValue: gender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gender = value.toString();
+                                        });
+                                      }),
+                                      Container(
+                                    height: SizeConfig.height * 0.03,
+                                    width: SizeConfig.height * 0.03,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                ImagePaths.female_icon),
+                                            fit: BoxFit.cover)),
+                                  )
+                                ],
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-
-                      SizedBox(
-                        height: 25,
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: inputField(
-                          icon: Icon(
-                            Icons.assured_workload_outlined,
-                            color: AppTheme().primaryColor,
-                          ),
-                          hintText: "COLLEGE",
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: inputField(
-                          icon: Icon(
-                            Icons.phone_android_outlined,
-                            color: AppTheme().primaryColor,
-                          ),
-                          hintText: "PHONE",
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: inputField(
-                          icon: Container(
-                            height: SizeConfig.height * 0.04,
-                            width: SizeConfig.height * 0.04,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(ImagePaths.linkedin_squared),
-                                    fit: BoxFit.cover)),
-                          ),
-                          hintText: "LINKEDIN URL",
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: inputField(
-                          icon: Container(
-                            height: SizeConfig.height * 0.04,
-                            width: SizeConfig.height * 0.04,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image:
-                                        AssetImage(ImagePaths.instagram_squared),
-                                    fit: BoxFit.cover)),
-                          ),
-                          hintText: "INSTA URL",
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text("Interests:",
-                        style: GoogleFonts.lato(
-                          fontSize: 16,
-                          color: AppTheme().primaryColor,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      buildChoiceChips()
-                    ],
-                  ),
-                ),
-                SizedBox(height: 25,),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Center(
-                    child: Text(
-                      "CREATE ACCOUNT",
-                      style: GoogleFonts.poppins(
-                          fontSize: 20, color: Colors.white),
+                      ],
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    shape:  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)
+                  SizedBox(
+                    height: 25,
+                  ),
+                  ElevatedButton(
+                    onPressed: () async{
+                      // isLoading.value = true;
+                      // socialUrls.add(linkedIn.text);
+                      // socialUrls.add(insta.text);
+                      // socialUrls.add(github.text);
+                      // await RegistrationViewModel().submitRegistrationForm(
+                      //   college.text, num.parse(phone.text), socialUrls, interests, gender, currentUser.sId!, context);
+                      //   isLoading.value = false;
+
+                      Navigator.of(context).pushNamed(RouteNames.homeView);
+                    },
+                    child: Obx(
+                      ()=> Center(
+                        child: (isLoading.value)?
+                        const SpinKitSpinningLines(color: Colors.white,size: 30,):
+                        Text(
+                          "CREATE ACCOUNT",
+                          style: GoogleFonts.poppins(
+                              fontSize: 20, color: Colors.white),
+                        ),
+                      ),
                     ),
-                    fixedSize: Size(SizeConfig.width, 40),
-                    backgroundColor: AppTheme().primaryColor,
-                    //shadowColor: AppTheme().primaryColor,
-                    elevation: 0,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      fixedSize: Size(SizeConfig.width, 40),
+                      backgroundColor: AppTheme().primaryColor,
+                      //shadowColor: AppTheme().primaryColor,
+                      elevation: 0,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "Please fill the mandatory fields to proceed",
-                  style: GoogleFonts.lato(
-                    fontSize: 14,
-                    color: AppTheme().secondaryColor,
-                    fontWeight: FontWeight.w400,
+                  SizedBox(
+                    height: 15,
                   ),
-                ),
-              ],
-            ),
-          )),
+                  Text(
+                    "Please fill the mandatory fields to proceed",
+                    style: GoogleFonts.lato(
+                      fontSize: 14,
+                      color: AppTheme().secondaryColor,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            )),
+      ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: IconButton(
+        onPressed: () {},
+        icon: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: AppTheme().primaryColor,
+        ),
+      ),
     );
   }
 
@@ -244,8 +363,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
 class inputField extends StatelessWidget {
   Widget icon;
   String hintText;
+  TextEditingController controller;
 
-  inputField({Key? key, required this.icon, required this.hintText})
+  inputField({Key? key, required this.icon, required this.hintText,required this.controller})
       : super(key: key);
 
   @override
@@ -258,8 +378,9 @@ class inputField extends StatelessWidget {
           width: 20,
         ),
         SizedBox(
-          width: SizeConfig.widthPercent * 30,
+          width: SizeConfig.widthPercent * 50,
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: hintText,

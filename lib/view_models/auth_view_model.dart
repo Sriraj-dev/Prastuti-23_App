@@ -34,30 +34,44 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
   Future<void> login({required BuildContext context})async{
 
     state = true;
-    
-
     try {
       final result =  await _googleSignIn.signIn();
       if(result==null){state =false; return ;}
       
-      result.authentication.then((googleKey)async{
+      String tokenId = "";
+      await result.authentication.then((googleKey)async{
         log(googleKey.idToken!);
-
-        dynamic currentUserModel = (await AuthRepository().loginApi(googleKey.idToken!));
-        currentUser = currentUserModel.user!;
-
-        if(currentUser.appId ==" " || currentUser.appId!.isEmpty){
-          NotificationServices().getPlayerId();      
-          //update PlayerId in backend;
-        }
+        tokenId = googleKey.idToken!;
       });
 
+    UserModel currentUserModel =
+          (await AuthRepository().loginApi(tokenId));
+
+      if (currentUserModel.user == null) {
+        await _googleSignIn.disconnect();
+        Utils.flushBarMessage(
+          message: "Error in communicating with server!!",
+          context: context,
+          bgColor: Colors.red);
+        state = false;
+        return;
+      }
+      
+      currentUser = currentUserModel.user!;
+
+      if (currentUser.appId == " " || currentUser.appId!.isEmpty) {
+        NotificationServices().getPlayerId();
+        //update PlayerId in backend;
+      }
+
+      
       Utils.flushBarMessage(
       message: "Successfully Logged In",
       context: context,
       bgColor: Colors.green);
 
-      Navigator.of(context).pushNamed(RouteNames.homeView);
+
+      Navigator.of(context).pushNamed(RouteNames.registrationForm);
       state = false;
     } catch (error) {
       //throw error;

@@ -55,9 +55,26 @@ class NetworkApiServices extends BaseApiServices{
   }
 
   @override
-  Future getPutApiResponse(String url) {
-    // TODO: implement getPutApiResponse
-    throw UnimplementedError();
+  Future getPutApiResponse(String url,Map<String,dynamic> data)async {
+    dynamic responseJson;
+    try{
+      print("data into put - $data");
+      final response = await http.put(
+          Uri.parse(url),
+        body: json.encode(data),
+        headers: {
+            "Content-Type": "application/json"
+          }
+      ).timeout(const Duration(seconds: 20));
+
+      print("Put req response - ${response.body}");
+      responseJson = checkResponse(response);
+    }on SocketException{
+      throw FetchDataException("No Internet Connection");
+    }catch(e){
+      throw e;
+    }
+    return responseJson;
   }
 
   @override

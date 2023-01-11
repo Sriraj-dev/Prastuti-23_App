@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
@@ -123,9 +124,7 @@ Widget drawer() {
                     child: (isLoading)?SizedBox(
                       width: SizeConfig.heightPercent * 3.5,
                       height: SizeConfig.heightPercent * 3.5,
-                      child: const CircularProgressIndicator(
-                        color: Colors.white,
-                      )
+                      child: const SpinKitSpinningLines(color: Colors.white)
                     ):Text(
                       "Logout",
                       style: TextStyle(
