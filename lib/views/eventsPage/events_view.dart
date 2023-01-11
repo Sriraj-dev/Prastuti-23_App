@@ -13,8 +13,12 @@ import 'package:prastuti_23/views/error_view.dart';
 import 'package:prastuti_23/views/eventsPage/event_timeline.dart';
 import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
+import 'package:prastuti_23/views/ui/show_model_team.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../config/image_paths.dart';
 import '../../view_models/events_view_model.dart';
+import '../profile/profile_view.dart';
+import '../profile/profile_view_content.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({Key? key}) : super(key: key);
@@ -23,9 +27,14 @@ class EventsView extends StatefulWidget {
   State<EventsView> createState() => _EventsViewState();
 }
 
-class _EventsViewState extends State<EventsView> with SingleTickerProviderStateMixin{
-
+class _EventsViewState extends State<EventsView>
+    with SingleTickerProviderStateMixin {
   final _selectedEvent = 0.obs;
+  bool isRegistered = true;
+
+  // ButtonState state = ButtonState.init;
+  // bool isAnimating = true;
+  // bool isPressed = false;
 
   @override
   void initState() {
@@ -41,19 +50,19 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: AppTheme().backgroundColor,
-      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
+      Brightness.light:Brightness.dark,
     ));
 
     return Container(
       color: AppTheme().backgroundColor,
       child: SafeArea(
-        child:   Consumer(builder: (context, ref, child) {
+        child: Consumer(builder: (context, ref, child) {
           final allEventsList = ref.watch(eventsProvider);
           return allEventsList.when(
-              error: ((e, stackTrace) => const ErrorView()),
+              error: ((e, stackTrace) => ErrorView(error: e.toString(),)),
               loading: ()=>const Events_view_skeleton(),
               data: (allEvents){
                 List<Events> events = allEvents.events as List<Events>;
@@ -64,7 +73,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                      Padding(
+                    Padding(
                       padding: const EdgeInsets.only(left: 20, right: 15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,30 +94,62 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        (events[_selectedEvent.value].name??"Invalid").toUpperCase(),
+                                        (events[_selectedEvent.value].name ??
+                                                "Invalid")
+                                            .toUpperCase(),
                                         style: AppTheme().headText1.copyWith(
-                                            color: AppTheme().primaryColor,
+                                            color: selectedAppTheme.isDarkMode?
+                                            Colors.white:AppTheme().primaryColor,
                                             fontWeight: FontWeight.w400),
                                       ),
                                       const SizedBox(
                                         width: 20,
                                       ),
                                       ElevatedButton(
-                                        onPressed: () {},
-                                        child: AutoSizeText(
-                                          'Register',
-                                          style: AppTheme().headText2.copyWith(
-                                                fontSize: 20,
+                                        onPressed: () {
+                                          isRegistered?''/// TODO Implement Automated Registration
+                                          :showModalBottomSheet(
+                                              context: context,
+                                              shape:
+                                                  const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(27))),
+                                              builder: (context) =>
+                                                  ShowModelTeams());
+                                        },
+                                        child: isRegistered? Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(right: 5),
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: AssetImage(ImagePaths.WhatsApp),
+                                                      fit: BoxFit.cover
+                                                  )
+                                              ),
+                                            ),
+                                            Text(
+                                              'WhatsApp',
+                                              style: AppTheme().headText2.copyWith(
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w400,
                                               ),
+                                            ),
+                                          ],
+                                        ):AutoSizeText(
+                                          'Register',
+                                          style: AppTheme().headText2.copyWith(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           shape: const StadiumBorder(),
-                                          backgroundColor:
-                                              AppTheme().kSecondaryColor,
-                                          shadowColor: AppTheme()
-                                              .kSecondaryColor
-                                              .withOpacity(0.5),
+                                          backgroundColor: isRegistered?
+                                          Colors.green:AppTheme().kSecondaryColor,
+                                          shadowColor: isRegistered?
+                                          Colors.greenAccent:AppTheme().kSecondaryColor.withOpacity(0.5),
                                           elevation: 5,
                                           fixedSize: Size(140, 40),
                                         ),
@@ -119,7 +160,9 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                               ),
                             ),
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 3),
                             child: Obx(
@@ -142,12 +185,15 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                             padding:
                                                 EdgeInsets.only(bottom: 10),
                                             child: Text(
-                                              events[_selectedEvent.value].description??"",
+                                              events[_selectedEvent.value]
+                                                      .description ??
+                                                  "",
                                               style: AppTheme()
                                                   .headText2
                                                   .copyWith(
-                                                      color: AppTheme()
-                                                          .secondaryColor),
+                                                      color: selectedAppTheme.isDarkMode?
+                                                      Colors.white:AppTheme().secondaryColor
+                                              ),
                                             ),
                                           ),
                                           Row(
@@ -160,19 +206,23 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                                 children: [
                                                   Icon(
                                                     Icons.people_alt_rounded,
-                                                    color: AppTheme()
-                                                        .kSecondaryColor,
+                                                    color: AppTheme().kSecondaryColor,
                                                   ),
                                                   SizedBox(
                                                     width: 5,
                                                   ),
                                                   Text(
-                                                    (events[_selectedEvent.value].noOfParticipants??0).toString(),
+                                                    (events[_selectedEvent
+                                                                    .value]
+                                                                .noOfParticipants ??
+                                                            0)
+                                                        .toString(),
                                                     style: AppTheme()
                                                         .headText2
                                                         .copyWith(
-                                                            color: AppTheme()
-                                                                .secondaryColor),
+                                                            color: selectedAppTheme.isDarkMode?
+                                                            Colors.white:AppTheme().secondaryColor
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -183,19 +233,23 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                                   Icon(
                                                     Icons
                                                         .sports_gymnastics_outlined,
-                                                    color: AppTheme()
-                                                        .kSecondaryColor,
+                                                    color: AppTheme().kSecondaryColor,
                                                   ),
                                                   SizedBox(
                                                     width: 5,
                                                   ),
                                                   Text(
-                                                    (events[_selectedEvent.value].teamEvent!)?"Team Event":"Solo Event",
+                                                    (events[_selectedEvent
+                                                                .value]
+                                                            .teamEvent!)
+                                                        ? "Team Event"
+                                                        : "Solo Event",
                                                     style: AppTheme()
                                                         .headText2
                                                         .copyWith(
-                                                            color: AppTheme()
-                                                                .secondaryColor),
+                                                            color: selectedAppTheme.isDarkMode?
+                                                            Colors.white:AppTheme().secondaryColor
+                                                    ),
                                                   )
                                                 ],
                                               ),
@@ -206,18 +260,26 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                               dividerColor: Colors.transparent,
                                             ),
                                             child: ExpansionTile(
+                                              iconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
+                                              collapsedIconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
                                               title: Text(
                                                 "Timeline",
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                        color: AppTheme()
-                                                            .primaryColor,
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
                                                         fontWeight:
                                                             FontWeight.w500),
                                               ),
                                               children: [
-                                                Event_Timeline(timelines: events[_selectedEvent.value].timeline!,),
+                                                Event_Timeline(
+                                                  timelines: events[
+                                                          _selectedEvent.value]
+                                                      .timeline!,
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -226,19 +288,25 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                                 dividerColor:
                                                     Colors.transparent),
                                             child: ExpansionTile(
+                                              iconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
+                                              collapsedIconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
                                               title: Text(
                                                 "Rules",
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                        color: AppTheme()
-                                                            .primaryColor,
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
                                                         fontWeight:
                                                             FontWeight.w500),
                                               ),
                                               children: [
                                                 Text(
-                                                    events[_selectedEvent.value].rules??"")
+                                                    events[_selectedEvent.value]
+                                                            .rules ??
+                                                        "")
                                               ],
                                             ),
                                           ),
@@ -247,20 +315,25 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                                                 dividerColor:
                                                     Colors.transparent),
                                             child: ExpansionTile(
+                                              iconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
+                                              collapsedIconColor: selectedAppTheme.isDarkMode?
+                                              Colors.white:Colors.black,
                                               title: Text(
                                                 "Rewards",
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                        color: AppTheme()
-                                                            .primaryColor,
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
                                                         fontWeight:
                                                             FontWeight.w500),
                                               ),
-                                              children:  [
+                                              children: [
                                                 Text(
                                                     events[_selectedEvent.value]
-                                                            .rewards ??"")
+                                                            .rewards ??
+                                                        "")
                                               ],
                                             ),
                                           )
@@ -273,12 +346,12 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                         ],
                       ),
                     ),
-                      buildPageView(events)
-                    ],
-                  ),
-                );
-              },
-            );
+                    buildPageView(events)
+                  ],
+                ),
+              );
+            },
+          );
         }),
       ),
     );
@@ -286,19 +359,20 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
 
   Container buildPageView(List<Events> events) {
     return Container(
-                    height: SizeConfig.heightPercent * 25,
-                    child: PageView.builder(
-                        controller: PageController(viewportFraction: 0.88),
-                        itemCount: events.length,
-                        onPageChanged: ((value) {
-                          _selectedEvent.value = value;
-                          eventsViewAnimation.restartPageAnimation();
-                        }),
-                        itemBuilder: (context, index) {
-                          String image = event_images[(events[index].name??"Codigo").toUpperCase()]!;
-                          return eventImage(image);
-                        }),
-                  );
+      height: SizeConfig.heightPercent * 25,
+      child: PageView.builder(
+          controller: PageController(viewportFraction: 0.88),
+          itemCount: events.length,
+          onPageChanged: ((value) {
+            _selectedEvent.value = value;
+            eventsViewAnimation.restartPageAnimation();
+          }),
+          itemBuilder: (context, index) {
+            String image =
+                event_images[(events[index].name ?? "Codigo").toUpperCase()]!;
+            return eventImage(image);
+          }),
+    );
   }
 
   AppBar buildAppBar(List<Events> events) {
@@ -310,7 +384,8 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 onTap: _onDrawerTapped,
                 child: AnimatedIcon(
                   icon: AnimatedIcons.menu_close,
-                  color: AppTheme().secondaryColor,
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:AppTheme().secondaryColor,
                   size: 33,
                   progress: drawerAnimationController.view,
                 ),
@@ -333,9 +408,9 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
           );
   }
 
-  Widget eventImage(String image){
+  Widget eventImage(String image) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8,right: 8,bottom: 30,top: 10),
+      padding: const EdgeInsets.only(left: 8, right: 8, bottom: 30, top: 10),
       child: Material(
         borderRadius: BorderRadius.circular(30),
         elevation: 0,
@@ -355,9 +430,7 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
                 offset: Offset(0, 5),
               ),
             ],
-            image: DecorationImage(
-                image: AssetImage(image),
-                fit: BoxFit.cover),
+            image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
           ),
         ),
       ),
@@ -371,5 +444,5 @@ class _EventsViewState extends State<EventsView> with SingleTickerProviderStateM
       drawerAnimationController.forward();
     }
   }
-  
+
 }

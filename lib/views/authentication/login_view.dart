@@ -84,10 +84,10 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                  AppTheme().primaryColor,
-                  AppTheme().primaryColor,
-                  AppTheme().secondaryColor
-                ],
+                    AppTheme().primaryColor,
+                    AppTheme().primaryColor,
+                    AppTheme().secondaryColor
+                  ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter
                 )
@@ -115,7 +115,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                         children: [
                           Image.asset(
                             ImagePaths.prastuti_logo_1,
-                            height: SizeConfig.height * 0.075.sp,
+                            height: SizeConfig.height * 0.075,
                           ),
                         ],
                       ),
@@ -126,7 +126,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                       _timer.cancel();
                     },
                     child: Container(
-                      height: SizeConfig.heightPercent * 70.sp,
+                      height: SizeConfig.heightPercent * 70,
                       child: PageView.builder(
                         controller: _pageController,
                         itemCount: images.length,
@@ -157,18 +157,18 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                                 opacity: animationController
                                                     .pagePaddingValue.value,
                                                 child: Container(
-                                                  height: SizeConfig.height*0.3.sp,
-                                                  width: SizeConfig.width*0.7.sp,
+                                                  height: SizeConfig.height*0.3,
+                                                  width: SizeConfig.width*0.7,
                                                   decoration: BoxDecoration(
                                                     borderRadius: BorderRadius
-                                                        .circular(32.sp),
+                                                        .circular(32),
                                                     boxShadow: [
                                                       BoxShadow(
-                                                        color: Color.fromARGB(
-                                                            255, 17, 102, 157),
-                                                        spreadRadius: 5.sp,
-                                                        blurRadius: 10.sp,
-                                                        offset: Offset(0.sp, 5.sp),
+                                                        color: AppTheme().primaryColorLight,
+                                                        spreadRadius: 5,
+                                                        blurRadius: 10,
+                                                        offset: Offset(0, 5),
+
                                                       ),
                                                     ],
                                                   ),
@@ -200,8 +200,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                                 .start,
                                             children: [
                                               Container(
-                                                height: SizeConfig.height*0.07.sp,
-                                                width: SizeConfig.width*0.8.sp,
+                                                height: SizeConfig.height*0.07,
+                                                width: SizeConfig.width*0.8,
                                                 child: AutoSizeText(
                                                   title[index],
                                                   style: AppTheme().headText1.copyWith(
@@ -211,14 +211,14 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: SizeConfig.height * 0.15.sp,
-                                                width: SizeConfig.width * 0.80.sp,
+                                                height: SizeConfig.height * 0.15,
+                                                width: SizeConfig.width * 0.80,
                                                 child: AutoSizeText(
                                                   detail[index],
                                                   style: AppTheme().headText2.copyWith(
                                                       fontWeight: FontWeight
                                                           .normal,
-                                                    fontSize: 16.sp,
+                                                    fontSize: 16,
                                                   ),
                                                   textAlign: TextAlign.start,
                                                 ),
@@ -235,19 +235,19 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                    padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 15.sp),
+                          padding: EdgeInsets.only(left: 15),
                           child: AnimatedSmoothIndicator(
                             activeIndex: _currentPage,
                             count: 4,
                             effect: WormEffect(
                               activeDotColor: AppTheme().kSecondaryColor,
-                              dotHeight: 6.0.sp,
-                              dotWidth: 6.0.sp,
+                              dotHeight: 6.0,
+                              dotWidth: 6.0,
                             ),
                           ),
                         ),
@@ -278,10 +278,10 @@ Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading
       child: Image.asset(ImagePaths.google_logo_grey),
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
-        backgroundColor: Color.fromARGB(255, 21, 63, 94),
-        fixedSize: Size(50.sp, 50.sp),
-        shadowColor: Color.fromARGB(255, 17, 44, 61),
-        elevation: 12.sp,
+        backgroundColor: AppTheme().primaryColorDark,
+        fixedSize: Size(50, 50),
+        shadowColor: AppTheme().primaryColorExtraDark,
+        elevation: 12,
       ),
     ): ElevatedButton(
               onPressed: () async {
@@ -293,8 +293,8 @@ Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
-                          height: 15.sp,
-                          width: 15.sp,
+                          height: 15,
+                          width: 15,
                           child: CircularProgressIndicator(
                             color: Colors.white,
                           ),
@@ -333,9 +333,9 @@ Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading
                     ),
               style: ElevatedButton.styleFrom(
                 shape: const StadiumBorder(),
-                backgroundColor: Color.fromARGB(255, 21, 63, 94),
+                backgroundColor: AppTheme().primaryColorDark,
                 fixedSize: Size(140.sp, 50.sp),
-                shadowColor: Color.fromARGB(255, 17, 44, 61),
+                shadowColor: AppTheme().primaryColorExtraDark,
                 elevation: 15.sp,
               ),
             )

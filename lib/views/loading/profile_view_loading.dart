@@ -119,7 +119,8 @@ class _ProfileViewSceletonState extends State<ProfileViewSceleton> with SingleTi
                                   .copyWith(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400),
-                              unselectedLabelColor: Colors.black,
+                              unselectedLabelColor: selectedAppTheme.isDarkMode?
+                              Colors.white:Colors.black,
                             ),
                           ),
                         ),

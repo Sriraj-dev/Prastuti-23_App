@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:prastuti_23/config/env.dart';
+
 import 'package:prastuti_23/models/UserModel.dart';
 import 'package:prastuti_23/repositories/auth_repository.dart';
+
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/utils/utils.dart';
-import 'package:prastuti_23/view_models/notification_view_model.dart';
 
 final isLoggingIn = StateNotifierProvider<AuthViewModelNotifier, bool>
   ((ref)=>AuthViewModelNotifier());
@@ -58,6 +59,8 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
       Navigator.of(context).pushNamed(RouteNames.homeView);
       state = false;
     } catch (error) {
+      //throw error;
+      print(error);
       Utils.flushBarMessage(
           message: "Failed to Login!!", context: context, bgColor: Colors.red);
       

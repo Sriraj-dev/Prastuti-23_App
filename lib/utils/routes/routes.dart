@@ -7,6 +7,8 @@ import 'package:prastuti_23/views/homePage/homeView.dart';
 import 'package:prastuti_23/views/profile/profile_view.dart';
 import 'package:prastuti_23/views/splash_view.dart';
 
+import '../../views/aboutUs/about_us.dart';
+
 class Routes {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -22,7 +24,7 @@ class Routes {
       //ErrorView
       case RouteNames.errorView:
         return MaterialPageRoute(builder:
-            (BuildContext context)=>const ErrorView()
+            (BuildContext context)=>ErrorView(error: '',)
         );
 
       //LoginView
@@ -46,10 +48,15 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) => const ProfileView());
 
+        case RouteNames.aboutusView:
+        return MaterialPageRoute(builder:
+            (BuildContext context) => const  AboutUsView()
+        );
+
       //Invalid Route Exception
       default:
         return MaterialPageRoute(builder:
-            (BuildContext context)=>const ErrorView()
+            (BuildContext context)=>ErrorView()
         );
     }
   }

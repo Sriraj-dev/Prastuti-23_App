@@ -4,6 +4,8 @@ import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/loading/shimmer_widget.dart';
 
+import '../../animations/home_view_animation.dart';
+
 class Events_view_skeleton extends StatefulWidget {
   const Events_view_skeleton({Key? key}) : super(key: key);
 
@@ -27,6 +29,21 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppTheme().backgroundColor,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
+          leading: Center(
+            child: InkWell(
+              child: AnimatedIcon(
+                icon: AnimatedIcons.menu_close,
+                color: selectedAppTheme.isDarkMode?
+                Colors.white:AppTheme().secondaryColor,
+                size: 33,
+                progress: drawerAnimationController.view,
+              ),
+            ),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.only(bottom: 20, top: 10, left: 0, right: 0),
           child: SingleChildScrollView(
@@ -94,7 +111,8 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Timeline",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: AppTheme().secondaryColor),
+                                .copyWith(color: AppTheme().secondaryColor
+                            ),
                           ),
                           children: [
                             skeleton(20, SizeConfig.widthPercent*70)
@@ -109,7 +127,8 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Rules",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: AppTheme().secondaryColor),
+                                .copyWith(color: AppTheme().secondaryColor
+                            ),
                           ),
                           children: [
                             skeleton(20, SizeConfig.widthPercent * 70)
@@ -124,7 +143,8 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                             "Rewards",
                             style: AppTheme()
                                 .headText2
-                                .copyWith(color: AppTheme().secondaryColor),
+                                .copyWith(color: AppTheme().secondaryColor
+                            ),
                           ),
                           children: [
                             skeleton(20, SizeConfig.widthPercent * 70)

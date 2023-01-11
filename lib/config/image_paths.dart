@@ -31,6 +31,8 @@ class ImagePaths{
   static const add = "assets/profile_view/add.png";
   static const calendar = "assets/profile_view/calendar.png";
   static const profile_pic = "assets/profile_view/profile_pic.png";
+  static const cancel_02 = "assets/profile_view/cancel_02.png";
+  static const cancel = "assets/profile_view/cancel.png";
 
   //convenors
   static const co_convenor_1 = "assets/contact_us/co_convenor_1.jpg";
@@ -43,6 +45,7 @@ class ImagePaths{
   static const recognizance_image = "assets/contact_us/event_heads/Vidit.png";
   static const consilium_image = "assets/contact_us/event_heads/Ayush Pal.jpg";
   static const hackoverflow_image = "assets/contact_us/event_heads/Nilay Mundra.jpg";
+  static const WhatsApp = "assets/events_view/whatsapp.png";
 
   //team_leads
   static const app = "assets/contact_us/team_leads/Sriraj_app.jpg";

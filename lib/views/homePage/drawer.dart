@@ -40,7 +40,9 @@ Widget drawer() {
                   style: AppTheme().headText2.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
-                      color: AppTheme().secondaryColor),
+                      color: selectedAppTheme.isDarkMode?
+                      Colors.white:AppTheme().secondaryColor
+                  ),
                 ),
               ],
             ),
@@ -51,7 +53,8 @@ Widget drawer() {
               onTap: ()=>homeViewController.changeSelectedView(0),
               title: Text("Events",
               style: AppTheme().headText2.copyWith(
-                color: Colors.black,
+                color: selectedAppTheme.isDarkMode?
+                Colors.white:Colors.black,
                 fontWeight: FontWeight.normal,
                 fontSize: 17,
               ),),
@@ -64,7 +67,8 @@ Widget drawer() {
               onTap: () =>homeViewController.changeSelectedView(1),
               title: Text("Profile",
                   style: AppTheme().headText2.copyWith(
-                    color: Colors.black,
+                    color: selectedAppTheme.isDarkMode?
+                    Colors.white:Colors.black,
                     fontWeight: FontWeight.normal,
                     fontSize: 17,
                   )),
@@ -77,7 +81,8 @@ Widget drawer() {
               onTap: () => homeViewController.changeSelectedView(2),
               title: Text("Contact us",
                   style: AppTheme().headText2.copyWith(
-                    color: Colors.black,
+                    color: selectedAppTheme.isDarkMode?
+                    Colors.white:Colors.black,
                     fontWeight: FontWeight.normal,
                     fontSize: 17,
                   )),
@@ -90,7 +95,8 @@ Widget drawer() {
               onTap: () => homeViewController.changeSelectedView(3),
               title: Text("About us",
                   style: AppTheme().headText2.copyWith(
-                        color: Colors.black,
+                        color: selectedAppTheme.isDarkMode?
+                        Colors.white:Colors.black,
                         fontWeight: FontWeight.normal,
                         fontSize: 17,
                       )),
@@ -111,9 +117,16 @@ Widget drawer() {
                   height: SizeConfig.heightPercent * 5,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: AppTheme().primaryColor),
+                      color: AppTheme().primaryColor
+                  ),
                   child: Center(
-                    child: (isLoading)?CircularProgressIndicator():Text(
+                    child: (isLoading)?SizedBox(
+                      width: SizeConfig.heightPercent * 3.5,
+                      height: SizeConfig.heightPercent * 3.5,
+                      child: const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    ):Text(
                       "Logout",
                       style: TextStyle(
                           fontWeight: FontWeight.w500, color: Colors.white),
