@@ -21,6 +21,8 @@ import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../data/response/status.dart';
 import '../../utils/utils.dart';
+import '../ui/add_new_member.dart';
+import '../ui/create_new_team.dart';
 import '../eventsPage/events_view_content.dart';
 
 
@@ -179,67 +181,67 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
             body: TabBarView(
               controller: _tabController,
               children: [
-                buildEventsList(regEvents),
-                Stack(
-                  children: [
-                    buildTeamsList(regTeams),
-                    Positioned(
-                      bottom: 10,
-                      right: 30,
-                      child: Container(
-                        alignment: Alignment.bottomCenter,
-                        child: ElevatedButton(
-                          onPressed: () => showDialog(
-                              context: context,
-                              builder: (context) => Utils().DialogBox(
-                                  'Create New Team',
-                                  'Enter Team Name',
-                                  'Create',
-                                  context
-                              )
-                          ),
-                          child: SizedBox(
-                              height: 35,
-                              width: SizeConfig.width*0.8,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 15,
-                                    height: 15,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(ImagePaths.add),
-                                        fit: BoxFit.cover
-                                      )
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  AutoSizeText(
-                                      'Create New Team',
-                                      style: AppTheme().headText2.copyWith(
-                                      )
-                                  ),
-                                ],
-                              )
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            backgroundColor: AppTheme().primaryColor,
-                            fixedSize: Size(SizeConfig.width*0.8, 45),
-                            shadowColor: AppTheme().primaryColor,
-                            elevation: 5,
-                          ),
-                        ),
-                      )
-                    )
-                  ],
-                ),
-                buildRequestList(requests)
+
+                Consumer(builder: (context, ref, child) {
+                  final allEventsList = ref.watch(eventsProvider);
+                  return allEventsList.when(
+                    error: ((error, stackTrace) => ErrorView(error: error.toString(),)), 
+                    loading: (() => skeleton(40, 40)),
+                    data: ((data) {
+                      List<Events> currEvents = data.events as List<Events>;
+                      List<Events> userEvents = [];
+                      currEvents.forEach((element) {
+                        if(currentUser.eventsParticipated!.contains(element.sId)){
+                          userEvents.add(element);
+                        }
+                      });
+                      return buildEventsList(userEvents);
+                    }), 
+                  );
+                  
+                }),
+                Consumer(builder: (context, ref, child) {
+                  final userTeams = ref.watch(teamsProvider(currentUser.teams!));
+                  return userTeams.when(
+                    data: ((data){
+                      return buildTeamsList(regTeams);
+                    }), 
+                    error: ((error, stackTrace) => ErrorView(error: error.toString(),)), 
+                    loading: (() => skeleton(40, 40))
+                  );
+                }),
+                Consumer(builder: (context, ref, child) {
+                  return buildRequestList(requests);
+                }),
+                
+                // Stack(
+                //   children: [
+                //     // Positioned(
+                //     //   bottom: 10,
+                //     //   right: 10,
+                //     //   child: Container(
+                //     //     alignment: Alignment.bottomRight,
+                //     //     child: ElevatedButton(
+                //     //       onPressed: () {},
+                //     //       child: SizedBox(
+                //     //           height: 35.sp,
+                //     //           width: 35.sp,
+                //     //           child: Image.asset(ImagePaths.add)
+                //     //       ),
+                //     //       style: ElevatedButton.styleFrom(
+                //     //         shape: const CircleBorder(),
+                //     //         backgroundColor: AppTheme().primaryColor,
+                //     //         fixedSize: Size(45.sp, 45.sp),
+                //     //         shadowColor: AppTheme().primaryColor,
+                //     //         elevation: 15.sp,
+                //     //       ),
+                //     //     ),
+                //     //   )
+                //     // )
+                //   ],
+                // ),
+                
+
               ]
             )
           ),
@@ -509,12 +511,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                               child: ElevatedButton(
                                 onPressed: () => showDialog(
                                   context: context,
-                                  builder: (context) => Utils().DialogBox(
-                                      'Add New Member',
-                                      'Enter Email ID',
-                                      'Add',
-                                      context
-                                  )
+                                  builder: (context) => AddNewMember(),
                                 ),
                                 child: SizedBox(
                                     height: 35,
@@ -716,8 +713,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                           score,
                                           style: AppTheme().headText2.copyWith(
                                             color: selectedAppTheme.isDarkMode?
-                                            Colors.white:Colors.black,
-                                            fontSize: 14
+                                            Colors.white:Colors.black
                                           )
                                       ),
                                     ],
@@ -741,8 +737,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                           date,
                                           style: AppTheme().headText2.copyWith(
                                             color: selectedAppTheme.isDarkMode?
-                                            Colors.white:Colors.black,
-                                            fontSize: 12
+                                            Colors.white:Colors.black
                                           )
                                       ),
                                     ],
