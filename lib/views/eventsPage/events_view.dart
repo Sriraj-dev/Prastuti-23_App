@@ -30,6 +30,7 @@ class EventsView extends StatefulWidget {
 class _EventsViewState extends State<EventsView>
     with SingleTickerProviderStateMixin {
   final _selectedEvent = 0.obs;
+  bool isRegistered = true;
 
   // ButtonState state = ButtonState.init;
   // bool isAnimating = true;
@@ -106,29 +107,49 @@ class _EventsViewState extends State<EventsView>
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
-                                          showModalBottomSheet(
+                                          isRegistered?''/// TODO Implement Automated Registration
+                                          :showModalBottomSheet(
                                               context: context,
                                               shape:
-                                                  const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.vertical(
-                                                              top: Radius
-                                                                  .circular(
-                                                                      27))),
+                                                  const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(27))),
                                               builder: (context) =>
                                                   ShowModelTeams());
                                         },
-                                        child: AutoSizeText(
-                                          'Register',
-                                          style: AppTheme().headText2.copyWith(
-                                                fontSize: 20,
+                                        child: isRegistered? Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(right: 5),
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: AssetImage(ImagePaths.WhatsApp),
+                                                      fit: BoxFit.cover
+                                                  )
+                                              ),
+                                            ),
+                                            Text(
+                                              'WhatsApp',
+                                              style: AppTheme().headText2.copyWith(
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w400,
                                               ),
+                                            ),
+                                          ],
+                                        ):AutoSizeText(
+                                          'Register',
+                                          style: AppTheme().headText2.copyWith(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           shape: const StadiumBorder(),
-                                          backgroundColor: AppTheme().kSecondaryColor,
-                                          shadowColor: AppTheme().kSecondaryColor.withOpacity(0.5),
+                                          backgroundColor: isRegistered?
+                                          Colors.green:AppTheme().kSecondaryColor,
+                                          shadowColor: isRegistered?
+                                          Colors.greenAccent:AppTheme().kSecondaryColor.withOpacity(0.5),
                                           elevation: 5,
                                           fixedSize: Size(140, 40),
                                         ),

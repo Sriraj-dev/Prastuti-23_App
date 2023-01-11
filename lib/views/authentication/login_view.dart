@@ -164,8 +164,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                                         .circular(32),
                                                     boxShadow: [
                                                       BoxShadow(
-                                                        color: selectedAppTheme.isDarkMode?
-                                                        AppTheme().primaryColorLight_Dark:AppTheme().primaryColorLight,
+                                                        color: AppTheme().primaryColorLight,
                                                         spreadRadius: 5,
                                                         blurRadius: 10,
                                                         offset: Offset(0, 5),
@@ -246,8 +245,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                             activeIndex: _currentPage,
                             count: 4,
                             effect: WormEffect(
-                              activeDotColor: selectedAppTheme.isDarkMode?
-                              AppTheme().kSecondaryColor_Dark:AppTheme().kSecondaryColor,
+                              activeDotColor: AppTheme().kSecondaryColor,
                               dotHeight: 6.0,
                               dotWidth: 6.0,
                             ),
@@ -280,11 +278,9 @@ Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading
       child: Image.asset(ImagePaths.google_logo_grey),
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
-        backgroundColor: selectedAppTheme.isDarkMode?
-        AppTheme().primaryColorDark_Dark:AppTheme().primaryColorDark,
+        backgroundColor: AppTheme().primaryColorDark,
         fixedSize: Size(50, 50),
-        shadowColor: selectedAppTheme.isDarkMode?
-        AppTheme().primaryColorExtraDark_Dark:AppTheme().primaryColorExtraDark,
+        shadowColor: AppTheme().primaryColorExtraDark,
         elevation: 12,
       ),
     ): ElevatedButton(
