@@ -14,8 +14,7 @@ class AppTheme{
   Color(0xFF18272F):Color(0xFF4B7CB2);
   Color backgroundColor = selectedAppTheme.isDarkMode?
   Color(0xFF343434):Color(0xFFDBF2FF);
-  Color kSecondaryColor = selectedAppTheme.isDarkMode?
-  Color(0xFF7A5A00):Color(0xFFDEA01E);
+  Color kSecondaryColor = Color(0xFFDEA01E);
   Color secondaryColorLight = selectedAppTheme.isDarkMode?
   Color(0xFF3B3B3B):Color(0xFFB5C8E8);
   Color primaryColorDark = selectedAppTheme.isDarkMode?
@@ -53,5 +52,5 @@ final headText2 =  GoogleFonts.catamaran(
 
 
 class selectedAppTheme {
-  static bool isDarkMode = false;
+  static bool isDarkMode = true;
 }

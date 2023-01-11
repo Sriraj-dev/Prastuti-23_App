@@ -61,7 +61,7 @@ Widget drawer() {
               ),),
               leading: Icon(
                 Icons.event_note_rounded,
-                color: AppTheme().secondaryColor,
+                color: AppTheme().kSecondaryColor,
               ),
             ),
             ListTile(
@@ -75,7 +75,7 @@ Widget drawer() {
                   )),
               leading: Icon(
                 Icons.person,
-                color: AppTheme().secondaryColor,
+                color: AppTheme().kSecondaryColor,
               ),
             ),
             ListTile(
@@ -89,7 +89,7 @@ Widget drawer() {
                   )),
               leading: Icon(
                 Icons.phone,
-                color: AppTheme().secondaryColor,
+                color: AppTheme().kSecondaryColor,
               ),
             ),
             ListTile(
@@ -103,7 +103,7 @@ Widget drawer() {
                       )),
               leading: Icon(
                 Icons.info_outline_rounded,
-                color: AppTheme().secondaryColor,
+                color: AppTheme().kSecondaryColor,
               ),
             ),
             SizedBox(height: 5,),
