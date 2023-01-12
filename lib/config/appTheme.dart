@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AppTheme{
@@ -34,23 +35,43 @@ class AppTheme{
   
   //Added TextStyles by Yash
 
-final headText1 =   GoogleFonts.comicNeue(
-  color: Colors.white,
-  decoration: TextDecoration
-      .none,
+  final headText1 =   GoogleFonts.comicNeue(
+    color: Colors.white,
+    decoration: TextDecoration
+        .none,
 
-  fontSize: 40,
-);
-final headText2 =  GoogleFonts.catamaran(
-  color: Colors.white,
-  decoration: TextDecoration
-      .none,
+    fontSize: 40,
+  );
+  final headText2 =  GoogleFonts.catamaran(
+    color: Colors.white,
+    decoration: TextDecoration
+        .none,
 
-  fontSize: 16,
-);
+    fontSize: 16,
+  );
+
+  static final darkTheme = ThemeData(
+
+  );
+
+  static final lightTheme = ThemeData(
+
+  );
+
 }
 
-
 class selectedAppTheme {
-  static bool isDarkMode = true;
+
+  static SharedPreferences? _preferences;
+
+  static const _isDark = 'mode';
+
+  static Future init() async =>
+    _preferences = await SharedPreferences.getInstance();
+
+  static Future setMode(bool mode) async =>
+    await _preferences?.setBool(_isDark, mode);
+  static bool? getMode() => _preferences?.getBool(_isDark);
+
+  static bool isDarkMode = false;
 }

@@ -66,7 +66,8 @@ class Utils{
                     height: 15,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(ImagePaths.cancel),
+                            image: selectedAppTheme.isDarkMode?
+                            AssetImage(ImagePaths.cancel_dark):AssetImage(ImagePaths.cancel_light),
                             fit: BoxFit.cover
                         )
                     ),

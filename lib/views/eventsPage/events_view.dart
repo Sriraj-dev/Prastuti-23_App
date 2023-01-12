@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,8 @@ import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
 import 'package:prastuti_23/views/ui/show_model_team.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../config/appTheme.dart';
+import '../../config/appTheme.dart';
 import '../../config/image_paths.dart';
 import '../../view_models/events_view_model.dart';
 import '../profile/profile_view.dart';
@@ -42,6 +45,8 @@ class _EventsViewState extends State<EventsView>
     eventsViewAnimation.initiatePageAnimation(this);
   }
 
+
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -53,7 +58,8 @@ class _EventsViewState extends State<EventsView>
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(ImagePaths.bgImage),
+          image: selectedAppTheme.isDarkMode?
+          AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
           fit: BoxFit.cover
         )
       ),
@@ -405,6 +411,14 @@ class _EventsViewState extends State<EventsView>
               ),
             ),
             actions: [
+              Switch(value: selectedAppTheme.isDarkMode,
+                onChanged: (darkMode) async {
+                  setState(() {
+                    selectedAppTheme.isDarkMode = darkMode;
+                  });
+                  await selectedAppTheme.setMode(darkMode);
+
+                },),
               Obx((() => 
                 AnimatedSmoothIndicator(
                 activeIndex: _selectedEvent.value,
@@ -457,5 +471,5 @@ class _EventsViewState extends State<EventsView>
       drawerAnimationController.forward();
     }
   }
-
 }
+

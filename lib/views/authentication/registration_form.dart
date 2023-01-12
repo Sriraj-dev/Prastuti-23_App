@@ -49,7 +49,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(ImagePaths.bgImage),
+              image: selectedAppTheme.isDarkMode?
+              AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
               fit: BoxFit.cover
           )
       ),
@@ -243,7 +244,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                       width: SizeConfig.height * 0.04,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
-                                              image: AssetImage(ImagePaths.male_icon),
+                                              image: selectedAppTheme.isDarkMode?
+                                              AssetImage(ImagePaths.male_icon_dark):AssetImage(ImagePaths.male_icon_light),
                                               fit: BoxFit.cover,
                                           )
                                       ),
@@ -267,8 +269,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                       width: SizeConfig.height * 0.04,
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
-                                              image: AssetImage(
-                                                  ImagePaths.female_icon),
+                                              image: selectedAppTheme.isDarkMode?
+                                              AssetImage(ImagePaths.female_icon_dark):AssetImage(ImagePaths.female_icon_light),
                                               fit: BoxFit.cover)),
                                     )
                                   ],
