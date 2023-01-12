@@ -73,4 +73,6 @@ class selectedAppTheme {
     await _preferences?.setBool(_isDark, mode);
   static bool? getMode() => _preferences?.getBool(_isDark);
 
+  static bool isDarkMode = false;
+
 }
