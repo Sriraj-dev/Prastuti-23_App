@@ -2,8 +2,12 @@
 
 import 'dart:core';
 
+import 'package:prastuti_23/config/appTheme.dart';
+
 
 class ImagePaths{
+
+  // Suffix "dark/light" after name is to indicate app theme in which it is to be used
 
   //TODO: Add All the Image Paths Here and Use them in the Code - Yash
   static const  prastuti_logo = "assets/prastuti_logo.png";
@@ -31,8 +35,8 @@ class ImagePaths{
   static const add = "assets/profile_view/add.png";
   static const calendar = "assets/profile_view/calendar.png";
   static const profile_pic = "assets/profile_view/profile_pic.png";
-  static const cancel_02 = "assets/profile_view/cancel_02.png";
-  static const cancel = "assets/profile_view/cancel.png";
+  static String cancel = selectedAppTheme.isDarkMode?
+  "assets/profile_view/cancel_dark.png":"assets/profile_view/cancel_light.png";
 
   //convenors
   static const co_convenor_1 = "assets/contact_us/co_convenor_1.jpg";
@@ -66,9 +70,17 @@ class ImagePaths{
   static const prastuti_logo_squared = "assets/about_us/prastuti_logo.png";
   static const gmail_squared = "assets/about_us/gmail.png";
   static const github_squared = "assets/about_us/github.png";
+  static String bulb = selectedAppTheme.isDarkMode?
+  "assets/about_us/bulb_dark.png":"assets/about_us/bulb_light.png";
 
   //registration:
-  static const male_icon = "assets/registrationForm/male.png";
-  static const female_icon = "assets/registrationForm/female.png";
+  static String male_icon = selectedAppTheme.isDarkMode?
+  "assets/registrationForm/male_dark.png":"assets/registrationForm/male_light.png";
+  static String female_icon = selectedAppTheme.isDarkMode?
+  "assets/registrationForm/female_dark.png":"assets/registrationForm/female_light.png";
   static const prastuti_CLogo = "assets/registrationForm/prastutiTLogo.png";
+
+  //Background Image
+  static String bgImage = selectedAppTheme.isDarkMode?
+  "assets/background_image_dark.png":"assets/background_image_light.png";
 }

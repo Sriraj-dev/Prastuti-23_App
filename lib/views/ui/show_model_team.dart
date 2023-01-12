@@ -30,7 +30,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
     return Container(
       decoration: BoxDecoration(
           color: selectedAppTheme.isDarkMode?
-          Colors.black:Colors.white,
+          Colors.black.withOpacity(0.5):Colors.white.withOpacity(0.5),
         borderRadius: BorderRadius.only(topLeft: Radius.circular(27), topRight: Radius.circular(27))
       ),
       child: Stack(
@@ -89,8 +89,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
         padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: selectedAppTheme.isDarkMode?
-            Color.fromARGB(255, 33, 45, 63):Color.fromARGB(255, 181, 200, 232),
+            color: AppTheme().secondaryColorLight,
             boxShadow: [
               BoxShadow(
                   color: AppTheme().primaryColor.withOpacity(0.3),

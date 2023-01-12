@@ -30,7 +30,7 @@ class EventsView extends StatefulWidget {
 class _EventsViewState extends State<EventsView>
     with SingleTickerProviderStateMixin {
   final _selectedEvent = 0.obs;
-  bool isRegistered = true;
+  bool isRegistered = false;
 
   // ButtonState state = ButtonState.init;
   // bool isAnimating = true;
@@ -50,14 +50,13 @@ class _EventsViewState extends State<EventsView>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: AppTheme().backgroundColor,
-      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
-      Brightness.light:Brightness.dark,
-    ));
-
     return Container(
-      color: AppTheme().backgroundColor,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(ImagePaths.bgImage),
+          fit: BoxFit.cover
+        )
+      ),
       child: SafeArea(
         child: Consumer(builder: (context, ref, child) {
           final allEventsList = ref.watch(eventsProvider);
@@ -67,7 +66,7 @@ class _EventsViewState extends State<EventsView>
               data: (allEvents){
                 List<Events> events = allEvents.events as List<Events>;
                 return Scaffold(
-                backgroundColor: AppTheme().backgroundColor,
+                backgroundColor: Colors.transparent,
                 appBar: buildAppBar(events),
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -293,7 +292,7 @@ class _EventsViewState extends State<EventsView>
                                               collapsedIconColor: selectedAppTheme.isDarkMode?
                                               Colors.white:Colors.black,
                                               title: Text(
-                                                "Rules",
+                                                "Problem Statement",
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
@@ -304,9 +303,16 @@ class _EventsViewState extends State<EventsView>
                                               ),
                                               children: [
                                                 Text(
-                                                    events[_selectedEvent.value]
-                                                            .rules ??
-                                                        "")
+                                                  events[_selectedEvent.value]
+                                                          .rules ??
+                                                      "",
+                                                  style: AppTheme().headText1.copyWith(
+                                                      color: selectedAppTheme.isDarkMode?
+                                                      Colors.white:Colors.black,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 16
+                                                  ),
+                                                )
                                               ],
                                             ),
                                           ),
@@ -320,7 +326,7 @@ class _EventsViewState extends State<EventsView>
                                               collapsedIconColor: selectedAppTheme.isDarkMode?
                                               Colors.white:Colors.black,
                                               title: Text(
-                                                "Rewards",
+                                                "Resouces",
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
@@ -333,7 +339,14 @@ class _EventsViewState extends State<EventsView>
                                                 Text(
                                                     events[_selectedEvent.value]
                                                             .rewards ??
-                                                        "")
+                                                        "",
+                                                  style: AppTheme().headText1.copyWith(
+                                                      color: selectedAppTheme.isDarkMode?
+                                                      Colors.white:Colors.black,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 16
+                                                  ),
+                                                )
                                               ],
                                             ),
                                           )
@@ -378,7 +391,7 @@ class _EventsViewState extends State<EventsView>
   AppBar buildAppBar(List<Events> events) {
     return AppBar(
             elevation: 0,
-            backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
+            backgroundColor: Colors.transparent,
             leading: Center(
               child: InkWell(
                 onTap: _onDrawerTapped,

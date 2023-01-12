@@ -21,123 +21,106 @@ class AboutUsView extends StatefulWidget {
 class _AboutUsViewState extends State<AboutUsView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme().backgroundColor,
-
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            top: -300,
-            left: -300,
-            child: Blob.animatedRandom(
-              size:800,
-              edgesCount:5,
-              minGrowth:1,
-              duration:  Duration(milliseconds:5000),
-              loop: true,
-              styles:  BlobStyles(
-                color:  Colors.green,
-                gradient:  LinearGradient(
-                    colors: [AppTheme().kSecondaryColor.withOpacity(0.5), AppTheme().kReddark])
-                    .createShader(Rect.fromLTRB(0, 0, 300, 300)),
-                strokeWidth:3,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 150,
-            left: 50,
-            child: Blob.animatedRandom(
-              size:800,
-              edgesCount:5,
-              minGrowth:1,
-              duration:  Duration(milliseconds:5000),
-              loop: true,
-              styles:  BlobStyles(
-                color:  Colors.green,
-                gradient:  LinearGradient(
-                  colors: [AppTheme().kRed.withOpacity(0.5), AppTheme().kSecondaryColor.withOpacity(0.5)])
-                    .createShader(Rect.fromLTRB(0, 0, 10, 10)),
-                strokeWidth:3,
-              ),
-            ),
-          ),
-          Positioned(
-              top: 0,
-              child: Container(
-                padding: EdgeInsets.all(10),
-                height: SizeConfig.height*0.89,
-                width: SizeConfig.width*0.95,
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  children: [
-                    AutoSizeText(
-                        'ABOUT US',
-                        style: GoogleFonts.notoSerif(
-                          color: selectedAppTheme.isDarkMode?
-                          Colors.white:AppTheme().primaryColor,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 60,
-                        )
-                    ),
-                    AutoSizeText(
-                      about_us,
-                      style: AppTheme().headText1.copyWith(
-                          fontSize: 18,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.bold,
-                          color: selectedAppTheme.isDarkMode?
-                          Colors.white:AppTheme().primaryColor,
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(ImagePaths.bgImage),
+              fit: BoxFit.cover
+          )
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
+          margin: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.only(bottom: 10),
+          height: SizeConfig.height*0.89,
+          width: SizeConfig.width*0.95,
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              Center(
+                child: Container(
+                  height: SizeConfig.height*0.1632,
+                  width: SizeConfig.height*0.12,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(ImagePaths.bulb),
+                        fit: BoxFit.cover,
                       ),
-                      textAlign: TextAlign.justify,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    AutoSizeText(
-                        'SPONSORS',
-                        style: GoogleFonts.notoSerif(
-                          color: selectedAppTheme.isDarkMode?
-                          Colors.white:AppTheme().primaryColor,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 40,
-                        )
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    AutoSizeText(
-                        'REACH US ON',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.notoSerif(
-                          color: selectedAppTheme.isDarkMode?
-                          Colors.white:AppTheme().primaryColor,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 30,
-                        )
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          about_us_icons(ImagePaths.instagram_squared),
-                          about_us_icons(ImagePaths.gmail_squared),
-                          about_us_icons(ImagePaths.linkedin_squared),
-                          about_us_icons(ImagePaths.prastuti_logo_squared)
-                        ],
-                      ),
+                  ),
+                ),
+              ),
+              Center(
+                child: AutoSizeText(
+                  'ABOUT US',
+                  style: GoogleFonts.notoSerif(
+                    color: selectedAppTheme.isDarkMode?
+                    Colors.white:AppTheme().primaryColor,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 50,
+                  )
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              AutoSizeText(
+                about_us,
+                style: AppTheme().headText1.copyWith(
+                  fontSize: 18,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.bold,
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:AppTheme().primaryColor,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: AutoSizeText(
+                    'SPONSORS',
+                    style: GoogleFonts.notoSerif(
+                      color: selectedAppTheme.isDarkMode?
+                      Colors.white:AppTheme().primaryColor,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 40,
                     )
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              AutoSizeText(
+                  'REACH US ON',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.notoSerif(
+                    color: selectedAppTheme.isDarkMode?
+                    Colors.white:AppTheme().primaryColor,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 30,
+                  )
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    about_us_icons(ImagePaths.instagram_squared),
+                    about_us_icons(ImagePaths.gmail_squared),
+                    about_us_icons(ImagePaths.linkedin_squared),
+                    about_us_icons(ImagePaths.prastuti_logo_squared)
                   ],
                 ),
               )
-          )
-        ],
+            ],
+          ),
+        )
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,264 +40,298 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme().backgroundColor,
-      appBar: buildAppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 0),
-            child: Container(
-              color: AppTheme().backgroundColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    ImagePaths.prastuti_CLogo,
-                    scale: 2,
-                  ),
-                  Text(
-                    "Create Account",
-                    style: GoogleFonts.poppins(
-                      fontSize: 25,
-                      color: AppTheme().primaryColor,
-                      fontWeight: FontWeight.w500,
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: AppTheme().backgroundColor,
+      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
+      Brightness.light:Brightness.dark,
+    ));
+
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(ImagePaths.bgImage),
+              fit: BoxFit.cover
+          )
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: buildAppBar(),
+        body: SingleChildScrollView(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 0),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      ImagePaths.prastuti_CLogo,
+                      scale: 2,
                     ),
-                  ),
-                  Text(
-                    "complete your profile",
-                    style: GoogleFonts.lato(
-                      fontSize: 16,
-                      color: AppTheme().secondaryColor,
-                      fontWeight: FontWeight.w400,
+                    Text(
+                      "Create Account",
+                      style: GoogleFonts.poppins(
+                        fontSize: 25,
+                        color: selectedAppTheme.isDarkMode?
+                        Colors.white:AppTheme().primaryColor,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: SizeConfig.heightPercent * 50,
-                    child: ListView(
-                      physics: BouncingScrollPhysics(),
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(Icons.person_outline_outlined),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "currentUser.name??",
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                Text(
-                                  "currentUser.emailId??""",
-                                  style: GoogleFonts.lato(
-                                    color: AppTheme().primaryColor,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: inputField(
-                            controller: college,
-                            icon: Icon(
-                              Icons.assured_workload_outlined,
-                              color: AppTheme().primaryColor,
-                            ),
-                            hintText: "COLLEGE",
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: inputField(
-                            controller: phone,
-                            keyBoard: TextInputType.phone,
-                            icon: Icon(
-                              Icons.phone_android_outlined,
-                              color: AppTheme().primaryColor,
-                            ),
-                            hintText: "PHONE",
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: inputField(
-                            controller: linkedIn,
-                            icon: Container(
-                              height: SizeConfig.height * 0.04,
-                              width: SizeConfig.height * 0.04,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          ImagePaths.linkedin_squared),
-                                      fit: BoxFit.cover)),
-                            ),
-                            hintText: "LINKEDIN URL",
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: inputField(
-                            controller: insta,
-                            icon: Container(
-                              height: SizeConfig.height * 0.04,
-                              width: SizeConfig.height * 0.04,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          ImagePaths.instagram_squared),
-                                      fit: BoxFit.cover)),
-                            ),
-                            hintText: "INSTA URL",
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: inputField(
-                            controller: github,
-                            icon: Container(
-                              height: SizeConfig.height * 0.04,
-                              width: SizeConfig.height * 0.04,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage(ImagePaths.github_squared),
-                                      fit: BoxFit.cover)),
-                            ),
-                            hintText: "GITHUB URL",
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Interests:",
-                          style: GoogleFonts.lato(
-                              fontSize: 16,
-                              color: AppTheme().primaryColor,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        buildChoiceChips(),
-                        Text(
-                          "Gender:",
-                          style: GoogleFonts.lato(
-                              fontSize: 16,
-                              color: AppTheme().primaryColor,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Container(
-                          width: SizeConfig.widthPercent * 65,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Text(
+                      "complete your profile",
+                      style: GoogleFonts.lato(
+                        fontSize: 16,
+                        color: selectedAppTheme.isDarkMode?
+                        Colors.white:AppTheme().secondaryColor,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: SizeConfig.heightPercent * 50,
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Row(
-                                children: [
-                                  Radio(
-                                    activeColor: AppTheme().kSecondaryColor,
-                                      value: "Male",
-                                      groupValue: gender,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          gender = value.toString();
-                                        });
-                                      }),
-                                  Container(
-                                    height: SizeConfig.height * 0.03,
-                                    width: SizeConfig.height * 0.03,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                ImagePaths.male_icon),
-                                            fit: BoxFit.cover)),
-                                  )
-                                ],
+                              Icon(
+                                Icons.person_outline_outlined,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Radio(
-                                    activeColor: AppTheme().kSecondaryColor,
-                                      value: "Female",
-                                      groupValue: gender,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          gender = value.toString();
-                                        });
-                                      }),
-                                      Container(
-                                    height: SizeConfig.height * 0.03,
-                                    width: SizeConfig.height * 0.03,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                ImagePaths.female_icon),
-                                            fit: BoxFit.cover)),
+                                  Text(
+                                    "currentUser.name??",
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  Text(
+                                    "currentUser.emailId??""",
+                                    style: GoogleFonts.lato(
+                                      color: selectedAppTheme.isDarkMode?
+                                      Colors.white:AppTheme().primaryColor,
+                                    ),
                                   )
                                 ],
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  ElevatedButton(
-                    onPressed: () async{
-                      //submitTheForm();
-                      Navigator.of(context).pushNamed(RouteNames.homeView);
-                    },
-                    child: Obx(
-                      ()=> Center(
-                        child: (isLoading.value)?
-                        const SpinKitSpinningLines(color: Colors.white,size: 30,):
-                        Text(
-                          "CREATE ACCOUNT",
-                          style: GoogleFonts.poppins(
-                              fontSize: 20, color: Colors.white),
-                        ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 7),
+                            child: inputField(
+                              controller: college,
+                              icon: Icon(
+                                Icons.assured_workload_outlined,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor,
+                              ),
+                              hintText: "COLLEGE",
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 7),
+                            child: inputField(
+                              controller: phone,
+                              keyBoard: TextInputType.phone,
+                            icon: Icon(
+                                Icons.phone_android_outlined,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor,
+                              ),
+                              hintText: "PHONE",
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 7),
+                            child: inputField(
+                              controller: linkedIn,
+                              icon: Container(
+                                height: SizeConfig.height * 0.04,
+                                width: SizeConfig.height * 0.04,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            ImagePaths.linkedin_squared),
+                                        fit: BoxFit.cover)),
+                              ),
+                              hintText: "LINKEDIN URL",
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 7),
+                            child: inputField(
+                              controller: insta,
+                              icon: Container(
+                                height: SizeConfig.height * 0.04,
+                                width: SizeConfig.height * 0.04,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            ImagePaths.instagram_squared),
+                                        fit: BoxFit.cover)),
+                              ),
+                              hintText: "INSTA URL",
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 7),
+                            child: inputField(
+                              controller: github,
+                              icon: Container(
+                                height: SizeConfig.height * 0.04,
+                                width: SizeConfig.height * 0.04,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image:
+                                            AssetImage(ImagePaths.github_squared),
+                                        fit: BoxFit.cover)),
+                              ),
+                              hintText: "GITHUB URL",
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Interests:",
+                            style: GoogleFonts.lato(
+                                fontSize: 16,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          buildChoiceChips(),
+                          Text(
+                            "Gender:",
+                            style: GoogleFonts.lato(
+                                fontSize: 16,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Container(
+                            width: SizeConfig.widthPercent * 65,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Row(
+                                  children: [
+                                    Radio(
+                                      activeColor: AppTheme().kSecondaryColor,
+                                        value: "Male",
+                                        groupValue: gender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            gender = value.toString();
+                                          });
+                                        }),
+                                    Container(
+                                      height: SizeConfig.height * 0.04,
+                                      width: SizeConfig.height * 0.04,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(ImagePaths.male_icon),
+                                              fit: BoxFit.cover,
+                                          )
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Radio(
+                                      activeColor: AppTheme().kSecondaryColor,
+                                        value: "Female",
+                                        groupValue: gender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            gender = value.toString();
+                                          });
+                                        }),
+                                        Container(
+                                      height: SizeConfig.height * 0.04,
+                                      width: SizeConfig.height * 0.04,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  ImagePaths.female_icon),
+                                              fit: BoxFit.cover)),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      fixedSize: Size(SizeConfig.width, 40),
-                      backgroundColor: AppTheme().primaryColor,
-                      //shadowColor: AppTheme().primaryColor,
-                      elevation: 0,
+                    SizedBox(
+                      height: 15,
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Please fill the mandatory fields to proceed",
-                    style: GoogleFonts.lato(
-                      fontSize: 14,
-                      color: AppTheme().secondaryColor,
-                      fontWeight: FontWeight.w400,
+                    ElevatedButton(
+                      onPressed: () async{
+                        // isLoading.value = true;
+                        // socialUrls.add(linkedIn.text);
+                        // socialUrls.add(insta.text);
+                        // socialUrls.add(github.text);
+                        // await RegistrationViewModel().submitRegistrationForm(
+                        //   college.text, num.parse(phone.text), socialUrls, interests, gender, currentUser.sId!, context);
+                        //   isLoading.value = false;
+
+                        Navigator.of(context).pushNamed(RouteNames.homeView);
+                      },
+                      child: Obx(
+                        ()=> Center(
+                          child: (isLoading.value)?
+                          const SpinKitSpinningLines(color: Colors.white,size: 30,):
+                          Text(
+                            "CREATE ACCOUNT",
+                            style: GoogleFonts.poppins(
+                                fontSize: 20, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        fixedSize: Size(SizeConfig.width, 40),
+                        backgroundColor: AppTheme().primaryColor,
+                        //shadowColor: AppTheme().primaryColor,
+                        elevation: 0,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Please fill the mandatory fields to proceed",
+                      style: GoogleFonts.lato(
+                        fontSize: 14,
+                        color: selectedAppTheme.isDarkMode?
+                        Colors.white:AppTheme().secondaryColor,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }

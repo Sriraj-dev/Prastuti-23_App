@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
@@ -21,8 +22,6 @@ import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../data/response/status.dart';
 import '../../utils/utils.dart';
-import '../ui/add_new_member.dart';
-import '../ui/create_new_team.dart';
 import '../eventsPage/events_view_content.dart';
 
 class ProfileView extends StatefulWidget {
@@ -65,204 +64,247 @@ class _ProfileViewState extends State<ProfileView>
     return Container(
       color: AppTheme().primaryColor,
       child: SafeArea(
-        child: Scaffold(
-          backgroundColor: AppTheme().backgroundColor,
-          body: NestedScrollView(
-              headerSliverBuilder: ((context, innerBoxIsScrolled) => [
-                    SliverAppBar(
-                      pinned: true,
-                      backgroundColor: AppTheme().primaryColor,
-                      expandedHeight: SizeConfig.heightPercent * 35,
-                      leading: Center(
-                        child: InkWell(
-                          onTap: _onDrawerTapped,
-                          child: AnimatedIcon(
-                            icon: AnimatedIcons.menu_close,
-                            color: Colors.white,
-                            size: 33,
-                            progress: drawerAnimationController.view,
-                          ),
-                        ),
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(ImagePaths.bgImage),
+                  fit: BoxFit.cover
+              )
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: NestedScrollView(
+              physics: BouncingScrollPhysics(),
+              headerSliverBuilder: ((context, innerBoxIsScrolled)=>[
+                SliverAppBar(
+                  pinned: true,
+                  backgroundColor: AppTheme().primaryColor,
+                  expandedHeight: SizeConfig.heightPercent*35,
+                  leading: Center(
+                    child: InkWell(
+                      onTap: _onDrawerTapped,
+                      child: AnimatedIcon(
+                        icon: AnimatedIcons.menu_close,
+                        color: Colors.white,
+                        size: 33,
+                        progress: drawerAnimationController.view,
                       ),
-                      title: Text(
-                        "Your Profile",
-                        style: AppTheme().headText1.copyWith(fontSize: 20),
-                      ),
-                      stretch: true,
-                      flexibleSpace: FlexibleSpaceBar(
-                        background: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                  ),
+                  title: Text("Your Profile",
+                    style: AppTheme().headText1.copyWith(
+                      fontSize: 20
+                    ),
+                  ),
+                  stretch: true,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            CircleAvatar(
+                              radius: 60,
+                              backgroundColor: Colors.white,
+                              backgroundImage: AssetImage(ImagePaths.temp_pic),
+                            ),
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                CircleAvatar(
-                                  radius: 60,
-                                  backgroundColor: Colors.white,
-                                  backgroundImage:
-                                      AssetImage(ImagePaths.temp_pic),
+                                AutoSizeText("Sriraj",
+                                  style: AppTheme().headText1.copyWith(
+                                    fontSize: 22,
+                                  ),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    AutoSizeText(
-                                      "Sriraj",
-                                      style: AppTheme().headText1.copyWith(
-                                            fontSize: 22,
-                                          ),
-                                    ),
-                                    AutoSizeText(
-                                      "palakurthi.sriraj.eee20@itbhu.ac.in",
-                                      style: AppTheme().headText2,
-                                    ),
-                                    AutoSizeText(
-                                      "IIT BHU Varanasi",
-                                      style: AppTheme().headText2,
-                                    ),
-                                    AutoSizeText(
-                                      "+91 8074821478",
-                                      style: AppTheme().headText2,
-                                    )
-                                  ],
+                                AutoSizeText("palakurthi.sriraj.eee20@itbhu.ac.in",
+                                  style: AppTheme().headText2,
                                 ),
+                                AutoSizeText("IIT BHU Varanasi",
+                                  style: AppTheme().headText2,
+                                ),
+                                AutoSizeText("+91 8074821478",
+                                  style: AppTheme().headText2,
+                                )
                               ],
                             ),
                           ],
                         ),
-                      ),
-                      bottom: PreferredSize(
-                        preferredSize:
-                            Size.fromHeight(AppBar().preferredSize.height),
-                        child: Container(
-                          width: double.maxFinite,
-                          color: AppTheme().backgroundColor,
-                          child: Center(
-                            child: TabBar(
-                              isScrollable: true,
-                              controller: _tabController,
-                              tabs: const [
-                                Tab(
-                                  text: "Events",
-                                ),
-                                Tab(
-                                  text: "Teams",
-                                ),
-                                Tab(
-                                  text: "Requests",
-                                ),
-                              ],
-                              indicatorSize: TabBarIndicatorSize.tab,
-                              indicator: MaterialIndicator(
-                                color: AppTheme().kSecondaryColor,
-                                height: 2,
-                                topLeftRadius: 8,
-                                topRightRadius: 8,
-                                bottomLeftRadius: 8,
-                                bottomRightRadius: 8,
-                                tabPosition: TabPosition.bottom,
-                              ),
-                              labelColor: AppTheme().kSecondaryColor,
-                              labelStyle: AppTheme().headText2.copyWith(
-                                  fontSize: 15, fontWeight: FontWeight.w700),
-                              unselectedLabelStyle: AppTheme()
-                                  .headText2
-                                  .copyWith(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400),
-                              unselectedLabelColor: selectedAppTheme.isDarkMode
-                                  ? Colors.white
-                                  : Colors.black,
+                      ],
+                    ),
+                  ),
+
+                  bottom: PreferredSize(
+                    preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+                    child: Container(
+                      width: double.maxFinite,
+                      color: AppTheme().backgroundColor,
+                      child: Center(
+                        child: TabBar(
+                          isScrollable: true,
+                          controller: _tabController,
+                          tabs: const [
+                            Tab(
+                              text: "Events",
                             ),
+                            Tab(
+                              text: "Teams",
+                            ),
+                            Tab(
+                              text: "Requests",
+                            ),
+                          ],
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicator: MaterialIndicator(
+                            color: AppTheme().kSecondaryColor,
+                            height: 2,
+                            topLeftRadius: 8,
+                            topRightRadius: 8,
+                            bottomLeftRadius: 8,
+                            bottomRightRadius: 8,
+                            tabPosition: TabPosition.bottom,
                           ),
+                          labelColor: AppTheme().kSecondaryColor,
+                          labelStyle: AppTheme().headText2.copyWith(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700
+                          ),
+                          unselectedLabelStyle: AppTheme()
+                                    .headText2
+                                    .copyWith(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400),
+                          unselectedLabelColor: selectedAppTheme.isDarkMode?
+                          Colors.white:Colors.black,
                         ),
                       ),
-                    )
-                  ]),
-              body: TabBarView(controller: _tabController, children: [
-                buildEventsList([]),
-                buildTeamsList(regTeams),
-                buildRequestList(requests)
-                // Consumer(builder: (context, ref, child) {
-                //   final allEventsList = ref.watch(eventsProvider);
-                //   return allEventsList.when(
-                //     error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
-                //     loading: (() => skeleton(40, 40)),
-                //     data: ((data) {
-                //       List<Events> currEvents = data.events as List<Events>;
-                //       List<Events> userEvents = [];
-                //       currEvents.forEach((element) {
-                //         if(currentUser.eventsParticipated!.contains(element.sId)){
-                //           userEvents.add(element);
-                //         }
-                //       });
-                //       return buildEventsList(userEvents);
-                //     }),
-                //   );
-                // }),
+                    ),
+                  ),
+                )
+              ]),
+              body: TabBarView(
+                controller: _tabController,
+                children: [
+                  buildEventsList([]),
+                  buildTeamsList(regTeams),
+                  buildRequestList(requests)
+                  // Consumer(builder: (context, ref, child) {
+                  //   final allEventsList = ref.watch(eventsProvider);
+                  //   return allEventsList.when(
+                  //     error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
+                  //     loading: (() => skeleton(40, 40)),
+                  //     data: ((data) {
+                  //       List<Events> currEvents = data.events as List<Events>;
+                  //       List<Events> userEvents = [];
+                  //       currEvents.forEach((element) {
+                  //         if(currentUser.eventsParticipated!.contains(element.sId)){
+                  //           userEvents.add(element);
+                  //         }
+                  //       });
+                  //       return buildEventsList(userEvents);
+                  //     }),
+                  //   );
 
-                // Consumer(builder: (context, ref, child) {
-                //   final userTeams = ref.watch(teamsProvider([]));
-                //   return userTeams.when(
-                //     data: ((data){
-                //       return buildTeamsList(regTeams);
-                //     }),
-                //     error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
-                //     loading: (() => skeleton(40, 40))
-                //   );
-                // }),
-                
-                // Consumer(builder: (context, ref, child) {
-                //   return buildRequestList(requests);
-                // }),
-                
-                // Stack(
-                //   children: [
-                //     // Positioned(
-                //     //   bottom: 10,
-                //     //   right: 10,
-                //     //   child: Container(
-                //     //     alignment: Alignment.bottomRight,
-                //     //     child: ElevatedButton(
-                //     //       onPressed: () {},
-                //     //       child: SizedBox(
-                //     //           height: 35.sp,
-                //     //           width: 35.sp,
-                //     //           child: Image.asset(ImagePaths.add)
-                //     //       ),
-                //     //       style: ElevatedButton.styleFrom(
-                //     //         shape: const CircleBorder(),
-                //     //         backgroundColor: AppTheme().primaryColor,
-                //     //         fixedSize: Size(45.sp, 45.sp),
-                //     //         shadowColor: AppTheme().primaryColor,
-                //     //         elevation: 15.sp,
-                //     //       ),
-                //     //     ),
-                //     //   )
-                //     // )
-                //   ],
-                // ),
-              ])),
-          floatingActionButton: (_tabController.index == 1) ? buildFAB() : null,
+                  // }),
+                  // Consumer(builder: (context, ref, child) {
+                  //   final userTeams = ref.watch(teamsProvider(currentUser.teams!));
+                  //   return userTeams.when(
+                  //     data: ((data){
+                  //       return buildTeamsList(regTeams);
+                  //     }),
+                  //     error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
+                  //     loading: (() => skeleton(40, 40))
+                  //   );
+                  // }),
+                  // Consumer(builder: (context, ref, child) {
+                  //   return buildRequestList(requests);
+                  // }),
+
+                  // Stack(
+                  //   children: [
+                  //     // Positioned(
+                  //     //   bottom: 10,
+                  //     //   right: 10,
+                  //     //   child: Container(
+                  //     //     alignment: Alignment.bottomRight,
+                  //     //     child: ElevatedButton(
+                  //     //       onPressed: () {},
+                  //     //       child: SizedBox(
+                  //     //           height: 35.sp,
+                  //     //           width: 35.sp,
+                  //     //           child: Image.asset(ImagePaths.add)
+                  //     //       ),
+                  //     //       style: ElevatedButton.styleFrom(
+                  //     //         shape: const CircleBorder(),
+                  //     //         backgroundColor: AppTheme().primaryColor,
+                  //     //         fixedSize: Size(45.sp, 45.sp),
+                  //     //         shadowColor: AppTheme().primaryColor,
+                  //     //         elevation: 15.sp,
+                  //     //       ),
+                  //     //     ),
+                  //     //   )
+                  //     // )
+                  //   ],
+                  // ),
+
+
+                ]
+              )
+            ),
+            floatingActionButton: (_tabController.index==1)?buildFAB():null,
+          ),
         ),
       ),
     );
   }
 
-  Container buildFAB() {
-    return Container(
-      alignment: Alignment.bottomRight,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: SizedBox(
-            height: 35.sp, width: 35.sp, child: Image.asset(ImagePaths.add)),
-        style: ElevatedButton.styleFrom(
-          shape: const CircleBorder(),
-          backgroundColor: AppTheme().primaryColor,
-          fixedSize: Size(45.sp, 45.sp),
-          shadowColor: AppTheme().primaryColor,
-          elevation: 15.sp,
+  ElevatedButton buildFAB() {
+    return ElevatedButton(
+      onPressed: () => showDialog(
+        context: context,
+        builder: (context) => Utils.DialogBox(
+            context,
+            'Create New Team',
+            'Enter Team Name',
+            'Create')
+      ),
+      child: SizedBox(
+          height: 35,
+          width: SizeConfig.width*0.8,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 15,
+                height: 15,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(ImagePaths.add),
+                        fit: BoxFit.cover
+                    )
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              AutoSizeText(
+                  'Create New Team',
+                  style: AppTheme().headText2.copyWith(
+                  )
+              ),
+            ],
+          )
+      ),
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
         ),
+        backgroundColor: AppTheme().primaryColor,
+        fixedSize: Size(SizeConfig.width*0.8, 45),
+        shadowColor: AppTheme().primaryColor,
+        elevation: 5,
       ),
     );
   }
@@ -309,13 +351,13 @@ class _ProfileViewState extends State<ProfileView>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AutoSizeText(
-            teamName,
-            style: AppTheme().headText1.copyWith(
-                color:
-                    selectedAppTheme.isDarkMode ? Colors.white : Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 22),
-          ),
+          teamName,
+          style: AppTheme().headText1.copyWith(
+              color: selectedAppTheme.isDarkMode?
+              Colors.white:Colors.black,
+              fontWeight: FontWeight.w500,
+              fontSize: 20
+          ),),
           Row(
             children: [
               AnimatedContainer(
@@ -403,7 +445,8 @@ class _ProfileViewState extends State<ProfileView>
           "You have no registered event",
           style: AppTheme()
               .headText2
-              .copyWith(fontSize: 17, color: AppTheme().secondaryColor),
+              .copyWith(fontSize: 17, color: selectedAppTheme.isDarkMode?
+        Colors.white:AppTheme().secondaryColor),
         ),
       );
     }
@@ -472,94 +515,100 @@ class _ProfileViewState extends State<ProfileView>
                               ? Colors.white
                               : Colors.black,
                           fontWeight: FontWeight.w500,
-                          fontSize: 20),
-                    ),
-                    children: [
-                      Column(
-                        children: [
-                          for (var e in teamMembers)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 5),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.person_rounded,
-                                      color: AppTheme().kSecondaryColor),
-                                  Text(
-                                    e,
-                                    style: AppTheme().headText2.copyWith(
-                                        color: selectedAppTheme.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 16),
-                                  )
-                                ],
-                              ),
-                            ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 55, vertical: 5),
-                            child: ElevatedButton(
-                              onPressed: () => showDialog(
-                                context: context,
-                                builder: (context) => AddNewMember(),
-                              ),
-                              child: SizedBox(
-                                  height: 35,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 10,
-                                        height: 10,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image:
-                                                    AssetImage(ImagePaths.add),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text('Add Member',
-                                          style: AppTheme()
-                                              .headText2
-                                              .copyWith(fontSize: 15)),
-                                    ],
-                                  )),
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(60.0),
-                                ),
-                                backgroundColor: AppTheme().secondaryColor,
-                                // fixedSize: Size(SizeConfig.width*0.35, 20),
-                                shadowColor: AppTheme().primaryColor,
-                                elevation: 5,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          )
-                        ],
+                          fontSize: 20
+                        ),
                       ),
-                    ],
-                    //onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
+                      children: [
+                        Column(
+                          children: [
+                            for(var e in teamMembers) 
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.person_rounded,color: AppTheme().kSecondaryColor),
+                                    Text(e,
+                                      style: AppTheme().headText2.copyWith(
+                                        color: selectedAppTheme.isDarkMode?
+                                        Colors.white:Colors.black,
+                                        fontSize: 16
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                  
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 55,vertical: 5),
+                              child: ElevatedButton(
+                                onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (context) => Utils.DialogBox(
+                                      context,
+                                      'Add New Member',
+                                      'Enter Email ID',
+                                      'Add')
+                                ),
+                                child: SizedBox(
+                                    height: 35,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 10,
+                                          height: 10,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(ImagePaths.add),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                            'Add Member',
+                                            style: AppTheme().headText2.copyWith(
+                                              fontSize: 15
+
+                                            )
+                                        ),
+                                      ],
+                                    )
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(60.0),
+                                  ),
+                                  backgroundColor: AppTheme().secondaryColor,
+                                 // fixedSize: Size(SizeConfig.width*0.35, 20),
+                                  shadowColor: AppTheme().primaryColor,
+                                  elevation: 5,
+
+             
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10,)
+                          ],
+                        ),
+                      ],
+                      //onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                height: SizeConfig.height * 0.05,
-                width: SizeConfig.height * 0.05,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(eventImage),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  height: SizeConfig.height*0.05,
+                  width: SizeConfig.height*0.05,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(eventImage),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [BoxShadow(
                           color: AppTheme().secondaryColor,
                           blurRadius: 1.0,
                           spreadRadius: 1.0,
@@ -579,11 +628,12 @@ class _ProfileViewState extends State<ProfileView>
   Widget buildEventsList(List<Events> regEvents) {
     if (regEvents.isEmpty) {
       return Center(
-        child: Text(
-          "You have no registered events!!",
-          style: AppTheme()
-              .headText2
-              .copyWith(fontSize: 17, color: AppTheme().secondaryColor),
+        child: Text("You have no registered events!!",
+          style: AppTheme().headText2.copyWith(
+            fontSize: 17,
+            color: selectedAppTheme.isDarkMode?
+            Colors.white:AppTheme().secondaryColor
+          ),
         ),
       );
     }
