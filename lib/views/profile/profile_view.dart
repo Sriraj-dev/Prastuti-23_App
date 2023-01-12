@@ -43,7 +43,6 @@ class _ProfileViewState extends State<ProfileView>
   @override
   void initState() {
     super.initState();
-
     _tabController = TabController(length: 3, vsync: this);
     buildRegisteredEventsDetails(currentUser.eventsParticipated!);
   }
@@ -68,7 +67,8 @@ class _ProfileViewState extends State<ProfileView>
         child: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(ImagePaths.bgImage),
+                  image: selectedAppTheme.isDarkMode?
+                  AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
                   fit: BoxFit.cover
               )
           ),
@@ -189,40 +189,95 @@ class _ProfileViewState extends State<ProfileView>
                 controller: _tabController,
                 
                 children: [
-                  buildEventsList(currentUser.eventsParticipated!),
-                  buildTeamsList(currentUser.teams!),
-                  buildRequestList(currentUser.pendingRequests!)
-                  // Consumer(builder: (context, ref, child) {
-                  //   final allEventsList = ref.watch(eventsProvider);
-                  //   return allEventsList.when(
-                  //     error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
-                  //     loading: (() => skeleton(40, 40)),
-                  //     data: ((data) {
-                  //       List<Events> currEvents = data.events as List<Events>;
-                  //       List<Events> userEvents = [];
-                  //       currEvents.forEach((element) {
-                  //         if(currentUser.eventsParticipated!.contains(element.sId)){
-                  //           userEvents.add(element);
-                  //         }
-                  //       });
-                  //       return buildEventsList(userEvents);
-                  //     }),
-                  //   );
 
-                  // }),
-                  // Consumer(builder: (context, ref, child) {
-                  //   final userTeams = ref.watch(teamsProvider(currentUser.teams!));
-                  //   return userTeams.when(
-                  //     data: ((data){
-                  //       return buildTeamsList(regTeams);
-                  //     }),
-                  //     error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
-                  //     loading: (() => skeleton(40, 40))
-                  //   );
-                  // }),
-                  // Consumer(builder: (context, ref, child) {
-                  //   return buildRequestList(requests);
-                  // }),
+                  Consumer(builder: (context, ref, child) {
+                    final allEventsList = ref.watch(eventsProvider);
+                    return allEventsList.when(
+                      error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
+                      loading: (() => skeleton(40, 40)),
+                      data: ((data) {
+                        List<Events> currEvents = data.events as List<Events>;
+                        List<Events> userEvents = [];
+                        currEvents.forEach((element) {
+                          if(currentUser.eventsParticipated!.contains(element.sId)){
+                            userEvents.add(element);
+                          }
+                        });
+                        return buildEventsList(userEvents);
+                      }),
+                    );
+
+                  }),
+                  Consumer(builder: (context, ref, child) {
+                    final userTeams = ref.watch(teamsProvider(currentUser.teams!));
+                    return userTeams.when(
+                      data: ((data){
+                        return Stack(
+                          children: [
+                            buildTeamsList(regTeams),
+                            Positioned(
+                                bottom: 10,
+                                right: 30,
+                                child: Container(
+                                  alignment: Alignment.bottomCenter,
+                                  child: ElevatedButton(
+                                    onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (context) => Utils.DialogBox(
+                                          context,
+                                          'Create New Team',
+                                          'Enter Team Name',
+                                          'Create')
+                                    ),
+                                    child: SizedBox(
+                                        height: 35,
+                                        width: SizeConfig.width*0.8,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 15,
+                                              height: 15,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: AssetImage(ImagePaths.add),
+                                                      fit: BoxFit.cover
+                                                  )
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            AutoSizeText(
+                                                'Create New Team',
+                                                style: AppTheme().headText2.copyWith(
+                                                )
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      backgroundColor: AppTheme().primaryColor,
+                                      fixedSize: Size(SizeConfig.width*0.8, 45),
+                                      shadowColor: AppTheme().primaryColor,
+                                      elevation: 5,
+                                    ),
+                                  ),
+                                )
+                            )
+                          ],
+                        );
+                      }),
+                      error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
+                      loading: (() => skeleton(40, 40))
+                    );
+                  }),
+                  Consumer(builder: (context, ref, child) {
+                    return buildRequestList(requests);
+                  }),
 
                   // Stack(
                   //   children: [
@@ -255,64 +310,15 @@ class _ProfileViewState extends State<ProfileView>
                 ]
               )
             ),
-            floatingActionButton: (_tabController.index==1)?buildFAB():null,
           ),
         ),
       ),
     );
   }
 
-  ElevatedButton buildFAB() {
-    return ElevatedButton(
-      onPressed: () => showDialog(
-        context: context,
-        builder: (context) => Utils.DialogBox(
-            context,
-            'Create New Team',
-            'Enter Team Name',
-            'Create')
-      ),
-      child: SizedBox(
-          height: 35,
-          width: SizeConfig.width*0.8,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 15,
-                height: 15,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(ImagePaths.add),
-                        fit: BoxFit.cover
-                    )
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              AutoSizeText(
-                  'Create New Team',
-                  style: AppTheme().headText2.copyWith(
-                  )
-              ),
-            ],
-          )
-      ),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        backgroundColor: AppTheme().primaryColor,
-        fixedSize: Size(SizeConfig.width*0.8, 45),
-        shadowColor: AppTheme().primaryColor,
-        elevation: 5,
-      ),
-    );
-  }
+  Widget buildRequestList(List<String> requests) {
 
-  Widget buildRequestList(List<PendingRequests> requests) {
-    if (requests.isEmpty) {
+    if(requests.isEmpty){
       return const Center(
         child: Text("You have no pending requests"),
       );
@@ -388,11 +394,11 @@ class _ProfileViewState extends State<ProfileView>
   Widget AcceptButton() {
     return ElevatedButton(
       onPressed: () async {
-        // isPressed = !isPressed;
-        // setState(() => state = ButtonState.loading);
-        // await Future.delayed(Duration(seconds: 3));
-        // setState(() => state = ButtonState.done);
-        // print("hello lmao dead");
+//         isPressed = !isPressed;
+//         setState(() => state = ButtonState.loading);
+//         await Future.delayed(Duration(seconds: 3));
+//         setState(() => state = ButtonState.done);
+//         print("hello lmao dead");
       },
       child: FittedBox(
         child: AutoSizeText(
@@ -424,7 +430,11 @@ class _ProfileViewState extends State<ProfileView>
         width: 13,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(ImagePaths.cancel), fit: BoxFit.cover)),
+                image: selectedAppTheme.isDarkMode?
+                AssetImage(ImagePaths.cancel_dark):AssetImage(ImagePaths.cancel_light),
+                fit: BoxFit.cover
+            )
+        ),
       ),
     );
   }
@@ -445,7 +455,7 @@ class _ProfileViewState extends State<ProfileView>
     );
   }
 
-  //bool isExpanded = false;
+  // bool isExpanded = false;
 
   Widget buildTeamsList(List<Teams> teamsList) {
     if (teamsList.isEmpty) {

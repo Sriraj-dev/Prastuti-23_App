@@ -42,7 +42,6 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-
     homeViewAnimation.initiateHomeAnimation(this);
   }
 
@@ -58,7 +57,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
 
     return AnimatedBuilder(
       animation: drawerAnimationController,
-      child: drawer(),
+      child: NavDrawer(),
       builder: (context,child){
         return Scaffold(
           appBar: (homeViewController.selectedView == 1 || homeViewController.selectedView==0)?null:

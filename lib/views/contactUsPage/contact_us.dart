@@ -73,7 +73,8 @@ class _ContactUsViewState extends State<ContactUsView> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(ImagePaths.bgImage),
+              image: selectedAppTheme.isDarkMode?
+              AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
               fit: BoxFit.cover
           )
       ),

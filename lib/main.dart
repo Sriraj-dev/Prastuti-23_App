@@ -10,8 +10,10 @@ import 'package:flutter/services.dart';
 
 import 'config/appTheme.dart';
 
-void main() {
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await selectedAppTheme.init();
   runApp(const ProviderScope(child: MyApp()));
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -22,24 +24,37 @@ void main() {
 
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    selectedAppTheme.isDarkMode = selectedAppTheme.getMode()??false;
+  }
 
   @override
   Widget build(BuildContext context) {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.black
+        systemNavigationBarColor: Colors.black
     ));
 
     return MaterialApp(
       title: 'Prastuti',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-       initialRoute: RouteNames.splashView,
-       onGenerateRoute: Routes.generateRoute,
+      themeMode: ThemeMode.system,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      initialRoute: RouteNames.splashView,
+      onGenerateRoute: Routes.generateRoute,
     );
   }
 }
+

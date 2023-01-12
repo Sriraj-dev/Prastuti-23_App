@@ -24,7 +24,8 @@ class _AboutUsViewState extends State<AboutUsView> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(ImagePaths.bgImage),
+              image: selectedAppTheme.isDarkMode?
+              AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
               fit: BoxFit.cover
           )
       ),
@@ -44,7 +45,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                   width: SizeConfig.height*0.12,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(ImagePaths.bulb),
+                        image: selectedAppTheme.isDarkMode?
+                        AssetImage(ImagePaths.bulb_dark):AssetImage(ImagePaths.bulb_light),
                         fit: BoxFit.cover,
                       ),
                   ),
