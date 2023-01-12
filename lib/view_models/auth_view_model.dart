@@ -83,7 +83,7 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
     } catch (error) {
       print(error);
       Utils.flushBarMessage(
-          message: "Failed to Login!!", context: context, bgColor: Colors.red);
+          message: "Failed to Login,Try Again!!", context: context, bgColor: Colors.red);
       
       state = false;
     }

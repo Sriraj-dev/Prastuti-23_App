@@ -16,7 +16,8 @@ class RegistrationRepository{
     try{
       dynamic response = await _apiServices.getPutApiResponse(AppEndPoints().editUser(id),data);
 
-      if(response['error'].isEmpty && response.statusCode == 200){
+      
+      if(response.statusCode == 200){
         currentUser = User.fromJson(json.decode(response.body));
         return true;
       }else return false;

@@ -9,6 +9,8 @@ import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
+import 'package:prastuti_23/view_models/auth_view_model.dart';
+import 'package:prastuti_23/view_models/registration_handler.dart';
 import 'package:prastuti_23/views/error_view.dart';
 import 'package:prastuti_23/views/eventsPage/event_timeline.dart';
 import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
@@ -30,16 +32,18 @@ class EventsView extends StatefulWidget {
 class _EventsViewState extends State<EventsView>
     with SingleTickerProviderStateMixin {
   final _selectedEvent = 0.obs;
-  bool isRegistered = false;
 
-  // ButtonState state = ButtonState.init;
-  // bool isAnimating = true;
-  // bool isPressed = false;
+  List<String> registeredEventIds = [];
+  RxList<bool> isRegistered = <bool>[].obs;
 
   @override
   void initState() {
     super.initState();
     eventsViewAnimation.initiatePageAnimation(this);
+
+    currentUser.eventsParticipated!.forEach((element) {
+      registeredEventIds.add(element.sId!);
+    });
   }
 
   @override
@@ -65,6 +69,9 @@ class _EventsViewState extends State<EventsView>
               loading: ()=>const Events_view_skeleton(),
               data: (allEvents){
                 List<Events> events = allEvents.events as List<Events>;
+                events.forEach((element){
+                  isRegistered.add(registeredEventIds.contains(element.sId));
+                });
                 return Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: buildAppBar(events),
@@ -81,84 +88,83 @@ class _EventsViewState extends State<EventsView>
                             () => Opacity(
                               opacity:
                                   animationController.pagePaddingValue.value,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: (1 -
-                                            animationController
-                                                .pagePaddingValue.value) *
-                                        0),
-                                child: FittedBox(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        (events[_selectedEvent.value].name ??
-                                                "Invalid")
-                                            .toUpperCase(),
-                                        style: AppTheme().headText1.copyWith(
-                                            color: selectedAppTheme.isDarkMode?
-                                            Colors.white:AppTheme().primaryColor,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          isRegistered?''/// TODO Implement Automated Registration
-                                          :showModalBottomSheet(
-                                              context: context,
-                                              shape:
-                                                  const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(27))),
-                                              builder: (context) =>
-                                                  ShowModelTeams());
-                                        },
-                                        child: isRegistered? Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(right: 5),
-                                              width: 20,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: AssetImage(ImagePaths.WhatsApp),
-                                                      fit: BoxFit.cover
-                                                  )
-                                              ),
+                              child: FittedBox(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      (events[_selectedEvent.value].name ??
+                                              "Invalid")
+                                          .toUpperCase(),
+                                      style: AppTheme().headText1.copyWith(
+                                          color: selectedAppTheme.isDarkMode?
+                                          Colors.white:AppTheme().primaryColor,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        (isRegistered[_selectedEvent.value])?
+                                        openWhatsappLink():
+                                        !events[_selectedEvent.value].teamEvent!?
+                                        startSoloRegistration()
+                                        :showModalBottomSheet(
+                                            context: context,
+                                            shape:
+                                                const RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.vertical(
+                                                    top: Radius.circular(27))),
+                                            builder: (context) =>
+                                                ShowModelTeams());
+                                      },
+                                      child: isRegistered[_selectedEvent.value]? Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(right: 5),
+                                            width: 20,
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(ImagePaths.WhatsApp),
+                                                    fit: BoxFit.cover
+                                                )
                                             ),
-                                            Text(
-                                              'WhatsApp',
-                                              style: AppTheme().headText2.copyWith(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        ):AutoSizeText(
-                                          'Register',
-                                          style: AppTheme().headText2.copyWith(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w400,
                                           ),
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                          shape: const StadiumBorder(),
-                                          backgroundColor: isRegistered?
-                                          Colors.green:AppTheme().kSecondaryColor,
-                                          shadowColor: isRegistered?
-                                          Colors.greenAccent:AppTheme().kSecondaryColor.withOpacity(0.5),
-                                          elevation: 5,
-                                          fixedSize: Size(140, 40),
+                                          Text(
+                                            'WhatsApp',
+                                            style: AppTheme().headText2.copyWith(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
+                                      ):AutoSizeText(
+                                        'Register',
+                                        style: AppTheme().headText2.copyWith(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                      style: ElevatedButton.styleFrom(
+                                        shape: const StadiumBorder(),
+                                        backgroundColor: isRegistered[_selectedEvent.value]?
+                                        Colors.green:AppTheme().kSecondaryColor,
+                                        shadowColor: isRegistered[_selectedEvent.value]?
+                                        Colors.greenAccent:AppTheme().kSecondaryColor.withOpacity(0.5),
+                                        elevation: 5,
+                                        fixedSize: Size(140, 40),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
+                          
                           const SizedBox(
                             height: 10,
                           ),
@@ -180,6 +186,32 @@ class _EventsViewState extends State<EventsView>
                                     child: ListView(
                                         physics: const BouncingScrollPhysics(),
                                         children: [
+                                          (isRegistered[_selectedEvent.value])
+                                              ? Obx(
+                                                  () => Opacity(
+                                                    opacity: animationController
+                                                        .pagePaddingValue.value,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "Registered ",
+                                                          style: AppTheme()
+                                                              .headText2
+                                                              .copyWith(
+                                                                color: AppTheme()
+                                                                    .kSecondaryColor,
+                                                              ),
+                                                        ),
+                                                        Image.asset(ImagePaths
+                                                            .registeredTick)
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(),
                                           Container(
                                             padding:
                                                 EdgeInsets.only(bottom: 10),
@@ -456,6 +488,12 @@ class _EventsViewState extends State<EventsView>
     } else {
       drawerAnimationController.forward();
     }
+  }
+  
+  openWhatsappLink() {}
+  
+  startSoloRegistration() {
+    RegistrationHandler().registerInSoloEvent();
   }
 
 }

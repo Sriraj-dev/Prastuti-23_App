@@ -29,6 +29,7 @@ class ImagePaths{
   static const recognizance = "assets/events_view/recognizance.jpg";
   static const simulim = "assets/events_view/simulim.jpg";
   static const calender = "assets/profile_view/calendar.png";
+  static const registeredTick = "assets/events_view/registered.png";
 
   //profile_view
   static const score = "assets/profile_view/score.png";

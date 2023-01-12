@@ -52,5 +52,5 @@ final headText2 =  GoogleFonts.catamaran(
 
 
 class selectedAppTheme {
-  static bool isDarkMode = true;
+  static bool isDarkMode = false;
 }

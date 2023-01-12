@@ -112,13 +112,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "currentUser.name??",
+                                    currentUser.name!,
                                     style: GoogleFonts.poppins(
                                       color: Colors.grey,
                                     ),
                                   ),
                                   Text(
-                                    "currentUser.emailId??""",
+                                    currentUser.emailId!,
                                     style: GoogleFonts.lato(
                                       color: selectedAppTheme.isDarkMode?
                                       Colors.white:AppTheme().primaryColor,
@@ -185,7 +185,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                             ImagePaths.instagram_squared),
                                         fit: BoxFit.cover)),
                               ),
-                              hintText: "INSTA URL",
+                              hintText: "INSTA ID",
                             ),
                           ),
                           Padding(
@@ -201,7 +201,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                             AssetImage(ImagePaths.github_squared),
                                         fit: BoxFit.cover)),
                               ),
-                              hintText: "GITHUB URL",
+                              hintText: "GITHUB ID",
                             ),
                           ),
                           SizedBox(
@@ -286,15 +286,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     ),
                     ElevatedButton(
                       onPressed: () async{
-                        // isLoading.value = true;
-                        // socialUrls.add(linkedIn.text);
-                        // socialUrls.add(insta.text);
-                        // socialUrls.add(github.text);
-                        // await RegistrationViewModel().submitRegistrationForm(
-                        //   college.text, num.parse(phone.text), socialUrls, interests, gender, currentUser.sId!, context);
-                        //   isLoading.value = false;
+                        submitTheForm();
 
-                        Navigator.of(context).pushNamed(RouteNames.homeView);
+                        //Navigator.of(context).pushNamed(RouteNames.homeView);
                       },
                       child: Obx(
                         ()=> Center(
@@ -338,7 +332,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   void submitTheForm()async{
     final  validCharacters = RegExp(r'^[0-9]+$');
-    bool isValidPhone = validCharacters.hasMatch(phone.text);
+    bool isValidPhone = validCharacters.hasMatch(phone.text) && phone.text.length==10;
 
     if(!isValidPhone){
       Utils.flushBarMessage(

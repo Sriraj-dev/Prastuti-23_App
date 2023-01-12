@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +10,9 @@ import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/models/UserModel.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
+import 'package:prastuti_23/models/teamsModel.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/events_view_model.dart';
 import 'package:prastuti_23/view_models/profile_view_model.dart';
@@ -45,6 +45,7 @@ class _ProfileViewState extends State<ProfileView>
     super.initState();
 
     _tabController = TabController(length: 3, vsync: this);
+    buildRegisteredEventsDetails(currentUser.eventsParticipated!);
   }
 
   @override
@@ -74,7 +75,7 @@ class _ProfileViewState extends State<ProfileView>
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: NestedScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               headerSliverBuilder: ((context, innerBoxIsScrolled)=>[
                 SliverAppBar(
                   pinned: true,
@@ -186,10 +187,11 @@ class _ProfileViewState extends State<ProfileView>
               ]),
               body: TabBarView(
                 controller: _tabController,
+                
                 children: [
-                  buildEventsList([]),
-                  buildTeamsList(regTeams),
-                  buildRequestList(requests)
+                  buildEventsList(currentUser.eventsParticipated!),
+                  buildTeamsList(currentUser.teams!),
+                  buildRequestList(currentUser.pendingRequests!)
                   // Consumer(builder: (context, ref, child) {
                   //   final allEventsList = ref.watch(eventsProvider);
                   //   return allEventsList.when(
@@ -309,7 +311,7 @@ class _ProfileViewState extends State<ProfileView>
     );
   }
 
-  Widget buildRequestList(List<String> requests) {
+  Widget buildRequestList(List<PendingRequests> requests) {
     if (requests.isEmpty) {
       return const Center(
         child: Text("You have no pending requests"),
@@ -318,7 +320,7 @@ class _ProfileViewState extends State<ProfileView>
 
     return ListView.separated(
       itemBuilder: (context, index) {
-        return RequestWidget(requests[index]);
+        return RequestWidget(requests[index].sId!);
       },
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) => Center(
@@ -350,14 +352,21 @@ class _ProfileViewState extends State<ProfileView>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AutoSizeText(
-          teamName,
-          style: AppTheme().headText1.copyWith(
-              color: selectedAppTheme.isDarkMode?
-              Colors.white:Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: 20
-          ),),
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.only(right: 10),
+              child: AutoSizeText(
+              teamName,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme().headText1.copyWith(
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20
+              ),),
+            ),
+          ),
           Row(
             children: [
               AnimatedContainer(
@@ -438,11 +447,11 @@ class _ProfileViewState extends State<ProfileView>
 
   //bool isExpanded = false;
 
-  Widget buildTeamsList(List<List<dynamic>> teamsList) {
+  Widget buildTeamsList(List<Teams> teamsList) {
     if (teamsList.isEmpty) {
       return Center(
         child: Text(
-          "You have no registered event",
+          "You have not joined in any team yet!!",
           style: AppTheme()
               .headText2
               .copyWith(fontSize: 17, color: selectedAppTheme.isDarkMode?
@@ -454,9 +463,12 @@ class _ProfileViewState extends State<ProfileView>
     return ListView.separated(
       itemBuilder: (context, index) {
         return TeamsWidget(
-          eventImage: regTeams[index][0],
-          teamName: regTeams[index][1],
-          teamMembers: regTeams[index][2],
+          eventImage: (index%3==0)?
+          ImagePaths.events:(index%3==1)?
+          ImagePaths.awards:
+           ImagePaths.events,
+          teamName: teamsList[index].teamName!,
+          teamMembers: teamsList[index].members!,
         );
       },
       physics: const BouncingScrollPhysics(),
@@ -466,14 +478,14 @@ class _ProfileViewState extends State<ProfileView>
         width: SizeConfig.widthPercent * 90,
         color: Colors.grey,
       )),
-      itemCount: regTeams.length,
+      itemCount: teamsList.length,
     );
   }
 
   Widget TeamsWidget(
       {required String eventImage,
       required String teamName,
-      required List<String> teamMembers}) {
+      required List<Members> teamMembers}) {
     return GestureDetector(
       onTap: () {
         /// TODO: Implement onTap
@@ -527,11 +539,18 @@ class _ProfileViewState extends State<ProfileView>
                                 child: Row(
                                   children: [
                                     Icon(Icons.person_rounded,color: AppTheme().kSecondaryColor),
-                                    Text(e,
-                                      style: AppTheme().headText2.copyWith(
-                                        color: selectedAppTheme.isDarkMode?
-                                        Colors.white:Colors.black,
-                                        fontSize: 16
+                                    Flexible(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Text(e.name!,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                          style: AppTheme().headText2.copyWith(
+                                            color: selectedAppTheme.isDarkMode?
+                                            Colors.white:Colors.black,
+                                            fontSize: 16
+                                          ),
+                                        ),
                                       ),
                                     )
                                   ],
@@ -643,10 +662,10 @@ class _ProfileViewState extends State<ProfileView>
         return RegEvents(
             eventImage: event_images[(regEvents[index].name!).toUpperCase()]!,
             eventName: regEvents[index].name!,
-            teamName: "Ongoing",
-            stage: "Useless",
-            score: "220",
-            date: "12/02/2023");
+            teamName: joinedAs[index],
+            stage: "Not Used",
+            score: scoreInEvent[index],
+            date: startDate[index]);
       },
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) => Center(
@@ -733,15 +752,15 @@ class _ProfileViewState extends State<ProfileView>
                                   Row(
                                     children: [
                                       Container(
-                                        height: SizeConfig.height * 0.0175,
+                                        height: SizeConfig.height * 0.025,
                                         width: SizeConfig.height * 0.0259,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                                 image: AssetImage(
                                                     ImagePaths.score),
-                                                fit: BoxFit.cover)),
+                                                fit: BoxFit.fill)),
                                       ),
-                                      AutoSizeText(score,
+                                      AutoSizeText(" "+score,
                                           style: AppTheme().headText2.copyWith(
                                               color: selectedAppTheme.isDarkMode
                                                   ? Colors.white
