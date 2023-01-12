@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'dart:developer';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -50,7 +49,7 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
       if (currentUserModel.user == null) {
         await _googleSignIn.disconnect();
         Utils.flushBarMessage(
-          message: "Error in communicating with server!!",
+          message: "Error in communicating with server,Try Again!!",
           context: context,
           bgColor: Colors.red);
         state = false;
@@ -59,9 +58,13 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
       
       currentUser = currentUserModel.user!;
 
-      if (currentUser.appId == " " || currentUser.appId!.isEmpty) {
+      if(currentUser.appId == null || currentUser.appId ==" " || currentUser.appId!.isEmpty){
+        //create SharedPreferences and store the playerId in local Storage.
+        //if registration form is filles then edit the User with that player_id.
+        //if registration form is not filled then edit the playerid while submitting registration form.
         NotificationServices().getPlayerId();
-        //update PlayerId in backend;
+
+        //edit User by giving AppId;
       }
 
       
@@ -70,11 +73,14 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
       context: context,
       bgColor: Colors.green);
 
-
-      Navigator.of(context).pushNamed(RouteNames.registrationForm);
+      if(currentUser.isFormFilled!){
+        Navigator.of(context).pushNamed(RouteNames.homeView);
+      }else{
+        Navigator.of(context).pushNamed(RouteNames.registrationForm);
+      }
+      
       state = false;
     } catch (error) {
-      //throw error;
       print(error);
       Utils.flushBarMessage(
           message: "Failed to Login!!", context: context, bgColor: Colors.red);

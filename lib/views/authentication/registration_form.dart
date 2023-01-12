@@ -6,6 +6,7 @@ import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
+import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/registration_view_model.dart';
 import 'package:prastuti_23/views/ui/choice_chips.dart';
@@ -124,6 +125,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: inputField(
                             controller: phone,
+                            keyBoard: TextInputType.phone,
                             icon: Icon(
                               Icons.phone_android_outlined,
                               color: AppTheme().primaryColor,
@@ -258,14 +260,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   ),
                   ElevatedButton(
                     onPressed: () async{
-                      // isLoading.value = true;
-                      // socialUrls.add(linkedIn.text);
-                      // socialUrls.add(insta.text);
-                      // socialUrls.add(github.text);
-                      // await RegistrationViewModel().submitRegistrationForm(
-                      //   college.text, num.parse(phone.text), socialUrls, interests, gender, currentUser.sId!, context);
-                      //   isLoading.value = false;
-
+                      //submitTheForm();
                       Navigator.of(context).pushNamed(RouteNames.homeView);
                     },
                     child: Obx(
@@ -304,6 +299,34 @@ class _RegistrationFormState extends State<RegistrationForm> {
             )),
       ),
     );
+  }
+
+  void submitTheForm()async{
+    final  validCharacters = RegExp(r'^[0-9]+$');
+    bool isValidPhone = validCharacters.hasMatch(phone.text);
+
+    if(!isValidPhone){
+      Utils.flushBarMessage(
+        message: "Enter a Valid phone number!",
+        context: context,
+        bgColor: Colors.redAccent
+      );
+    }
+
+    if(college.text.isEmpty){
+      Utils.flushBarMessage(
+          message: "Please enter your College name",
+          context: context,
+          bgColor: Colors.redAccent);
+    }
+
+    isLoading.value = true;
+    socialUrls.add(linkedIn.text);
+    socialUrls.add(insta.text);
+    socialUrls.add(github.text);
+    await RegistrationViewModel().submitRegistrationForm(
+      college.text, num.parse(phone.text), socialUrls, interests, gender, currentUser.sId!, context);
+      isLoading.value = false;
   }
 
   AppBar buildAppBar() {
@@ -360,12 +383,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
       );
 }
 
+
 class inputField extends StatelessWidget {
   Widget icon;
   String hintText;
   TextEditingController controller;
+  TextInputType keyBoard;
 
-  inputField({Key? key, required this.icon, required this.hintText,required this.controller})
+  inputField({Key? key, required this.icon, required this.hintText,required this.controller,this.keyBoard = TextInputType.text})
       : super(key: key);
 
   @override
@@ -381,7 +406,9 @@ class inputField extends StatelessWidget {
           width: SizeConfig.widthPercent * 50,
           child: TextField(
             controller: controller,
+            keyboardType: keyBoard,
             decoration: InputDecoration(
+              
                 border: InputBorder.none,
                 hintText: hintText,
                 hintStyle:

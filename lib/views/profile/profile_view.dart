@@ -25,7 +25,6 @@ import '../ui/add_new_member.dart';
 import '../ui/create_new_team.dart';
 import '../eventsPage/events_view_content.dart';
 
-
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
 
@@ -35,8 +34,8 @@ class ProfileView extends StatefulWidget {
 
 enum ButtonState { init, loading, done }
 
-class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin{
-
+class _ProfileViewState extends State<ProfileView>
+    with TickerProviderStateMixin {
   late TabController _tabController;
   ButtonState state = ButtonState.init;
   bool isAnimating = true;
@@ -49,18 +48,18 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     _tabController = TabController(length: 3, vsync: this);
   }
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     SizeConfig.init(context);
   }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: AppTheme().backgroundColor,
-      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
-      Brightness.light:Brightness.dark,
+      systemNavigationBarIconBrightness:
+          selectedAppTheme.isDarkMode ? Brightness.light : Brightness.dark,
     ));
 
     return Container(
@@ -69,150 +68,153 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         child: Scaffold(
           backgroundColor: AppTheme().backgroundColor,
           body: NestedScrollView(
-            headerSliverBuilder: ((context, innerBoxIsScrolled)=>[
-              SliverAppBar(
-                pinned: true,
-                backgroundColor: AppTheme().primaryColor,
-                expandedHeight: SizeConfig.heightPercent*35,
-                leading: Center(
-                  child: InkWell(
-                    onTap: _onDrawerTapped,
-                    child: AnimatedIcon(
-                      icon: AnimatedIcons.menu_close,
-                      color: Colors.white,
-                      size: 33,
-                      progress: drawerAnimationController.view,
-                    ),
-                  ),
-                ),
-                title: Text("Your Profile",
-                  style: AppTheme().headText1.copyWith(
-                    fontSize: 20
-                  ),
-                ),
-                stretch: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundColor: Colors.white,
-                            backgroundImage: AssetImage(ImagePaths.temp_pic),
+              headerSliverBuilder: ((context, innerBoxIsScrolled) => [
+                    SliverAppBar(
+                      pinned: true,
+                      backgroundColor: AppTheme().primaryColor,
+                      expandedHeight: SizeConfig.heightPercent * 35,
+                      leading: Center(
+                        child: InkWell(
+                          onTap: _onDrawerTapped,
+                          child: AnimatedIcon(
+                            icon: AnimatedIcons.menu_close,
+                            color: Colors.white,
+                            size: 33,
+                            progress: drawerAnimationController.view,
                           ),
-            
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              AutoSizeText("Sriraj",
-                                style: AppTheme().headText1.copyWith(
-                                  fontSize: 22,
-                                ),
-                              ),
-                              AutoSizeText("palakurthi.sriraj.eee20@itbhu.ac.in",
-                                style: AppTheme().headText2,
-                              ),
-                              AutoSizeText("IIT BHU Varanasi",
-                                style: AppTheme().headText2,
-                              ),
-                              AutoSizeText("+91 8074821478",
-                                style: AppTheme().headText2,
-                              )
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-                  child: Container(
-                    width: double.maxFinite,
-                    color: AppTheme().backgroundColor,
-                    child: Center(
-                      child: TabBar(
-                        isScrollable: true,
-                        controller: _tabController,
-                        tabs: const [
-                          Tab(
-                            text: "Events",
-                          ),
-                          Tab(
-                            text: "Teams",
-                          ),
-                          Tab(
-                            text: "Requests",
-                          ),
-                        ],
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        indicator: MaterialIndicator(
-                          color: AppTheme().kSecondaryColor,
-                          height: 2,
-                          topLeftRadius: 8,
-                          topRightRadius: 8,
-                          bottomLeftRadius: 8,
-                          bottomRightRadius: 8,
-                          tabPosition: TabPosition.bottom,
+                      title: Text(
+                        "Your Profile",
+                        style: AppTheme().headText1.copyWith(fontSize: 20),
+                      ),
+                      stretch: true,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                CircleAvatar(
+                                  radius: 60,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage:
+                                      AssetImage(ImagePaths.temp_pic),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    AutoSizeText(
+                                      "Sriraj",
+                                      style: AppTheme().headText1.copyWith(
+                                            fontSize: 22,
+                                          ),
+                                    ),
+                                    AutoSizeText(
+                                      "palakurthi.sriraj.eee20@itbhu.ac.in",
+                                      style: AppTheme().headText2,
+                                    ),
+                                    AutoSizeText(
+                                      "IIT BHU Varanasi",
+                                      style: AppTheme().headText2,
+                                    ),
+                                    AutoSizeText(
+                                      "+91 8074821478",
+                                      style: AppTheme().headText2,
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        labelColor: AppTheme().kSecondaryColor,
-                        labelStyle: AppTheme().headText2.copyWith(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700
-                        ),
-                        unselectedLabelStyle: AppTheme()
+                      ),
+                      bottom: PreferredSize(
+                        preferredSize:
+                            Size.fromHeight(AppBar().preferredSize.height),
+                        child: Container(
+                          width: double.maxFinite,
+                          color: AppTheme().backgroundColor,
+                          child: Center(
+                            child: TabBar(
+                              isScrollable: true,
+                              controller: _tabController,
+                              tabs: const [
+                                Tab(
+                                  text: "Events",
+                                ),
+                                Tab(
+                                  text: "Teams",
+                                ),
+                                Tab(
+                                  text: "Requests",
+                                ),
+                              ],
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              indicator: MaterialIndicator(
+                                color: AppTheme().kSecondaryColor,
+                                height: 2,
+                                topLeftRadius: 8,
+                                topRightRadius: 8,
+                                bottomLeftRadius: 8,
+                                bottomRightRadius: 8,
+                                tabPosition: TabPosition.bottom,
+                              ),
+                              labelColor: AppTheme().kSecondaryColor,
+                              labelStyle: AppTheme().headText2.copyWith(
+                                  fontSize: 15, fontWeight: FontWeight.w700),
+                              unselectedLabelStyle: AppTheme()
                                   .headText2
                                   .copyWith(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400),
-                        unselectedLabelColor: selectedAppTheme.isDarkMode?
-                        Colors.white:Colors.black,
+                              unselectedLabelColor: selectedAppTheme.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              )
-            ]),
-            body: TabBarView(
-              controller: _tabController,
-              children: [
+                    )
+                  ]),
+              body: TabBarView(controller: _tabController, children: [
+                buildEventsList([]),
+                buildTeamsList(regTeams),
+                buildRequestList(requests)
+                // Consumer(builder: (context, ref, child) {
+                //   final allEventsList = ref.watch(eventsProvider);
+                //   return allEventsList.when(
+                //     error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
+                //     loading: (() => skeleton(40, 40)),
+                //     data: ((data) {
+                //       List<Events> currEvents = data.events as List<Events>;
+                //       List<Events> userEvents = [];
+                //       currEvents.forEach((element) {
+                //         if(currentUser.eventsParticipated!.contains(element.sId)){
+                //           userEvents.add(element);
+                //         }
+                //       });
+                //       return buildEventsList(userEvents);
+                //     }),
+                //   );
+                // }),
 
-                Consumer(builder: (context, ref, child) {
-                  final allEventsList = ref.watch(eventsProvider);
-                  return allEventsList.when(
-                    error: ((error, stackTrace) => ErrorView(error: error.toString(),)), 
-                    loading: (() => skeleton(40, 40)),
-                    data: ((data) {
-                      List<Events> currEvents = data.events as List<Events>;
-                      List<Events> userEvents = [];
-                      currEvents.forEach((element) {
-                        if(currentUser.eventsParticipated!.contains(element.sId)){
-                          userEvents.add(element);
-                        }
-                      });
-                      return buildEventsList(userEvents);
-                    }), 
-                  );
-                  
-                }),
-                Consumer(builder: (context, ref, child) {
-                  final userTeams = ref.watch(teamsProvider(currentUser.teams!));
-                  return userTeams.when(
-                    data: ((data){
-                      return buildTeamsList(regTeams);
-                    }), 
-                    error: ((error, stackTrace) => ErrorView(error: error.toString(),)), 
-                    loading: (() => skeleton(40, 40))
-                  );
-                }),
-                Consumer(builder: (context, ref, child) {
-                  return buildRequestList(requests);
-                }),
+                // Consumer(builder: (context, ref, child) {
+                //   final userTeams = ref.watch(teamsProvider([]));
+                //   return userTeams.when(
+                //     data: ((data){
+                //       return buildTeamsList(regTeams);
+                //     }),
+                //     error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
+                //     loading: (() => skeleton(40, 40))
+                //   );
+                // }),
+                
+                // Consumer(builder: (context, ref, child) {
+                //   return buildRequestList(requests);
+                // }),
                 
                 // Stack(
                 //   children: [
@@ -240,12 +242,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                 //     // )
                 //   ],
                 // ),
-                
-
-              ]
-            )
-          ),
-          floatingActionButton: (_tabController.index==1)?buildFAB():null,
+              ])),
+          floatingActionButton: (_tabController.index == 1) ? buildFAB() : null,
         ),
       ),
     );
@@ -253,45 +251,40 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
 
   Container buildFAB() {
     return Container(
-                      alignment: Alignment.bottomRight,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: SizedBox(
-                            height: 35.sp,
-                            width: 35.sp,
-                            child: Image.asset(ImagePaths.add)
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          backgroundColor: AppTheme().primaryColor,
-                          fixedSize: Size(45.sp, 45.sp),
-                          shadowColor: AppTheme().primaryColor,
-                          elevation: 15.sp,
-                        ),
-                      ),
-                    );
+      alignment: Alignment.bottomRight,
+      child: ElevatedButton(
+        onPressed: () {},
+        child: SizedBox(
+            height: 35.sp, width: 35.sp, child: Image.asset(ImagePaths.add)),
+        style: ElevatedButton.styleFrom(
+          shape: const CircleBorder(),
+          backgroundColor: AppTheme().primaryColor,
+          fixedSize: Size(45.sp, 45.sp),
+          shadowColor: AppTheme().primaryColor,
+          elevation: 15.sp,
+        ),
+      ),
+    );
   }
 
   Widget buildRequestList(List<String> requests) {
-
-    if(requests.isEmpty){
+    if (requests.isEmpty) {
       return const Center(
         child: Text("You have no pending requests"),
       );
     }
 
     return ListView.separated(
-      itemBuilder: (context,index){
+      itemBuilder: (context, index) {
         return RequestWidget(requests[index]);
       },
       physics: const BouncingScrollPhysics(),
-      separatorBuilder: (context, index) =>Center(
+      separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent*90,
-            color: Colors.grey,
-          )
-      ),
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
       itemCount: requests.length,
     );
   }
@@ -305,24 +298,23 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: AppTheme().secondaryColorLight,
-          boxShadow: [BoxShadow(
-              color: AppTheme().primaryColor.withOpacity(0.3),
-              blurRadius: 4.0,
-              spreadRadius: 3.0,
-              offset: Offset(4, 4)
-          )]
-      ),
+          boxShadow: [
+            BoxShadow(
+                color: AppTheme().primaryColor.withOpacity(0.3),
+                blurRadius: 4.0,
+                spreadRadius: 3.0,
+                offset: Offset(4, 4))
+          ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AutoSizeText(
-          teamName,
-          style: AppTheme().headText1.copyWith(
-              color: selectedAppTheme.isDarkMode?
-              Colors.white:Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: 22
-          ),
+            teamName,
+            style: AppTheme().headText1.copyWith(
+                color:
+                    selectedAppTheme.isDarkMode ? Colors.white : Colors.black,
+                fontWeight: FontWeight.w500,
+                fontSize: 22),
           ),
           Row(
             children: [
@@ -330,11 +322,11 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                 alignment: Alignment.center,
                 duration: Duration(milliseconds: 2000),
                 curve: Curves.easeIn,
-                width: state == ButtonState.init ?  90:40,
+                width: state == ButtonState.init ? 90 : 40,
                 onEnd: () => setState(() => isAnimating = !isAnimating),
                 child: isStretched ? AcceptButton() : LoadingTick(isDone),
               ),
-              !isPressed? RejectButton() : Container(),
+              !isPressed ? RejectButton() : Container(),
             ],
           ),
         ],
@@ -355,9 +347,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         child: AutoSizeText(
           'Accept',
           style: AppTheme().headText2.copyWith(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-          ),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
         ),
       ),
       style: ElevatedButton.styleFrom(
@@ -381,10 +373,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         width: 13,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(ImagePaths.cancel),
-                fit: BoxFit.cover
-            )
-        ),
+                image: AssetImage(ImagePaths.cancel), fit: BoxFit.cover)),
       ),
     );
   }
@@ -396,10 +385,10 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       child: Center(
         child: isDone
             ? Icon(
-          Icons.done,
-          size: 30,
-          color: Colors.white,
-        )
+                Icons.done,
+                size: 30,
+                color: Colors.white,
+              )
             : CircularProgressIndicator(color: Colors.white),
       ),
     );
@@ -408,11 +397,11 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   //bool isExpanded = false;
 
   Widget buildTeamsList(List<List<dynamic>> teamsList) {
-
-    if(teamsList.isEmpty){
+    if (teamsList.isEmpty) {
       return Center(
-        child: Text("You have no registered event",
-        style: AppTheme()
+        child: Text(
+          "You have no registered event",
+          style: AppTheme()
               .headText2
               .copyWith(fontSize: 17, color: AppTheme().secondaryColor),
         ),
@@ -420,21 +409,20 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     }
 
     return ListView.separated(
-      itemBuilder: (context,index){
+      itemBuilder: (context, index) {
         return TeamsWidget(
-            eventImage: regTeams[index][0],
-            teamName: regTeams[index][1],
-            teamMembers: regTeams[index][2],
+          eventImage: regTeams[index][0],
+          teamName: regTeams[index][1],
+          teamMembers: regTeams[index][2],
         );
       },
       physics: const BouncingScrollPhysics(),
-      separatorBuilder: (context, index) =>Center(
+      separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent*90,
-            color: Colors.grey,
-          )
-      ),
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
       itemCount: regTeams.length,
     );
   }
@@ -452,136 +440,133 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         color: Colors.transparent,
         child: Column(
           children: [
-            Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 20),
-                  padding: EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: AppTheme().secondaryColorLight,
-                      boxShadow: [BoxShadow(
+            Stack(children: [
+              Container(
+                margin: EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(left: 20),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: AppTheme().secondaryColorLight,
+                    boxShadow: [
+                      BoxShadow(
                           color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 4.0,
                           spreadRadius: 3.0,
-                          offset: Offset(4, 4)
-                      )]
-                  ),
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                      dividerColor: Colors.transparent
-                    ),
-                    child: ExpansionTile(
-                      iconColor: selectedAppTheme.isDarkMode?
-                      Colors.white:Colors.black,
-                      collapsedIconColor: selectedAppTheme.isDarkMode?
-                      Colors.white:Colors.black,
-                      expandedAlignment: Alignment.topLeft,
-                      title: AutoSizeText(
-                        teamName,
-                        style: AppTheme().headText1.copyWith(
-                          color: selectedAppTheme.isDarkMode?
-                          Colors.white:Colors.black,
+                          offset: Offset(4, 4))
+                    ]),
+                child: Theme(
+                  data: Theme.of(context)
+                      .copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
+                    iconColor: selectedAppTheme.isDarkMode
+                        ? Colors.white
+                        : Colors.black,
+                    collapsedIconColor: selectedAppTheme.isDarkMode
+                        ? Colors.white
+                        : Colors.black,
+                    expandedAlignment: Alignment.topLeft,
+                    title: AutoSizeText(
+                      teamName,
+                      style: AppTheme().headText1.copyWith(
+                          color: selectedAppTheme.isDarkMode
+                              ? Colors.white
+                              : Colors.black,
                           fontWeight: FontWeight.w500,
-                          fontSize: 20
-                        ),
-                      ),
-                      children: [
-                        Column(
-                          children: [
-                            for(var e in teamMembers) 
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.person_rounded,color: AppTheme().kSecondaryColor),
-                                    Text(e,
-                                      style: AppTheme().headText2.copyWith(
-                                        color: selectedAppTheme.isDarkMode?
-                                        Colors.white:Colors.black,
-                                        fontSize: 16
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                  
+                          fontSize: 20),
+                    ),
+                    children: [
+                      Column(
+                        children: [
+                          for (var e in teamMembers)
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 55,vertical: 5),
-                              child: ElevatedButton(
-                                onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (context) => AddNewMember(),
-                                ),
-                                child: SizedBox(
-                                    height: 35,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          width: 10,
-                                          height: 10,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: AssetImage(ImagePaths.add),
-                                                  fit: BoxFit.cover
-                                              )
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                            'Add Member',
-                                            style: AppTheme().headText2.copyWith(
-                                              fontSize: 15
-
-                                            )
-                                        ),
-                                      ],
-                                    )
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(60.0),
-                                  ),
-                                  backgroundColor: AppTheme().secondaryColor,
-                                 // fixedSize: Size(SizeConfig.width*0.35, 20),
-                                  shadowColor: AppTheme().primaryColor,
-                                  elevation: 5,
-
-             
-                                ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5, horizontal: 5),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.person_rounded,
+                                      color: AppTheme().kSecondaryColor),
+                                  Text(
+                                    e,
+                                    style: AppTheme().headText2.copyWith(
+                                        color: selectedAppTheme.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 16),
+                                  )
+                                ],
                               ),
                             ),
-                            SizedBox(height: 10,)
-                          ],
-                        ),
-                      ],
-                      //onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
-                    ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 55, vertical: 5),
+                            child: ElevatedButton(
+                              onPressed: () => showDialog(
+                                context: context,
+                                builder: (context) => AddNewMember(),
+                              ),
+                              child: SizedBox(
+                                  height: 35,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 10,
+                                        height: 10,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image:
+                                                    AssetImage(ImagePaths.add),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text('Add Member',
+                                          style: AppTheme()
+                                              .headText2
+                                              .copyWith(fontSize: 15)),
+                                    ],
+                                  )),
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(60.0),
+                                ),
+                                backgroundColor: AppTheme().secondaryColor,
+                                // fixedSize: Size(SizeConfig.width*0.35, 20),
+                                shadowColor: AppTheme().primaryColor,
+                                elevation: 5,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      ),
+                    ],
+                    //onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  height: SizeConfig.height*0.05,
-                  width: SizeConfig.height*0.05,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(eventImage),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [BoxShadow(
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                height: SizeConfig.height * 0.05,
+                width: SizeConfig.height * 0.05,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(eventImage),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
                           color: AppTheme().secondaryColor,
                           blurRadius: 1.0,
                           spreadRadius: 1.0,
-                          offset: Offset(3, 3)
-                      )]
-                  ),
-                )
-              ]
-            ),
+                          offset: Offset(3, 3))
+                    ]),
+              )
+            ]),
             SizedBox(
               height: 10,
             )
@@ -591,39 +576,35 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     );
   }
 
-
   Widget buildEventsList(List<Events> regEvents) {
-
-    if(regEvents.isEmpty){
+    if (regEvents.isEmpty) {
       return Center(
-        child: Text("You have no registered events!!",
-          style: AppTheme().headText2.copyWith(
-            fontSize: 17,
-            color: AppTheme().secondaryColor
-          ),
+        child: Text(
+          "You have no registered events!!",
+          style: AppTheme()
+              .headText2
+              .copyWith(fontSize: 17, color: AppTheme().secondaryColor),
         ),
       );
     }
 
     return ListView.separated(
-      itemBuilder: (context,index){
+      itemBuilder: (context, index) {
         return RegEvents(
-           eventImage: event_images[(regEvents[index].name!).toUpperCase()]!,
-           eventName: regEvents[index].name!,
-           teamName: "Ongoing",
-           stage: "Useless",
-           score: "220",
-           date: "12/02/2023"
-        );
+            eventImage: event_images[(regEvents[index].name!).toUpperCase()]!,
+            eventName: regEvents[index].name!,
+            teamName: "Ongoing",
+            stage: "Useless",
+            score: "220",
+            date: "12/02/2023");
       },
       physics: const BouncingScrollPhysics(),
-      separatorBuilder: (context, index) =>Center(
+      separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent*90,
-            color: Colors.grey,
-          )
-      ),
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
       itemCount: regEvents.length,
     );
   }
@@ -640,7 +621,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         /// TODO: Implement onTap
       },
       child: Container(
-        height: SizeConfig.height*0.2,
+        height: SizeConfig.height * 0.2,
         padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
         color: Colors.transparent,
         child: Stack(
@@ -649,22 +630,22 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                 top: 0,
                 left: 45,
                 child: Container(
-                  height: SizeConfig.height*0.145,
-                  width: SizeConfig.width*0.68,
+                  height: SizeConfig.height * 0.145,
+                  width: SizeConfig.width * 0.68,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20),
                       color: AppTheme().secondaryColorLight,
-                      boxShadow: [BoxShadow(
-                          color: AppTheme().primaryColor.withOpacity(0.3),
-                          blurRadius: 4.0,
-                          spreadRadius: 3.0,
-                          offset: Offset(4, 4)
-                      )]
-                  ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppTheme().primaryColor.withOpacity(0.3),
+                            blurRadius: 4.0,
+                            spreadRadius: 3.0,
+                            offset: Offset(4, 4))
+                      ]),
                   child: Column(
                     children: [
                       Container(
-                        width: SizeConfig.width*0.6,
+                        width: SizeConfig.width * 0.6,
                         padding: EdgeInsets.only(top: 10, left: 55),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -676,8 +657,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 AutoSizeText(
                                   eventName,
                                   style: AppTheme().headText1.copyWith(
-                                      color: selectedAppTheme.isDarkMode?
-                                      Colors.white:Colors.black,
+                                      color: selectedAppTheme.isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
                                       fontSize: 22,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -685,61 +667,56 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                   teamName,
                                   style: AppTheme().headText2.copyWith(
                                       fontSize: 16,
-                                      color: AppTheme().primaryColor
-                                  ),
+                                      color: AppTheme().primaryColor),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 15,),
+                            SizedBox(
+                              height: 15,
+                            ),
                             Container(
                               padding: EdgeInsets.only(right: 5),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
-                                        height: SizeConfig.height*0.0175,
-                                        width: SizeConfig.height*0.0259,
+                                        height: SizeConfig.height * 0.0175,
+                                        width: SizeConfig.height * 0.0259,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage(ImagePaths.score),
-                                                fit: BoxFit.cover
-                                            )
-                                        ),
+                                                image: AssetImage(
+                                                    ImagePaths.score),
+                                                fit: BoxFit.cover)),
                                       ),
-                      
-                                      AutoSizeText(
-                                          score,
+                                      AutoSizeText(score,
                                           style: AppTheme().headText2.copyWith(
-                                            color: selectedAppTheme.isDarkMode?
-                                            Colors.white:Colors.black
-                                          )
-                                      ),
+                                              color: selectedAppTheme.isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                     ],
                                   ),
                                   Row(
                                     children: [
                                       Container(
-                                        height: SizeConfig.height*0.02,
-                                        width: SizeConfig.height*0.02,
+                                        height: SizeConfig.height * 0.02,
+                                        width: SizeConfig.height * 0.02,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage(ImagePaths.calender),
-                                                fit: BoxFit.cover
-                                            )
-                                        ),
+                                                image: AssetImage(
+                                                    ImagePaths.calender),
+                                                fit: BoxFit.cover)),
                                       ),
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      AutoSizeText(
-                                          date,
+                                      AutoSizeText(date,
                                           style: AppTheme().headText2.copyWith(
-                                            color: selectedAppTheme.isDarkMode?
-                                            Colors.white:Colors.black
-                                          )
-                                      ),
+                                              color: selectedAppTheme.isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                     ],
                                   ),
                                 ],
@@ -750,29 +727,27 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       ),
                     ],
                   ),
-                )
-            ),
+                )),
             Positioned(
                 top: 15,
                 left: 10,
                 child: Container(
-                  height: SizeConfig.height*0.10,
-                  width: SizeConfig.height*0.10,
+                  height: SizeConfig.height * 0.10,
+                  width: SizeConfig.height * 0.10,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(eventImage),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [BoxShadow(
-                      color: AppTheme().secondaryColor,
-                      blurRadius: 1.0,
-                      spreadRadius: 1.0,
-                      offset: Offset(4, 4)
-                    )]
-                  ),
-                )
-            ),
+                      image: DecorationImage(
+                        image: AssetImage(eventImage),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppTheme().secondaryColor,
+                            blurRadius: 1.0,
+                            spreadRadius: 1.0,
+                            offset: Offset(4, 4))
+                      ]),
+                )),
           ],
         ),
       ),
