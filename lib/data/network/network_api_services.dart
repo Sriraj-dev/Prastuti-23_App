@@ -19,7 +19,7 @@ class NetworkApiServices extends BaseApiServices{
         headers: {
         "Content-Type": "application/json"
         }
-      ).timeout(const Duration(seconds: 20));
+      ).timeout(const Duration(seconds: 10));
 
       print("The get Api Response is - ${response.body}");
       responseJson = checkResponse(response);
@@ -69,6 +69,7 @@ class NetworkApiServices extends BaseApiServices{
 
       print("Put req response - ${response.body}");
       responseJson = checkResponse(response);
+      
     }on SocketException{
       throw FetchDataException("No Internet Connection");
     }catch(e){

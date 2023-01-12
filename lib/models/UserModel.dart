@@ -1,3 +1,6 @@
+import 'package:prastuti_23/models/eventListModel.dart';
+import 'package:prastuti_23/models/teamsModel.dart';
+
 class UserModel {
   String? message;
   User? user;
@@ -22,101 +25,182 @@ class UserModel {
   }
 }
 
+
 class User {
+  String? sId;
   String? name;
   String? emailId;
   String? profilePhoto;
   List<String>? interests;
   List<String>? socialMediaLinks;
   String? appId;
-  List<String>? teams;
-  List<String>? pendingRequests;
+  bool? isFormFilled;
+  List<Teams>? teams;
+  List<PendingRequests>? pendingRequests;
   int? totalScore;
-  List<String>? eventsParticipated;
-  String? sId;
+  List<Events>? eventsParticipated;
   int? iV;
+  String? college;
+  String? gender;
+  int? phone;
 
   User(
-      {this.name,
+      {this.sId,
+      this.name,
       this.emailId,
       this.profilePhoto,
       this.interests,
       this.socialMediaLinks,
       this.appId,
+      this.isFormFilled,
       this.teams,
       this.pendingRequests,
       this.totalScore,
       this.eventsParticipated,
-      this.sId,
-      this.iV});
+      this.iV,
+      this.college,
+      this.gender,
+      this.phone});
 
   User.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
     name = json['Name'];
     emailId = json['email_id'];
     profilePhoto = json['Profile_Photo'];
-    if (json['Interests'] != null) {
-      interests = <String>[];
-      json['Interests'].forEach((v) {
-        interests!.add(v.toString());
-      });
-    }
-    if (json['SocialMedia_Links'] != null) {
-      socialMediaLinks = <String>[];
-      json['SocialMedia_Links'].forEach((v) {
-        socialMediaLinks!.add(v.toString());
-      });
-    }
+    interests = json['Interests'].cast<String>();
+    socialMediaLinks = json['SocialMedia_Links'].cast<String>();
+
     appId = json['App_id'];
+    isFormFilled = json['isFormFilled'];
     if (json['Teams'] != null) {
-      teams = <String>[];
+      teams = <Teams>[];
       json['Teams'].forEach((v) {
-        teams!.add(v.toString());
+        teams!.add(new Teams.fromJson(v));
       });
     }
     if (json['Pending_Requests'] != null) {
-      pendingRequests = <String>[];
+      pendingRequests = <PendingRequests>[];
       json['Pending_Requests'].forEach((v) {
-        pendingRequests!.add(v.toString());
+        pendingRequests!.add(new PendingRequests.fromJson(v));
       });
     }
     totalScore = json['Total_Score'];
     if (json['Events_Participated'] != null) {
-      eventsParticipated = <String>[];
+      eventsParticipated = <Events>[];
       json['Events_Participated'].forEach((v) {
-        eventsParticipated!.add(v.toString());
+        eventsParticipated!.add(new Events.fromJson(v));
       });
     }
-    sId = json['_id'];
     iV = json['__v'];
+    college = json['College'];
+    gender = json['Gender'];
+    phone = json['Phone'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
     data['Name'] = this.name;
     data['email_id'] = this.emailId;
     data['Profile_Photo'] = this.profilePhoto;
-    if (this.interests != null) {
-      data['Interests'] = this.interests!.map((v) => v).toList();
-    }
-    if (this.socialMediaLinks != null) {
-      data['SocialMedia_Links'] =
-          this.socialMediaLinks!.map((v) => v).toList();
-    }
+    data['Interests'] = this.interests;
+    data['SocialMedia_Links'] = this.socialMediaLinks;
     data['App_id'] = this.appId;
+    data['isFormFilled'] = this.isFormFilled;
     if (this.teams != null) {
-      data['Teams'] = this.teams!.map((v) => v).toList();
+      data['Teams'] = this.teams!.map((v) => v.toJson()).toList();
     }
     if (this.pendingRequests != null) {
       data['Pending_Requests'] =
-          this.pendingRequests!.map((v) => v).toList();
+          this.pendingRequests!.map((v) => v.toJson()).toList();
     }
     data['Total_Score'] = this.totalScore;
     if (this.eventsParticipated != null) {
       data['Events_Participated'] =
-          this.eventsParticipated!.map((v) => v).toList();
+          this.eventsParticipated!.map((v) => v.toJson()).toList();
     }
-    data['_id'] = this.sId;
     data['__v'] = this.iV;
+    data['College'] = this.college;
+    data['Gender'] = this.gender;
+    data['Phone'] = this.phone;
+    return data;
+  }
+}
+
+class Members {
+  String? sId;
+  String? name;
+  String? emailId;
+  String? profilePhoto;
+  List<String>? interests;
+  List<String>? socialMediaLinks;
+  String? appId;
+  bool? isFormFilled;
+  String? college;
+  String? gender;
+
+  Members(
+      {this.sId,
+      this.name,
+      this.emailId,
+      this.profilePhoto,
+      this.interests,
+      this.socialMediaLinks,
+      this.appId,
+      this.isFormFilled,
+      this.college,
+      this.gender});
+
+  Members.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['Name'];
+    emailId = json['email_id'];
+    profilePhoto = json['Profile_Photo'];
+    interests = json['Interests'].cast<String>();
+    socialMediaLinks = json['SocialMedia_Links'].cast<String>();
+    appId = json['App_id'];
+    isFormFilled = json['isFormFilled'];
+    college = json['College'];
+    gender = json['Gender'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['Name'] = this.name;
+    data['email_id'] = this.emailId;
+    data['Profile_Photo'] = this.profilePhoto;
+    data['Interests'] = this.interests;
+    data['SocialMedia_Links'] = this.socialMediaLinks;
+    data['App_id'] = this.appId;
+    data['isFormFilled'] = this.isFormFilled;
+    data['College'] = this.college;
+    data['Gender'] = this.gender;
+    return data;
+  }
+}
+
+class PendingRequests {
+  String? sId;
+  String? team;
+  String? requestedTo;
+  String? requestedFrom;
+
+  PendingRequests({this.sId, this.team, this.requestedTo, this.requestedFrom});
+
+  PendingRequests.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    team = json['team'];
+    requestedTo = json['requested_to'];
+    requestedFrom = json['requested_from'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['team'] = this.team;
+    data['requested_to'] = this.requestedTo;
+    data['requested_from'] = this.requestedFrom;
     return data;
   }
 }

@@ -1,5 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:prastuti_23/models/teamsModel.dart';
+import 'package:prastuti_23/view_models/auth_view_model.dart';
+import 'package:prastuti_23/view_models/registration_handler.dart';
 
 import '../../config/appTheme.dart';
 import '../../config/screen_config.dart';
@@ -18,7 +21,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
     if (requests.isEmpty) {
       return Center(
         child: Text(
-          "Create a team first",
+          "Please create or join a team before registering",
           style: TextStyle(
             color: selectedAppTheme.isDarkMode?
             Colors.white:Colors.black
@@ -64,7 +67,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
             padding: const EdgeInsets.only(top: 27),
             child: ListView.separated(
               itemBuilder: (context, index) {
-                return EventsTeamsWidget(requests[index]);
+                return EventsTeamsWidget(currentUser.teams![index]);
               },
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => Center(
@@ -73,7 +76,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
                     width: SizeConfig.widthPercent * 90,
                     color: Colors.grey,
                   )),
-              itemCount: requests.length,
+              itemCount: currentUser.teams!.length,
             ),
           )
         ],
@@ -81,7 +84,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
     );
   }
 
-  Widget EventsTeamsWidget(String teamName) {
+  Widget EventsTeamsWidget(Teams userTeam) {
     // final bool isStretched = isAnimating || state == ButtonState.init;
     // final bool isDone = state == ButtonState.done;
     return Container(
@@ -100,24 +103,20 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
         child:
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           AutoSizeText(
-            teamName,
+            userTeam.teamName!,
             style: AppTheme().headText1.copyWith(
                 color: selectedAppTheme.isDarkMode?
                 Colors.white:Colors.black,
                 fontWeight: FontWeight.w500, fontSize: 22),
           ),
-          AcceptButton()
+          AcceptButton(userTeam)
         ]));
   }
 
-  Widget AcceptButton() {
+  Widget AcceptButton(Teams userTeam) {
     return ElevatedButton(
       onPressed: () async {
-        // isPressed = !isPressed;
-        // setState(() => state = ButtonState.loading);
-        // await Future.delayed(Duration(seconds: 3));
-        // setState(() => state = ButtonState.done);
-        print("hello lmao dead");
+        RegistrationHandler().registereInTeamEvent();
       },
       child: FittedBox(
         child: AutoSizeText(

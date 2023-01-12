@@ -1,7 +1,11 @@
 
+import 'dart:convert';
+
 import 'package:prastuti_23/config/app_endpoints.dart';
 import 'package:prastuti_23/data/network/base_api_services.dart';
 import 'package:prastuti_23/data/network/network_api_services.dart';
+import 'package:prastuti_23/models/UserModel.dart';
+import 'package:prastuti_23/view_models/auth_view_model.dart';
 
 class RegistrationRepository{
 
@@ -12,7 +16,9 @@ class RegistrationRepository{
     try{
       dynamic response = await _apiServices.getPutApiResponse(AppEndPoints().editUser(id),data);
 
-      if(response['error'].isEmpty){
+      
+      if(response.statusCode == 200){
+        currentUser = User.fromJson(json.decode(response.body));
         return true;
       }else return false;
     }catch(e){

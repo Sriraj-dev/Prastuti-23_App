@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +10,9 @@ import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/models/UserModel.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
+import 'package:prastuti_23/models/teamsModel.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/events_view_model.dart';
 import 'package:prastuti_23/view_models/profile_view_model.dart';
@@ -24,7 +24,6 @@ import '../../data/response/status.dart';
 import '../../utils/utils.dart';
 import '../eventsPage/events_view_content.dart';
 
-
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
 
@@ -34,8 +33,8 @@ class ProfileView extends StatefulWidget {
 
 enum ButtonState { init, loading, done }
 
-class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin{
-
+class _ProfileViewState extends State<ProfileView>
+    with TickerProviderStateMixin {
   late TabController _tabController;
   ButtonState state = ButtonState.init;
   bool isAnimating = true;
@@ -45,20 +44,21 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    buildRegisteredEventsDetails(currentUser.eventsParticipated!);
   }
-
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     SizeConfig.init(context);
   }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: AppTheme().backgroundColor,
-      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
-      Brightness.light:Brightness.dark,
+      systemNavigationBarIconBrightness:
+          selectedAppTheme.isDarkMode ? Brightness.light : Brightness.dark,
     ));
 
     return Container(
@@ -75,6 +75,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: NestedScrollView(
+              physics: const BouncingScrollPhysics(),
               headerSliverBuilder: ((context, innerBoxIsScrolled)=>[
                 SliverAppBar(
                   pinned: true,
@@ -186,6 +187,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               ]),
               body: TabBarView(
                 controller: _tabController,
+                
                 children: [
 
                   Consumer(builder: (context, ref, child) {
@@ -323,17 +325,16 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     }
 
     return ListView.separated(
-      itemBuilder: (context,index){
-        return RequestWidget(requests[index]);
+      itemBuilder: (context, index) {
+        return RequestWidget(requests[index].sId!);
       },
       physics: const BouncingScrollPhysics(),
-      separatorBuilder: (context, index) =>Center(
+      separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent*90,
-            color: Colors.grey,
-          )
-      ),
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
       itemCount: requests.length,
     );
   }
@@ -347,24 +348,30 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: AppTheme().secondaryColorLight,
-          boxShadow: [BoxShadow(
-              color: AppTheme().primaryColor.withOpacity(0.3),
-              blurRadius: 4.0,
-              spreadRadius: 3.0,
-              offset: Offset(4, 4)
-          )]
-      ),
+          boxShadow: [
+            BoxShadow(
+                color: AppTheme().primaryColor.withOpacity(0.3),
+                blurRadius: 4.0,
+                spreadRadius: 3.0,
+                offset: Offset(4, 4))
+          ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AutoSizeText(
-          teamName,
-          style: AppTheme().headText1.copyWith(
-              color: selectedAppTheme.isDarkMode?
-              Colors.white:Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: 20
-          ),
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.only(right: 10),
+              child: AutoSizeText(
+              teamName,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme().headText1.copyWith(
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20
+              ),),
+            ),
           ),
           Row(
             children: [
@@ -372,11 +379,11 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                 alignment: Alignment.center,
                 duration: Duration(milliseconds: 2000),
                 curve: Curves.easeIn,
-                width: state == ButtonState.init ?  90:40,
+                width: state == ButtonState.init ? 90 : 40,
                 onEnd: () => setState(() => isAnimating = !isAnimating),
                 child: isStretched ? AcceptButton() : LoadingTick(isDone),
               ),
-              !isPressed? RejectButton() : Container(),
+              !isPressed ? RejectButton() : Container(),
             ],
           ),
         ],
@@ -387,19 +394,19 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   Widget AcceptButton() {
     return ElevatedButton(
       onPressed: () async {
-        isPressed = !isPressed;
-        setState(() => state = ButtonState.loading);
-        await Future.delayed(Duration(seconds: 3));
-        setState(() => state = ButtonState.done);
-        print("hello lmao dead");
+//         isPressed = !isPressed;
+//         setState(() => state = ButtonState.loading);
+//         await Future.delayed(Duration(seconds: 3));
+//         setState(() => state = ButtonState.done);
+//         print("hello lmao dead");
       },
       child: FittedBox(
         child: AutoSizeText(
           'Accept',
           style: AppTheme().headText2.copyWith(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-          ),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
         ),
       ),
       style: ElevatedButton.styleFrom(
@@ -439,10 +446,10 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       child: Center(
         child: isDone
             ? Icon(
-          Icons.done,
-          size: 30,
-          color: Colors.white,
-        )
+                Icons.done,
+                size: 30,
+                color: Colors.white,
+              )
             : CircularProgressIndicator(color: Colors.white),
       ),
     );
@@ -450,12 +457,12 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
 
   // bool isExpanded = false;
 
-  Widget buildTeamsList(List<List<dynamic>> teamsList) {
-
-    if(teamsList.isEmpty){
+  Widget buildTeamsList(List<Teams> teamsList) {
+    if (teamsList.isEmpty) {
       return Center(
-        child: Text("You have no registered event",
-        style: AppTheme()
+        child: Text(
+          "You have not joined in any team yet!!",
+          style: AppTheme()
               .headText2
               .copyWith(fontSize: 17, color: selectedAppTheme.isDarkMode?
         Colors.white:AppTheme().secondaryColor),
@@ -464,29 +471,31 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     }
 
     return ListView.separated(
-      itemBuilder: (context,index){
+      itemBuilder: (context, index) {
         return TeamsWidget(
-            eventImage: regTeams[index][0],
-            teamName: regTeams[index][1],
-            teamMembers: regTeams[index][2],
+          eventImage: (index%3==0)?
+          ImagePaths.events:(index%3==1)?
+          ImagePaths.awards:
+           ImagePaths.events,
+          teamName: teamsList[index].teamName!,
+          teamMembers: teamsList[index].members!,
         );
       },
       physics: const BouncingScrollPhysics(),
-      separatorBuilder: (context, index) =>Center(
+      separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent*90,
-            color: Colors.grey,
-          )
-      ),
-      itemCount: regTeams.length,
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
+      itemCount: teamsList.length,
     );
   }
 
   Widget TeamsWidget(
       {required String eventImage,
       required String teamName,
-      required List<String> teamMembers}) {
+      required List<Members> teamMembers}) {
     return GestureDetector(
       onTap: () {
         /// TODO: Implement onTap
@@ -496,36 +505,37 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         color: Colors.transparent,
         child: Column(
           children: [
-            Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 20),
-                  padding: EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: AppTheme().secondaryColorLight,
-                      boxShadow: [BoxShadow(
+            Stack(children: [
+              Container(
+                margin: EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(left: 20),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: AppTheme().secondaryColorLight,
+                    boxShadow: [
+                      BoxShadow(
                           color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 4.0,
                           spreadRadius: 3.0,
-                          offset: Offset(4, 4)
-                      )]
-                  ),
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                      dividerColor: Colors.transparent
-                    ),
-                    child: ExpansionTile(
-                      iconColor: selectedAppTheme.isDarkMode?
-                      Colors.white:Colors.black,
-                      collapsedIconColor: selectedAppTheme.isDarkMode?
-                      Colors.white:Colors.black,
-                      expandedAlignment: Alignment.topLeft,
-                      title: AutoSizeText(
-                        teamName,
-                        style: AppTheme().headText1.copyWith(
-                          color: selectedAppTheme.isDarkMode?
-                          Colors.white:Colors.black,
+                          offset: Offset(4, 4))
+                    ]),
+                child: Theme(
+                  data: Theme.of(context)
+                      .copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
+                    iconColor: selectedAppTheme.isDarkMode
+                        ? Colors.white
+                        : Colors.black,
+                    collapsedIconColor: selectedAppTheme.isDarkMode
+                        ? Colors.white
+                        : Colors.black,
+                    expandedAlignment: Alignment.topLeft,
+                    title: AutoSizeText(
+                      teamName,
+                      style: AppTheme().headText1.copyWith(
+                          color: selectedAppTheme.isDarkMode
+                              ? Colors.white
+                              : Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 20
                         ),
@@ -539,11 +549,18 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 child: Row(
                                   children: [
                                     Icon(Icons.person_rounded,color: AppTheme().kSecondaryColor),
-                                    Text(e,
-                                      style: AppTheme().headText2.copyWith(
-                                        color: selectedAppTheme.isDarkMode?
-                                        Colors.white:Colors.black,
-                                        fontSize: 16
+                                    Flexible(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Text(e.name!,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                          style: AppTheme().headText2.copyWith(
+                                            color: selectedAppTheme.isDarkMode?
+                                            Colors.white:Colors.black,
+                                            fontSize: 16
+                                          ),
+                                        ),
                                       ),
                                     )
                                   ],
@@ -624,12 +641,10 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                           color: AppTheme().secondaryColor,
                           blurRadius: 1.0,
                           spreadRadius: 1.0,
-                          offset: Offset(3, 3)
-                      )]
-                  ),
-                )
-              ]
-            ),
+                          offset: Offset(3, 3))
+                    ]),
+              )
+            ]),
             SizedBox(
               height: 10,
             )
@@ -639,10 +654,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     );
   }
 
-
   Widget buildEventsList(List<Events> regEvents) {
-
-    if(regEvents.isEmpty){
+    if (regEvents.isEmpty) {
       return Center(
         child: Text("You have no registered events!!",
           style: AppTheme().headText2.copyWith(
@@ -655,24 +668,22 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     }
 
     return ListView.separated(
-      itemBuilder: (context,index){
+      itemBuilder: (context, index) {
         return RegEvents(
-           eventImage: event_images[(regEvents[index].name!).toUpperCase()]!,
-           eventName: regEvents[index].name!,
-           teamName: "Ongoing",
-           stage: "Useless",
-           score: "220",
-           date: "12/02/2023"
-        );
+            eventImage: event_images[(regEvents[index].name!).toUpperCase()]!,
+            eventName: regEvents[index].name!,
+            teamName: joinedAs[index],
+            stage: "Not Used",
+            score: scoreInEvent[index],
+            date: startDate[index]);
       },
       physics: const BouncingScrollPhysics(),
-      separatorBuilder: (context, index) =>Center(
+      separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent*90,
-            color: Colors.grey,
-          )
-      ),
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
       itemCount: regEvents.length,
     );
   }
@@ -689,7 +700,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
         /// TODO: Implement onTap
       },
       child: Container(
-        height: SizeConfig.height*0.2,
+        height: SizeConfig.height * 0.2,
         padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
         color: Colors.transparent,
         child: Stack(
@@ -698,22 +709,22 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                 top: 0,
                 left: 45,
                 child: Container(
-                  height: SizeConfig.height*0.145,
-                  width: SizeConfig.width*0.68,
+                  height: SizeConfig.height * 0.145,
+                  width: SizeConfig.width * 0.68,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20),
                       color: AppTheme().secondaryColorLight,
-                      boxShadow: [BoxShadow(
-                          color: AppTheme().primaryColor.withOpacity(0.3),
-                          blurRadius: 4.0,
-                          spreadRadius: 3.0,
-                          offset: Offset(4, 4)
-                      )]
-                  ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppTheme().primaryColor.withOpacity(0.3),
+                            blurRadius: 4.0,
+                            spreadRadius: 3.0,
+                            offset: Offset(4, 4))
+                      ]),
                   child: Column(
                     children: [
                       Container(
-                        width: SizeConfig.width*0.6,
+                        width: SizeConfig.width * 0.6,
                         padding: EdgeInsets.only(top: 10, left: 55),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -725,8 +736,9 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 AutoSizeText(
                                   eventName,
                                   style: AppTheme().headText1.copyWith(
-                                      color: selectedAppTheme.isDarkMode?
-                                      Colors.white:Colors.black,
+                                      color: selectedAppTheme.isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
                                       fontSize: 22,
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -734,61 +746,56 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                   teamName,
                                   style: AppTheme().headText2.copyWith(
                                       fontSize: 16,
-                                      color: AppTheme().primaryColor
-                                  ),
+                                      color: AppTheme().primaryColor),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 15,),
+                            SizedBox(
+                              height: 15,
+                            ),
                             Container(
                               padding: EdgeInsets.only(right: 5),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
-                                        height: SizeConfig.height*0.0175,
-                                        width: SizeConfig.height*0.0259,
+                                        height: SizeConfig.height * 0.025,
+                                        width: SizeConfig.height * 0.0259,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage(ImagePaths.score),
-                                                fit: BoxFit.cover
-                                            )
-                                        ),
+                                                image: AssetImage(
+                                                    ImagePaths.score),
+                                                fit: BoxFit.fill)),
                                       ),
-                      
-                                      AutoSizeText(
-                                          score,
+                                      AutoSizeText(" "+score,
                                           style: AppTheme().headText2.copyWith(
-                                            color: selectedAppTheme.isDarkMode?
-                                            Colors.white:Colors.black
-                                          )
-                                      ),
+                                              color: selectedAppTheme.isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                     ],
                                   ),
                                   Row(
                                     children: [
                                       Container(
-                                        height: SizeConfig.height*0.02,
-                                        width: SizeConfig.height*0.02,
+                                        height: SizeConfig.height * 0.02,
+                                        width: SizeConfig.height * 0.02,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage(ImagePaths.calender),
-                                                fit: BoxFit.cover
-                                            )
-                                        ),
+                                                image: AssetImage(
+                                                    ImagePaths.calender),
+                                                fit: BoxFit.cover)),
                                       ),
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      AutoSizeText(
-                                          date,
+                                      AutoSizeText(date,
                                           style: AppTheme().headText2.copyWith(
-                                            color: selectedAppTheme.isDarkMode?
-                                            Colors.white:Colors.black
-                                          )
-                                      ),
+                                              color: selectedAppTheme.isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                     ],
                                   ),
                                 ],
@@ -799,29 +806,27 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       ),
                     ],
                   ),
-                )
-            ),
+                )),
             Positioned(
                 top: 15,
                 left: 10,
                 child: Container(
-                  height: SizeConfig.height*0.10,
-                  width: SizeConfig.height*0.10,
+                  height: SizeConfig.height * 0.10,
+                  width: SizeConfig.height * 0.10,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(eventImage),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [BoxShadow(
-                      color: AppTheme().secondaryColor,
-                      blurRadius: 1.0,
-                      spreadRadius: 1.0,
-                      offset: Offset(4, 4)
-                    )]
-                  ),
-                )
-            ),
+                      image: DecorationImage(
+                        image: AssetImage(eventImage),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                            color: AppTheme().secondaryColor,
+                            blurRadius: 1.0,
+                            spreadRadius: 1.0,
+                            offset: Offset(4, 4))
+                      ]),
+                )),
           ],
         ),
       ),
