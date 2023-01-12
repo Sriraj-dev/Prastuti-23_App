@@ -1,9 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
@@ -16,14 +15,10 @@ import 'package:prastuti_23/views/error_view.dart';
 import 'package:prastuti_23/views/eventsPage/event_timeline.dart';
 import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
-import 'package:prastuti_23/views/ui/show_model_team.dart';
+import 'package:prastuti_23/views/eventsPage/show_model_team.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../config/appTheme.dart';
-import '../../config/appTheme.dart';
 import '../../config/image_paths.dart';
 import '../../view_models/events_view_model.dart';
-import '../profile/profile_view.dart';
-import '../profile/profile_view_content.dart';
 
 class EventsView extends StatefulWidget {
   const EventsView({Key? key}) : super(key: key);
@@ -37,7 +32,6 @@ class _EventsViewState extends State<EventsView>
   final _selectedEvent = 0.obs;
 
   List<String> registeredEventIds = [];
-  RxList<bool> isRegistered = <bool>[].obs;
 
   @override
   void initState() {
@@ -62,6 +56,7 @@ class _EventsViewState extends State<EventsView>
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
+          opacity: 0.6,
           image: selectedAppTheme.isDarkMode?
           AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
           fit: BoxFit.cover
@@ -75,9 +70,7 @@ class _EventsViewState extends State<EventsView>
               loading: ()=>const Events_view_skeleton(),
               data: (allEvents){
                 List<Events> events = allEvents.events as List<Events>;
-                events.forEach((element){
-                  isRegistered.add(registeredEventIds.contains(element.sId));
-                });
+                eventViewController.initiateRegistrationStatus(events,registeredEventIds);
                 return Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: buildAppBar(events),
@@ -113,10 +106,11 @@ class _EventsViewState extends State<EventsView>
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
-                                        (isRegistered[_selectedEvent.value])?
+                                        (eventViewController.getRegistrationStatus(_selectedEvent.value) 
+                                        == handler.REGISTERED)?
                                         openWhatsappLink():
                                         !events[_selectedEvent.value].teamEvent!?
-                                        startSoloRegistration()
+                                        startSoloRegistration(_selectedEvent.value,events[_selectedEvent.value].sId!)
                                         :showModalBottomSheet(
                                             context: context,
                                             shape:
@@ -124,9 +118,15 @@ class _EventsViewState extends State<EventsView>
                                                   borderRadius: BorderRadius.vertical(
                                                     top: Radius.circular(27))),
                                             builder: (context) =>
-                                                ShowModelTeams());
+                                                ShowModelTeams(
+                                                  eventIndex: _selectedEvent.value,
+                                                            event: events[
+                                                                _selectedEvent
+                                                                    .value]));
                                       },
-                                      child: isRegistered[_selectedEvent.value]? Row(
+                                      child: (eventViewController.getRegistrationStatus(
+                                                      _selectedEvent.value)==handler.REGISTERED)? 
+                                      Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Container(
@@ -148,7 +148,16 @@ class _EventsViewState extends State<EventsView>
                                             ),
                                           ),
                                         ],
-                                      ):AutoSizeText(
+                                      ):(eventViewController.getRegistrationStatus(
+                                                      _selectedEvent.value)==handler.LOADING)?
+                                      const Center(
+                                        child: SpinKitWave(
+                                          color: Colors.white,
+                                          size: 15,
+                                          itemCount: 5,
+                                        ),
+                                      )
+                                      :AutoSizeText(
                                         'Register',
                                         style: AppTheme().headText2.copyWith(
                                           fontSize: 20,
@@ -157,9 +166,11 @@ class _EventsViewState extends State<EventsView>
                                       ),
                                       style: ElevatedButton.styleFrom(
                                         shape: const StadiumBorder(),
-                                        backgroundColor: isRegistered[_selectedEvent.value]?
+                                        backgroundColor: (eventViewController.getRegistrationStatus(
+                                                        _selectedEvent.value)==handler.REGISTERED)?
                                         Colors.green:AppTheme().kSecondaryColor,
-                                        shadowColor: isRegistered[_selectedEvent.value]?
+                                        shadowColor: (eventViewController.getRegistrationStatus(
+                                                        _selectedEvent.value)==handler.REGISTERED)?
                                         Colors.greenAccent:AppTheme().kSecondaryColor.withOpacity(0.5),
                                         elevation: 5,
                                         fixedSize: Size(140, 40),
@@ -192,7 +203,9 @@ class _EventsViewState extends State<EventsView>
                                     child: ListView(
                                         physics: const BouncingScrollPhysics(),
                                         children: [
-                                          (isRegistered[_selectedEvent.value])
+                                          (eventViewController.getRegistrationStatus(
+                                                          _selectedEvent
+                                                              .value)== handler.REGISTERED)
                                               ? Obx(
                                                   () => Opacity(
                                                     opacity: animationController
@@ -506,8 +519,18 @@ class _EventsViewState extends State<EventsView>
   
   openWhatsappLink() {}
   
-  startSoloRegistration() {
-    RegistrationHandler().registerInSoloEvent();
+  startSoloRegistration(int index ,String eventId) async{
+
+    eventViewController.changeRegistrationStatus(index, handler.LOADING);
+    bool result = await RegistrationHandler().registerInSoloEvent(
+      context: context,
+      userId: currentUser.sId!,
+      eventId: eventId
+    );
+
+    if(result) eventViewController.changeRegistrationStatus(index, handler.REGISTERED);
+    else eventViewController.changeRegistrationStatus(index, handler.NOTREGISTERED);
+
   }
 
 }

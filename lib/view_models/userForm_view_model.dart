@@ -1,9 +1,5 @@
-
-
-import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prastuti_23/repositories/registration_repository.dart';
+import 'package:prastuti_23/repositories/userForm_repository.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/utils/utils.dart';
 
@@ -22,7 +18,7 @@ class RegistrationViewModel{
       "isFormFilled":true
     };
 
-    bool isFormSubmitted =  await RegistrationRepository().editUser(id, data);
+    bool isFormSubmitted =  await UserFormRepository().editUser(id, data);
     if(isFormSubmitted){
       Navigator.of(context).popAndPushNamed(RouteNames.homeView);
       return true;

@@ -1,11 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
@@ -14,13 +11,8 @@ import 'package:prastuti_23/models/UserModel.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:prastuti_23/models/teamsModel.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
-import 'package:prastuti_23/view_models/events_view_model.dart';
 import 'package:prastuti_23/view_models/profile_view_model.dart';
-import 'package:prastuti_23/views/error_view.dart';
-import 'package:prastuti_23/views/loading/shimmer_widget.dart';
-import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
-import '../../data/response/status.dart';
 import '../../utils/utils.dart';
 import '../eventsPage/events_view_content.dart';
 
@@ -36,15 +28,21 @@ enum ButtonState { init, loading, done }
 class _ProfileViewState extends State<ProfileView>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  ButtonState state = ButtonState.init;
-  bool isAnimating = true;
-  bool isPressed = false;
+   RxBool creatingTeam = false.obs;
+   RxBool sendingRequest = false.obs;
+   RxList<bool> isAcceptingRequest = <bool>[].obs;
+   RxList<bool> isRejectingRequest = <bool>[].obs;
+
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    buildRegisteredEventsDetails(currentUser.eventsParticipated!);
+    currentUser.pendingRequests!.forEach((element) {
+      isAcceptingRequest.add(false);
+      isRejectingRequest.add(false);
+    });
+    ProfileViewModel().buildRegisteredEventsDetails(currentUser.eventsParticipated!);
   }
 
   @override
@@ -187,7 +185,6 @@ class _ProfileViewState extends State<ProfileView>
               ]),
               body: TabBarView(
                 controller: _tabController,
-                
                 children: [
                   buildEventsList(currentUser.eventsParticipated!),
                   Stack(
@@ -199,14 +196,32 @@ class _ProfileViewState extends State<ProfileView>
                           child: Container(
                             alignment: Alignment.bottomCenter,
                             child: ElevatedButton(
-                              onPressed: () => showDialog(
+                              onPressed: (){
+                                showDialog(
                                   context: context,
                                   builder: (context) => Utils.DialogBox(
                                       context,
                                       'Create New Team',
                                       'Enter Team Name',
-                                      'Create')
-                              ),
+                                      'Create',
+                                      true)
+                                    ).then((value)async{
+                                      if(value!=null){
+                                        if(value.isEmpty){
+                                          Utils.flushBarMessage(
+                                            context: context,
+                                            bgColor: Colors.redAccent,
+                                            message: "Please enter a Valid Team name!"
+                                          );
+                                          return ;
+                                        }
+                                        creatingTeam.value = true;
+                                        await ProfileViewModel().createTeam(
+                                          teamName: value, userId: currentUser.sId!, context: context);
+                                        creatingTeam.value = false;
+                                      }
+                                    });
+                              },
                               child: SizedBox(
                                   height: 35,
                                   width: SizeConfig.width*0.8,
@@ -226,11 +241,20 @@ class _ProfileViewState extends State<ProfileView>
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      AutoSizeText(
-                                          'Create New Team',
-                                          style: AppTheme().headText2.copyWith(
+                                      Obx((){
+                                          return (creatingTeam.value)?
+                                          SpinKitWave(
+                                            color: Colors.white,
+                                            itemCount: 5,
+                                            size: 15,
                                           )
-                                      ),
+                                          :AutoSizeText(
+                                            'Create New Team',
+                                            style: AppTheme().headText2.copyWith(
+                                            )
+                                        );
+                                      })
+                                      ,
                                     ],
                                   )
                               ),
@@ -249,35 +273,6 @@ class _ProfileViewState extends State<ProfileView>
                     ],
                   ),
                   buildRequestList(currentUser.pendingRequests!)
-
-                  // Stack(
-                  //   children: [
-                  //     // Positioned(
-                  //     //   bottom: 10,
-                  //     //   right: 10,
-                  //     //   child: Container(
-                  //     //     alignment: Alignment.bottomRight,
-                  //     //     child: ElevatedButton(
-                  //     //       onPressed: () {},
-                  //     //       child: SizedBox(
-                  //     //           height: 35.sp,
-                  //     //           width: 35.sp,
-                  //     //           child: Image.asset(ImagePaths.add)
-                  //     //       ),
-                  //     //       style: ElevatedButton.styleFrom(
-                  //     //         shape: const CircleBorder(),
-                  //     //         backgroundColor: AppTheme().primaryColor,
-                  //     //         fixedSize: Size(45.sp, 45.sp),
-                  //     //         shadowColor: AppTheme().primaryColor,
-                  //     //         elevation: 15.sp,
-                  //     //       ),
-                  //     //     ),
-                  //     //   )
-                  //     // )
-                  //   ],
-                  // ),
-
-
                 ]
               )
             ),
@@ -297,7 +292,7 @@ class _ProfileViewState extends State<ProfileView>
 
     return ListView.separated(
       itemBuilder: (context, index) {
-        return RequestWidget(requests[index].sId!);
+        return RequestWidget(requests[index].sId!,requests[index].sId!,index);
       },
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) => Center(
@@ -310,9 +305,7 @@ class _ProfileViewState extends State<ProfileView>
     );
   }
 
-  Widget RequestWidget(String teamName) {
-    final bool isStretched = isAnimating || state == ButtonState.init;
-    final bool isDone = state == ButtonState.done;
+  Widget RequestWidget(String teamName,String requestId,int index) {
     return Container(
       margin: EdgeInsets.fromLTRB(35, 20, 35, 10),
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
@@ -350,11 +343,10 @@ class _ProfileViewState extends State<ProfileView>
                 alignment: Alignment.center,
                 duration: Duration(milliseconds: 2000),
                 curve: Curves.easeIn,
-                width: state == ButtonState.init ? 90 : 40,
-                onEnd: () => setState(() => isAnimating = !isAnimating),
-                child: isStretched ? AcceptButton() : LoadingTick(isDone),
+                width:90,
+                child:AcceptButton(requestId,index),
               ),
-              !isPressed ? RejectButton() : Container(),
+              RejectButton(requestId,index)
             ],
           ),
         ],
@@ -362,23 +354,31 @@ class _ProfileViewState extends State<ProfileView>
     );
   }
 
-  Widget AcceptButton() {
+  Widget AcceptButton(String requestId,int index) {
     return ElevatedButton(
       onPressed: () async {
-//         isPressed = !isPressed;
-//         setState(() => state = ButtonState.loading);
-//         await Future.delayed(Duration(seconds: 3));
-//         setState(() => state = ButtonState.done);
-//         print("hello lmao dead");
+        isAcceptingRequest[index] = true;
+        await ProfileViewModel().acceptRequest(requestId, context);
+        isAcceptingRequest[index] = false;
       },
       child: FittedBox(
-        child: AutoSizeText(
-          'Accept',
-          style: AppTheme().headText2.copyWith(
+        child: Obx((){
+          return (isAcceptingRequest[index])?
+          const Center(
+            child: SpinKitWave(
+              color: Colors.white,
+              size: 8,
+              itemCount: 3,
+            ),
+          )
+          :AutoSizeText(
+            'Accept',
+            style: AppTheme().headText2.copyWith(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
               ),
-        ),
+          );
+        }),
       ),
       style: ElevatedButton.styleFrom(
         shape: StadiumBorder(),
@@ -390,13 +390,21 @@ class _ProfileViewState extends State<ProfileView>
     );
   }
 
-  Widget RejectButton() {
+  Widget RejectButton(String requestId,int index) {
     return GestureDetector(
-      onTap: () {
-        /// TODO: Implement Reject Request -Sriraj
+      onTap: () async{
+         isRejectingRequest[index] = true;
+        await ProfileViewModel().rejectRequest(requestId, context);
+        isRejectingRequest[index] = false;
       },
-      child: Container(
-        margin: EdgeInsets.only(left: 5),
+      child: Obx((){
+        return (isRejectingRequest[index])?
+        SpinKitCircle(
+          color: AppTheme().primaryColor,
+          size: 14,
+        )
+        :Container(
+        margin: const EdgeInsets.only(left: 5),
         height: 13,
         width: 13,
         decoration: BoxDecoration(
@@ -405,8 +413,9 @@ class _ProfileViewState extends State<ProfileView>
                 AssetImage(ImagePaths.cancel_dark):AssetImage(ImagePaths.cancel_light),
                 fit: BoxFit.cover
             )
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 
@@ -450,6 +459,7 @@ class _ProfileViewState extends State<ProfileView>
            ImagePaths.events,
           teamName: teamsList[index].teamName!,
           teamMembers: teamsList[index].members!,
+          teamId: teamsList[index].sId!,
         );
       },
       physics: const BouncingScrollPhysics(),
@@ -466,7 +476,8 @@ class _ProfileViewState extends State<ProfileView>
   Widget TeamsWidget(
       {required String eventImage,
       required String teamName,
-      required List<Members> teamMembers}) {
+      required List<Members> teamMembers,
+      required String teamId}) {
     return GestureDetector(
       onTap: () {
         /// TODO: Implement onTap
@@ -541,14 +552,34 @@ class _ProfileViewState extends State<ProfileView>
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 55,vertical: 5),
                               child: ElevatedButton(
-                                onPressed: () => showDialog(
-                                  context: context,
-                                  builder: (context) => Utils.DialogBox(
-                                      context,
-                                      'Add New Member',
-                                      'Enter Email ID',
-                                      'Add')
-                                ),
+                                  onPressed: (){
+                                      showDialog(
+                                    context: context,
+                                    builder: (context) => Utils.DialogBox(
+                                        context,
+                                        'Add New Member',
+                                        'Enter Email ID',
+                                        'Add',
+                                        false
+                                      )
+                                  ).then((value)async{
+                                    if(value == null) return ;
+                                      if(value.isEmpty){
+                                        Utils.flushBarMessage(
+                                          context: context,
+                                          bgColor: Colors.redAccent,
+                                          message:
+                                              "Please enter a Valid Email Id");
+                                      }
+                                    sendingRequest.value = true;
+                                    await ProfileViewModel().sendTeamRequest(
+                                      email: value, 
+                                      userId: currentUser.sId!,
+                                      teamId: teamId,
+                                      context: context);
+                                  sendingRequest.value = false;
+                                  });
+                                },
                                 child: SizedBox(
                                     height: 35,
                                     child: Row(
@@ -567,13 +598,20 @@ class _ProfileViewState extends State<ProfileView>
                                         SizedBox(
                                           width: 10,
                                         ),
-                                        Text(
+                                        Obx((){
+                                          return (sendingRequest.value)?
+                                          const SpinKitWave(
+                                            color: Colors.white,
+                                            itemCount: 5,
+                                            size: 15,
+                                          )
+                                          :Text(
                                             'Add Member',
                                             style: AppTheme().headText2.copyWith(
                                               fontSize: 15
-
                                             )
-                                        ),
+                                          );
+                                        }),
                                       ],
                                     )
                                 ),
@@ -811,4 +849,5 @@ class _ProfileViewState extends State<ProfileView>
       drawerAnimationController.forward();
     }
   }
+  
 }

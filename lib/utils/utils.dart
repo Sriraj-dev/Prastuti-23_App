@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -33,8 +34,10 @@ class Utils{
       BuildContext context,
       String title,
       String hint,
-      String command
+      String command,
+      bool creatingTeam
       ) {
+        TextEditingController textBox = TextEditingController();
     return Center(
       child: Container(
         width: SizeConfig.width*0.75,
@@ -88,21 +91,23 @@ class Utils{
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Card(
-                shape: StadiumBorder(
+                shape: const StadiumBorder(
                   side: BorderSide(
                     color: Colors.black,
                     width: 2.0,
                   ),
                 ),
                 child: TextField(
+                  controller: textBox,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(50)),
                       ),
                       hintText: hint,
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         color: Colors.grey,
                       )
                   ),
@@ -115,37 +120,41 @@ class Utils{
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
-                    child: Container(
-                      width: SizeConfig.height*0.14,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: selectedAppTheme.isDarkMode?
-                            Colors.white:Colors.black
-                        ),
-                        borderRadius: BorderRadius.circular(20.0),
-                        // boxShadow: [BoxShadow(
-                        //     color: Colors.black.withOpacity(0.3),
-                        //     blurRadius: 4.0,
-                        //     spreadRadius: 3.0,
-                        //     offset: Offset(4, 4)
-                        // )]
-                      ),
-                      child: Center(
-                        child: Text(
-                            command,
-                            style: GoogleFonts.catamaran(
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: TextButton(
+                      child: Container(
+                        width: SizeConfig.height*0.14,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          border: Border.all(
                               color: selectedAppTheme.isDarkMode?
-                              Colors.white:Colors.black,
-                              fontWeight: FontWeight.bold,
-                            )
+                              Colors.white:Colors.black
+                          ),
+                          borderRadius: BorderRadius.circular(20.0),
+                          // boxShadow: [BoxShadow(
+                          //     color: Colors.black.withOpacity(0.3),
+                          //     blurRadius: 4.0,
+                          //     spreadRadius: 3.0,
+                          //     offset: Offset(4, 4)
+                          // )]
+                        ),
+                        child: Center(
+                          child: Text(
+                              command,
+                              style: GoogleFonts.catamaran(
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:Colors.black,
+                                fontWeight: FontWeight.bold,
+                              )
+                          ),
                         ),
                       ),
-                    ),
-                    onPressed: () {
-                      /// TODO: Implement Add
-                    }
+                      onPressed: (){
+                        Navigator.pop(context,
+                          textBox.text,);
+                      }
+                  ),
                 ),
               ],
             )

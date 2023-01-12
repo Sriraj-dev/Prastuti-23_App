@@ -1,6 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:prastuti_23/models/teamsModel.dart';
+import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/registration_handler.dart';
 
@@ -9,16 +13,30 @@ import '../../config/screen_config.dart';
 import '../profile/profile_view_content.dart';
 
 class ShowModelTeams extends StatefulWidget {
-  const ShowModelTeams({Key? key}) : super(key: key);
+  Events event;
+  int eventIndex;
+  ShowModelTeams({Key? key,required this.event,required this.eventIndex}) : super(key: key);
 
   @override
-  State<ShowModelTeams> createState() => _ShowModelTeamsState();
+  State<ShowModelTeams> createState() => _ShowModelTeamsState(event);
 }
 
 class _ShowModelTeamsState extends State<ShowModelTeams> {
+
+  Events event;
+   RxList<handler> isJoining = <handler>[].obs;
+
+  _ShowModelTeamsState(this.event);
+
+  @override
+  void initState() {
+    super.initState();
+
+    currentUser.teams!.forEach((element){isJoining.add(handler.NOTREGISTERED);});
+  }
   @override
   Widget build(BuildContext context) {
-    if (requests.isEmpty) {
+    if (currentUser.teams!.isEmpty) {
       return Center(
         child: Text(
           "Please create or join a team before registering",
@@ -67,7 +85,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
             padding: const EdgeInsets.only(top: 27),
             child: ListView.separated(
               itemBuilder: (context, index) {
-                return EventsTeamsWidget(currentUser.teams![index]);
+                return EventsTeamsWidget(currentUser.teams![index],index);
               },
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => Center(
@@ -84,9 +102,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
     );
   }
 
-  Widget EventsTeamsWidget(Teams userTeam) {
-    // final bool isStretched = isAnimating || state == ButtonState.init;
-    // final bool isDone = state == ButtonState.done;
+  Widget EventsTeamsWidget(Teams userTeam,int index) {
     return Container(
         margin: EdgeInsets.fromLTRB(30, 20, 30, 10),
         padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
@@ -109,17 +125,37 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
                 Colors.white:Colors.black,
                 fontWeight: FontWeight.w500, fontSize: 22),
           ),
-          AcceptButton(userTeam)
+          AcceptButton(userTeam,index)
         ]));
   }
 
-  Widget AcceptButton(Teams userTeam) {
+  Widget AcceptButton(Teams userTeam,int index) {
     return ElevatedButton(
       onPressed: () async {
-        RegistrationHandler().registereInTeamEvent();
+
+        isJoining[index] = handler.LOADING;
+        bool isJoined = await RegistrationHandler().registereInTeamEvent(
+          userId: currentUser.sId!,
+          eventId: event.sId!,
+          teamId: userTeam.sId!,
+          context: context,
+          eventIndex: widget.eventIndex
+          );
+        isJoining[index] = handler.NOTREGISTERED;
+        if(isJoined){
+          Navigator.of(context).pop();
+              Utils.flushBarMessage(
+              context: context, bgColor: Colors.green, message: "Registered Successfully!");
+        }
       },
-      child: FittedBox(
-        child: AutoSizeText(
+      child: Obx(() => FittedBox(
+        child: (isJoining[index] == handler.LOADING)?
+        const SpinKitWave(
+          color: Colors.white,
+          size: 15,
+          itemCount: 5,
+        )
+        :AutoSizeText(
           'Join',
           style: AppTheme().headText2.copyWith(
             fontSize: 15,
@@ -127,7 +163,8 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
           ),
         ),
       ),
-      style: ElevatedButton.styleFrom(
+),
+        style: ElevatedButton.styleFrom(
         shape: StadiumBorder(),
         backgroundColor: AppTheme().secondaryColor,
         shadowColor: AppTheme().primaryColor,
