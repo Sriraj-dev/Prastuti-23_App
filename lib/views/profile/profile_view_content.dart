@@ -30,5 +30,4 @@ List<List<dynamic>> regTeams = [
   [ImagePaths.awards, 'Predators', ['Charvith', 'Gautam', 'Kishore']],
   [ImagePaths.events, 'Spammers', ['Gokul', 'Gopi']],
   [ImagePaths.events, 'Team Blaze', ['Manash', 'Yash', 'Sriraj']],
-
 ];

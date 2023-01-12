@@ -10,7 +10,7 @@ import 'package:prastuti_23/models/teamsModel.dart';
 class ProfileRepository{
   BaseApiServices _apiServices = NetworkApiServices();
 
-  Future<Team> getTeamFromId(String id)async{
+  Future<Teams> getTeamFromId(String id)async{
 
     dynamic response = await _apiServices.getGetApiResponse(AppEndPoints().getTeamUrl(id));
 

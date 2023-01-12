@@ -74,4 +74,5 @@ class selectedAppTheme {
   static bool? getMode() => _preferences?.getBool(_isDark);
 
   static bool isDarkMode = false;
+
 }

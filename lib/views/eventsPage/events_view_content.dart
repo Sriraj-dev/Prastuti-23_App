@@ -6,6 +6,7 @@ Map<String,String> event_images = {
   "HACKOVERFLOW": ImagePaths.hackathon,
   "RECOGNIZANCE": ImagePaths.recognizance,
   "SIMULIM": ImagePaths.simulim,
-  "OSCILLION": ImagePaths.cryptex
+  "OSCILLION": ImagePaths.cryptex,
+  "CRYPTEX" : ImagePaths.cryptex
 };
 

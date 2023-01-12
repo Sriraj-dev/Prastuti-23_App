@@ -21,7 +21,9 @@ class EventListModel {
   }
 }
 
+
 class Events {
+  List<String>? playerIds;
   String? sId;
   String? name;
   String? description;
@@ -30,11 +32,12 @@ class Events {
   List<Timeline>? timeline;
   int? noOfParticipants;
   bool? teamEvent;
-  List<dynamic>? participants;
-  List<dynamic>? teams;
+  List<Participants>? participants;
+  List<TeamParticipants>? teams;
 
   Events(
-      {this.sId,
+      {this.playerIds,
+      this.sId,
       this.name,
       this.description,
       this.rules,
@@ -46,6 +49,7 @@ class Events {
       this.teams});
 
   Events.fromJson(Map<String, dynamic> json) {
+    playerIds = json['player_ids'].cast<String>();
     sId = json['_id'];
     name = json['Name'];
     description = json['Description'];
@@ -60,21 +64,22 @@ class Events {
     noOfParticipants = json['no_of_participants'];
     teamEvent = json['team_event'];
     if (json['Participants'] != null) {
-      participants = <dynamic>[];
+      participants = <Participants>[];
       json['Participants'].forEach((v) {
-        participants!.add(v);
+        participants!.add(new Participants.fromJson(v));
       });
     }
     if (json['teams'] != null) {
-      teams = <dynamic>[];
+      teams = <TeamParticipants>[];
       json['teams'].forEach((v) {
-        teams!.add(v);
+        teams!.add(new TeamParticipants.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['player_ids'] = this.playerIds;
     data['_id'] = this.sId;
     data['Name'] = this.name;
     data['Description'] = this.description;
@@ -119,6 +124,50 @@ class Timeline {
     data['slot'] = this.slot;
     data['title'] = this.title;
     data['is_completed'] = this.isCompleted;
+    return data;
+  }
+}
+
+class Participants {
+  String? participant;
+  int? score;
+  String? sId;
+
+  Participants({this.participant, this.score, this.sId});
+
+  Participants.fromJson(Map<String, dynamic> json) {
+    participant = json['participant'];
+    score = json['Score'];
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['participant'] = this.participant;
+    data['Score'] = this.score;
+    data['_id'] = this.sId;
+    return data;
+  }
+}
+
+class TeamParticipants {
+  String? team;
+  int? score;
+  String? sId;
+
+  TeamParticipants({this.team, this.score, this.sId});
+
+  TeamParticipants.fromJson(Map<String, dynamic> json) {
+    team = json['team'];
+    score = json['score'];
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['team'] = this.team;
+    data['score'] = this.score;
+    data['_id'] = this.sId;
     return data;
   }
 }

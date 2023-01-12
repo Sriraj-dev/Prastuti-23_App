@@ -19,6 +19,7 @@ class RegistrationViewModel{
       "SocialMedia_Links":socialUrls,
       "Gender":gender,
       "Interests":interests,
+      "isFormFilled":true
     };
 
     bool isFormSubmitted =  await RegistrationRepository().editUser(id, data);
