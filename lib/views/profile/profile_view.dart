@@ -189,95 +189,66 @@ class _ProfileViewState extends State<ProfileView>
                 controller: _tabController,
                 
                 children: [
-
-                  Consumer(builder: (context, ref, child) {
-                    final allEventsList = ref.watch(eventsProvider);
-                    return allEventsList.when(
-                      error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
-                      loading: (() => skeleton(40, 40)),
-                      data: ((data) {
-                        List<Events> currEvents = data.events as List<Events>;
-                        List<Events> userEvents = [];
-                        currEvents.forEach((element) {
-                          if(currentUser.eventsParticipated!.contains(element.sId)){
-                            userEvents.add(element);
-                          }
-                        });
-                        return buildEventsList(userEvents);
-                      }),
-                    );
-
-                  }),
-                  Consumer(builder: (context, ref, child) {
-                    final userTeams = ref.watch(teamsProvider(currentUser.teams!));
-                    return userTeams.when(
-                      data: ((data){
-                        return Stack(
-                          children: [
-                            buildTeamsList(regTeams),
-                            Positioned(
-                                bottom: 10,
-                                right: 30,
-                                child: Container(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ElevatedButton(
-                                    onPressed: () => showDialog(
-                                      context: context,
-                                      builder: (context) => Utils.DialogBox(
-                                          context,
-                                          'Create New Team',
-                                          'Enter Team Name',
-                                          'Create')
-                                    ),
-                                    child: SizedBox(
-                                        height: 35,
-                                        width: SizeConfig.width*0.8,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 15,
-                                              height: 15,
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: AssetImage(ImagePaths.add),
-                                                      fit: BoxFit.cover
-                                                  )
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            AutoSizeText(
-                                                'Create New Team',
-                                                style: AppTheme().headText2.copyWith(
-                                                )
-                                            ),
-                                          ],
-                                        )
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
+                  buildEventsList(currentUser.eventsParticipated!),
+                  Stack(
+                    children: [
+                      buildTeamsList(currentUser.teams!),
+                      Positioned(
+                          bottom: 10,
+                          right: 30,
+                          child: Container(
+                            alignment: Alignment.bottomCenter,
+                            child: ElevatedButton(
+                              onPressed: () => showDialog(
+                                  context: context,
+                                  builder: (context) => Utils.DialogBox(
+                                      context,
+                                      'Create New Team',
+                                      'Enter Team Name',
+                                      'Create')
+                              ),
+                              child: SizedBox(
+                                  height: 35,
+                                  width: SizeConfig.width*0.8,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 15,
+                                        height: 15,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage(ImagePaths.add),
+                                                fit: BoxFit.cover
+                                            )
+                                        ),
                                       ),
-                                      backgroundColor: AppTheme().primaryColor,
-                                      fixedSize: Size(SizeConfig.width*0.8, 45),
-                                      shadowColor: AppTheme().primaryColor,
-                                      elevation: 5,
-                                    ),
-                                  ),
-                                )
-                            )
-                          ],
-                        );
-                      }),
-                      error: ((error, stackTrace) => ErrorView(error: error.toString(),)),
-                      loading: (() => skeleton(40, 40))
-                    );
-                  }),
-                  Consumer(builder: (context, ref, child) {
-                    return buildRequestList(requests);
-                  }),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      AutoSizeText(
+                                          'Create New Team',
+                                          style: AppTheme().headText2.copyWith(
+                                          )
+                                      ),
+                                    ],
+                                  )
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                backgroundColor: AppTheme().primaryColor,
+                                fixedSize: Size(SizeConfig.width*0.8, 45),
+                                shadowColor: AppTheme().primaryColor,
+                                elevation: 5,
+                              ),
+                            ),
+                          )
+                      )
+                    ],
+                  ),
+                  buildRequestList(currentUser.pendingRequests!)
 
                   // Stack(
                   //   children: [
@@ -316,7 +287,7 @@ class _ProfileViewState extends State<ProfileView>
     );
   }
 
-  Widget buildRequestList(List<String> requests) {
+  Widget buildRequestList(List<PendingRequests> requests) {
 
     if(requests.isEmpty){
       return const Center(
