@@ -14,7 +14,8 @@ import 'package:prastuti_23/views/eventsPage/events_view.dart';
 ///TODO: Beautify This Widget if possible:
 
 class NavDrawer extends StatefulWidget {
-  const NavDrawer({Key? key}) : super(key: key);
+  final Function() notifyParent;
+  NavDrawer({Key? key, required this.notifyParent}) : super(key: key);
 
   @override
   State<NavDrawer> createState() => _NavDrawerState();
@@ -174,10 +175,12 @@ class _NavDrawerState extends State<NavDrawer> {
 
   Widget themeChange() {
     return GestureDetector(
-      onTap: (){
-        setState(() {
-          selectedAppTheme.isDarkMode = !selectedAppTheme.isDarkMode;
-        });
+      onTap: () async {
+        selectedAppTheme.isDarkMode = !selectedAppTheme.isDarkMode;
+        setState(() {});
+        await selectedAppTheme.saveMode(selectedAppTheme.isDarkMode);
+        widget.notifyParent();
+        Navigator.pop(context);
       },
       child: Container(
         width: 20,

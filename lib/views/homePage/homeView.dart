@@ -44,9 +44,6 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
 
   @override
   void initState() {
-    setState(() {
-      selectedAppTheme.isDarkMode;
-    });
     super.initState();
     homeViewAnimation.initiateHomeAnimation(this);
   }
@@ -63,7 +60,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
 
     return AnimatedBuilder(
       animation: drawerAnimationController,
-      child: NavDrawer(),
+      child: NavDrawer(notifyParent: refresh),
       builder: (context,child){
         return Scaffold(
           appBar: (homeViewController.selectedView == 1 || homeViewController.selectedView==0)?null:
@@ -125,4 +122,9 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
       drawerAnimationController.forward();
     }
   }
+
+  refresh() {
+    setState(() {});
+  }
+
 }
