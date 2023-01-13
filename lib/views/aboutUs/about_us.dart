@@ -3,6 +3,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:blobs/blobs.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/config/appTheme.dart';
@@ -21,11 +22,24 @@ class AboutUsView extends StatefulWidget {
 class _AboutUsViewState extends State<AboutUsView> {
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: AppTheme().backgroundColor,
+      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
+      Brightness.light:Brightness.dark,
+    ));
+
     return Container(
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: selectedAppTheme.isDarkMode?
-              AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
+          image: selectedAppTheme.isDarkMode?
+          DecorationImage(
+              opacity: 0.85,
+              image: AssetImage(ImagePaths.bgImage_dark),
+              fit: BoxFit.cover
+          )
+              :DecorationImage(
+              opacity: 0.6,
+              image: AssetImage(ImagePaths.bgImage_light),
               fit: BoxFit.cover
           )
       ),
@@ -33,7 +47,7 @@ class _AboutUsViewState extends State<AboutUsView> {
         backgroundColor: Colors.transparent,
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: 30),
-          padding: EdgeInsets.only(bottom: 10),
+          padding: EdgeInsets.symmetric(vertical: 10),
           height: SizeConfig.height*0.89,
           width: SizeConfig.width*0.95,
           child: ListView(

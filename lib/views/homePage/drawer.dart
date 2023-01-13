@@ -11,7 +11,7 @@ import 'package:prastuti_23/view_models/home_view_model.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
 
 
-//TODO: Beautify This Widget if possible:
+///TODO: Beautify This Widget if possible:
 
 class NavDrawer extends StatefulWidget {
   const NavDrawer({Key? key}) : super(key: key);
@@ -25,9 +25,9 @@ class _NavDrawerState extends State<NavDrawer> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      selectedAppTheme.isDarkMode;
-    });
+    // setState(() {
+    //   selectedAppTheme.isDarkMode;
+    // });
   }
 
   @override
@@ -64,6 +64,18 @@ class _NavDrawerState extends State<NavDrawer> {
                         Colors.white:AppTheme().secondaryColor
                     ),
                   ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  themeChange(),
+                  // Switch(value: selectedAppTheme.isDarkMode,
+                  //   onChanged: (darkMode) async {
+                  //     setState(() {
+                  //       selectedAppTheme.isDarkMode = darkMode;
+                  //     });
+                  //     await selectedAppTheme.setMode(darkMode);
+                  //
+                  //   },),
                 ],
               ),
               SizedBox(
@@ -159,6 +171,30 @@ class _NavDrawerState extends State<NavDrawer> {
       ),
     );
   }
+
+  Widget themeChange() {
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          selectedAppTheme.isDarkMode = !selectedAppTheme.isDarkMode;
+        });
+      },
+      child: Container(
+        width: 20,
+        height: 20,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: selectedAppTheme.isDarkMode?
+            AssetImage('assets/sun.png'):AssetImage('assets/moon.png'),
+            fit: BoxFit.cover
+          ),
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(10)
+        ),
+      ),
+    );
+  }
 }
+
 
 

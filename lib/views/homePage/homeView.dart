@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
@@ -11,6 +13,8 @@ import 'package:prastuti_23/views/eventsPage/events_view.dart';
 import 'package:prastuti_23/views/homePage/drawer.dart';
 import 'package:prastuti_23/views/profile/profile_view.dart';
 
+import '../../config/image_paths.dart';
+import '../../view_models/auth_view_model.dart';
 import '../aboutUs/about_us.dart';
 
 class HomeView extends StatefulWidget {
@@ -35,12 +39,14 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     SizeConfig.init(context);
   }
 
   @override
   void initState() {
+    setState(() {
+      selectedAppTheme.isDarkMode;
+    });
     super.initState();
     homeViewAnimation.initiateHomeAnimation(this);
   }

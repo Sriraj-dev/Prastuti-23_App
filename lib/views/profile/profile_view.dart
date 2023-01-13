@@ -53,6 +53,7 @@ class _ProfileViewState extends State<ProfileView>
 
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: AppTheme().backgroundColor,
       systemNavigationBarIconBrightness:
@@ -64,9 +65,15 @@ class _ProfileViewState extends State<ProfileView>
       child: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: selectedAppTheme.isDarkMode?
-                  AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
+              image: selectedAppTheme.isDarkMode?
+              DecorationImage(
+                  opacity: 0.85,
+                  image:AssetImage(ImagePaths.bgImage_dark),
+                  fit: BoxFit.cover
+              )
+                  :DecorationImage(
+                  opacity: 0.6,
+                  image: AssetImage(ImagePaths.bgImage_light),
                   fit: BoxFit.cover
               )
           ),
@@ -204,6 +211,7 @@ class _ProfileViewState extends State<ProfileView>
                                       'Create New Team',
                                       'Enter Team Name',
                                       'Create',
+                                      '',
                                       true)
                                     ).then((value)async{
                                       if(value!=null){
@@ -285,8 +293,14 @@ class _ProfileViewState extends State<ProfileView>
   Widget buildRequestList(List<PendingRequests> requests) {
 
     if(requests.isEmpty){
-      return const Center(
-        child: Text("You have no pending requests"),
+      return Center(
+        child: Text(
+            "You have no pending requests",
+          style: TextStyle(
+            color: selectedAppTheme.isDarkMode?
+                Colors.white:Colors.black
+          ),
+        ),
       );
     }
 
@@ -560,6 +574,7 @@ class _ProfileViewState extends State<ProfileView>
                                         'Add New Member',
                                         'Enter Email ID',
                                         'Add',
+                                        'assets/add_team.gif',
                                         false
                                       )
                                   ).then((value)async{
@@ -755,7 +770,9 @@ class _ProfileViewState extends State<ProfileView>
                                   teamName,
                                   style: AppTheme().headText2.copyWith(
                                       fontSize: 16,
-                                      color: AppTheme().primaryColor),
+                                      color: selectedAppTheme.isDarkMode?
+                                      Colors.white:AppTheme().primaryColor
+                                  ),
                                 ),
                               ],
                             ),
@@ -775,8 +792,8 @@ class _ProfileViewState extends State<ProfileView>
                                         width: SizeConfig.height * 0.0259,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage(
-                                                    ImagePaths.score),
+                                                image: selectedAppTheme.isDarkMode?
+                                                AssetImage(ImagePaths.score_dark):AssetImage(ImagePaths.score_light),
                                                 fit: BoxFit.fill)),
                                       ),
                                       AutoSizeText(" "+score,
@@ -793,8 +810,8 @@ class _ProfileViewState extends State<ProfileView>
                                         width: SizeConfig.height * 0.02,
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
-                                                image: AssetImage(
-                                                    ImagePaths.calender),
+                                                image: selectedAppTheme.isDarkMode?
+                                                AssetImage(ImagePaths.calendar_dark_01):AssetImage(ImagePaths.calendar_light),
                                                 fit: BoxFit.cover)),
                                       ),
                                       const SizedBox(
