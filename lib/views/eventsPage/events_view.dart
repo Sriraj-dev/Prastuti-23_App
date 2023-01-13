@@ -37,9 +37,6 @@ class _EventsViewState extends State<EventsView>
   @override
   void initState() {
     super.initState();
-    setState(() {
-      selectedAppTheme.isDarkMode;
-    });
     eventsViewAnimation.initiatePageAnimation(this);
     currentUser.eventsParticipated!.forEach((element) {
       registeredEventIds.add(element.sId!);

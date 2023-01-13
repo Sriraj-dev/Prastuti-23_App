@@ -64,15 +64,12 @@ class selectedAppTheme {
 
   static SharedPreferences? _preferences;
 
-  static const _isDark = 'mode';
-
   static Future init() async =>
-    _preferences = await SharedPreferences.getInstance();
+      _preferences = await SharedPreferences.getInstance();
 
-  static Future setMode(bool mode) async =>
-    await _preferences?.setBool(_isDark, mode);
-  static bool? getMode() => _preferences?.getBool(_isDark);
+  static Future saveMode(bool mode) async =>
+      await _preferences?.setBool('_isDark', mode);
 
-  static bool isDarkMode = false;
-
+  static bool? getMode() => _preferences?.getBool('_isDark');
+  static bool isDarkMode = selectedAppTheme.getMode()?? true;
 }
