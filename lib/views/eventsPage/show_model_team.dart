@@ -10,7 +10,6 @@ import 'package:prastuti_23/view_models/registration_handler.dart';
 
 import '../../config/appTheme.dart';
 import '../../config/screen_config.dart';
-import '../profile/profile_view_content.dart';
 
 class ShowModelTeams extends StatefulWidget {
   Events event;

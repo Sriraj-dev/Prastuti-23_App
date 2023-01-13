@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -36,8 +37,10 @@ class _EventsViewState extends State<EventsView>
   @override
   void initState() {
     super.initState();
+    setState(() {
+      selectedAppTheme.isDarkMode;
+    });
     eventsViewAnimation.initiatePageAnimation(this);
-
     currentUser.eventsParticipated!.forEach((element) {
       registeredEventIds.add(element.sId!);
     });
@@ -53,13 +56,25 @@ class _EventsViewState extends State<EventsView>
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: AppTheme().backgroundColor,
+      systemNavigationBarIconBrightness: selectedAppTheme.isDarkMode?
+      Brightness.light:Brightness.dark,
+    ));
+
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-          opacity: 0.6,
-          image: selectedAppTheme.isDarkMode?
-          AssetImage(ImagePaths.bgImage_dark):AssetImage(ImagePaths.bgImage_light),
-          fit: BoxFit.cover
+        image: selectedAppTheme.isDarkMode?
+        DecorationImage(
+            opacity: 0.85,
+            image: AssetImage(ImagePaths.bgImage_dark),
+            fit: BoxFit.cover
+        )
+        :DecorationImage(
+            opacity: 0.6,
+            image: AssetImage(ImagePaths.bgImage_light),
+            fit: BoxFit.cover
         )
       ),
       child: SafeArea(
@@ -456,14 +471,14 @@ class _EventsViewState extends State<EventsView>
               ),
             ),
             actions: [
-              Switch(value: selectedAppTheme.isDarkMode,
-                onChanged: (darkMode) async {
-                  setState(() {
-                    selectedAppTheme.isDarkMode = darkMode;
-                  });
-                  await selectedAppTheme.setMode(darkMode);
-
-                },),
+              // Switch(value: selectedAppTheme.isDarkMode,
+              //   onChanged: (darkMode) async {
+              //     setState(() {
+              //       selectedAppTheme.isDarkMode = darkMode;
+              //     });
+              //     await selectedAppTheme.setMode(darkMode);
+              //
+              //   },),
               Obx((() => 
                 AnimatedSmoothIndicator(
                 activeIndex: _selectedEvent.value,
@@ -496,7 +511,8 @@ class _EventsViewState extends State<EventsView>
             //TODO: decide shadow color .
             boxShadow: [
               BoxShadow(
-                color: AppTheme().secondaryColor.withOpacity(0.5),
+                color: selectedAppTheme.isDarkMode?
+                AppTheme().secondaryColor:AppTheme().secondaryColor.withOpacity(0.5),
                 spreadRadius: 6,
                 blurRadius: 10,
                 offset: Offset(0, 5),

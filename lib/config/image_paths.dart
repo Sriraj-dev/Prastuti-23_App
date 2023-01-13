@@ -28,16 +28,18 @@ class ImagePaths{
   static const hackathon = "assets/events_view/hackathon.jpg";
   static const recognizance = "assets/events_view/recognizance.jpg";
   static const simulim = "assets/events_view/simulim.jpg";
-  static const calender = "assets/profile_view/calendar.png";
   static const registeredTick = "assets/events_view/registered.png";
 
   //profile_view
-  static const score = "assets/profile_view/score.png";
+  static const score_light = "assets/profile_view/score_light.png";
+  static const score_dark = "assets/profile_view/score_dark.png";
   static const add = "assets/profile_view/add.png";
-  static const calendar = "assets/profile_view/calendar.png";
+  static const calendar_light = "assets/profile_view/calendar_light.png";
+  static const calendar_dark_01 = "assets/profile_view/calendar_dark_01.png";
+  static const calendar_dark_02 = "assets/profile_view/calendar_dark_02.png";
   static const profile_pic = "assets/profile_view/profile_pic.png";
-  static String cancel_dark = "assets/profile_view/cancel_dark.png";
-  static String cancel_light = "assets/profile_view/cancel_light.png";
+  static const cancel_dark = "assets/profile_view/cancel_dark.png";
+  static const cancel_light = "assets/profile_view/cancel_light.png";
 
   //convenors
   static const co_convenor_1 = "assets/contact_us/co_convenor_1.jpg";
@@ -84,4 +86,8 @@ class ImagePaths{
   //Background Image
   static const bgImage_dark = "assets/background_image_dark.png";
   static const bgImage_light = "assets/background_image_light.png";
+
+  //Theme
+  static const sun = "assets/sun.png";
+  static const moon = "assets/moon.png";
 }
