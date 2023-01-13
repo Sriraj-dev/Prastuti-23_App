@@ -9,7 +9,7 @@ import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
-import 'package:prastuti_23/view_models/registration_view_model.dart';
+import 'package:prastuti_23/view_models/userForm_view_model.dart';
 import 'package:prastuti_23/views/ui/choice_chips.dart';
 
 class RegistrationForm extends StatefulWidget {

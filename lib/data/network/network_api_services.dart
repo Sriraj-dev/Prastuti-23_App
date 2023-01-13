@@ -43,11 +43,12 @@ class NetworkApiServices extends BaseApiServices{
           }
       ).timeout(const Duration(seconds: 20));
 
-      print("Post req response - ${response.body}");
+      print("Post req response - ${response.toString()}");
       responseJson = checkResponse(response);
     }on SocketException{
       throw FetchDataException("No Internet Connection");
     }catch(e){
+      print("errpr Occurred: $e");
       throw e;
     }
 
@@ -67,7 +68,7 @@ class NetworkApiServices extends BaseApiServices{
           }
       ).timeout(const Duration(seconds: 20));
 
-      print("Put req response - ${response.body}");
+      print("put req response - ${response.body}");
       responseJson = checkResponse(response);
       
     }on SocketException{
@@ -79,15 +80,34 @@ class NetworkApiServices extends BaseApiServices{
   }
 
   @override
-  Future getDeleteApiResponse(String url) {
-    // TODO: implement getDeleteApiResponse
-    throw UnimplementedError();
+  Future getDeleteApiResponse(String url,Map<String,dynamic> data) async{
+    dynamic responseJson;
+    try{
+      print("data into delete - $data");
+      final response = await http.delete(
+          Uri.parse(url),
+        body: json.encode(data),
+        headers: {
+            "Content-Type": "application/json"
+          }
+      ).timeout(const Duration(seconds: 20));
+
+      print("delete req response - ${response.body}");
+      responseJson = checkResponse(response);
+      
+    }on SocketException{
+      throw FetchDataException("No Internet Connection");
+    }catch(e){
+      throw e;
+    }
+    return responseJson;
   }
 
 
   dynamic checkResponse(http.Response response){
 
     switch(response.statusCode){
+      case 201:
       case 200:
         return response;
 

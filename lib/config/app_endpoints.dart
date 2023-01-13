@@ -39,8 +39,9 @@ class AppEndPoints{
   String editUser(String id) => baseUrl + "/user/$id";//PutReqquest
   String getAllUsers(String id) => baseUrl + "/user";//getRequest
 
-
-
-
+  //Requests:
+  static const String sendRequest = baseUrl + "/request";
+  static const String acceptRequest = baseUrl + "/request/accept";
+  static const String deleteRequest = baseUrl + "/request/delete";
 }
 
