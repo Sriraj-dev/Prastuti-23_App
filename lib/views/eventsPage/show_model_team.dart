@@ -10,7 +10,6 @@ import 'package:prastuti_23/view_models/registration_handler.dart';
 
 import '../../config/appTheme.dart';
 import '../../config/screen_config.dart';
-import '../profile/profile_view_content.dart';
 
 class ShowModelTeams extends StatefulWidget {
   Events event;
@@ -40,9 +39,10 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
       return Center(
         child: Text(
           "Please create or join a team before registering",
-          style: TextStyle(
-            color: selectedAppTheme.isDarkMode?
-            Colors.white:Colors.black
+          style: AppTheme().headText2.copyWith(
+            color: selectedAppTheme.isDarkMode
+                  ? Colors.white
+                  : AppTheme().secondaryColor
           ),
         ),
       );

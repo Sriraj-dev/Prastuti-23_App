@@ -26,8 +26,10 @@ class ProfileRepository {
         await _apiServices.getPostApiResponse(AppEndPoints.createTeamUrl, data);
 
     final res = json.decode(response.body);
-    Utils.flushBarMessage(
-        context: context, bgColor: Colors.green, message: res['message']);
+   Utils.flushBarMessage(
+        context: context,
+        bgColor: (response.statusCode == 200) ? Colors.green : Colors.redAccent,
+        message: res['message']);
 
     if (response.statusCode == 200) {
       currentUser = User.fromJson(res["data"]["updatedUser"]);
@@ -44,7 +46,9 @@ class ProfileRepository {
 
     final res = json.decode(response.body);
     Utils.flushBarMessage(
-        context: context, bgColor: Colors.green, message: res['message']);
+        context: context,
+        bgColor: (response.statusCode == 200) ? Colors.green : Colors.redAccent,
+        message: res['message']);
 
     if (response.statusCode == 200) {
       return true;
@@ -60,7 +64,9 @@ class ProfileRepository {
 
     final res = json.decode(response.body);
     Utils.flushBarMessage(
-        context: context, bgColor: Colors.green, message: res['message']);
+        context: context,
+        bgColor: (response.statusCode == 200) ? Colors.green : Colors.redAccent,
+        message: res['message']);
 
     //update the currentUser.
 
@@ -79,7 +85,8 @@ class ProfileRepository {
 
     final res = json.decode(response.body);
     Utils.flushBarMessage(
-        context: context, bgColor: Colors.green, message: res['message']);
+        context: context, bgColor:(response.statusCode == 200)? Colors.green:Colors.redAccent,
+         message: res['message']);
 
     //update the currentUser.
 

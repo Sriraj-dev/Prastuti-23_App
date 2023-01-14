@@ -1,6 +1,7 @@
 
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,9 @@ class RegistrationRepository{
     final res = json.decode(response.body);
 
     Utils.flushBarMessage(
-      context: context,
-      bgColor: Colors.green,
-      message: res["message"].toString()
-    );
+        context: context,
+        bgColor: (response.statusCode == 200) ? Colors.green : Colors.redAccent,
+        message: res['message']);
     if(response.statusCode == 200|| response.statusCode == 201){
       currentUser = User.fromJson(res["updatedUser"]);
       return true;
@@ -42,6 +42,7 @@ class RegistrationRepository{
 
         
     if(response.statusCode == 200 || response.statusCode == 201){
+      log(res["updatedUser"].toString());
       currentUser = User.fromJson(res["updatedUser"]);
       return true;
     }else{

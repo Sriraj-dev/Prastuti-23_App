@@ -23,4 +23,20 @@ class AuthRepository{
       return response = UserModel.fromJson(json.decode(response.body));
     }else return UserModel();
   }
+
+  Future<void> updatePlayerId(String playerId)async{
+    Map<String,dynamic> data = {
+      "playerId" : playerId
+    };
+
+    dynamic response = await _apiServices.getPostApiResponse(AppEndPoints.updatePlayerId, data);
+
+    return ;
+  }
+
+  Future<void> checkSubscription()async{
+
+    return await _apiServices.getGetApiResponse(AppEndPoints.checkSubscription);
+
+  }
 }

@@ -182,14 +182,16 @@ class Members {
 
 class PendingRequests {
   String? sId;
+  String? teamName;
   String? team;
   String? requestedTo;
   String? requestedFrom;
 
-  PendingRequests({this.sId, this.team, this.requestedTo, this.requestedFrom});
+  PendingRequests({this.sId, this.teamName,this.team, this.requestedTo, this.requestedFrom});
 
   PendingRequests.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
+    teamName = json['teamName'];
     team = json['team'];
     requestedTo = json['requested_to'];
     requestedFrom = json['requested_from'];
@@ -198,6 +200,7 @@ class PendingRequests {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
+    data['teamName'] = this.teamName;
     data['team'] = this.team;
     data['requested_to'] = this.requestedTo;
     data['requested_from'] = this.requestedFrom;

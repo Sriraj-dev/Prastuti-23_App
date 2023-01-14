@@ -24,10 +24,3 @@ List<List<String>> regEvents = [
   [ImagePaths.cryptex, 'Cryptex', 'Predators', 'Stage of Event', '250', '12/12/2022'],
   [ImagePaths.hackathon, 'Hackathon', 'Spammers', 'Stage of Event', '145', '12/12/2022']
 ];
-
-List<List<dynamic>> regTeams = [
-  [ImagePaths.events, 'Team Blaze', ['Manash', 'Yash', 'Sriraj']],
-  [ImagePaths.awards, 'Predators', ['Charvith', 'Gautam', 'Kishore']],
-  [ImagePaths.events, 'Spammers', ['Gokul', 'Gopi']],
-  [ImagePaths.events, 'Team Blaze', ['Manash', 'Yash', 'Sriraj']],
-];

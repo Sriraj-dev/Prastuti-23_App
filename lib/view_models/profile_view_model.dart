@@ -13,7 +13,7 @@ void buildRegisteredEventsDetails(List<Events> regEvents) {
     for (int index = 0; index < regEvents.length; index++) {
       //user id if its a solo event ,
       //team id if its a team event.
-
+      print(regEvents[index].sId! +" : "+ regEvents[index].teamEvent!.toString());
       String id = currentUser.sId!;
       String subTitle = "Solo Event";
       String score = "";

@@ -19,7 +19,9 @@ class NetworkApiServices extends BaseApiServices{
         headers: {
         "Content-Type": "application/json"
         }
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 10)).catchError((e){
+        return "error";
+      });
 
       print("The get Api Response is - ${response.body}");
       responseJson = checkResponse(response);
@@ -43,7 +45,7 @@ class NetworkApiServices extends BaseApiServices{
           }
       ).timeout(const Duration(seconds: 20));
 
-      print("Post req response - ${response.toString()}");
+      print("Post req response - ${response.body}");
       responseJson = checkResponse(response);
     }on SocketException{
       throw FetchDataException("No Internet Connection");
@@ -115,7 +117,7 @@ class NetworkApiServices extends BaseApiServices{
         throw BadRequestException(response.body.toString());
 
       case 404:
-        throw UnauthorizedException(response.body.toString());
+        return response;
 
       default:
         throw FetchDataException("Error Occurred while communicating with server!");

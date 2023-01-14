@@ -14,7 +14,7 @@ class AppTheme{
   Color secondaryColor = selectedAppTheme.isDarkMode?
   Color(0xFF18272F):Color(0xFF4B7CB2);
   Color backgroundColor = selectedAppTheme.isDarkMode?
-  Color(0xFF343434):Color(0xFFDBF2FF);
+  Color(0xD9202525):Color(0xFFDBF2FF);
   Color kSecondaryColor = Color(0xFFDEA01E);
   Color secondaryColorLight = selectedAppTheme.isDarkMode?
   Color(0xFF3B3B3B):Color(0xFFB5C8E8);
@@ -64,15 +64,12 @@ class selectedAppTheme {
 
   static SharedPreferences? _preferences;
 
-  static const _isDark = 'mode';
-
   static Future init() async =>
-    _preferences = await SharedPreferences.getInstance();
+      _preferences = await SharedPreferences.getInstance();
 
-  static Future setMode(bool mode) async =>
-    await _preferences?.setBool(_isDark, mode);
-  static bool? getMode() => _preferences?.getBool(_isDark);
+  static Future saveMode(bool mode) async =>
+      await _preferences?.setBool('_isDark', mode);
 
-  static bool isDarkMode = false;
-
+  static bool? getMode() => _preferences?.getBool('_isDark');
+  static bool isDarkMode = selectedAppTheme.getMode()?? false;
 }
