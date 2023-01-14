@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:giff_dialog/giff_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -146,10 +147,12 @@ class Utils{
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Card(
+                      child: Material(
+                        color: selectedAppTheme.isDarkMode?
+                        Colors.grey.shade900:Colors.transparent,
                         shape: const StadiumBorder(
                           side: BorderSide(
-                            color: Colors.black,
+                            color: Colors.grey,
                             width: 2.0,
                           ),
                         ),
@@ -161,8 +164,8 @@ class Utils{
                                 borderRadius: BorderRadius.all(Radius.circular(50)),
                               ),
                               hintText: hint,
-                              hintStyle: const TextStyle(
-                                color: Colors.grey,
+                              hintStyle: TextStyle(
+                                color: Colors.grey.shade500,
                               )
                           ),
                         ),

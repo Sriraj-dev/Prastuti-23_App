@@ -61,233 +61,233 @@ class _ProfileViewState extends State<ProfileView>
     ));
 
     return Container(
-      color: AppTheme().primaryColor,
-      child: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-              image: selectedAppTheme.isDarkMode?
-              DecorationImage(
-                  opacity: 0.85,
-                  image:AssetImage(ImagePaths.bgImage_dark),
-                  fit: BoxFit.cover
-              )
-                  :DecorationImage(
-                  opacity: 0.6,
-                  image: AssetImage(ImagePaths.bgImage_light),
-                  fit: BoxFit.cover
-              )
-          ),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: NestedScrollView(
-              physics: const BouncingScrollPhysics(),
-              headerSliverBuilder: ((context, innerBoxIsScrolled)=>[
-                SliverAppBar(
-                  pinned: true,
-                  backgroundColor: AppTheme().primaryColor,
-                  expandedHeight: SizeConfig.heightPercent*35,
-                  leading: Center(
-                    child: InkWell(
-                      onTap: _onDrawerTapped,
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.menu_close,
-                        color: Colors.white,
-                        size: 33,
-                        progress: drawerAnimationController.view,
+        color: AppTheme().primaryColor,
+        child: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+                image: selectedAppTheme.isDarkMode?
+                DecorationImage(
+                    opacity: 0.85,
+                    image:AssetImage(ImagePaths.bgImage_dark),
+                    fit: BoxFit.cover
+                )
+                    :DecorationImage(
+                    opacity: 0.6,
+                    image: AssetImage(ImagePaths.bgImage_light),
+                    fit: BoxFit.cover
+                )
+            ),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: NestedScrollView(
+                physics: const BouncingScrollPhysics(),
+                headerSliverBuilder: ((context, innerBoxIsScrolled)=>[
+                  SliverAppBar(
+                    pinned: true,
+                    backgroundColor: AppTheme().primaryColor,
+                    expandedHeight: SizeConfig.heightPercent*35,
+                    leading: Center(
+                      child: InkWell(
+                        onTap: _onDrawerTapped,
+                        child: AnimatedIcon(
+                          icon: AnimatedIcons.menu_close,
+                          color: Colors.white,
+                          size: 33,
+                          progress: drawerAnimationController.view,
+                        ),
                       ),
                     ),
-                  ),
-                  title: Text("Your Profile",
-                    style: AppTheme().headText1.copyWith(
-                      fontSize: 20
+                    title: Text("Your Profile",
+                      style: AppTheme().headText1.copyWith(
+                        fontSize: 20
+                      ),
                     ),
-                  ),
-                  stretch: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            CircleAvatar(
-                              radius: 60,
-                              backgroundColor: Colors.white,
-                              backgroundImage: AssetImage(ImagePaths.temp_pic),
-                            ),
+                    stretch: true,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              CircleAvatar(
+                                radius: 60,
+                                backgroundColor: Colors.white,
+                                backgroundImage: AssetImage(ImagePaths.temp_pic),
+                              ),
 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                AutoSizeText("Sriraj",
-                                  style: AppTheme().headText1.copyWith(
-                                    fontSize: 22,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AutoSizeText("Sriraj",
+                                    style: AppTheme().headText1.copyWith(
+                                      fontSize: 22,
+                                    ),
                                   ),
-                                ),
-                                AutoSizeText("palakurthi.sriraj.eee20@itbhu.ac.in",
-                                  style: AppTheme().headText2,
-                                ),
-                                AutoSizeText("IIT BHU Varanasi",
-                                  style: AppTheme().headText2,
-                                ),
-                                AutoSizeText("+91 8074821478",
-                                  style: AppTheme().headText2,
-                                )
-                              ],
+                                  AutoSizeText("palakurthi.sriraj.eee20@itbhu.ac.in",
+                                    style: AppTheme().headText2,
+                                  ),
+                                  AutoSizeText("IIT BHU Varanasi",
+                                    style: AppTheme().headText2,
+                                  ),
+                                  AutoSizeText("+91 8074821478",
+                                    style: AppTheme().headText2,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    bottom: PreferredSize(
+                      preferredSize: Size.fromHeight(AppBar().preferredSize.height),
+                      child: Container(
+                        width: double.maxFinite,
+                        color: AppTheme().backgroundColor,
+                        child: Center(
+                          child: TabBar(
+                            isScrollable: true,
+                            controller: _tabController,
+                            tabs: const [
+                              Tab(
+                                text: "Events",
+                              ),
+                              Tab(
+                                text: "Teams",
+                              ),
+                              Tab(
+                                text: "Requests",
+                              ),
+                            ],
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            indicator: MaterialIndicator(
+                              color: AppTheme().kSecondaryColor,
+                              height: 2,
+                              topLeftRadius: 8,
+                              topRightRadius: 8,
+                              bottomLeftRadius: 8,
+                              bottomRightRadius: 8,
+                              tabPosition: TabPosition.bottom,
                             ),
-                          ],
+                            labelColor: AppTheme().kSecondaryColor,
+                            labelStyle: AppTheme().headText2.copyWith(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700
+                            ),
+                            unselectedLabelStyle: AppTheme()
+                                      .headText2
+                                      .copyWith(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400),
+                            unselectedLabelColor: selectedAppTheme.isDarkMode?
+                            Colors.white:Colors.black,
+                          ),
                         ),
+                      ),
+                    ),
+                  )
+                ]),
+                body: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    buildEventsList(currentUser.eventsParticipated!),
+                    Stack(
+                      children: [
+                        buildTeamsList(currentUser.teams!),
+                        Positioned(
+                            bottom: 10,
+                            right: 30,
+                            child: Container(
+                              alignment: Alignment.bottomCenter,
+                              child: ElevatedButton(
+                                onPressed: (){
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => Utils.DialogBox(
+                                        context,
+                                        'Create New Team',
+                                        'Enter Team Name',
+                                        'Create',
+                                        'assets/create_team.gif',
+                                        true)
+                                      ).then((value)async{
+                                        if(value!=null){
+                                          if(value.isEmpty){
+                                            Utils.flushBarMessage(
+                                              context: context,
+                                              bgColor: Colors.redAccent,
+                                              message: "Please enter a Valid Team name!"
+                                            );
+                                            return ;
+                                          }
+                                          creatingTeam.value = true;
+                                          await ProfileViewModel().createTeam(
+                                            teamName: value, userId: currentUser.sId!, context: context);
+                                          creatingTeam.value = false;
+                                        }
+                                      });
+                                },
+                                child: SizedBox(
+                                    height: 35,
+                                    width: SizeConfig.width*0.8,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 15,
+                                          height: 15,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(ImagePaths.add),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Obx((){
+                                            return (creatingTeam.value)?
+                                            SpinKitWave(
+                                              color: Colors.white,
+                                              itemCount: 5,
+                                              size: 15,
+                                            )
+                                            :AutoSizeText(
+                                              'Create New Team',
+                                              style: AppTheme().headText2.copyWith(
+                                              )
+                                          );
+                                        })
+                                        ,
+                                      ],
+                                    )
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  backgroundColor: AppTheme().primaryColor,
+                                  fixedSize: Size(SizeConfig.width*0.8, 45),
+                                  shadowColor: AppTheme().primaryColor,
+                                  elevation: 5,
+                                ),
+                              ),
+                            )
+                        )
                       ],
                     ),
-                  ),
-
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(AppBar().preferredSize.height),
-                    child: Container(
-                      width: double.maxFinite,
-                      color: AppTheme().backgroundColor,
-                      child: Center(
-                        child: TabBar(
-                          isScrollable: true,
-                          controller: _tabController,
-                          tabs: const [
-                            Tab(
-                              text: "Events",
-                            ),
-                            Tab(
-                              text: "Teams",
-                            ),
-                            Tab(
-                              text: "Requests",
-                            ),
-                          ],
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          indicator: MaterialIndicator(
-                            color: AppTheme().kSecondaryColor,
-                            height: 2,
-                            topLeftRadius: 8,
-                            topRightRadius: 8,
-                            bottomLeftRadius: 8,
-                            bottomRightRadius: 8,
-                            tabPosition: TabPosition.bottom,
-                          ),
-                          labelColor: AppTheme().kSecondaryColor,
-                          labelStyle: AppTheme().headText2.copyWith(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700
-                          ),
-                          unselectedLabelStyle: AppTheme()
-                                    .headText2
-                                    .copyWith(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400),
-                          unselectedLabelColor: selectedAppTheme.isDarkMode?
-                          Colors.white:Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
+                    buildRequestList(currentUser.pendingRequests!)
+                  ]
                 )
-              ]),
-              body: TabBarView(
-                controller: _tabController,
-                children: [
-                  buildEventsList(currentUser.eventsParticipated!),
-                  Stack(
-                    children: [
-                      buildTeamsList(currentUser.teams!),
-                      Positioned(
-                          bottom: 10,
-                          right: 30,
-                          child: Container(
-                            alignment: Alignment.bottomCenter,
-                            child: ElevatedButton(
-                              onPressed: (){
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => Utils.DialogBox(
-                                      context,
-                                      'Create New Team',
-                                      'Enter Team Name',
-                                      'Create',
-                                      '',
-                                      true)
-                                    ).then((value)async{
-                                      if(value!=null){
-                                        if(value.isEmpty){
-                                          Utils.flushBarMessage(
-                                            context: context,
-                                            bgColor: Colors.redAccent,
-                                            message: "Please enter a Valid Team name!"
-                                          );
-                                          return ;
-                                        }
-                                        creatingTeam.value = true;
-                                        await ProfileViewModel().createTeam(
-                                          teamName: value, userId: currentUser.sId!, context: context);
-                                        creatingTeam.value = false;
-                                      }
-                                    });
-                              },
-                              child: SizedBox(
-                                  height: 35,
-                                  width: SizeConfig.width*0.8,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 15,
-                                        height: 15,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: AssetImage(ImagePaths.add),
-                                                fit: BoxFit.cover
-                                            )
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Obx((){
-                                          return (creatingTeam.value)?
-                                          SpinKitWave(
-                                            color: Colors.white,
-                                            itemCount: 5,
-                                            size: 15,
-                                          )
-                                          :AutoSizeText(
-                                            'Create New Team',
-                                            style: AppTheme().headText2.copyWith(
-                                            )
-                                        );
-                                      })
-                                      ,
-                                    ],
-                                  )
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                backgroundColor: AppTheme().primaryColor,
-                                fixedSize: Size(SizeConfig.width*0.8, 45),
-                                shadowColor: AppTheme().primaryColor,
-                                elevation: 5,
-                              ),
-                            ),
-                          )
-                      )
-                    ],
-                  ),
-                  buildRequestList(currentUser.pendingRequests!)
-                ]
-              )
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget buildRequestList(List<PendingRequests> requests) {
@@ -295,10 +295,11 @@ class _ProfileViewState extends State<ProfileView>
     if(requests.isEmpty){
       return Center(
         child: Text(
-            "You have no pending requests",
-          style: TextStyle(
-            color: selectedAppTheme.isDarkMode?
-                Colors.white:Colors.black
+            "You have no pending requests!!",
+          style: AppTheme().headText2.copyWith(
+              fontSize: 17,
+              color: selectedAppTheme.isDarkMode?
+              Colors.white:AppTheme().primaryColor
           ),
         ),
       );
@@ -685,7 +686,7 @@ class _ProfileViewState extends State<ProfileView>
           style: AppTheme().headText2.copyWith(
             fontSize: 17,
             color: selectedAppTheme.isDarkMode?
-            Colors.white:AppTheme().secondaryColor
+            Colors.white:AppTheme().primaryColor
           ),
         ),
       );
