@@ -135,14 +135,20 @@ class _ProfileViewState extends State<ProfileView>
                                             fontSize: 22,
                                           ),
                                         ),
-                                        AutoSizeText(currentUser.emailId!,
-                                          style: AppTheme().headText2,
+                                        FittedBox(
+                                          child: Text(currentUser.emailId!,
+                                            style: AppTheme().headText2,
+                                          ),
                                         ),
-                                        AutoSizeText("Score : ${currentUser.totalScore!}",
-                                          style: AppTheme().headText2,
+                                        FittedBox(
+                                          child: AutoSizeText("Score : ${currentUser.totalScore!}",
+                                            style: AppTheme().headText2,
+                                          ),
                                         ),
-                                        AutoSizeText("+91 "+currentUser.phone!.toString(),
-                                          style: AppTheme().headText2,
+                                        FittedBox(
+                                          child: AutoSizeText("+91 "+currentUser.phone!.toString(),
+                                            style: AppTheme().headText2,
+                                          ),
                                         )
                                       ],
                                     ),
@@ -475,10 +481,11 @@ class _ProfileViewState extends State<ProfileView>
       return Center(
         child: Text(
           "You have not joined in any team yet!!",
-          style: AppTheme()
-              .headText2
-              .copyWith(fontSize: 17, color: selectedAppTheme.isDarkMode?
-        Colors.white:AppTheme().secondaryColor),
+          style: AppTheme().headText2.copyWith(
+              fontSize: 17,
+              color: selectedAppTheme.isDarkMode?
+              Colors.white:AppTheme().primaryColor
+          ),
         ),
       );
     }

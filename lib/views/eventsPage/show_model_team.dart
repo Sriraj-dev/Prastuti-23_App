@@ -9,7 +9,9 @@ import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/registration_handler.dart';
 
 import '../../config/appTheme.dart';
+import '../../config/image_paths.dart';
 import '../../config/screen_config.dart';
+import '../../view_models/profile_view_model.dart';
 
 class ShowModelTeams extends StatefulWidget {
   Events event;
@@ -23,7 +25,7 @@ class ShowModelTeams extends StatefulWidget {
 class _ShowModelTeamsState extends State<ShowModelTeams> {
 
   Events event;
-   RxList<handler> isJoining = <handler>[].obs;
+  RxList<handler> isJoining = <handler>[].obs;
 
   _ShowModelTeamsState(this.event);
 

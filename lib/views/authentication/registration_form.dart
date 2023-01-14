@@ -439,11 +439,14 @@ class inputField extends StatelessWidget {
             controller: controller,
             keyboardType: keyBoard,
             decoration: InputDecoration(
-              
                 border: InputBorder.none,
                 hintText: hintText,
                 hintStyle:
-                    GoogleFonts.poppins(fontSize: 16, color: Colors.grey[400])),
+                    GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: selectedAppTheme.isDarkMode?
+                        Colors.white:Colors.grey[400]
+                    )),
           ),
         ),
       ],
