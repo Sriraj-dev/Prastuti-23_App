@@ -54,6 +54,20 @@ class Utils{
     );
   }
 
+  static launchURL(
+      String url,
+      BuildContext context,
+      ) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    } else {
+      Utils.flushBarMessage(
+          message: "Could not Launch LinkedIn currently!",
+          context: context,
+          bgColor: Colors.redAccent);
+    }
+  }
+
   static Widget DialogBox(
       BuildContext context,
       String title,

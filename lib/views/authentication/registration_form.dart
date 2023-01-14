@@ -116,12 +116,16 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                     children: [
                                       Text(
                                         currentUser.name!,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
                                         style: GoogleFonts.poppins(
                                           color: Colors.grey,
                                         ),
                                       ),
                                       Text(
                                         currentUser.emailId!,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
                                         style: GoogleFonts.lato(
                                           color: selectedAppTheme.isDarkMode?
                                           Colors.white:AppTheme().primaryColor,

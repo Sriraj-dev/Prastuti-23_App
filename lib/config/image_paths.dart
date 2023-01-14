@@ -75,6 +75,9 @@ class ImagePaths{
   static const github_squared = "assets/about_us/github.png";
   static const bulb_dark = "assets/about_us/bulb_dark.png";
   static const bulb_light = "assets/about_us/bulb_light.png";
+  static const gfg = "assets/about_us/sponsors_gfg.png";
+  static const skillreactor = "assets/about_us/sponsors_skillreactor.jpg";
+  static const techanalogy = "assets/about_us/sponsors_techanalogy.jpg";
 
   //registration:
   static const male_icon_dark = "assets/registrationForm/male_dark.png";

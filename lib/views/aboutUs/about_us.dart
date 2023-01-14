@@ -11,6 +11,7 @@ import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/aboutUs/about_us_content.dart';
 
 import '../../config/image_paths.dart';
+import '../../utils/utils.dart';
 
 class AboutUsView extends StatefulWidget {
   const AboutUsView({Key? key}) : super(key: key);
@@ -106,6 +107,39 @@ class _AboutUsViewState extends State<AboutUsView> {
                 ),
               ),
               SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    sponsors(
+                        ImagePaths.gfg,
+                        'GEEKS for GEEKS',
+                      'https://www.geeksforgeeks.org/'
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    sponsors(
+                        ImagePaths.skillreactor,
+                        'SKILLREACTOR',
+                        'https://www.skillreactor.io/'
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    sponsors(
+                        ImagePaths.techanalogy,
+                        'TEACH ANALOGY',
+                        'https://techanalogy.org/'
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
                 height: 20,
               ),
               AutoSizeText(
@@ -127,10 +161,22 @@ class _AboutUsViewState extends State<AboutUsView> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    about_us_icons(ImagePaths.instagram_squared),
-                    about_us_icons(ImagePaths.gmail_squared),
-                    about_us_icons(ImagePaths.linkedin_squared),
-                    about_us_icons(ImagePaths.prastuti_logo_squared)
+                    about_us_icons(
+                        ImagePaths.instagram_squared,
+                      about_us_links[0]
+                    ),
+                    about_us_icons(
+                        ImagePaths.gmail_squared,
+                        about_us_links[1]
+                    ),
+                    about_us_icons(
+                        ImagePaths.linkedin_squared,
+                        about_us_links[2]
+                    ),
+                    about_us_icons(
+                        ImagePaths.prastuti_logo_squared,
+                        about_us_links[3]
+                    )
                   ],
                 ),
               )
@@ -141,15 +187,62 @@ class _AboutUsViewState extends State<AboutUsView> {
     );
   }
 
-  Widget about_us_icons (String image) {
-    return Container(
-      height: SizeConfig.height*0.05,
-      width: SizeConfig.height*0.05,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.cover
+  Widget sponsors (
+      String logo,
+      String name,
+      String url
+      ) {
+    return InkWell(
+      onTap: ()async{
+        Utils.launchURL(url, context);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: SizeConfig.height*0.075,
+            width: SizeConfig.height*0.075,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(logo),
+                    fit: BoxFit.cover
+                ),
+              borderRadius: BorderRadius.circular(15)
+            ),
+          ),
+          Text(
+            name,
+            style: AppTheme().headText1.copyWith(
+              fontSize: 20,
+              letterSpacing: 1,
+              fontWeight: FontWeight.bold,
+              color: selectedAppTheme.isDarkMode?
+              Colors.white:AppTheme().primaryColor,
+            ),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget about_us_icons (
+      String image,
+      String url,
+      ) {
+    return InkWell(
+      onTap: ()async{
+        Utils.launchURL(url, context);
+      },
+      child: Container(
+        height: SizeConfig.height*0.05,
+        width: SizeConfig.height*0.05,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(image),
+                fit: BoxFit.cover
+            )
+        ),
       ),
     );
   }
