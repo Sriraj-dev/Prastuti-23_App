@@ -29,6 +29,7 @@ class Events {
   String? description;
   String? rules;
   String? rewards;
+  String? whatsappLink;
   List<Timeline>? timeline;
   int? noOfParticipants;
   bool? teamEvent;
@@ -42,6 +43,7 @@ class Events {
       this.description,
       this.rules,
       this.rewards,
+      this.whatsappLink,
       this.timeline,
       this.noOfParticipants,
       this.teamEvent,
@@ -55,6 +57,7 @@ class Events {
     description = json['Description'];
     rules = json['rules'];
     rewards = json['rewards'];
+    whatsappLink = json['whatsappLink'];
     if (json['timeline'] != null) {
       timeline = <Timeline>[];
       json['timeline'].forEach((v) {
@@ -85,6 +88,7 @@ class Events {
     data['Description'] = this.description;
     data['rules'] = this.rules;
     data['rewards'] = this.rewards;
+    data['whatsappLink'] = this.whatsappLink;
     if (this.timeline != null) {
       data['timeline'] = this.timeline!.map((v) => v.toJson()).toList();
     }
