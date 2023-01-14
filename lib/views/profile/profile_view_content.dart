@@ -11,7 +11,7 @@ List<String> events = [
   "Simulim"
 ];
 
-List<String> requests = [
+List<String> tempRequests = [
   'Team Blaze',
   'Predators',
   'Spammers',

@@ -27,6 +27,7 @@ class RegistrationRepository{
       message: res["message"].toString()
     );
     if(response.statusCode == 200|| response.statusCode == 201){
+      currentUser = User.fromJson(res["updatedUser"]);
       return true;
     }else{
       return false;

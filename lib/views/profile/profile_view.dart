@@ -12,6 +12,7 @@ import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:prastuti_23/models/teamsModel.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/profile_view_model.dart';
+import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../utils/utils.dart';
 import '../eventsPage/events_view_content.dart';
@@ -292,7 +293,7 @@ class _ProfileViewState extends State<ProfileView>
 
     return ListView.separated(
       itemBuilder: (context, index) {
-        return RequestWidget(requests[index].sId!,requests[index].sId!,index);
+        return RequestWidget(tempRequests[index],requests[index].sId!,index);
       },
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) => Center(

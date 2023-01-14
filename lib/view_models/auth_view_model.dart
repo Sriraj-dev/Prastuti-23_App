@@ -97,7 +97,6 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
     state = false;
     Navigator.of(context!).pop();
     Navigator.of(context).pushNamed(RouteNames.loginView);
-    
   }
 
 }
