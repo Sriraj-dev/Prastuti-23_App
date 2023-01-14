@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:giff_dialog/giff_dialog.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
@@ -21,6 +23,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../config/image_paths.dart';
 import '../../view_models/events_view_model.dart';
 
+
 class EventsView extends StatefulWidget {
   const EventsView({Key? key}) : super(key: key);
 
@@ -31,6 +34,7 @@ class EventsView extends StatefulWidget {
 class _EventsViewState extends State<EventsView>
     with SingleTickerProviderStateMixin {
   final _selectedEvent = 0.obs;
+
 
   List<String> registeredEventIds = [];
 
@@ -78,7 +82,7 @@ class _EventsViewState extends State<EventsView>
         child: Consumer(builder: (context, ref, child) {
           final allEventsList = ref.watch(eventsProvider);
           return allEventsList.when(
-              error: ((e, stackTrace) => ErrorView(error: e.toString(),)),
+              error: (e, stackTrace) => ErrorView(error: e.toString(),),
               loading: ()=>const Events_view_skeleton(),
               data: (allEvents){
                 List<Events> events = allEvents.events as List<Events>;
@@ -118,7 +122,7 @@ class _EventsViewState extends State<EventsView>
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
-                                        (eventViewController.getRegistrationStatus(_selectedEvent.value) 
+                                        (eventViewController.getRegistrationStatus(_selectedEvent.value)
                                         == handler.REGISTERED)?
                                         openWhatsappLink():
                                         !events[_selectedEvent.value].teamEvent!?
@@ -137,7 +141,7 @@ class _EventsViewState extends State<EventsView>
                                                                     .value]));
                                       },
                                       child: (eventViewController.getRegistrationStatus(
-                                                      _selectedEvent.value)==handler.REGISTERED)? 
+                                                      _selectedEvent.value)==handler.REGISTERED)?
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -152,8 +156,11 @@ class _EventsViewState extends State<EventsView>
                                                 )
                                             ),
                                           ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
                                           Text(
-                                            'WhatsApp',
+                                            'Join',
                                             style: AppTheme().headText2.copyWith(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w400,
@@ -193,7 +200,7 @@ class _EventsViewState extends State<EventsView>
                               ),
                             ),
                           ),
-                          
+
                           const SizedBox(
                             height: 10,
                           ),
