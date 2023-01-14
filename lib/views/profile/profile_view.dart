@@ -68,7 +68,7 @@ class _ProfileViewState extends State<ProfileView>
             decoration: BoxDecoration(
                 image: selectedAppTheme.isDarkMode?
                 const DecorationImage(
-                    opacity: 0.85,
+                    opacity: 0.95,
                     image:AssetImage(ImagePaths.bgImage_dark),
                     fit: BoxFit.cover
                 )

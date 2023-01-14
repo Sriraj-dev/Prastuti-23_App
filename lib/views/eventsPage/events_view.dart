@@ -69,7 +69,7 @@ class _EventsViewState extends State<EventsView>
       decoration: BoxDecoration(
         image: selectedAppTheme.isDarkMode?
         DecorationImage(
-            opacity: 0.85,
+            opacity: 1,
             image: AssetImage(ImagePaths.bgImage_dark),
             fit: BoxFit.cover
         )

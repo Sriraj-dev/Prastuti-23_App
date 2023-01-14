@@ -63,7 +63,6 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
       Brightness.light:Brightness.dark,
     ));
 
-    print("Rebuilding again!!");
     return WillPopScope(
       onWillPop: _onWillPop,
       child: AnimatedBuilder(
