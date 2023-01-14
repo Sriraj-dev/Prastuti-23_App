@@ -80,7 +80,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       ),
                     ),
                     Text(
-                      "complete your profile",
+                      "We would love to know more about you!",
                       style: GoogleFonts.lato(
                         fontSize: 16,
                         color: selectedAppTheme.isDarkMode?
@@ -108,24 +108,28 @@ class _RegistrationFormState extends State<RegistrationForm> {
                               SizedBox(
                                 width: 10,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    currentUser.name!,
-                                    style: GoogleFonts.poppins(
-                                      color: Colors.grey,
-                                    ),
+                              Flexible(
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        currentUser.name!,
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      Text(
+                                        currentUser.emailId!,
+                                        style: GoogleFonts.lato(
+                                          color: selectedAppTheme.isDarkMode?
+                                          Colors.white:AppTheme().primaryColor,
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Text(
-                                    currentUser.emailId!,
-                                    style: GoogleFonts.lato(
-                                      color: selectedAppTheme.isDarkMode?
-                                      Colors.white:AppTheme().primaryColor,
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             ],
                           ),

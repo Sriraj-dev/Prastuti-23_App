@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:giff_dialog/giff_dialog.dart';
+import 'package:prastuti_23/utils/routes/route_names.dart';
 
 import '../config/appTheme.dart';
 
@@ -46,7 +47,7 @@ class _ErrorViewState extends State<ErrorView> {
         ),
       ),
       onOkButtonPressed: () {
-        Navigator.pushReplacementNamed(context, "/home");
+        Navigator.pushReplacementNamed(context, RouteNames.homeView);
       },
       cornerRadius: 10.0,
       buttonRadius: 5.0,
