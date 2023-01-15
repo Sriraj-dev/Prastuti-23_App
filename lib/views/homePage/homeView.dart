@@ -11,7 +11,6 @@ import 'package:prastuti_23/view_models/home_view_model.dart';
 
 import 'package:prastuti_23/views/contactUsPage/contact_us.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
-import 'package:prastuti_23/views/homePage/drawer.dart';
 import 'package:prastuti_23/views/profile/profile_view.dart';
 
 import '../../config/image_paths.dart';

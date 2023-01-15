@@ -28,18 +28,22 @@ List<String> convenor_linkedIn = [
 
 List<String> event_name = [
   "CODIGO",
-  "CONSILIUM",
-  "HACKATHON",
-  "RECOGNIZANCE",
   "SIMULIM",
+  "CONSILIUM",
+  "RECOGNIZANCE",
+  "HACKOVERFLOW",
+  "OSCILLION",
+  "Paper PPT"
 ];
 
 List<String> event_heads_names = [
   'Ashwani',
-  'Ayush',
-  'Nilay',
-  'Vidit',
   'Astitva',
+  'Ayush',
+  'Vidit'
+  'Nilay',
+  'Hrishab',
+  'Piyush'
 ];
 
 List<String> event_heads_phone = [
@@ -48,6 +52,8 @@ List<String> event_heads_phone = [
   '9328208189',
   '6352912056',
   '7828004967',
+  '88210448398',
+  '8074821478'
 ];
 
 List<String> event_heads_linkedIn = [
@@ -63,7 +69,9 @@ List<String> event_head_images = [
   ImagePaths.consilium_image,
   ImagePaths.hackoverflow_image,
   ImagePaths.recognizance_image,
-  ImagePaths.simulim_image
+  ImagePaths.simulim_image,
+  ImagePaths.simulim_image,
+  ImagePaths.simulim_image,
 ];
 
 List<String> team_leads_images =[

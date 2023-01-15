@@ -12,6 +12,7 @@ import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
+import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/registration_handler.dart';
 import 'package:prastuti_23/views/error_view.dart';
@@ -20,6 +21,7 @@ import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
 import 'package:prastuti_23/views/eventsPage/show_model_team.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../config/image_paths.dart';
 import '../../view_models/events_view_model.dart';
 
@@ -125,7 +127,7 @@ class _EventsViewState extends State<EventsView>
                                       onPressed: () {
                                         (eventViewController.getRegistrationStatus(_selectedEvent.value)
                                         == handler.REGISTERED)?
-                                        openWhatsappLink():
+                                        openWhatsappLink(events[_selectedEvent.value].whatsappLink??"https://chat.whatsapp.com/"):
                                         !events[_selectedEvent.value].teamEvent!?
                                         startSoloRegistration(_selectedEvent.value,events[_selectedEvent.value].sId!)
                                         :showModalBottomSheet(
@@ -538,7 +540,23 @@ class _EventsViewState extends State<EventsView>
     }
   }
   
-  openWhatsappLink() {}
+  openWhatsappLink(String link) async{
+    await Clipboard.setData(ClipboardData(text: link));
+    Utils.flushBarMessage(
+      message: "Link copied to clipboard!!",
+      bgColor: Colors.green,
+      context: context
+    );
+    // if(await canLaunchUrl(Uri.parse(link))){
+    //   launchUrl(Uri.parse(link));
+    // }else{
+    //   Utils.flushBarMessage(
+    //     context: context,
+    //     bgColor: Colors.redAccent,
+    //     message: "Unable to Join the group!!"
+    //   );
+    // }
+  }
   
   startSoloRegistration(int index ,String eventId) async{
 

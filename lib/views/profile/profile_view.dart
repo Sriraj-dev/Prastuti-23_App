@@ -135,12 +135,10 @@ class _ProfileViewState extends State<ProfileView>
                                             fontSize: 22,
                                           ),
                                         ),
-                                        FittedBox(
-                                          child: Text(currentUser.emailId!,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: AppTheme().headText2,
-                                          ),
+                                        Text(currentUser.emailId!,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                          style: AppTheme().headText2
                                         ),
                                         AutoSizeText("Score : ${currentUser.totalScore!}",
                                           style: AppTheme().headText2,
