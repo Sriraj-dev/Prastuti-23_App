@@ -26,6 +26,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
 
   Events event;
   RxList<handler> isJoining = <handler>[].obs;
+  RxBool creatingTeam = false.obs;
 
   _ShowModelTeamsState(this.event);
 
@@ -40,7 +41,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
     if (currentUser.teams!.isEmpty) {
       return Center(
         child: Text(
-          "Please create or join a team before registering",
+          "Please create or join a team before registering\n\nGO TO PROFILE PAGE",
           style: AppTheme().headText2.copyWith(
             color: selectedAppTheme.isDarkMode
                   ? Colors.white

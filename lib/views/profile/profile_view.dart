@@ -138,7 +138,7 @@ class _ProfileViewState extends State<ProfileView>
                                         Text(currentUser.emailId!,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
-                                          style: AppTheme().headText2,
+                                          style: AppTheme().headText2
                                         ),
                                         AutoSizeText("Score : ${currentUser.totalScore!}",
                                           style: AppTheme().headText2,

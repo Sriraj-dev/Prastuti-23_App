@@ -236,8 +236,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                             activeIndex: _currentTeam,
                             count: ((team_name.length + 1) / 2).toInt(),
                             effect: WormEffect(
-                              activeDotColor: AppTheme().backgroundColor,
-                              dotColor: AppTheme().backgroundColor,
+                              activeDotColor: Colors.transparent,
+                              dotColor: Colors.transparent,
                               dotHeight: 6.0.sp,
                               dotWidth: 6.0.sp,
                             ),
@@ -334,8 +334,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                           activeIndex: _currentEvent,
                           count: ((event_name.length + 1) / 2).toInt(),
                           effect: WormEffect(
-                            activeDotColor: AppTheme().backgroundColor,
-                            dotColor: AppTheme().backgroundColor,
+                            activeDotColor: Colors.transparent,
+                            dotColor: Colors.transparent,
                             dotHeight: 4.5.sp,
                             dotWidth: 4.5.sp,
                           ),
@@ -438,7 +438,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                           ),
                           InkWell(
                             onTap: ()async{
-                              launchURL(linkedin);
+                              Utils.launchURL(linkedin, context);
                             },
                             child: Container(
                               height: SizeConfig.height*0.035,
@@ -482,16 +482,5 @@ class _ContactUsViewState extends State<ContactUsView> {
         ],
       ),
     );
-  }
-
-  launchURL(String url) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    } else {
-      Utils.flushBarMessage(
-          message: "Could not Launch LinkedIn currently!",
-          context: context,
-          bgColor: Colors.redAccent);
-    }
   }
 }
