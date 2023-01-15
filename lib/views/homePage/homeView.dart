@@ -267,8 +267,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                     await ref
                         .read(isLoggingIn.notifier)
                         .logout(context: context);
-                    // isLoggedIn.isLogged = !isLoggedIn.isLogged;
-                    // isLoggedIn.saveAuth(isLoggedIn.isLogged);
+                    isLoggedIn.isLogged = !isLoggedIn.isLogged;
+                    isLoggedIn.saveAuth(isLoggedIn.isLogged);
                   },
                   child: Container(
                     height: SizeConfig.heightPercent * 5,
