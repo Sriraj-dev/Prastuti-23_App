@@ -254,7 +254,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                         ),
                         Consumer(builder: (context, ref, child) {
                           bool isLoading = ref.watch(isLoggingIn);
-
+                          return (SignInButton(
                               _currentPage, ref, context, isLoading));
                         })
                       ],
