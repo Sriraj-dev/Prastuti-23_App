@@ -269,18 +269,32 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   }
 }
 
-Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading) {
+Widget SignInButton(
+    int page,
+    WidgetRef ref,
+    BuildContext context,
+    bool isLoading,
+    ) {
   return AnimatedContainer(
     duration: const Duration(milliseconds: 500),
     child: (page <3 )?ElevatedButton(
       onPressed: () {
-        null;
+        /// TODO: Implement Pressed
       },
-      child: Image.asset(ImagePaths.google_logo_grey),
+      child: Center(
+        child: Text(
+          'SKIP',
+          style: AppTheme().headText1.copyWith(
+            fontSize: 20
+          ),
+        ),
+      ),
       style: ElevatedButton.styleFrom(
-        shape: const CircleBorder(),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20)
+        ),
         backgroundColor: AppTheme().primaryColorDark,
-        fixedSize: Size(50, 50),
+        fixedSize: Size(100, 45),
         shadowColor: AppTheme().primaryColorExtraDark,
         elevation: 12,
       ),
