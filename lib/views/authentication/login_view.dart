@@ -14,6 +14,7 @@ import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
+import 'package:prastuti_23/utils/utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'login_view_content.dart';
@@ -287,6 +288,8 @@ Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading
               onPressed: () async {
                 await ref.read(isLoggingIn.notifier)
                     .login(context: context);
+                // isLoggedIn.isLogged = !isLoggedIn.isLogged;
+                // isLoggedIn.saveAuth(isLoggedIn.isLogged);
               },
               child: isLoading
                   ? Row(
