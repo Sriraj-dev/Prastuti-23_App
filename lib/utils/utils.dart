@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:giff_dialog/giff_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../config/appTheme.dart';
@@ -239,3 +240,17 @@ class Utils{
     );
   }
 }
+
+// class isLoggedIn {
+//
+//   static SharedPreferences? _preferences;
+//
+//   static Future init() async =>
+//       _preferences = await SharedPreferences.getInstance();
+//
+//   static Future saveAuth(bool mode) async =>
+//       await _preferences?.setBool('_isLogged', mode);
+//
+//   static bool? getAuth() => _preferences?.getBool('_isLogged');
+//   static bool isLogged = isLoggedIn.getAuth()?? false;
+// }

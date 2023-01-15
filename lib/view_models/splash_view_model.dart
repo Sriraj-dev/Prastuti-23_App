@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:prastuti_23/config/env.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
+import 'package:prastuti_23/utils/utils.dart';
 
 class SplashViewModel{
 
@@ -16,6 +17,8 @@ class SplashViewModel{
 
     
     Navigator.of(context).popAndPushNamed(RouteNames.loginView);
+    // isLoggedIn.isLogged?Navigator.of(context).popAndPushNamed(RouteNames.loginView)
+    //     :Navigator.of(context).popAndPushNamed(RouteNames.homeView);
   }
 
   checkNotificationPermission()async{

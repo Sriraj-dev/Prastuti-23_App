@@ -12,7 +12,6 @@ class ImagePaths{
   //TODO: Add All the Image Paths Here and Use them in the Code - Yash
   static const  prastuti_logo = "assets/prastuti_logo.png";
   static const google_logo = "assets/login_view/google.png";
-  static const google_logo_grey = "assets/login_view/google_grey.png";
   static const prastuti_logo_1 = "assets/login_view/prastuti'23_logo_1.png";
   static const temp_pic = "assets/temp_pic.jpg";
 
