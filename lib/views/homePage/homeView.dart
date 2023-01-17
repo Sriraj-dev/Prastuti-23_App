@@ -8,7 +8,7 @@ import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/view_models/home_view_model.dart';
-
+import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/views/contactUsPage/contact_us.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
 import 'package:prastuti_23/views/profile/profile_view.dart';
@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
 
-      List<Widget> views = [
+    List<Widget> views = [
       EventsView(),
       ProfileView(),
       ContactUsView(),
@@ -65,59 +65,59 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     return WillPopScope(
       onWillPop: _onWillPop,
       child: AnimatedBuilder(
-        animation: drawerAnimationController,
-        child: NavDrawer(),
-        builder: (context,child){
-          return Scaffold(
-            appBar: (homeViewController.selectedView == 1 || homeViewController.selectedView==0)?null:
-            AppBar(
-              elevation: 0,
-              backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
-              leading: Center(
-                child: InkWell(
-                  onTap: _onDrawerTapped,
-                  child: AnimatedIcon(
-                    icon: AnimatedIcons.menu_close,
-                    color: selectedAppTheme.isDarkMode?
-                    Colors.white:AppTheme().secondaryColor,
-                    size: 33,
-                    progress: drawerAnimationController.view,
-                  ),
-                ),
-              )
-            ),
-
-            body: Stack(
-              children: [
-                //We have Our View Pages Here :
-                Obx(() => Opacity(
-                  opacity: opacityAnimation.value,
-                  child: GestureDetector(
-                    onTap: (){
-                      if(drawerAnimationController.isCompleted)
-                        drawerAnimationController.reverse();
-                    },
-                    child: views[homeViewController.selectedView]
-                    )
-                  ),
-                ),
-
-
-                //This is the CustomDrawer :
-                Positioned(
-                  left: drawerAnimation.value,
-                  top: (homeViewController.selectedView == 1 ||
-                            homeViewController.selectedView == 0)?SizeConfig.heightPercent*15:
-                  SizeConfig.heightPercent*7,
-                  child: Opacity(
-                    opacity: drawerAnimationController.value,
-                    child: child,
+          animation: drawerAnimationController,
+          child: NavDrawer(),
+          builder: (context,child){
+            return Scaffold(
+              appBar: (homeViewController.selectedView == 1 || homeViewController.selectedView==0)?null:
+              AppBar(
+                  elevation: 0,
+                  backgroundColor: AppTheme().backgroundColor.withOpacity(opacityAnimation.value),
+                  leading: Center(
+                    child: InkWell(
+                      onTap: _onDrawerTapped,
+                      child: AnimatedIcon(
+                        icon: AnimatedIcons.menu_close,
+                        color: selectedAppTheme.isDarkMode?
+                        Colors.white:AppTheme().secondaryColor,
+                        size: 33,
+                        progress: drawerAnimationController.view,
+                      ),
+                    ),
                   )
-                )
-              ]
-            ),
-          );
-        }
+              ),
+
+              body: Stack(
+                  children: [
+                    //We have Our View Pages Here :
+                    Obx(() => Opacity(
+                        opacity: opacityAnimation.value,
+                        child: GestureDetector(
+                            onTap: (){
+                              if(drawerAnimationController.isCompleted)
+                                drawerAnimationController.reverse();
+                            },
+                            child: views[homeViewController.selectedView]
+                        )
+                    ),
+                    ),
+
+
+                    //This is the CustomDrawer :
+                    Positioned(
+                        left: drawerAnimation.value,
+                        top: (homeViewController.selectedView == 1 ||
+                            homeViewController.selectedView == 0)?SizeConfig.heightPercent*15:
+                        SizeConfig.heightPercent*7,
+                        child: Opacity(
+                          opacity: drawerAnimationController.value,
+                          child: child,
+                        )
+                    )
+                  ]
+              ),
+            );
+          }
       ),
     );
   }
@@ -199,12 +199,12 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                 title: Text(
                   "Events",
                   style: AppTheme().headText2.copyWith(
-                        color: selectedAppTheme.isDarkMode
-                            ? Colors.white
-                            : Colors.black,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 17,
-                      ),
+                    color: selectedAppTheme.isDarkMode
+                        ? Colors.white
+                        : Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 17,
+                  ),
                 ),
                 leading: Icon(
                   Icons.event_note_rounded,
@@ -215,12 +215,12 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                 onTap: () => homeViewController.changeSelectedView(1),
                 title: Text("Profile",
                     style: AppTheme().headText2.copyWith(
-                          color: selectedAppTheme.isDarkMode
-                              ? Colors.white
-                              : Colors.black,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 17,
-                        )),
+                      color: selectedAppTheme.isDarkMode
+                          ? Colors.white
+                          : Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 17,
+                    )),
                 leading: Icon(
                   Icons.person,
                   color: AppTheme().kSecondaryColor,
@@ -230,12 +230,12 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                 onTap: () => homeViewController.changeSelectedView(2),
                 title: Text("Contact us",
                     style: AppTheme().headText2.copyWith(
-                          color: selectedAppTheme.isDarkMode
-                              ? Colors.white
-                              : Colors.black,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 17,
-                        )),
+                      color: selectedAppTheme.isDarkMode
+                          ? Colors.white
+                          : Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 17,
+                    )),
                 leading: Icon(
                   Icons.phone,
                   color: AppTheme().kSecondaryColor,
@@ -245,12 +245,12 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                 onTap: () => homeViewController.changeSelectedView(3),
                 title: Text("About us",
                     style: AppTheme().headText2.copyWith(
-                          color: selectedAppTheme.isDarkMode
-                              ? Colors.white
-                              : Colors.black,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 17,
-                        )),
+                      color: selectedAppTheme.isDarkMode
+                          ? Colors.white
+                          : Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 17,
+                    )),
                 leading: Icon(
                   Icons.info_outline_rounded,
                   color: AppTheme().kSecondaryColor,
@@ -266,6 +266,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                     await ref
                         .read(isLoggingIn.notifier)
                         .logout(context: context);
+                    // isLoggedIn.isLogged = !isLoggedIn.isLogged;
+                    // isLoggedIn.saveAuth(isLoggedIn.isLogged);
                   },
                   child: Container(
                     height: SizeConfig.heightPercent * 5,
@@ -275,16 +277,16 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                     child: Center(
                       child: (isLoading)
                           ? SizedBox(
-                              width: SizeConfig.heightPercent * 3.5,
-                              height: SizeConfig.heightPercent * 3.5,
-                              child: const SpinKitSpinningLines(
-                                  color: Colors.white))
+                          width: SizeConfig.heightPercent * 3.5,
+                          height: SizeConfig.heightPercent * 3.5,
+                          child: const SpinKitSpinningLines(
+                              color: Colors.white))
                           : Text(
-                              "Logout",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                            ),
+                        "Logout",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 );
@@ -300,8 +302,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     return GestureDetector(
       onTap: () async {
         setState(() {
-         selectedAppTheme.isDarkMode = !selectedAppTheme.isDarkMode;
-         selectedAppTheme.saveMode(selectedAppTheme.isDarkMode);
+          selectedAppTheme.isDarkMode = !selectedAppTheme.isDarkMode;
+          selectedAppTheme.saveMode(selectedAppTheme.isDarkMode);
         });
         //Navigator.pop(context);
       },
@@ -311,8 +313,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: selectedAppTheme.isDarkMode
-                    ? AssetImage('assets/sun.png')
-                    : AssetImage('assets/moon.png'),
+                    ? AssetImage(ImagePaths.sun)
+                    : AssetImage(ImagePaths.moon),
                 fit: BoxFit.cover),
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10)),
