@@ -1,4 +1,4 @@
-package com.example.prastuti_23
+package com.prastuti.prastuti_23
 
 import io.flutter.embedding.android.FlutterActivity
 

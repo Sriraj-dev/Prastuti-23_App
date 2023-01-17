@@ -94,7 +94,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     SizedBox(
                       height: SizeConfig.heightPercent * 50,
                       child: ListView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -105,7 +105,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                 color: selectedAppTheme.isDarkMode?
                                 Colors.white:AppTheme().primaryColor,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Flexible(
@@ -350,6 +350,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
         context: context,
         bgColor: Colors.redAccent
       );
+
+      return ;
     }
 
     if(college.text.isEmpty){
@@ -357,6 +359,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
           message: "Please enter your College name",
           context: context,
           bgColor: Colors.redAccent);
+
+          return ;
     }
 
     isLoading.value = true;

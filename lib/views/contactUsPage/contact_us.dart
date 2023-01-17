@@ -260,88 +260,90 @@ class _ContactUsViewState extends State<ContactUsView> {
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Transform.rotate(
-                        angle: math.pi/2,
-                        child: AnimatedSmoothIndicator(
-                          activeIndex: _currentEvent,
-                          count: ((event_name.length + 1) / 2).toInt(),
-                          effect: WormEffect(
-                            activeDotColor: AppTheme().kSecondaryColor,
-                            dotHeight: 4.5.sp,
-                            dotWidth: 4.5.sp,
+                  FittedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Transform.rotate(
+                          angle: math.pi/2,
+                          child: AnimatedSmoothIndicator(
+                            activeIndex: _currentEvent,
+                            count: ((event_name.length + 1) / 2).toInt(),
+                            effect: WormEffect(
+                              activeDotColor: AppTheme().kSecondaryColor,
+                              dotHeight: 4.5.sp,
+                              dotWidth: 4.5.sp,
+                            ),
                           ),
                         ),
-                      ),
-                      GestureDetector(
-                        onHorizontalDragCancel: () {
-                          _timerEvent.cancel();
-                        },
-                        child: Container(
-                          height: SizeConfig.height*0.26,
-                          width: SizeConfig.width*0.8,
-                          child: PageView.builder(
-                            controller: _eventController,
-                            itemCount: ((event_name.length+1)/2).toInt(),
-                            onPageChanged: (int event) {
-                              setState(() {
-                                _currentEvent = event;
-                              });
-                            },
-                            itemBuilder: (BuildContext context, int index) {
-                              return (_currentEvent != index)?Container()
-                                  : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-
-                                  (2*index < event_name.length)?Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 17),
-                                    child: contactWidget(
-                                      event_head_images[2*index],
-                                      event_heads_names[2*index],
-                                      event_name[2*index],
-                                      event_heads_phone[2*index],
-                                      event_heads_linkedIn[2*index],
-                                      SizeConfig.width*0.30,
-                                    ),
-                                  ):SizedBox(width: 0),
-
-                                  (2*index+1 < event_name.length)?Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 17),
-                                    child: contactWidget(
-                                      event_head_images[2*index+1],
-                                      event_heads_names[2*index+1],
-                                      event_name[2*index+1],
-                                      event_heads_phone[2 * index+1],
-                                      event_heads_linkedIn[2 * index+1],
-                                      SizeConfig.width*0.30,
-                                    ),
-                                  ):SizedBox(width: 0),
-
-                                ],
-                              );
-                            },
+                        GestureDetector(
+                          onHorizontalDragCancel: () {
+                            _timerEvent.cancel();
+                          },
+                          child: Container(
+                            height: SizeConfig.height*0.26,
+                            width: SizeConfig.width*0.8,
+                            child: PageView.builder(
+                              controller: _eventController,
+                              itemCount: ((event_name.length+1)/2).toInt(),
+                              onPageChanged: (int event) {
+                                setState(() {
+                                  _currentEvent = event;
+                                });
+                              },
+                              itemBuilder: (BuildContext context, int index) {
+                                return (_currentEvent != index)?Container()
+                                    : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                  
+                                    (2*index < event_name.length)?Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 17),
+                                      child: contactWidget(
+                                        event_head_images[2*index],
+                                        event_heads_names[2*index],
+                                        event_name[2*index],
+                                        event_heads_phone[2*index],
+                                        event_heads_linkedIn[2*index],
+                                        SizeConfig.width*0.30,
+                                      ),
+                                    ):SizedBox(width: 0),
+                  
+                                    (2*index+1 < event_name.length)?Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 17),
+                                      child: contactWidget(
+                                        event_head_images[2*index+1],
+                                        event_heads_names[2*index+1],
+                                        event_name[2*index+1],
+                                        event_heads_phone[2 * index+1],
+                                        event_heads_linkedIn[2 * index+1],
+                                        SizeConfig.width*0.30,
+                                      ),
+                                    ):SizedBox(width: 0),
+                  
+                                  ],
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                      Transform.rotate(
-                        angle: math.pi/2,
-                        child: AnimatedSmoothIndicator(
-                          activeIndex: _currentEvent,
-                          count: ((event_name.length + 1) / 2).toInt(),
-                          effect: WormEffect(
-                            activeDotColor: Colors.transparent,
-                            dotColor: Colors.transparent,
-                            dotHeight: 4.5.sp,
-                            dotWidth: 4.5.sp,
+                        Transform.rotate(
+                          angle: math.pi/2,
+                          child: AnimatedSmoothIndicator(
+                            activeIndex: _currentEvent,
+                            count: ((event_name.length + 1) / 2).toInt(),
+                            effect: WormEffect(
+                              activeDotColor: Colors.transparent,
+                              dotColor: Colors.transparent,
+                              dotHeight: 4.5.sp,
+                              dotWidth: 4.5.sp,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   ],
               ),
@@ -389,21 +391,25 @@ class _ContactUsViewState extends State<ContactUsView> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      AutoSizeText(
-                        name,
-                        style: AppTheme().headText1.copyWith(
-                            color: selectedAppTheme.isDarkMode?
-                            Colors.white:AppTheme().primaryColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
+                      FittedBox(
+                        child: AutoSizeText(
+                          name,
+                          style: AppTheme().headText1.copyWith(
+                              color: selectedAppTheme.isDarkMode?
+                              Colors.white:AppTheme().primaryColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold
+                          ),
                         ),
                       ),
-                      AutoSizeText(
-                        position,
-                        style: AppTheme().headText2.copyWith(
-                          color: selectedAppTheme.isDarkMode?
-                          Colors.white:AppTheme().primaryColor,
-                          fontSize: 15,
+                      FittedBox(
+                        child: AutoSizeText(
+                          position,
+                          style: AppTheme().headText2.copyWith(
+                            color: selectedAppTheme.isDarkMode?
+                            Colors.white:AppTheme().primaryColor,
+                            fontSize: 15,
+                          ),
                         ),
                       ),
                       SizedBox(

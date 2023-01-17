@@ -8,6 +8,7 @@ Map<String,String> event_images = {
   "RECOGNIZANCE": ImagePaths.recognizance,
   "SIMULIM": ImagePaths.simulim,
   "OSCILLION": ImagePaths.cryptex,
+  "CRYPTEX": ImagePaths.cryptex,
   "PAPER PRESENTATION" : ImagePaths.cryptex
 };
 
