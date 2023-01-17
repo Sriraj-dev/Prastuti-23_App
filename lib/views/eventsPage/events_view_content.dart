@@ -7,8 +7,9 @@ Map<String,String> event_images = {
   "HACKATHON": ImagePaths.hackathon,
   "RECOGNIZANCE": ImagePaths.recognizance,
   "SIMULIM": ImagePaths.simulim,
-  "OSCILLION": ImagePaths.cryptex,
+  "OSCILLION": ImagePaths.oscillion,
   "CRYPTEX": ImagePaths.cryptex,
-  "PAPER PRESENTATION" : ImagePaths.cryptex
+  "PAPER PRESENTATION": ImagePaths.paper_ppt,
+  "VALORANT": ImagePaths.valo,
 };
 
