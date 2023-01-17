@@ -14,7 +14,6 @@ import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
-import 'package:prastuti_23/utils/utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'login_view_content.dart';
@@ -269,32 +268,18 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   }
 }
 
-Widget SignInButton(
-    int page,
-    WidgetRef ref,
-    BuildContext context,
-    bool isLoading,
-    ) {
+Widget SignInButton(int page, WidgetRef ref, BuildContext context,bool isLoading) {
   return AnimatedContainer(
     duration: const Duration(milliseconds: 500),
     child: (page <3 )?ElevatedButton(
       onPressed: () {
-        /// TODO: Implement Pressed
+        null;
       },
-      child: Center(
-        child: Text(
-          'SKIP',
-          style: AppTheme().headText1.copyWith(
-            fontSize: 20
-          ),
-        ),
-      ),
+      child: Image.asset(ImagePaths.google_logo_grey),
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20)
-        ),
+        shape: const CircleBorder(),
         backgroundColor: AppTheme().primaryColorDark,
-        fixedSize: Size(100, 45),
+        fixedSize: Size(50, 50),
         shadowColor: AppTheme().primaryColorExtraDark,
         elevation: 12,
       ),
@@ -302,8 +287,6 @@ Widget SignInButton(
               onPressed: () async {
                 await ref.read(isLoggingIn.notifier)
                     .login(context: context);
-                // isLoggedIn.isLogged = !isLoggedIn.isLogged;
-                // isLoggedIn.saveAuth(isLoggedIn.isLogged);
               },
               child: isLoading
                   ? Row(
