@@ -43,6 +43,6 @@ class AppEndPoints{
   //Requests:
   static const String sendRequest = baseUrl + "/request";
   static const String acceptRequest = baseUrl + "/request/accept";
-  static const String deleteRequest = baseUrl + "/request/delete";
+  static const String deleteRequest = baseUrl + "/request";
 }
 
