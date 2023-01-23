@@ -16,9 +16,6 @@ class ErrorView extends StatefulWidget {
 }
 
 class _ErrorViewState extends State<ErrorView> {
-
-
-  //TODO: UI of Error Screen - Manash/Yash
   @override
   Widget build(BuildContext context) {
     return  NetworkGiffDialog(

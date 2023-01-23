@@ -2,14 +2,10 @@
 
 import 'dart:core';
 
-import 'package:prastuti_23/config/appTheme.dart';
-
 
 class ImagePaths{
 
   // Suffix "dark/light" after name is to indicate app theme in which it is to be used
-
-  //TODO: Add All the Image Paths Here and Use them in the Code - Yash
   static const  prastuti_logo = "assets/prastuti_logo.png";
   static const google_logo = "assets/login_view/google.png";
   static const google_logo_grey = "assets/login_view/google_grey.png";
@@ -20,6 +16,7 @@ class ImagePaths{
   static const about_us = "assets/login_view/about_us.png";
   static const awards = "assets/login_view/awards.png";
   static const events = "assets/login_view/events.png";
+  static const workshops = "assets/login_view/workshops.png";
 
   //events view content
   static const codigo = "assets/events_view/codigo.jpg";
@@ -29,6 +26,9 @@ class ImagePaths{
   static const recognizance = "assets/events_view/recognizance.jpg";
   static const simulim = "assets/events_view/simulim.jpg";
   static const registeredTick = "assets/events_view/registered.png";
+  static const valo = "assets/events_view/valorant.png";
+  static const paper_ppt = "assets/events_view/paper_ppt.png";
+  static const oscillion = "assets/events_view/oscillion.jpg";
 
   //profile_view
   static const score_light = "assets/profile_view/score_light.png";
@@ -52,6 +52,7 @@ class ImagePaths{
   static const recognizance_image = "assets/contact_us/event_heads/Vidit.png";
   static const consilium_image = "assets/contact_us/event_heads/Ayush Pal.jpg";
   static const hackoverflow_image = "assets/contact_us/event_heads/Nilay Mundra.jpg";
+  static const oscillion_image = "assets/contact_us/event_heads/Hrishab.jpg";
   static const WhatsApp = "assets/events_view/whatsapp.png";
 
   //team_leads

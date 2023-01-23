@@ -1,6 +1,4 @@
 
-
-//TODO: Get the Endpoints from backend Team.
 class AppEndPoints{
 
   static const String baseUrl = "https://prastuti-backend-2023.cyclic.app/api";

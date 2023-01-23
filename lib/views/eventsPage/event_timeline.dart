@@ -11,7 +11,7 @@ class Event_Timeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (timelines.length==0)?Center(
+    return (timelines.isEmpty)?Center(
       child: Text("Timeline of this event will be released soon!!",
         style: AppTheme().headText2.copyWith(
           color: selectedAppTheme.isDarkMode?
@@ -89,8 +89,8 @@ class Event_Timeline extends StatelessWidget {
         color: Colors.grey.withOpacity(0.3),
         borderRadius: BorderRadius.circular(13).copyWith(topLeft: const Radius.circular(0)),
       ),
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -102,7 +102,7 @@ class Event_Timeline extends StatelessWidget {
               fontSize: 16
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Text(
             eventDetail.slot??"",
             style: AppTheme().headText2.copyWith(

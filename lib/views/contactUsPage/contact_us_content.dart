@@ -65,7 +65,7 @@ List<String> event_heads_linkedIn = [
   'https://www.linkedin.com/in/ayush-singh-pal-53162423b',
   'https://www.linkedin.com/in/vidit-agarwal-734236200',
   'https://www.linkedin.com/in/nilay-mundra-163732237',
-  '',
+  'https://www.linkedin.com/in/hrishabh-garg',
   "https://www.linkedin.com/in/piyush-yadav-ba6b591bb",
 ];
 
@@ -75,7 +75,7 @@ List<String> event_head_images = [
   ImagePaths.consilium_image,
   ImagePaths.recognizance_image,
   ImagePaths.hackoverflow_image,
-  ImagePaths.simulim_image, // get image of Oscillion head.
+  ImagePaths.oscillion_image,
   ImagePaths.co_convenor_1,
 ];
 

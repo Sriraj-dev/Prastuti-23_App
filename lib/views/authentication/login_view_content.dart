@@ -17,6 +17,6 @@ List<String> detail = [
 List<String> images = [
   ImagePaths.about_us,
   ImagePaths.events,
-  ImagePaths.about_us,
+  ImagePaths.workshops,
   ImagePaths.awards,
 ];

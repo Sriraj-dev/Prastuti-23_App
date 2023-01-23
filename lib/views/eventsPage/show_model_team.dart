@@ -9,9 +9,7 @@ import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/registration_handler.dart';
 
 import '../../config/appTheme.dart';
-import '../../config/image_paths.dart';
 import '../../config/screen_config.dart';
-import '../../view_models/profile_view_model.dart';
 
 class ShowModelTeams extends StatefulWidget {
   Events event;
@@ -55,7 +53,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
       decoration: BoxDecoration(
           color: selectedAppTheme.isDarkMode?
           Colors.black.withOpacity(0.5):Colors.white.withOpacity(0.5),
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(27), topRight: Radius.circular(27))
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(27), topRight: Radius.circular(27))
       ),
       child: Stack(
         alignment: Alignment.center,
@@ -70,7 +68,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4), color: Colors.grey),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
@@ -107,8 +105,8 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
 
   Widget EventsTeamsWidget(Teams userTeam,int index) {
     return Container(
-        margin: EdgeInsets.fromLTRB(30, 20, 30, 10),
-        padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+        margin: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+        padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: AppTheme().secondaryColorLight,
@@ -117,7 +115,7 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
                   color: AppTheme().primaryColor.withOpacity(0.3),
                   blurRadius: 4.0,
                   spreadRadius: 3.0,
-                  offset: Offset(4, 4))
+                  offset: const Offset(4, 4))
             ]),
         child:
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -168,11 +166,11 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
       ),
 ),
         style: ElevatedButton.styleFrom(
-        shape: StadiumBorder(),
+        shape: const StadiumBorder(),
         backgroundColor: AppTheme().secondaryColor,
         shadowColor: AppTheme().primaryColor,
         elevation: 5,
-        fixedSize: Size(80, 30),
+        fixedSize: const Size(80, 30),
       ),
     );
   }
@@ -183,12 +181,12 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
       decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       child: Center(
         child: isDone
-            ? Icon(
+            ? const Icon(
           Icons.done,
           size: 30,
           color: Colors.white,
         )
-            : CircularProgressIndicator(color: Colors.white),
+            : const CircularProgressIndicator(color: Colors.white),
       ),
     );
   }
