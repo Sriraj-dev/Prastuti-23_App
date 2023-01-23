@@ -90,10 +90,21 @@ class _EventsViewState extends State<EventsView>
               data: (allEvents){
                 List<Events> events = allEvents.events as List<Events>;
                 eventViewController.initiateRegistrationStatus(events,registeredEventIds);
+
                 return Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: buildAppBar(events),
-                body: Column(
+                body: (events.length == 0)
+                    ? Center(
+                        child: Text("We will be back with new events soon!!",
+                            style: AppTheme().headText2.copyWith(
+                                  color: selectedAppTheme.isDarkMode
+                                      ? Colors.white
+                                      : AppTheme().primaryColor,
+                                  fontSize: 20,
+                                )),
+                      )
+                    : Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
