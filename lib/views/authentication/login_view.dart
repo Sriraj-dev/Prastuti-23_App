@@ -7,15 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:prastuti_23/animations/login_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
-import 'package:prastuti_23/utils/routes/route_names.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
-import 'package:prastuti_23/utils/utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../homePage/homeView.dart';
@@ -39,7 +35,6 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationController = Get.put(loginAnimation);
     loginAnimation.initiatePageAnimation(this);
@@ -55,20 +50,19 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   }
 
   _startTimer() async {
-    await Future.delayed(Duration(seconds: 1));
-    _timer = Timer.periodic(Duration(milliseconds: 3000), (timer) {
+    await Future.delayed(const Duration(seconds: 1));
+    _timer = Timer.periodic(const Duration(milliseconds: 3000), (timer) {
       if (_pageController.page! >= images.length - 1) {
         timer.cancel();
         // _pageController.jumpToPage(0);
       } else {
-        _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.linear);
+        _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.linear);
       }
     });
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     SizeConfig.init(context);
   }
@@ -121,17 +115,14 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                           child: child,
                         )
                     ),
-                    child: Container(
-                      //padding: EdgeInsets.only(right: 30.sp),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            ImagePaths.prastuti_logo_1,
-                            height: SizeConfig.height * 0.075,
-                          ),
-                        ],
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          ImagePaths.prastuti_logo_1,
+                          height: SizeConfig.height * 0.075,
+                        ),
+                      ],
                     ),
                   ),
                   GestureDetector(
@@ -159,38 +150,36 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                                   children: [
                                     Obx(
                                           () =>
-                                          Container(
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                left: (1.0 - animationController
-                                                    .pagePaddingValue.value) *
-                                                    100,
-                                              ),
-                                              child: Opacity(
-                                                opacity: animationController
-                                                    .pagePaddingValue.value,
-                                                child: Container(
-                                                  height: SizeConfig.height*0.3,
-                                                  width: SizeConfig.width*0.7,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(32),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: AppTheme().primaryColorLight,
-                                                        spreadRadius: 5,
-                                                        blurRadius: 10,
-                                                        offset: Offset(0, 5),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              left: (1.0 - animationController
+                                                  .pagePaddingValue.value) *
+                                                  100,
+                                            ),
+                                            child: Opacity(
+                                              opacity: animationController
+                                                  .pagePaddingValue.value,
+                                              child: Container(
+                                                height: SizeConfig.height*0.3,
+                                                width: SizeConfig.width*0.7,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(32),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: AppTheme().primaryColorLight,
+                                                      spreadRadius: 5,
+                                                      blurRadius: 10,
+                                                      offset: const Offset(0, 5),
 
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: FittedBox(
-                                                    child: Image.asset(
-                                                        images[index]
                                                     ),
-                                                    fit: BoxFit.fill,
+                                                  ],
+                                                ),
+                                                child: FittedBox(
+                                                  child: Image.asset(
+                                                      images[index]
                                                   ),
+                                                  fit: BoxFit.fill,
                                                 ),
                                               ),
                                             ),
@@ -248,12 +237,12 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 15),
+                          padding: const EdgeInsets.only(left: 15),
                           child: AnimatedSmoothIndicator(
                             activeIndex: _currentPage,
                             count: 4,
@@ -302,13 +291,11 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
             ),
           ),
           style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20)
-            ),
-            backgroundColor: AppTheme().primaryColorDark,
-            fixedSize: Size(100, 45),
-            shadowColor: AppTheme().primaryColorExtraDark,
-            elevation: 12,
+            shape: const StadiumBorder(),
+                  backgroundColor: AppTheme().primaryColorDark,
+                  fixedSize: Size(140.sp, 50.sp),
+                  shadowColor: AppTheme().primaryColorExtraDark,
+                  elevation: 0.sp,
           ),
         ): ElevatedButton(
           onPressed: () async {
@@ -324,11 +311,11 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
               Container(
                 height: 15,
                 width: 15,
-                child: CircularProgressIndicator(
+                child: const CircularProgressIndicator(
                   color: Colors.white,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Text(
@@ -375,7 +362,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
     DateTime currentTime = DateTime.now();
 
     bool backButtonHasBeenPressedTwice = backButtonPressTime != null &&
-        currentTime.difference(backButtonPressTime) > Duration(seconds: 2);
+        currentTime.difference(backButtonPressTime) > const Duration(seconds: 2);
 
     if (backButtonHasBeenPressedTwice) {
       SystemNavigator.pop();

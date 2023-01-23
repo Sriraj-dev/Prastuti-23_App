@@ -4,9 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:giff_dialog/giff_dialog.dart';
 import 'package:prastuti_23/animations/events_view_animation.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
@@ -21,7 +19,6 @@ import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
 import 'package:prastuti_23/views/eventsPage/show_model_team.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../config/image_paths.dart';
 import '../../view_models/events_view_model.dart';
 
@@ -70,12 +67,12 @@ class _EventsViewState extends State<EventsView>
     return Container(
       decoration: BoxDecoration(
         image: selectedAppTheme.isDarkMode?
-        DecorationImage(
+        const DecorationImage(
             opacity: 1,
             image: AssetImage(ImagePaths.bgImage_dark),
             fit: BoxFit.cover
         )
-        :DecorationImage(
+        :const DecorationImage(
             opacity: 0.6,
             image: AssetImage(ImagePaths.bgImage_light),
             fit: BoxFit.cover
@@ -94,7 +91,7 @@ class _EventsViewState extends State<EventsView>
                 return Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: buildAppBar(events),
-                body: (events.length == 0)
+                body: (events.isEmpty)
                     ? Center(
                         child: Text("We will be back with new events soon!!",
                             style: AppTheme().headText2.copyWith(
@@ -160,17 +157,17 @@ class _EventsViewState extends State<EventsView>
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Container(
-                                            margin: EdgeInsets.only(right: 5),
+                                            margin: const EdgeInsets.only(right: 5),
                                             width: 20,
                                             height: 20,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(ImagePaths.WhatsApp),
                                                     fit: BoxFit.cover
                                                 )
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           Text(
@@ -206,7 +203,7 @@ class _EventsViewState extends State<EventsView>
                                                         _selectedEvent.value)==handler.REGISTERED)?
                                         Colors.greenAccent:AppTheme().kSecondaryColor.withOpacity(0.5),
                                         elevation: 5,
-                                        fixedSize: Size(140, 40),
+                                        fixedSize: const Size(140, 40),
                                       ),
                                     ),
                                   ],
@@ -266,7 +263,7 @@ class _EventsViewState extends State<EventsView>
                                               : Container(),
                                           Container(
                                             padding:
-                                                EdgeInsets.only(bottom: 10),
+                                                const EdgeInsets.only(bottom: 10),
                                             child: Text(
                                               events[_selectedEvent.value]
                                                       .description ??
@@ -291,7 +288,7 @@ class _EventsViewState extends State<EventsView>
                                                     Icons.people_alt_rounded,
                                                     color: AppTheme().kSecondaryColor,
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 5,
                                                   ),
                                                   Text(
@@ -318,7 +315,7 @@ class _EventsViewState extends State<EventsView>
                                                         .sports_gymnastics_outlined,
                                                     color: AppTheme().kSecondaryColor,
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 5,
                                                   ),
                                                   Text(
@@ -508,7 +505,7 @@ class _EventsViewState extends State<EventsView>
                 ),
               )
               )),
-              SizedBox(width: 15,),
+              const SizedBox(width: 15,),
             ],
           );
   }
@@ -520,20 +517,19 @@ class _EventsViewState extends State<EventsView>
         borderRadius: BorderRadius.circular(30),
         elevation: 0,
         child: Container(
-          padding: EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 20),
           height: SizeConfig.heightPercent * 25,
           width: SizeConfig.width - 20,
           //margin: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            //TODO: decide shadow color .
             boxShadow: [
               BoxShadow(
                 color: selectedAppTheme.isDarkMode?
                 AppTheme().secondaryColor:AppTheme().secondaryColor.withOpacity(0.5),
                 spreadRadius: 6,
                 blurRadius: 10,
-                offset: Offset(0, 5),
+                offset: const Offset(0, 5),
               ),
             ],
             image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
@@ -578,8 +574,11 @@ class _EventsViewState extends State<EventsView>
       eventId: eventId
     );
 
-    if(result) eventViewController.changeRegistrationStatus(index, handler.REGISTERED);
-    else eventViewController.changeRegistrationStatus(index, handler.NOTREGISTERED);
+    if(result) {
+      eventViewController.changeRegistrationStatus(index, handler.REGISTERED);
+    } else {
+      eventViewController.changeRegistrationStatus(index, handler.NOTREGISTERED);
+    }
 
   }
 

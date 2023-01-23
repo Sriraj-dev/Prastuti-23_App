@@ -12,7 +12,6 @@ import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:prastuti_23/models/teamsModel.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/profile_view_model.dart';
-import 'package:prastuti_23/views/profile/profile_view_content.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../utils/utils.dart';
 import '../eventsPage/events_view_content.dart';
@@ -120,34 +119,31 @@ class _ProfileViewState extends State<ProfileView>
                                   backgroundColor: Colors.white,
                                   backgroundImage: NetworkImage(currentUser.profilePhoto!),
                                 ),
-                                SizedBox(width: 20,),
+                                const SizedBox(width: 20,),
                                 Flexible(
-                                  child: Container(
-                                    //padding: EdgeInsets.only(right: 10),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(currentUser.name!,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                          style: AppTheme().headText1.copyWith(
-                                            fontSize: 22,
-                                          ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(currentUser.name!,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                        style: AppTheme().headText1.copyWith(
+                                          fontSize: 22,
                                         ),
-                                        Text(currentUser.emailId!,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                          style: AppTheme().headText2
-                                        ),
-                                        AutoSizeText("Score : ${currentUser.totalScore!}",
-                                          style: AppTheme().headText2,
-                                        ),
-                                        AutoSizeText("+91 "+currentUser.phone!.toString(),
-                                          style: AppTheme().headText2,
-                                        )
-                                      ],
-                                    ),
+                                      ),
+                                      Text(currentUser.emailId!,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                        style: AppTheme().headText2
+                                      ),
+                                      AutoSizeText("Score : ${currentUser.totalScore!}",
+                                        style: AppTheme().headText2,
+                                      ),
+                                      AutoSizeText("+91 "+currentUser.phone!.toString(),
+                                        style: AppTheme().headText2,
+                                      )
+                                    ],
                                   ),
                                 ),
                               ],
@@ -257,19 +253,19 @@ class _ProfileViewState extends State<ProfileView>
                                         Container(
                                           width: 15,
                                           height: 15,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(ImagePaths.add),
                                                   fit: BoxFit.cover
                                               )
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Obx((){
                                             return (creatingTeam.value)?
-                                            SpinKitWave(
+                                            const SpinKitWave(
                                               color: Colors.white,
                                               itemCount: 5,
                                               size: 15,
@@ -340,8 +336,8 @@ class _ProfileViewState extends State<ProfileView>
 
   Widget RequestWidget(String teamName,String requestId,int index) {
     return Container(
-      margin: EdgeInsets.fromLTRB(35, 20, 35, 10),
-      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+      margin: const EdgeInsets.fromLTRB(35, 20, 35, 10),
+      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: AppTheme().secondaryColorLight,
@@ -350,7 +346,7 @@ class _ProfileViewState extends State<ProfileView>
                 color: AppTheme().primaryColor.withOpacity(0.3),
                 blurRadius: 4.0,
                 spreadRadius: 3.0,
-                offset: Offset(4, 4))
+                offset: const Offset(4, 4))
           ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -374,7 +370,7 @@ class _ProfileViewState extends State<ProfileView>
             children: [
               AnimatedContainer(
                 alignment: Alignment.center,
-                duration: Duration(milliseconds: 2000),
+                duration: const Duration(milliseconds: 2000),
                 curve: Curves.easeIn,
                 width:90,
                 child:AcceptButton(requestId,index),
@@ -415,11 +411,11 @@ class _ProfileViewState extends State<ProfileView>
         }),
       ),
       style: ElevatedButton.styleFrom(
-        shape: StadiumBorder(),
+        shape: const StadiumBorder(),
         backgroundColor: AppTheme().secondaryColor,
         shadowColor: AppTheme().primaryColor,
         elevation: 5,
-        fixedSize: Size(80, 30),
+        fixedSize: const Size(80, 30),
       ),
     );
   }
@@ -445,7 +441,7 @@ class _ProfileViewState extends State<ProfileView>
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: selectedAppTheme.isDarkMode?
-                AssetImage(ImagePaths.cancel_dark):AssetImage(ImagePaths.cancel_light),
+                const AssetImage(ImagePaths.cancel_dark):const AssetImage(ImagePaths.cancel_light),
                 fit: BoxFit.cover
             )
           ),
@@ -460,12 +456,12 @@ class _ProfileViewState extends State<ProfileView>
       decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       child: Center(
         child: isDone
-            ? Icon(
+            ? const Icon(
                 Icons.done,
                 size: 30,
                 color: Colors.white,
               )
-            : CircularProgressIndicator(color: Colors.white),
+            : const CircularProgressIndicator(color: Colors.white),
       ),
     );
   }
@@ -516,17 +512,16 @@ class _ProfileViewState extends State<ProfileView>
       required String teamId}) {
     return GestureDetector(
       onTap: () {
-        /// TODO: Implement onTap
       },
       child: Container(
-        margin: EdgeInsets.fromLTRB(30, 20, 40, 0),
+        margin: const EdgeInsets.fromLTRB(30, 20, 40, 0),
         color: Colors.transparent,
         child: Column(
           children: [
             Stack(children: [
               Container(
-                margin: EdgeInsets.only(left: 20),
-                padding: EdgeInsets.only(left: 20),
+                margin: const EdgeInsets.only(left: 20),
+                padding: const EdgeInsets.only(left: 20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: AppTheme().secondaryColorLight,
@@ -535,7 +530,7 @@ class _ProfileViewState extends State<ProfileView>
                           color: AppTheme().primaryColor.withOpacity(0.3),
                           blurRadius: 4.0,
                           spreadRadius: 3.0,
-                          offset: Offset(4, 4))
+                          offset: const Offset(4, 4))
                     ]),
                 child: Theme(
                   data: Theme.of(context)
@@ -626,14 +621,14 @@ class _ProfileViewState extends State<ProfileView>
                                         Container(
                                           width: 10,
                                           height: 10,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(ImagePaths.add),
                                                   fit: BoxFit.cover
                                               )
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Obx((){
@@ -666,7 +661,7 @@ class _ProfileViewState extends State<ProfileView>
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10,)
+                            const SizedBox(height: 10,)
                           ],
                         ),
                       ],
@@ -675,7 +670,7 @@ class _ProfileViewState extends State<ProfileView>
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: const EdgeInsets.only(top: 10),
                   height: SizeConfig.height*0.05,
                   width: SizeConfig.height*0.05,
                   decoration: BoxDecoration(
@@ -688,11 +683,11 @@ class _ProfileViewState extends State<ProfileView>
                           color: AppTheme().secondaryColor,
                           blurRadius: 1.0,
                           spreadRadius: 1.0,
-                          offset: Offset(3, 3))
+                          offset: const Offset(3, 3))
                     ]),
               )
             ]),
-            SizedBox(
+            const SizedBox(
               height: 10,
             )
           ],
@@ -744,11 +739,10 @@ class _ProfileViewState extends State<ProfileView>
       required String date}) {
     return GestureDetector(
       onTap: () {
-        /// TODO: Implement onTap
       },
       child: Container(
         height: SizeConfig.height * 0.2,
-        padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+        padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
         color: Colors.transparent,
         child: Stack(
           children: [
@@ -766,13 +760,13 @@ class _ProfileViewState extends State<ProfileView>
                             color: AppTheme().primaryColor.withOpacity(0.3),
                             blurRadius: 4.0,
                             spreadRadius: 3.0,
-                            offset: Offset(4, 4))
+                            offset: const Offset(4, 4))
                       ]),
                   child: Column(
                     children: [
                       Container(
                         width: SizeConfig.width * 0.6,
-                        padding: EdgeInsets.only(top: 10, left: 55),
+                        padding: const EdgeInsets.only(top: 10, left: 55),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -799,11 +793,11 @@ class _ProfileViewState extends State<ProfileView>
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Container(
-                              padding: EdgeInsets.only(right: 5),
+                              padding: const EdgeInsets.only(right: 5),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -816,7 +810,7 @@ class _ProfileViewState extends State<ProfileView>
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                                 image: selectedAppTheme.isDarkMode?
-                                                AssetImage(ImagePaths.score_dark):AssetImage(ImagePaths.score_light),
+                                                const AssetImage(ImagePaths.score_dark):const AssetImage(ImagePaths.score_light),
                                                 fit: BoxFit.fill)),
                                       ),
                                       AutoSizeText(" "+score,
@@ -834,7 +828,7 @@ class _ProfileViewState extends State<ProfileView>
                                         decoration: BoxDecoration(
                                             image: DecorationImage(
                                                 image: selectedAppTheme.isDarkMode?
-                                                AssetImage(ImagePaths.calendar_dark_01):AssetImage(ImagePaths.calendar_light),
+                                                const AssetImage(ImagePaths.calendar_dark_01):const AssetImage(ImagePaths.calendar_light),
                                                 fit: BoxFit.cover)),
                                       ),
                                       const SizedBox(
@@ -873,7 +867,7 @@ class _ProfileViewState extends State<ProfileView>
                             color: AppTheme().secondaryColor,
                             blurRadius: 1.0,
                             spreadRadius: 1.0,
-                            offset: Offset(4, 4))
+                            offset: const Offset(4, 4))
                       ]),
                 )),
           ],

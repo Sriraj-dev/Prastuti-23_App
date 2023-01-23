@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'package:another_flushbar/flushbar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +12,6 @@ import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/views/contactUsPage/contact_us_content.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class ContactUsView extends StatefulWidget {
   const ContactUsView({Key? key}) : super(key: key);
@@ -50,20 +48,20 @@ class _ContactUsViewState extends State<ContactUsView> {
   }
 
   _startTimer() async {
-    await Future.delayed(Duration(seconds: 1));
-    _timerTeam = Timer.periodic(Duration(milliseconds: 3000), (timer) {
+    await Future.delayed(const Duration(seconds: 1));
+    _timerTeam = Timer.periodic(const Duration(milliseconds: 3000), (timer) {
       if (_teamController.page! >= 5) {
         _teamController.jumpTo(0);
 
       } else {
-        _teamController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+        _teamController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
       }
     });
-    _timerEvent = Timer.periodic(Duration(milliseconds: 3000), (timer) {
+    _timerEvent = Timer.periodic(const Duration(milliseconds: 3000), (timer) {
       if (_eventController.page! >= 2) {
         _eventController.jumpTo(0);
       } else {
-        _eventController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.decelerate);
+        _eventController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
       }
     });
   }
@@ -80,12 +78,12 @@ class _ContactUsViewState extends State<ContactUsView> {
     return Container(
       decoration: BoxDecoration(
           image: selectedAppTheme.isDarkMode?
-          DecorationImage(
+          const DecorationImage(
               opacity: 1,
               image: AssetImage(ImagePaths.bgImage_dark),
               fit: BoxFit.cover
           )
-              :DecorationImage(
+              :const DecorationImage(
               opacity: 0.6,
               image: AssetImage(ImagePaths.bgImage_light),
               fit: BoxFit.cover
@@ -169,7 +167,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                           angle: math.pi/2,
                           child: AnimatedSmoothIndicator(
                             activeIndex: _currentTeam,
-                            count: ((team_name.length + 1) / 2).toInt(),
+                            count: (team_name.length + 1) ~/ 2,
                             effect: WormEffect(
                               activeDotColor: AppTheme().kSecondaryColor,
                               dotHeight: 4.5.sp,
@@ -187,7 +185,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                           width: SizeConfig.width*0.8,
                           child: PageView.builder(
                             controller: _teamController,
-                            itemCount: ((team_name.length+1)/2).toInt(),
+                            itemCount: (team_name.length+1)~/2,
                             onPageChanged: (int team) {
                               setState(() {
                                 _currentTeam = team;
@@ -221,7 +219,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                       team_leads_linkedIn[2 * index+1],
                                       SizeConfig.width*0.30,
                                     ),
-                                  ):SizedBox(width: 0,),
+                                  ):const SizedBox(width: 0,),
                                 ],
                               );
                             },
@@ -234,7 +232,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                           angle: math.pi/2,
                           child: AnimatedSmoothIndicator(
                             activeIndex: _currentTeam,
-                            count: ((team_name.length + 1) / 2).toInt(),
+                            count: (team_name.length + 1) ~/ 2,
                             effect: WormEffect(
                               activeDotColor: Colors.transparent,
                               dotColor: Colors.transparent,
@@ -269,7 +267,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                           angle: math.pi/2,
                           child: AnimatedSmoothIndicator(
                             activeIndex: _currentEvent,
-                            count: ((event_name.length + 1) / 2).toInt(),
+                            count: (event_name.length + 1) ~/ 2,
                             effect: WormEffect(
                               activeDotColor: AppTheme().kSecondaryColor,
                               dotHeight: 4.5.sp,
@@ -286,7 +284,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                             width: SizeConfig.width*0.8,
                             child: PageView.builder(
                               controller: _eventController,
-                              itemCount: ((event_name.length+1)/2).toInt(),
+                              itemCount: (event_name.length+1)~/2,
                               onPageChanged: (int event) {
                                 setState(() {
                                   _currentEvent = event;
@@ -309,7 +307,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                         event_heads_linkedIn[2*index],
                                         SizeConfig.width*0.30,
                                       ),
-                                    ):SizedBox(width: 0),
+                                    ):const SizedBox(width: 0),
                   
                                     (2*index+1 < event_name.length)?Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 17),
@@ -321,7 +319,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                         event_heads_linkedIn[2 * index+1],
                                         SizeConfig.width*0.30,
                                       ),
-                                    ):SizedBox(width: 0),
+                                    ):const SizedBox(width: 0),
                   
                                   ],
                                 );
@@ -333,7 +331,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                           angle: math.pi/2,
                           child: AnimatedSmoothIndicator(
                             activeIndex: _currentEvent,
-                            count: ((event_name.length + 1) / 2).toInt(),
+                            count: (event_name.length + 1) ~/ 2,
                             effect: WormEffect(
                               activeDotColor: Colors.transparent,
                               dotColor: Colors.transparent,
@@ -382,11 +380,11 @@ class _ContactUsViewState extends State<ContactUsView> {
                         color: AppTheme().primaryColor.withOpacity(0.3),
                         blurRadius: 4.0,
                         spreadRadius: 3.0,
-                        offset: Offset(4, 4)
+                        offset: const Offset(4, 4)
                     )]
                 ),
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(5, 20, 5, 0),
+                  padding: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -412,7 +410,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Row(
@@ -434,7 +432,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                             child: Container(
                               height: SizeConfig.height*0.03,
                               width: SizeConfig.height*0.03,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage("assets/contact_us/contact.png"),
                                       fit: BoxFit.cover
@@ -444,12 +442,12 @@ class _ContactUsViewState extends State<ContactUsView> {
                           ),
                           InkWell(
                             onTap: ()async{
-                              Utils.launchURL(linkedin, context);
+                              Utils.launchLink(linkedin, context);
                             },
                             child: Container(
                               height: SizeConfig.height*0.035,
                               width: SizeConfig.height*0.035,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage("assets/contact_us/linkedin.png"),
                                       fit: BoxFit.cover
@@ -480,7 +478,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                         color: AppTheme().secondaryColor.withOpacity(0.5),
                         blurRadius: 1.0,
                         spreadRadius: 1.0,
-                        offset: Offset(0, 4)
+                        offset: const Offset(0, 4)
                     )]
                 ),
               )

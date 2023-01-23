@@ -44,7 +44,7 @@ class Teams {
     if (json['Members'] != null) {
       members = <Members>[];
       json['Members'].forEach((v) {
-        members!.add(new Members.fromJson(v));
+        members!.add(Members.fromJson(v));
       });
     }
     memberCount = json['Member_Count'];
@@ -53,7 +53,7 @@ class Teams {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = this.sId;
     data['Team_Name'] = this.teamName;
     data['Events_Participated'] = this.eventsParticipated;

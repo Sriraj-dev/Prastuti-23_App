@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:prastuti_23/data/app_exceptions.dart';
 import 'package:prastuti_23/data/network/base_api_services.dart';
 import 'package:http/http.dart' as http;
-import 'package:prastuti_23/utils/utils.dart';
 
 
 class NetworkApiServices extends BaseApiServices{
@@ -22,8 +20,6 @@ class NetworkApiServices extends BaseApiServices{
       ).timeout(const Duration(seconds: 10)).catchError((e){
         return "error";
       });
-
-      print("The get Api Response is - ${response.body}");
       responseJson = checkResponse(response);
     }on SocketException{
       throw FetchDataException("No Internet Connection");
@@ -36,7 +32,6 @@ class NetworkApiServices extends BaseApiServices{
   Future getPostApiResponse(String url,Map<String,dynamic> data) async {
     dynamic responseJson;
     try{
-      print("data into post - $data");
       final response = await http.post(
           Uri.parse(url),
         body: json.encode(data),
@@ -44,13 +39,10 @@ class NetworkApiServices extends BaseApiServices{
             "Content-Type": "application/json"
           }
       ).timeout(const Duration(seconds: 20));
-
-      print("Post req response - ${response.body}");
       responseJson = checkResponse(response);
     }on SocketException{
       throw FetchDataException("No Internet Connection");
     }catch(e){
-      print("errpr Occurred: $e");
       throw e;
     }
 
@@ -61,7 +53,6 @@ class NetworkApiServices extends BaseApiServices{
   Future getPutApiResponse(String url,Map<String,dynamic> data)async {
     dynamic responseJson;
     try{
-      print("data into put - $data");
       final response = await http.put(
           Uri.parse(url),
         body: json.encode(data),
@@ -69,8 +60,6 @@ class NetworkApiServices extends BaseApiServices{
             "Content-Type": "application/json"
           }
       ).timeout(const Duration(seconds: 20));
-
-      print("put req response - ${response.body}");
       responseJson = checkResponse(response);
       
     }on SocketException{
@@ -85,7 +74,6 @@ class NetworkApiServices extends BaseApiServices{
   Future getDeleteApiResponse(String url,Map<String,dynamic> data) async{
     dynamic responseJson;
     try{
-      print("data into delete - $data");
       final response = await http.delete(
           Uri.parse(url),
         body: json.encode(data),
@@ -93,8 +81,6 @@ class NetworkApiServices extends BaseApiServices{
             "Content-Type": "application/json"
           }
       ).timeout(const Duration(seconds: 20));
-
-      print("delete req response - ${response.body}");
       responseJson = checkResponse(response);
       
     }on SocketException{

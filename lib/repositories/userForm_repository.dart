@@ -9,7 +9,7 @@ import 'package:prastuti_23/view_models/auth_view_model.dart';
 
 class UserFormRepository{
 
-  BaseApiServices _apiServices = NetworkApiServices();
+  final BaseApiServices _apiServices = NetworkApiServices();
 
   Future<bool> editUser(String id,Map<String,dynamic> data)async{
 
@@ -20,7 +20,9 @@ class UserFormRepository{
       if(response.statusCode == 200){
         currentUser = User.fromJson(json.decode(response.body));
         return true;
-      }else return false;
+      }else {
+        return false;
+      }
     }catch(e){
       return false;
     }

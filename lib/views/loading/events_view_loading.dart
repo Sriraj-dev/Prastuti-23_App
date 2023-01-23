@@ -57,19 +57,19 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left:30),
                           child: skeleton(40, 120)
                         ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 30),
                           child: skeleton(SizeConfig.heightPercent*25, SizeConfig.widthPercent*80),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -80,7 +80,7 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                                 Icons.people_alt_rounded,
                                 color: AppTheme().kSecondaryColor,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               skeleton(20, 40)
@@ -93,7 +93,7 @@ class _Events_view_skeletonState extends State<Events_view_skeleton> {
                                 Icons.sports_gymnastics_outlined,
                                 color: AppTheme().kSecondaryColor,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               skeleton(20, 40)

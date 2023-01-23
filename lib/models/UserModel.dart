@@ -10,12 +10,12 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
     isNew = json['isNew'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['message'] = this.message;
     if (this.user != null) {
       data['user'] = this.user!.toJson();
@@ -75,20 +75,20 @@ class User {
     if (json['Teams'] != null) {
       teams = <Teams>[];
       json['Teams'].forEach((v) {
-        teams!.add(new Teams.fromJson(v));
+        teams!.add(Teams.fromJson(v));
       });
     }
     if (json['Pending_Requests'] != null) {
       pendingRequests = <PendingRequests>[];
       json['Pending_Requests'].forEach((v) {
-        pendingRequests!.add(new PendingRequests.fromJson(v));
+        pendingRequests!.add(PendingRequests.fromJson(v));
       });
     }
     totalScore = json['Total_Score'];
     if (json['Events_Participated'] != null) {
       eventsParticipated = <Events>[];
       json['Events_Participated'].forEach((v) {
-        eventsParticipated!.add(new Events.fromJson(v));
+        eventsParticipated!.add(Events.fromJson(v));
       });
     }
     iV = json['__v'];
@@ -98,7 +98,7 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = this.sId;
     data['Name'] = this.name;
     data['email_id'] = this.emailId;
@@ -165,7 +165,7 @@ class Members {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = this.sId;
     data['Name'] = this.name;
     data['email_id'] = this.emailId;
@@ -198,7 +198,7 @@ class PendingRequests {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = this.sId;
     data['teamName'] = this.teamName;
     data['team'] = this.team;

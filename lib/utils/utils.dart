@@ -2,12 +2,9 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:giff_dialog/giff_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../config/appTheme.dart';
 import '../config/image_paths.dart';
 import '../config/screen_config.dart';
@@ -54,18 +51,18 @@ class Utils{
     );
   }
 
-  static launchURL(
+  static launchLink(
       String url,
       BuildContext context,
       ) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    } else {
-      Utils.flushBarMessage(
-          message: "Could not Launch LinkedIn currently!",
+        try{
+          await launchUrl(Uri.parse(url));
+        }catch(e){
+          Utils.flushBarMessage(
+          message: "Could not Launch linkedIn currently!",
           context: context,
           bgColor: Colors.redAccent);
-    }
+        }
   }
 
   static Widget DialogBox(
@@ -90,7 +87,7 @@ class Utils{
                 decoration: BoxDecoration(
                     color: selectedAppTheme.isDarkMode?
                     Colors.black:Colors.white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
@@ -99,7 +96,7 @@ class Utils{
                         Colors.white.withOpacity(0.3):Colors.black.withOpacity(0.3),
                         blurRadius: 4.0,
                         spreadRadius: 3.0,
-                        offset: Offset(4, 4)
+                        offset: const Offset(4, 4)
                     )],
                   image: DecorationImage(
                       image: AssetImage(gif)
@@ -120,7 +117,7 @@ class Utils{
                         Colors.white.withOpacity(0.3):Colors.black.withOpacity(0.3),
                         blurRadius: 4.0,
                         spreadRadius: 3.0,
-                        offset: Offset(4, 4)
+                        offset: const Offset(4, 4)
                     )]
                 ),
                 child: Column(
@@ -133,13 +130,13 @@ class Utils{
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                             width: 15,
                             height: 15,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: selectedAppTheme.isDarkMode?
-                                    AssetImage(ImagePaths.cancel_dark):AssetImage(ImagePaths.cancel_light),
+                                    const AssetImage(ImagePaths.cancel_dark):const AssetImage(ImagePaths.cancel_light),
                                     fit: BoxFit.cover
                                 )
                             ),
@@ -156,7 +153,7 @@ class Utils{
                           fontSize: 20
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -185,7 +182,7 @@ class Utils{
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(

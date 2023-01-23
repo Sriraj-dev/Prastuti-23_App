@@ -19,7 +19,6 @@ class EventsViewAnimation extends GetxController{
     pageAnimation =
         Tween<double>(begin: 0, end: 1).animate(pageAnimationController);
     pageAnimation.addListener(() {
-      print("THe value of animation is ${pageAnimation.value}");
       pagePaddingValue.value = pageAnimation.value;
     });
 
