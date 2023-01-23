@@ -48,11 +48,12 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
 
+
     List<Widget> views = [
-      const EventsView(),
-      const ProfileView(),
-      const ContactUsView(),
-      const AboutUsView(),
+       EventsView(),
+       ProfileView(),
+       ContactUsView(),
+       AboutUsView(),
     ];
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
