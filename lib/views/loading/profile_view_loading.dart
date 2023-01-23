@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
-import 'package:prastuti_23/config/image_paths.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/views/loading/shimmer_widget.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';

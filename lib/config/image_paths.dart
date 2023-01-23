@@ -2,14 +2,10 @@
 
 import 'dart:core';
 
-import 'package:prastuti_23/config/appTheme.dart';
-
 
 class ImagePaths{
 
   // Suffix "dark/light" after name is to indicate app theme in which it is to be used
-
-  //TODO: Add All the Image Paths Here and Use them in the Code - Yash
   static const  prastuti_logo = "assets/prastuti_logo.png";
   static const google_logo = "assets/login_view/google.png";
   static const google_logo_grey = "assets/login_view/google_grey.png";

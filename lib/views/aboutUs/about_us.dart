@@ -2,9 +2,7 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:blobs/blobs.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
@@ -33,12 +31,12 @@ class _AboutUsViewState extends State<AboutUsView> {
     return Container(
       decoration: BoxDecoration(
           image: selectedAppTheme.isDarkMode?
-          DecorationImage(
+          const DecorationImage(
               opacity: 1,
               image: AssetImage(ImagePaths.bgImage_dark),
               fit: BoxFit.cover
           )
-              :DecorationImage(
+              :const DecorationImage(
               opacity: 0.6,
               image: AssetImage(ImagePaths.bgImage_light),
               fit: BoxFit.cover
@@ -47,12 +45,12 @@ class _AboutUsViewState extends State<AboutUsView> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 30),
-          padding: EdgeInsets.symmetric(vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           height: SizeConfig.height*0.89,
           width: SizeConfig.width*0.95,
           child: ListView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             children: [
               Center(
                 child: Container(
@@ -61,7 +59,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                         image: selectedAppTheme.isDarkMode?
-                        AssetImage(ImagePaths.bulb_dark):AssetImage(ImagePaths.bulb_light),
+                        const AssetImage(ImagePaths.bulb_dark):const AssetImage(ImagePaths.bulb_light),
                         fit: BoxFit.cover,
                       ),
                   ),
@@ -78,7 +76,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                   )
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               AutoSizeText(
@@ -92,7 +90,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                 ),
                 textAlign: TextAlign.justify,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -106,7 +104,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                     )
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -120,7 +118,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                         'GEEKS for GEEKS',
                       'https://www.geeksforgeeks.org/'
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     sponsors(
@@ -128,7 +126,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                         'SKILLREACTOR',
                         'https://www.skillreactor.io/'
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     sponsors(
@@ -139,7 +137,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               AutoSizeText(
@@ -152,7 +150,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                     fontSize: 30,
                   )
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -194,7 +192,7 @@ class _AboutUsViewState extends State<AboutUsView> {
       ) {
     return InkWell(
       onTap: ()async{
-        Utils.launchURL(url, context);
+        Utils.launchLink(url, context);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -232,7 +230,7 @@ class _AboutUsViewState extends State<AboutUsView> {
       ) {
     return InkWell(
       onTap: ()async{
-        Utils.launchURL(url, context);
+        Utils.launchLink(url, context);
       },
       child: Container(
         height: SizeConfig.height*0.05,

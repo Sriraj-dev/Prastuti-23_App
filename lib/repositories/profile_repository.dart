@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prastuti_23/config/app_endpoints.dart';
 import 'package:prastuti_23/data/network/base_api_services.dart';
@@ -11,7 +9,7 @@ import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 
 class ProfileRepository {
-  BaseApiServices _apiServices = NetworkApiServices();
+  final BaseApiServices _apiServices = NetworkApiServices();
 
   Future<Teams> getTeamFromId(String id) async {
     dynamic response =

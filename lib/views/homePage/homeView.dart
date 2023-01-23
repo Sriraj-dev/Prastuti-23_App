@@ -8,7 +8,6 @@ import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/view_models/home_view_model.dart';
-import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/views/contactUsPage/contact_us.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
 import 'package:prastuti_23/views/profile/profile_view.dart';
@@ -49,11 +48,12 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
 
+
     List<Widget> views = [
-      EventsView(),
-      ProfileView(),
-      ContactUsView(),
-      AboutUsView(),
+       EventsView(),
+       ProfileView(),
+       ContactUsView(),
+       AboutUsView(),
     ];
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -126,7 +126,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     DateTime currentTime = DateTime.now();
 
     bool backButtonHasBeenPressedTwice = backButtonPressTime != null &&
-        currentTime.difference(backButtonPressTime) > Duration(seconds: 2);
+        currentTime.difference(backButtonPressTime) > const Duration(seconds: 2);
 
     if (backButtonHasBeenPressedTwice) {
       SystemNavigator.pop();
@@ -164,7 +164,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               .copyWith(bottom: 18),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Row(
@@ -173,7 +173,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                     ImagePaths.prastuti_logo,
                     scale: 1.2,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Text(
@@ -185,13 +185,13 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                             ? Colors.white
                             : AppTheme().secondaryColor),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   themeChange(),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ListTile(
@@ -256,7 +256,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                   color: AppTheme().kSecondaryColor,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Consumer(builder: (context, ref, child) {
@@ -281,7 +281,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                           height: SizeConfig.heightPercent * 3.5,
                           child: const SpinKitSpinningLines(
                               color: Colors.white))
-                          : Text(
+                          : const Text(
                         "Logout",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -313,8 +313,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: selectedAppTheme.isDarkMode
-                    ? AssetImage(ImagePaths.sun)
-                    : AssetImage(ImagePaths.moon),
+                    ? const AssetImage(ImagePaths.sun)
+                    : const AssetImage(ImagePaths.moon),
                 fit: BoxFit.cover),
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10)),

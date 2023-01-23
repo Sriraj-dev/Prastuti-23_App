@@ -8,11 +8,10 @@ class SplashViewModel{
 
 
   initiateApp(BuildContext context)async{
-    //TODO: Check User Session using SharedPreferences - Sriraj
 
     checkNotificationPermission();
 
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 3));
 
     
     Navigator.of(context).popAndPushNamed(RouteNames.loginView);
@@ -24,7 +23,6 @@ class SplashViewModel{
     OneSignal.shared.setAppId(Env.one_signal_app_id);
 
     OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-    print("Accepted permission: $accepted");
     });
   }
 
