@@ -447,6 +447,10 @@ class inputField extends StatelessWidget {
         SizedBox(
           width: SizeConfig.widthPercent * 50,
           child: TextField(
+            style: TextStyle(
+              color: selectedAppTheme.isDarkMode?
+                  Colors.white:Colors.black,
+            ),
             controller: controller,
             keyboardType: keyBoard,
             decoration: InputDecoration(
