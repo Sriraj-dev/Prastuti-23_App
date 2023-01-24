@@ -80,6 +80,8 @@ class ImagePaths{
   static const skillreactor = "assets/about_us/sponsors_skillreactor.jpg";
   static const techanalogy = "assets/about_us/sponsors_techanalogy.jpg";
   static const elm = "assets/about_us/sponsors_elm.png";
+  static const ieee = "assets/about_us/sponsors_ieee.png";
+  static const tlc = "assets/about_us/tlc.png";
 
   //registration:
   static const male_icon_dark = "assets/registrationForm/male_dark.png";
