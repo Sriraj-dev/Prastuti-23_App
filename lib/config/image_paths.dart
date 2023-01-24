@@ -79,6 +79,7 @@ class ImagePaths{
   static const gfg = "assets/about_us/sponsors_gfg.png";
   static const skillreactor = "assets/about_us/sponsors_skillreactor.jpg";
   static const techanalogy = "assets/about_us/sponsors_techanalogy.jpg";
+  static const elm = "assets/about_us/sponsors_elm.png";
 
   //registration:
   static const male_icon_dark = "assets/registrationForm/male_dark.png";
@@ -94,4 +95,8 @@ class ImagePaths{
   //Theme
   static const sun = "assets/sun.png";
   static const moon = "assets/moon.png";
+
+  //Developers
+  static const manash = "assets/contact_us/manash.png";
+  static const yash = "assets/contact_us/yash.png";
 }
