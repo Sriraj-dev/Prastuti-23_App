@@ -159,7 +159,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
                         width: 35,
@@ -261,7 +261,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                   FittedBox(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Transform.rotate(
                           angle: math.pi/2,
@@ -296,7 +296,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                  
+
                                     (2*index < event_name.length)?Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 17),
                                       child: contactWidget(
@@ -308,7 +308,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                         SizeConfig.width*0.30,
                                       ),
                                     ):const SizedBox(width: 0),
-                  
+
                                     (2*index+1 < event_name.length)?Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 17),
                                       child: contactWidget(
@@ -320,7 +320,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                         SizeConfig.width*0.30,
                                       ),
                                     ):const SizedBox(width: 0),
-                  
+
                                   ],
                                 );
                               },
@@ -343,7 +343,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                       ],
                     ),
                   ),
-                  ],
+                ],
               ),
             ],
           ),
@@ -423,9 +423,9 @@ class _ContactUsViewState extends State<ContactUsView> {
                                 launchUrl(call);
                               } else {
                                 Utils.flushBarMessage(
-                                  message: "Could not Call $phone",
-                                  context: context,
-                                  bgColor: Colors.redAccent
+                                    message: "Could not Call $phone",
+                                    context: context,
+                                    bgColor: Colors.redAccent
                                 );
                               }
                             },

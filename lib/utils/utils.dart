@@ -35,7 +35,7 @@ class Utils{
       ) {
     return NetworkGiffDialog(
       image: Image.network(
-          '',
+        '',
         fit: BoxFit.cover,
       ),
       title: Text(
@@ -55,14 +55,14 @@ class Utils{
       String url,
       BuildContext context,
       ) async {
-        try{
-          await launchUrl(Uri.parse(url));
-        }catch(e){
-          Utils.flushBarMessage(
+    try{
+      await launchUrl(Uri.parse(url));
+    }catch(e){
+      Utils.flushBarMessage(
           message: "Could not Launch linkedIn currently!",
           context: context,
           bgColor: Colors.redAccent);
-        }
+    }
   }
 
   static Widget DialogBox(
@@ -73,7 +73,7 @@ class Utils{
       String gif,
       bool creatingTeam
       ) {
-        TextEditingController textBox = TextEditingController();
+    TextEditingController textBox = TextEditingController();
     return Center(
       child: Container(
         height: SizeConfig.height*0.5,
@@ -84,24 +84,23 @@ class Utils{
             Container(
               width: SizeConfig.width*0.595,
               height: SizeConfig.height*0.2,
-                decoration: BoxDecoration(
-                    color: selectedAppTheme.isDarkMode?
-                    Colors.black:Colors.white,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    boxShadow: [BoxShadow(
-                        color: selectedAppTheme.isDarkMode?
-                        Colors.white.withOpacity(0.3):Colors.black.withOpacity(0.3),
-                        blurRadius: 4.0,
-                        spreadRadius: 3.0,
-                        offset: const Offset(4, 4)
-                    )],
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 15, 6, 27),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  boxShadow: [BoxShadow(
+                      color: selectedAppTheme.isDarkMode?
+                      Colors.white.withOpacity(0.3):Colors.black.withOpacity(0.3),
+                      blurRadius: 4.0,
+                      spreadRadius: 3.0,
+                      offset: const Offset(4, 4)
+                  )],
                   image: DecorationImage(
                       image: AssetImage(gif)
                   )
-                ),
+              ),
             ),
             Positioned(
               top: SizeConfig.height*0.165,
@@ -170,6 +169,10 @@ class Utils{
                         child: TextField(
                           controller: textBox,
                           keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(
+                              color: selectedAppTheme.isDarkMode?
+                              Colors.white:Colors.black
+                          ),
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(50)),
