@@ -131,7 +131,7 @@ class _EventsViewState extends State<EventsView>
                                       onPressed: () {
                                         (eventViewController.getRegistrationStatus(events[_selectedEvent.value].sId!)
                                         == handler.REGISTERED)?
-                                        openWhatsappLink(events[_selectedEvent.value].whatsappLink??"https://chat.whatsapp.com/"):
+                                        openWhatsappLink(events[_selectedEvent.value].whatsappLink??""):
                                         !events[_selectedEvent.value].teamEvent!?
                                         startSoloRegistration(_selectedEvent.value,events[_selectedEvent.value].sId!)
                                         :showModalBottomSheet(
