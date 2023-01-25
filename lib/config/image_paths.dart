@@ -98,7 +98,8 @@ class ImagePaths{
   static const sun = "assets/sun.png";
   static const moon = "assets/moon.png";
 
-  //Developers
+  //Developers Contact
   static const manash = "assets/contact_us/manash.png";
   static const yash = "assets/contact_us/yash.png";
+  static const sriraj = "assets/contact_us/sriraj.jpg";
 }

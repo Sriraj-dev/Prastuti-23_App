@@ -151,7 +151,7 @@ List<String> team_name = [
 ];
 
 List<String> developers_images = [
-  ImagePaths.app,
+  ImagePaths.sriraj,
   ImagePaths.manash,
   ImagePaths.yash,
 ];

@@ -362,7 +362,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                       child: Center(
                         child: AutoSizeText(
-                            'DEVELOPERS',
+                            'DEVELOPERS CONTACT',
                             style: GoogleFonts.comicNeue(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
@@ -385,7 +385,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                               contactWidget(
                                 developers_images[1],
                                 developers_names[1],
-                                'Junior',
+                                'Contributor',
                                 developers_phone[1],
                                 developers_linkedIn[1],
                                 SizeConfig.width*0.28,
@@ -406,7 +406,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                               contactWidget(
                                 developers_images[2],
                                 developers_names[2],
-                                'Junior',
+                                'Contributor',
                                 developers_phone[2],
                                 developers_linkedIn[2],
                                 SizeConfig.width*0.28,
