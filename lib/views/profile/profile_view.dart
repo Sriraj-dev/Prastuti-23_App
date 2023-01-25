@@ -10,6 +10,8 @@ import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/models/UserModel.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:prastuti_23/models/teamsModel.dart';
+import 'package:prastuti_23/repositories/profile_repository.dart';
+import 'package:prastuti_23/repositories/splash_repository.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/events_view_model.dart';
 import 'package:prastuti_23/view_models/profile_view_model.dart';
@@ -207,10 +209,24 @@ class _ProfileViewState extends State<ProfileView>
                 body: TabBarView(
                   controller: _tabController,
                   children: [
-                    buildEventsList(currentUser.eventsParticipated!),
+                    RefreshIndicator(
+                      onRefresh: ()async{
+                        if(await ProfileViewModel().refreshApp(context)){
+                          setState(() {});
+                        }
+                      },
+                      child: buildEventsList(currentUser.eventsParticipated!)
+                    ),
                     Stack(
                       children: [
-                        buildTeamsList(currentUser.teams!),
+                        RefreshIndicator(
+                          onRefresh: () async {
+                            if (await ProfileViewModel().refreshApp(context)) {
+                              setState(() {});
+                            }
+                          },
+                          child: buildTeamsList(currentUser.teams!)
+                        ),
                         Positioned(
                             bottom: 10,
                             right: 30,
@@ -297,7 +313,14 @@ class _ProfileViewState extends State<ProfileView>
                         )
                       ],
                     ),
-                    buildRequestList(currentUser.pendingRequests!)
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        if (await ProfileViewModel().refreshApp(context)) {
+                          setState(() {});
+                        }
+                      },
+                      child: buildRequestList(currentUser.pendingRequests!)
+                    )
                   ]
                 )
               ),
@@ -310,15 +333,19 @@ class _ProfileViewState extends State<ProfileView>
   Widget buildRequestList(List<PendingRequests> requests) {
 
     if(requests.isEmpty){
-      return Center(
-        child: Text(
-            "You have no pending requests!!",
-          style: AppTheme().headText2.copyWith(
-              fontSize: 17,
-              color: selectedAppTheme.isDarkMode?
-              Colors.white:AppTheme().primaryColor
-          ),
-        ),
+      return ListView(
+        children: [
+          Center(
+            child: Text(
+                "You have no pending requests!!",
+              style: AppTheme().headText2.copyWith(
+                  fontSize: 17,
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:AppTheme().primaryColor
+              ),
+            ),
+          )
+      ],
       );
     }
 

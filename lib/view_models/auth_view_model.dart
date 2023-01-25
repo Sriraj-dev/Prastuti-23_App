@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:prastuti_23/config/env.dart';
+import 'package:prastuti_23/repositories/splash_repository.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:prastuti_23/models/UserModel.dart';
 import 'package:prastuti_23/repositories/auth_repository.dart';
@@ -55,30 +56,12 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
         state = false;
         return;
       }
-      //log("before assigning : ${currentUser.toString()}");
+
       currentUser = currentUserModel.user!;
-      log("after assigning : ${currentUser.eventsParticipated!}");
-
-      if(currentUser.appId == null || currentUser.appId ==" " || currentUser.appId!.isEmpty){
-        String playerId = await NotificationServices().getPlayerId();
-
-        AuthRepository().updatePlayerId(playerId);
-      }else{
-        AuthRepository().checkSubscription();
-      }
 
       
-
-
-      if(currentUser.isFormFilled!){
-        Navigator.of(context).popAndPushNamed(RouteNames.homeView);
-            Utils.flushBarMessage(
-            message: "Successfully Logged In",
-            context: context,
-            bgColor: Colors.green);
-      }else{
-        Navigator.of(context).pushNamed(RouteNames.registrationForm);
-      }
+      navigateToRequiredScreen(context);
+      SecureStorage().saveToken(currentUser.sId!);
       
       state = false;
     } catch (error) {
@@ -90,11 +73,37 @@ class AuthViewModelNotifier extends StateNotifier<bool>{
     }
   }
 
+  navigateToRequiredScreen(BuildContext context)async{
+    if(currentUser.appId == null || currentUser.appId ==" " || currentUser.appId!.isEmpty){
+      String playerId = await NotificationServices().getPlayerId();
+
+      AuthRepository().updatePlayerId(playerId);
+    }else{
+      AuthRepository().checkSubscription();
+    }
+
+
+    if (currentUser.isFormFilled!) {
+      Navigator.of(context).popAndPushNamed(RouteNames.homeView);
+      Utils.flushBarMessage(
+          message: "Successfully Logged In",
+          context: context,
+          bgColor: Colors.green);
+    } else {
+      Navigator.of(context).pushNamed(RouteNames.registrationForm);
+    }
+  }
+
   Future<void> logout({BuildContext? context})async{
 
     state = true;
-    await _googleSignIn.disconnect();
-    Restart.restartApp(webOrigin: RouteNames.loginView);
+    
+    if(_googleSignIn.currentUser != null){
+      await _googleSignIn.disconnect();
+    }
+    currentUser = User.fromJson({});
+    
+    //Restart.restartApp(webOrigin: RouteNames.loginView);
 
     state = false;
     Navigator.of(context!).pop();

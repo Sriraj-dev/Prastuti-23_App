@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:prastuti_23/config/app_endpoints.dart';
 import 'package:prastuti_23/data/network/base_api_services.dart';
@@ -16,6 +17,18 @@ class ProfileRepository {
         await _apiServices.getGetApiResponse(AppEndPoints().getTeamUrl(id));
 
     return response = TeamModel.fromJson(json.decode(response.body)).team!;
+  }
+
+  Future<bool> getUser(String id)async{
+    dynamic response =
+        await _apiServices.getGetApiResponse(AppEndPoints().getUser(id));
+
+    if (response.statusCode == 200) {
+      currentUser = User.fromJson(json.decode(response.body)[0]);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<bool> placeCreateTeamRequest(

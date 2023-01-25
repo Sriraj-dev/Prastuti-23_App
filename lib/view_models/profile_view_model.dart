@@ -1,15 +1,28 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:prastuti_23/repositories/profile_repository.dart';
+import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
 
 List<String> joinedAs = [];
 List<String> scoreInEvent = [];
 List<String> startDate = [];
 
-class ProfileViewModel{
-  
-void buildRegisteredEventsDetails(List<Events> regEvents) {
+class ProfileViewModel {
+  Future<bool> refreshApp(BuildContext context) async {
+    if (await ProfileRepository().getUser(currentUser.sId!)) {
+      return true;
+    } else {
+      Utils.flushBarMessage(
+          message: "An Error Occurred!!",
+          context: context,
+          bgColor: Colors.redAccent);
+      return false;
+    }
+  }
+
+  void buildRegisteredEventsDetails(List<Events> regEvents) {
     for (int index = 0; index < regEvents.length; index++) {
       //user id if its a solo event ,
       //team id if its a team event.
@@ -48,40 +61,39 @@ void buildRegisteredEventsDetails(List<Events> regEvents) {
     }
   }
 
-  createTeam({required String teamName,
-      required  String userId,
-      required  BuildContext context}) async {
+  createTeam(
+      {required String teamName,
+      required String userId,
+      required BuildContext context}) async {
     Map<String, dynamic> data = {
       "userID": userId,
       "Team_Name": teamName,
       "Member_Count": 1
     };
 
-    
     return await ProfileRepository().placeCreateTeamRequest(data, context);
   }
 
-  sendTeamRequest({required String email,
+  sendTeamRequest(
+      {required String email,
       required String userId,
       required String teamId,
-      required BuildContext context})async{
-    Map<String,dynamic> data = {
+      required BuildContext context}) async {
+    Map<String, dynamic> data = {
       "recepient_email": email,
-      "team_id":teamId,
-      "user_id":userId
+      "team_id": teamId,
+      "user_id": userId
     };
 
     return await ProfileRepository().placeInvitationToUser(data, context);
   }
 
-  acceptRequest(String requestId,BuildContext context)async{
-
-    Map<String ,dynamic> data = {
-      "requestId" : requestId,
+  acceptRequest(String requestId, BuildContext context) async {
+    Map<String, dynamic> data = {
+      "requestId": requestId,
     };
 
     return await ProfileRepository().acceptInvitation(data, context);
-
   }
 
   rejectRequest(String requestId, BuildContext context) async {
