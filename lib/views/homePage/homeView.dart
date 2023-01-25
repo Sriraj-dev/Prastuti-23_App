@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:prastuti_23/animations/home_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/screen_config.dart';
+import 'package:prastuti_23/repositories/splash_repository.dart';
 import 'package:prastuti_23/view_models/home_view_model.dart';
 import 'package:prastuti_23/views/contactUsPage/contact_us.dart';
 import 'package:prastuti_23/views/eventsPage/events_view.dart';
@@ -263,6 +264,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                 bool isLoading = ref.watch(isLoggingIn);
                 return InkWell(
                   onTap: () async {
+                    await SecureStorage().deleteToken();
                     await ref
                         .read(isLoggingIn.notifier)
                         .logout(context: context);

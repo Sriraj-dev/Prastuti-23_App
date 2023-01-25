@@ -150,6 +150,30 @@ List<String> team_name = [
   'Esports',
 ];
 
+List<String> developers_images = [
+  ImagePaths.sriraj,
+  ImagePaths.manash,
+  ImagePaths.yash,
+];
+
+List<String> developers_names = [
+  "Sriraj",
+  "Manash",
+  "Yash",
+];
+
+List<String> developers_phone = [
+  '8074821478',
+  '7004164334',
+  '7057956369',
+];
+
+List<String> developers_linkedIn = [
+  'https://www.linkedin.com/in/sriraj-palakurthi-ab86061bb',
+  "https://www.linkedin.com/in/manash-kumar-b73921222",
+  "https://www.linkedin.com/in/yash-somalkar-337957227",
+];
+
 //marketing team mai harsh vardhan.
 //oscillion ka event head image. + linkedIn.
 

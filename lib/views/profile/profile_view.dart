@@ -10,7 +10,10 @@ import 'package:prastuti_23/config/screen_config.dart';
 import 'package:prastuti_23/models/UserModel.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:prastuti_23/models/teamsModel.dart';
+import 'package:prastuti_23/repositories/profile_repository.dart';
+import 'package:prastuti_23/repositories/splash_repository.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
+import 'package:prastuti_23/view_models/events_view_model.dart';
 import 'package:prastuti_23/view_models/profile_view_model.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../utils/utils.dart';
@@ -115,7 +118,7 @@ class _ProfileViewState extends State<ProfileView>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CircleAvatar(
-                                  radius: 60,
+                                  radius: 55,
                                   backgroundColor: Colors.white,
                                   backgroundImage: NetworkImage(currentUser.profilePhoto!),
                                 ),
@@ -132,10 +135,12 @@ class _ProfileViewState extends State<ProfileView>
                                           fontSize: 22,
                                         ),
                                       ),
-                                      Text(currentUser.emailId!,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                        style: AppTheme().headText2
+                                      FittedBox(
+                                        child: Text(currentUser.emailId!,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: AppTheme().headText2
+                                        ),
                                       ),
                                       AutoSizeText("Score : ${currentUser.totalScore!}",
                                         style: AppTheme().headText2,
@@ -204,10 +209,24 @@ class _ProfileViewState extends State<ProfileView>
                 body: TabBarView(
                   controller: _tabController,
                   children: [
-                    buildEventsList(currentUser.eventsParticipated!),
+                    RefreshIndicator(
+                      onRefresh: ()async{
+                        if(await ProfileViewModel().refreshApp(context)){
+                          setState(() {});
+                        }
+                      },
+                      child: buildEventsList(currentUser.eventsParticipated!)
+                    ),
                     Stack(
                       children: [
-                        buildTeamsList(currentUser.teams!),
+                        RefreshIndicator(
+                          onRefresh: () async {
+                            if (await ProfileViewModel().refreshApp(context)) {
+                              setState(() {});
+                            }
+                          },
+                          child: buildTeamsList(currentUser.teams!)
+                        ),
                         Positioned(
                             bottom: 10,
                             right: 30,
@@ -294,7 +313,14 @@ class _ProfileViewState extends State<ProfileView>
                         )
                       ],
                     ),
-                    buildRequestList(currentUser.pendingRequests!)
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        if (await ProfileViewModel().refreshApp(context)) {
+                          setState(() {});
+                        }
+                      },
+                      child: buildRequestList(currentUser.pendingRequests!)
+                    )
                   ]
                 )
               ),
@@ -307,15 +333,19 @@ class _ProfileViewState extends State<ProfileView>
   Widget buildRequestList(List<PendingRequests> requests) {
 
     if(requests.isEmpty){
-      return Center(
-        child: Text(
-            "You have no pending requests!!",
-          style: AppTheme().headText2.copyWith(
-              fontSize: 17,
-              color: selectedAppTheme.isDarkMode?
-              Colors.white:AppTheme().primaryColor
-          ),
-        ),
+      return ListView(
+        children: [
+          Center(
+            child: Text(
+                "You have no pending requests!!",
+              style: AppTheme().headText2.copyWith(
+                  fontSize: 17,
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:AppTheme().primaryColor
+              ),
+            ),
+          )
+      ],
       );
     }
 
@@ -388,7 +418,10 @@ class _ProfileViewState extends State<ProfileView>
       onPressed: () async {
         isAcceptingRequest[index] = true;
         await ProfileViewModel().acceptRequest(requestId, context);
-        setState(() {});
+        setState(() {
+          ProfileViewModel()
+              .buildRegisteredEventsDetails(currentUser.eventsParticipated!);
+        });
         isAcceptingRequest[index] = false;
       },
       child: FittedBox(

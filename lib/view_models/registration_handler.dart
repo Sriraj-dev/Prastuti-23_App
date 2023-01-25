@@ -32,7 +32,7 @@ class RegistrationHandler{
 
     bool isRegistered = await RegistrationRepository().sendTeamRegistrationRequest(data, context);
     if(isRegistered){
-      eventViewController.changeRegistrationStatus(eventIndex, handler.REGISTERED);
+      eventViewController.changeRegistrationStatus(eventId, handler.REGISTERED);
       return true;
     }else{
       return false;

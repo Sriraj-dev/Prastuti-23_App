@@ -133,6 +133,30 @@ class _AboutUsViewState extends State<AboutUsView> {
                         ImagePaths.techanalogy,
                         'TEACH ANALOGY',
                         'https://techanalogy.org/'
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    sponsors(
+                        ImagePaths.elm,
+                        'ELEARNMARKETS',
+                        'https://www.elearnmarkets.com/'
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    sponsors(
+                        ImagePaths.ieee,
+                        'IEEE',
+                        'https://www.ieee.org/'
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    sponsors(
+                        ImagePaths.tlc,
+                        'TEACHING\n LEARNING CENTRE',
+                        'https://www.iitbhu.ac.in/cf/tlc/'
                     )
                   ],
                 ),
@@ -211,6 +235,7 @@ class _AboutUsViewState extends State<AboutUsView> {
           ),
           Text(
             name,
+            textAlign: TextAlign.center,
             style: AppTheme().headText1.copyWith(
               fontSize: 20,
               letterSpacing: 1,

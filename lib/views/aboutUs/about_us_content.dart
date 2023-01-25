@@ -5,7 +5,7 @@ List<String> about_us_links = [
   'https://www.instagram.com/prastuti.iitbhu/',
   'mailto:prastuti.techteam@gmail.com',
   'https://www.linkedin.com/company/prastuti/',
-  'https://prastuti-2023-jx0u.onrender.com/',
+  'https://prastuti.in/',
 ];
 
 List<String> sponsors = [

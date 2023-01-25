@@ -37,13 +37,18 @@ class _ShowModelTeamsState extends State<ShowModelTeams> {
   @override
   Widget build(BuildContext context) {
     if (currentUser.teams!.isEmpty) {
-      return Center(
-        child: Text(
-          "Please create or join a team before registering\n\nGO TO PROFILE PAGE",
-          style: AppTheme().headText2.copyWith(
-            color: selectedAppTheme.isDarkMode
-                  ? Colors.white
-                  : AppTheme().secondaryColor
+      return Container(
+        color: selectedAppTheme.isDarkMode?
+        Colors.black.withOpacity(0.5):Colors.white.withOpacity(0.5),
+        child: Center(
+          child: Text(
+            "Please create or join a team before registering\nGO TO PROFILE PAGE",
+            textAlign: TextAlign.center,
+            style: AppTheme().headText2.copyWith(
+              color: selectedAppTheme.isDarkMode
+                    ? Colors.white
+                    : AppTheme().secondaryColor
+            ),
           ),
         ),
       );

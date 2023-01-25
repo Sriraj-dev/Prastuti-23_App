@@ -67,8 +67,18 @@ class User {
     name = json['Name'];
     emailId = json['email_id'];
     profilePhoto = json['Profile_Photo'];
-    interests = json['Interests'].cast<String>();
-    socialMediaLinks = json['SocialMedia_Links'].cast<String>();
+    if (json['Interests'] != null) {
+      interests = <String>[];
+      json['Interests'].forEach((v) {
+        interests!.add(v.toString());
+      });
+    }
+    if (json['SocialMedia_Links'] != null) {
+      socialMediaLinks = <String>[];
+      json['SocialMedia_Links'].forEach((v) {
+        socialMediaLinks!.add(v.toString());
+      });
+    }
 
     appId = json['App_id'];
     isFormFilled = json['isFormFilled'];

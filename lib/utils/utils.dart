@@ -170,6 +170,10 @@ class Utils{
                         child: TextField(
                           controller: textBox,
                           keyboardType: TextInputType.emailAddress,
+                          style: TextStyle(
+                              color: selectedAppTheme.isDarkMode?
+                              Colors.white:Colors.black
+                          ),
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(50)),
