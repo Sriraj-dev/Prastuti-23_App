@@ -118,7 +118,7 @@ class _ProfileViewState extends State<ProfileView>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CircleAvatar(
-                                  radius: 60,
+                                  radius: 55,
                                   backgroundColor: Colors.white,
                                   backgroundImage: NetworkImage(currentUser.profilePhoto!),
                                 ),
