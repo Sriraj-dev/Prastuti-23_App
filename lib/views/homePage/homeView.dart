@@ -126,8 +126,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   Future<bool> _onWillPop() async {
     DateTime currentTime = DateTime.now();
 
-    bool backButtonHasBeenPressedTwice = backButtonPressTime != null &&
-        currentTime.difference(backButtonPressTime) > const Duration(seconds: 2);
+    bool backButtonHasBeenPressedTwice = currentTime.difference(backButtonPressTime) > const Duration(seconds: 2) &&
+            currentTime.difference(backButtonPressTime) < const Duration(seconds: 5);
 
     if (backButtonHasBeenPressedTwice) {
       SystemNavigator.pop();
