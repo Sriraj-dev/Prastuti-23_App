@@ -133,14 +133,6 @@ class _AboutUsViewState extends State<AboutUsView> {
                         ImagePaths.techanalogy,
                         'TEACH ANALOGY',
                         'https://techanalogy.org/'
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    sponsors(
-                        ImagePaths.elm,
-                        'eLearnMarkets',
-                        'https://www.elearnmarkets.com/'
                     )
                   ],
                 ),
