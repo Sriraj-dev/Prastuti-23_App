@@ -17,9 +17,7 @@ class NetworkApiServices extends BaseApiServices{
         headers: {
         "Content-Type": "application/json"
         }
-      ).timeout(const Duration(seconds: 10)).catchError((e){
-        return "error";
-      });
+      ).timeout(const Duration(seconds: 20));
       responseJson = checkResponse(response);
     }on SocketException{
       throw FetchDataException("No Internet Connection");

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/registration_handler.dart';
 
 import '../models/eventListModel.dart';
@@ -13,22 +14,29 @@ final eventViewController = Get.put(eventsViewModel);
 
 class EventsViewModel extends GetxController{
 
-  RxList<handler> _isRegistered = <handler>[].obs;
+  //RxMap<handler> _isRegistered = <String,handler>{}.obs;
+  RxMap<String,handler> _isRegistered = <String,handler>{}.obs;
 
-  handler getRegistrationStatus(int index) => _isRegistered[index];
+  handler getRegistrationStatus(String eventId) => _isRegistered[eventId]??handler.NOTREGISTERED;
 
-  initiateRegistrationStatus(List<Events> events,List<String> registeredEventIds){
+  verifyRegistrationStatus(List<Events> events){
+    List<String> registeredEventIds = [];
+    currentUser.eventsParticipated!.forEach((element) {
+      print("User is registered in - ${element.name!}");
+      registeredEventIds.add(element.sId!);
+    });
+    print("Im Verifying events again!! - ${registeredEventIds.length}");
     events.forEach((element) {
       if (registeredEventIds.contains(element.sId)) {
-        _isRegistered.add(handler.REGISTERED);
+        _isRegistered[element.sId!] = handler.REGISTERED;
       } else {
-        _isRegistered.add(handler.NOTREGISTERED);
+        _isRegistered[element.sId!] = handler.NOTREGISTERED;
       }
     });
   }
 
-  changeRegistrationStatus(int index, handler status){
-    _isRegistered[index] = status;
+  changeRegistrationStatus(String eventId, handler status){
+    _isRegistered[eventId] = status;
   }
 
 }

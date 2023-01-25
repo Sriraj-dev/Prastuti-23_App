@@ -11,6 +11,7 @@ import 'package:prastuti_23/models/UserModel.dart';
 import 'package:prastuti_23/models/eventListModel.dart';
 import 'package:prastuti_23/models/teamsModel.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
+import 'package:prastuti_23/view_models/events_view_model.dart';
 import 'package:prastuti_23/view_models/profile_view_model.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../../utils/utils.dart';
@@ -390,7 +391,10 @@ class _ProfileViewState extends State<ProfileView>
       onPressed: () async {
         isAcceptingRequest[index] = true;
         await ProfileViewModel().acceptRequest(requestId, context);
-        setState(() {});
+        setState(() {
+          ProfileViewModel()
+              .buildRegisteredEventsDetails(currentUser.eventsParticipated!);
+        });
         isAcceptingRequest[index] = false;
       },
       child: FittedBox(

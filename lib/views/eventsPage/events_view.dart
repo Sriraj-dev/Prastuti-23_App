@@ -19,6 +19,7 @@ import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
 import 'package:prastuti_23/views/eventsPage/show_model_team.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../config/image_paths.dart';
 import '../../view_models/events_view_model.dart';
 
@@ -35,16 +36,12 @@ class _EventsViewState extends State<EventsView>
   final _selectedEvent = 0.obs;
 
 
-  List<String> registeredEventIds = [];
+  
 
   @override
   void initState() {
     super.initState();
     eventsViewAnimation.initiatePageAnimation(this);
-    currentUser.eventsParticipated!.forEach((element) {
-      print("User is registered in - ${element.name!}");
-      registeredEventIds.add(element.sId!);
-    });
   }
 
 
@@ -86,8 +83,7 @@ class _EventsViewState extends State<EventsView>
               loading: ()=>const Events_view_skeleton(),
               data: (allEvents){
                 List<Events> events = allEvents.events as List<Events>;
-                eventViewController.initiateRegistrationStatus(events,registeredEventIds);
-
+                eventViewController.verifyRegistrationStatus(events);
                 return Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: buildAppBar(events),
@@ -133,7 +129,7 @@ class _EventsViewState extends State<EventsView>
                                     ),
                                     ElevatedButton(
                                       onPressed: () {
-                                        (eventViewController.getRegistrationStatus(_selectedEvent.value)
+                                        (eventViewController.getRegistrationStatus(events[_selectedEvent.value].sId!)
                                         == handler.REGISTERED)?
                                         openWhatsappLink(events[_selectedEvent.value].whatsappLink??"https://chat.whatsapp.com/"):
                                         !events[_selectedEvent.value].teamEvent!?
@@ -152,7 +148,9 @@ class _EventsViewState extends State<EventsView>
                                                                     .value]));
                                       },
                                       child: (eventViewController.getRegistrationStatus(
-                                                      _selectedEvent.value)==handler.REGISTERED)?
+                                                      events[_selectedEvent
+                                                                    .value]
+                                                                .sId!)==handler.REGISTERED)?
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -179,7 +177,9 @@ class _EventsViewState extends State<EventsView>
                                           ),
                                         ],
                                       ):(eventViewController.getRegistrationStatus(
-                                                      _selectedEvent.value)==handler.LOADING)?
+                                                      events[_selectedEvent
+                                                                        .value]
+                                                                    .sId!)==handler.LOADING)?
                                       const Center(
                                         child: SpinKitWave(
                                           color: Colors.white,
@@ -197,10 +197,14 @@ class _EventsViewState extends State<EventsView>
                                       style: ElevatedButton.styleFrom(
                                         shape: const StadiumBorder(),
                                         backgroundColor: (eventViewController.getRegistrationStatus(
-                                                        _selectedEvent.value)==handler.REGISTERED)?
+                                                        events[_selectedEvent
+                                                                      .value]
+                                                                  .sId!)==handler.REGISTERED)?
                                         Colors.green:AppTheme().kSecondaryColor,
                                         shadowColor: (eventViewController.getRegistrationStatus(
-                                                        _selectedEvent.value)==handler.REGISTERED)?
+                                                        events[_selectedEvent
+                                                                      .value]
+                                                                  .sId!)==handler.REGISTERED)?
                                         Colors.greenAccent:AppTheme().kSecondaryColor.withOpacity(0.5),
                                         elevation: 5,
                                         fixedSize: const Size(140, 40),
@@ -234,8 +238,9 @@ class _EventsViewState extends State<EventsView>
                                         physics: const BouncingScrollPhysics(),
                                         children: [
                                           (eventViewController.getRegistrationStatus(
-                                                          _selectedEvent
-                                                              .value)== handler.REGISTERED)
+                                                          events[_selectedEvent
+                                                                        .value]
+                                                                    .sId!)== handler.REGISTERED)
                                               ? Obx(
                                                   () => Opacity(
                                                     opacity: animationController
@@ -548,26 +553,21 @@ class _EventsViewState extends State<EventsView>
   }
   
   openWhatsappLink(String link) async{
-    await Clipboard.setData(ClipboardData(text: link));
-    Utils.flushBarMessage(
-      message: "Link copied to clipboard!!",
-      bgColor: Colors.green,
-      context: context
-    );
-    // if(await canLaunchUrl(Uri.parse(link))){
-    //   launchUrl(Uri.parse(link));
-    // }else{
-    //   Utils.flushBarMessage(
-    //     context: context,
-    //     bgColor: Colors.redAccent,
-    //     message: "Unable to Join the group!!"
-    //   );
-    // }
+
+    try{
+      await launch(link);
+    }catch(e){
+          await Clipboard.setData(ClipboardData(text: link));
+      Utils.flushBarMessage(
+          message: "Link copied to clipboard!!",
+          bgColor: Colors.green,
+          context: context);
+    }
   }
   
   startSoloRegistration(int index ,String eventId) async{
 
-    eventViewController.changeRegistrationStatus(index, handler.LOADING);
+    eventViewController.changeRegistrationStatus(eventId, handler.LOADING);
     bool result = await RegistrationHandler().registerInSoloEvent(
       context: context,
       userId: currentUser.sId!,
@@ -575,9 +575,9 @@ class _EventsViewState extends State<EventsView>
     );
 
     if(result) {
-      eventViewController.changeRegistrationStatus(index, handler.REGISTERED);
+      eventViewController.changeRegistrationStatus(eventId, handler.REGISTERED);
     } else {
-      eventViewController.changeRegistrationStatus(index, handler.NOTREGISTERED);
+      eventViewController.changeRegistrationStatus(eventId, handler.NOTREGISTERED);
     }
 
   }
