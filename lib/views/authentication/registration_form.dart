@@ -11,8 +11,6 @@ import 'package:prastuti_23/view_models/auth_view_model.dart';
 import 'package:prastuti_23/view_models/userForm_view_model.dart';
 import 'package:prastuti_23/views/ui/choice_chips.dart';
 
-import '../../utils/routes/route_names.dart';
-
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({Key? key}) : super(key: key);
 
@@ -374,9 +372,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, RouteNames.loginView);
-        },
+        onPressed: () {},
         icon: Icon(
           Icons.arrow_back_ios_new_rounded,
           color: AppTheme().primaryColor,

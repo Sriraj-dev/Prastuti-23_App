@@ -79,7 +79,6 @@ class ImagePaths{
   static const gfg = "assets/about_us/sponsors_gfg.png";
   static const skillreactor = "assets/about_us/sponsors_skillreactor.jpg";
   static const techanalogy = "assets/about_us/sponsors_techanalogy.jpg";
-  static const elm = "assets/about_us/sponsors_elm.jpg";
 
   //registration:
   static const male_icon_dark = "assets/registrationForm/male_dark.png";

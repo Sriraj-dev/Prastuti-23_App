@@ -19,7 +19,6 @@ import 'package:prastuti_23/views/eventsPage/events_view_content.dart';
 import 'package:prastuti_23/views/loading/events_view_loading.dart';
 import 'package:prastuti_23/views/eventsPage/show_model_team.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../config/image_paths.dart';
 import '../../view_models/events_view_model.dart';
 
@@ -67,41 +66,41 @@ class _EventsViewState extends State<EventsView>
 
     return Container(
       decoration: BoxDecoration(
-          image: selectedAppTheme.isDarkMode?
-          const DecorationImage(
-              opacity: 1,
-              image: AssetImage(ImagePaths.bgImage_dark),
-              fit: BoxFit.cover
-          )
-              :const DecorationImage(
-              opacity: 0.6,
-              image: AssetImage(ImagePaths.bgImage_light),
-              fit: BoxFit.cover
-          )
+        image: selectedAppTheme.isDarkMode?
+        const DecorationImage(
+            opacity: 1,
+            image: AssetImage(ImagePaths.bgImage_dark),
+            fit: BoxFit.cover
+        )
+        :const DecorationImage(
+            opacity: 0.6,
+            image: AssetImage(ImagePaths.bgImage_light),
+            fit: BoxFit.cover
+        )
       ),
       child: SafeArea(
         child: Consumer(builder: (context, ref, child) {
           final allEventsList = ref.watch(eventsProvider);
           return allEventsList.when(
-            error: (e, stackTrace) => ErrorView(error: e.toString(),),
-            loading: ()=>const Events_view_skeleton(),
-            data: (allEvents){
-              List<Events> events = allEvents.events as List<Events>;
-              eventViewController.initiateRegistrationStatus(events,registeredEventIds);
+              error: (e, stackTrace) => ErrorView(error: e.toString(),),
+              loading: ()=>const Events_view_skeleton(),
+              data: (allEvents){
+                List<Events> events = allEvents.events as List<Events>;
+                eventViewController.initiateRegistrationStatus(events,registeredEventIds);
 
-              return Scaffold(
+                return Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: buildAppBar(events),
                 body: (events.isEmpty)
                     ? Center(
-                  child: Text("We will be back with new events soon!!",
-                      style: AppTheme().headText2.copyWith(
-                        color: selectedAppTheme.isDarkMode
-                            ? Colors.white
-                            : AppTheme().primaryColor,
-                        fontSize: 20,
-                      )),
-                )
+                        child: Text("We will be back with new events soon!!",
+                            style: AppTheme().headText2.copyWith(
+                                  color: selectedAppTheme.isDarkMode
+                                      ? Colors.white
+                                      : AppTheme().primaryColor,
+                                  fontSize: 20,
+                                )),
+                      )
                     : Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,17 +111,17 @@ class _EventsViewState extends State<EventsView>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Obx(
-                                () => Opacity(
+                            () => Opacity(
                               opacity:
-                              animationController.pagePaddingValue.value,
+                                  animationController.pagePaddingValue.value,
                               child: FittedBox(
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       (events[_selectedEvent.value].name ??
-                                          "Invalid")
+                                              "Invalid")
                                           .toUpperCase(),
                                       style: AppTheme().headText1.copyWith(
                                           color: selectedAppTheme.isDarkMode?
@@ -135,25 +134,25 @@ class _EventsViewState extends State<EventsView>
                                     ElevatedButton(
                                       onPressed: () {
                                         (eventViewController.getRegistrationStatus(_selectedEvent.value)
-                                            == handler.REGISTERED)?
+                                        == handler.REGISTERED)?
                                         openWhatsappLink(events[_selectedEvent.value].whatsappLink??"https://chat.whatsapp.com/"):
                                         !events[_selectedEvent.value].teamEvent!?
                                         startSoloRegistration(_selectedEvent.value,events[_selectedEvent.value].sId!)
-                                            :showModalBottomSheet(
+                                        :showModalBottomSheet(
                                             context: context,
                                             shape:
-                                            const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.vertical(
+                                                const RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.vertical(
                                                     top: Radius.circular(27))),
                                             builder: (context) =>
                                                 ShowModelTeams(
-                                                    eventIndex: _selectedEvent.value,
-                                                    event: events[
-                                                    _selectedEvent
-                                                        .value]));
+                                                  eventIndex: _selectedEvent.value,
+                                                            event: events[
+                                                                _selectedEvent
+                                                                    .value]));
                                       },
                                       child: (eventViewController.getRegistrationStatus(
-                                          _selectedEvent.value)==handler.REGISTERED)?
+                                                      _selectedEvent.value)==handler.REGISTERED)?
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
@@ -180,7 +179,7 @@ class _EventsViewState extends State<EventsView>
                                           ),
                                         ],
                                       ):(eventViewController.getRegistrationStatus(
-                                          _selectedEvent.value)==handler.LOADING)?
+                                                      _selectedEvent.value)==handler.LOADING)?
                                       const Center(
                                         child: SpinKitWave(
                                           color: Colors.white,
@@ -188,7 +187,7 @@ class _EventsViewState extends State<EventsView>
                                           itemCount: 5,
                                         ),
                                       )
-                                          :AutoSizeText(
+                                      :AutoSizeText(
                                         'Register',
                                         style: AppTheme().headText2.copyWith(
                                           fontSize: 20,
@@ -198,10 +197,10 @@ class _EventsViewState extends State<EventsView>
                                       style: ElevatedButton.styleFrom(
                                         shape: const StadiumBorder(),
                                         backgroundColor: (eventViewController.getRegistrationStatus(
-                                            _selectedEvent.value)==handler.REGISTERED)?
+                                                        _selectedEvent.value)==handler.REGISTERED)?
                                         Colors.green:AppTheme().kSecondaryColor,
                                         shadowColor: (eventViewController.getRegistrationStatus(
-                                            _selectedEvent.value)==handler.REGISTERED)?
+                                                        _selectedEvent.value)==handler.REGISTERED)?
                                         Colors.greenAccent:AppTheme().kSecondaryColor.withOpacity(0.5),
                                         elevation: 5,
                                         fixedSize: const Size(140, 40),
@@ -219,14 +218,14 @@ class _EventsViewState extends State<EventsView>
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 3),
                             child: Obx(
-                                  () => Opacity(
+                              () => Opacity(
                                 opacity:
-                                animationController.pagePaddingValue.value,
+                                    animationController.pagePaddingValue.value,
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                       top: (1 -
-                                          animationController
-                                              .pagePaddingValue.value) *
+                                              animationController
+                                                  .pagePaddingValue.value) *
                                           25),
                                   child: SizedBox(
                                     width: double.infinity,
@@ -235,55 +234,55 @@ class _EventsViewState extends State<EventsView>
                                         physics: const BouncingScrollPhysics(),
                                         children: [
                                           (eventViewController.getRegistrationStatus(
-                                              _selectedEvent
-                                                  .value)== handler.REGISTERED)
+                                                          _selectedEvent
+                                                              .value)== handler.REGISTERED)
                                               ? Obx(
-                                                () => Opacity(
-                                              opacity: animationController
-                                                  .pagePaddingValue.value,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .center,
-                                                children: [
-                                                  Text(
-                                                    "Registered ",
-                                                    style: AppTheme()
-                                                        .headText2
-                                                        .copyWith(
-                                                      color: AppTheme()
-                                                          .kSecondaryColor,
+                                                  () => Opacity(
+                                                    opacity: animationController
+                                                        .pagePaddingValue.value,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "Registered ",
+                                                          style: AppTheme()
+                                                              .headText2
+                                                              .copyWith(
+                                                                color: AppTheme()
+                                                                    .kSecondaryColor,
+                                                              ),
+                                                        ),
+                                                        Image.asset(ImagePaths
+                                                            .registeredTick)
+                                                      ],
                                                     ),
                                                   ),
-                                                  Image.asset(ImagePaths
-                                                      .registeredTick)
-                                                ],
-                                              ),
-                                            ),
-                                          )
+                                                )
                                               : Container(),
                                           Container(
                                             padding:
-                                            const EdgeInsets.only(bottom: 10),
+                                                const EdgeInsets.only(bottom: 10),
                                             child: Text(
                                               events[_selectedEvent.value]
-                                                  .description ??
+                                                      .description ??
                                                   "",
                                               style: AppTheme()
                                                   .headText2
                                                   .copyWith(
-                                                  color: selectedAppTheme.isDarkMode?
-                                                  Colors.white:AppTheme().secondaryColor
+                                                      color: selectedAppTheme.isDarkMode?
+                                                      Colors.white:AppTheme().secondaryColor
                                               ),
                                             ),
                                           ),
                                           Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Icon(
                                                     Icons.people_alt_rounded,
@@ -294,22 +293,22 @@ class _EventsViewState extends State<EventsView>
                                                   ),
                                                   Text(
                                                     (events[_selectedEvent
-                                                        .value]
-                                                        .noOfParticipants ??
-                                                        0)
+                                                                    .value]
+                                                                .noOfParticipants ??
+                                                            0)
                                                         .toString(),
                                                     style: AppTheme()
                                                         .headText2
                                                         .copyWith(
-                                                        color: selectedAppTheme.isDarkMode?
-                                                        Colors.white:AppTheme().secondaryColor
+                                                            color: selectedAppTheme.isDarkMode?
+                                                            Colors.white:AppTheme().secondaryColor
                                                     ),
                                                   )
                                                 ],
                                               ),
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Icon(
                                                     Icons
@@ -321,15 +320,15 @@ class _EventsViewState extends State<EventsView>
                                                   ),
                                                   Text(
                                                     (events[_selectedEvent
-                                                        .value]
-                                                        .teamEvent!)
+                                                                .value]
+                                                            .teamEvent!)
                                                         ? "Team Event"
                                                         : "Solo Event",
                                                     style: AppTheme()
                                                         .headText2
                                                         .copyWith(
-                                                        color: selectedAppTheme.isDarkMode?
-                                                        Colors.white:AppTheme().secondaryColor
+                                                            color: selectedAppTheme.isDarkMode?
+                                                            Colors.white:AppTheme().secondaryColor
                                                     ),
                                                   )
                                                 ],
@@ -350,15 +349,15 @@ class _EventsViewState extends State<EventsView>
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                    color: selectedAppTheme.isDarkMode?
-                                                    Colors.white:AppTheme().primaryColor,
-                                                    fontWeight:
-                                                    FontWeight.w500),
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                               ),
                                               children: [
                                                 Event_Timeline(
                                                   timelines: events[
-                                                  _selectedEvent.value]
+                                                          _selectedEvent.value]
                                                       .timeline!,
                                                 ),
                                               ],
@@ -367,7 +366,7 @@ class _EventsViewState extends State<EventsView>
                                           Theme(
                                             data: Theme.of(context).copyWith(
                                                 dividerColor:
-                                                Colors.transparent),
+                                                    Colors.transparent),
                                             child: ExpansionTile(
                                               iconColor: selectedAppTheme.isDarkMode?
                                               Colors.white:Colors.black,
@@ -378,15 +377,15 @@ class _EventsViewState extends State<EventsView>
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                    color: selectedAppTheme.isDarkMode?
-                                                    Colors.white:AppTheme().primaryColor,
-                                                    fontWeight:
-                                                    FontWeight.w500),
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                               ),
                                               children: [
                                                 Text(
                                                   events[_selectedEvent.value]
-                                                      .rules ??
+                                                          .rules ??
                                                       "",
                                                   style: AppTheme().headText1.copyWith(
                                                       color: selectedAppTheme.isDarkMode?
@@ -401,7 +400,7 @@ class _EventsViewState extends State<EventsView>
                                           Theme(
                                             data: Theme.of(context).copyWith(
                                                 dividerColor:
-                                                Colors.transparent),
+                                                    Colors.transparent),
                                             child: ExpansionTile(
                                               iconColor: selectedAppTheme.isDarkMode?
                                               Colors.white:Colors.black,
@@ -412,16 +411,16 @@ class _EventsViewState extends State<EventsView>
                                                 style: AppTheme()
                                                     .headText2
                                                     .copyWith(
-                                                    color: selectedAppTheme.isDarkMode?
-                                                    Colors.white:AppTheme().primaryColor,
-                                                    fontWeight:
-                                                    FontWeight.w500),
+                                                        color: selectedAppTheme.isDarkMode?
+                                                        Colors.white:AppTheme().primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                               ),
                                               children: [
                                                 Text(
-                                                  events[_selectedEvent.value]
-                                                      .rewards ??
-                                                      "",
+                                                    events[_selectedEvent.value]
+                                                            .rewards ??
+                                                        "",
                                                   style: AppTheme().headText1.copyWith(
                                                       color: selectedAppTheme.isDarkMode?
                                                       Colors.white:Colors.black,
@@ -464,7 +463,7 @@ class _EventsViewState extends State<EventsView>
           }),
           itemBuilder: (context, index) {
             String image =
-            event_images[(events[index].name ?? "Codigo").toUpperCase()]!;
+                event_images[(events[index].name ?? "Codigo").toUpperCase()]!;
             return eventImage(image);
           }),
     );
@@ -472,43 +471,43 @@ class _EventsViewState extends State<EventsView>
 
   AppBar buildAppBar(List<Events> events) {
     return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      leading: Center(
-        child: InkWell(
-          onTap: _onDrawerTapped,
-          child: AnimatedIcon(
-            icon: AnimatedIcons.menu_close,
-            color: selectedAppTheme.isDarkMode?
-            Colors.white:AppTheme().secondaryColor,
-            size: 33,
-            progress: drawerAnimationController.view,
-          ),
-        ),
-      ),
-      actions: [
-        // Switch(value: selectedAppTheme.isDarkMode,
-        //   onChanged: (darkMode) async {
-        //     setState(() {
-        //       selectedAppTheme.isDarkMode = darkMode;
-        //     });
-        //     await selectedAppTheme.setMode(darkMode);
-        //
-        //   },),
-        Obx((() =>
-            AnimatedSmoothIndicator(
-              activeIndex: _selectedEvent.value,
-              count: events.length,
-              effect: WormEffect(
-                activeDotColor: AppTheme().kSecondaryColor,
-                dotHeight: 6.0.sp,
-                dotWidth: 6.0.sp,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: Center(
+              child: InkWell(
+                onTap: _onDrawerTapped,
+                child: AnimatedIcon(
+                  icon: AnimatedIcons.menu_close,
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:AppTheme().secondaryColor,
+                  size: 33,
+                  progress: drawerAnimationController.view,
+                ),
               ),
-            )
-        )),
-        const SizedBox(width: 15,),
-      ],
-    );
+            ),
+            actions: [
+              // Switch(value: selectedAppTheme.isDarkMode,
+              //   onChanged: (darkMode) async {
+              //     setState(() {
+              //       selectedAppTheme.isDarkMode = darkMode;
+              //     });
+              //     await selectedAppTheme.setMode(darkMode);
+              //
+              //   },),
+              Obx((() => 
+                AnimatedSmoothIndicator(
+                activeIndex: _selectedEvent.value,
+                count: events.length,
+                effect: WormEffect(
+                  activeDotColor: AppTheme().kSecondaryColor,
+                  dotHeight: 6.0.sp,
+                  dotWidth: 6.0.sp,
+                ),
+              )
+              )),
+              const SizedBox(width: 15,),
+            ],
+          );
   }
 
   Widget eventImage(String image) {
@@ -528,9 +527,9 @@ class _EventsViewState extends State<EventsView>
               BoxShadow(
                 color: selectedAppTheme.isDarkMode?
                 AppTheme().secondaryColor:AppTheme().secondaryColor.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 5,
-                offset: const Offset(4, 6),
+                spreadRadius: 6,
+                blurRadius: 10,
+                offset: const Offset(0, 5),
               ),
             ],
             image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
@@ -547,32 +546,32 @@ class _EventsViewState extends State<EventsView>
       drawerAnimationController.forward();
     }
   }
-
+  
   openWhatsappLink(String link) async{
-    // await Clipboard.setData(ClipboardData(text: link));
-    // Utils.flushBarMessage(
-    //     message: "Link copied to clipboard!!",
-    //     bgColor: Colors.green,
-    //     context: context
-    // );
-    if(await canLaunch(link)){
-      launch(link);
-    }else{
-      Utils.flushBarMessage(
-        context: context,
-        bgColor: Colors.redAccent,
-        message: "Unable to Join the group!!"
-      );
-    }
+    await Clipboard.setData(ClipboardData(text: link));
+    Utils.flushBarMessage(
+      message: "Link copied to clipboard!!",
+      bgColor: Colors.green,
+      context: context
+    );
+    // if(await canLaunchUrl(Uri.parse(link))){
+    //   launchUrl(Uri.parse(link));
+    // }else{
+    //   Utils.flushBarMessage(
+    //     context: context,
+    //     bgColor: Colors.redAccent,
+    //     message: "Unable to Join the group!!"
+    //   );
+    // }
   }
-
+  
   startSoloRegistration(int index ,String eventId) async{
 
     eventViewController.changeRegistrationStatus(index, handler.LOADING);
     bool result = await RegistrationHandler().registerInSoloEvent(
-        context: context,
-        userId: currentUser.sId!,
-        eventId: eventId
+      context: context,
+      userId: currentUser.sId!,
+      eventId: eventId
     );
 
     if(result) {
