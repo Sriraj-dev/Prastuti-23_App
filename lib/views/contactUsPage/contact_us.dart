@@ -270,6 +270,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                         ),
                       ),
                     ),
+
                     FittedBox(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -337,6 +338,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                                   );
                                 },
                               ),
+
                             ),
                           ),
                           Transform.rotate(
@@ -372,6 +374,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                         ),
                       ),
                     ),
+
                     Container(
                       width: SizeConfig.width*0.95,
                       height: SizeConfig.height*0.28,
@@ -423,6 +426,8 @@ class _ContactUsViewState extends State<ContactUsView> {
                 ),
               ],
             )],
+
+
           ),
         ),
       ),
@@ -500,9 +505,9 @@ class _ContactUsViewState extends State<ContactUsView> {
                                 launchUrl(call);
                               } else {
                                 Utils.flushBarMessage(
-                                    message: "Could not Call $phone",
-                                    context: context,
-                                    bgColor: Colors.redAccent
+                                  message: "Could not Call $phone",
+                                  context: context,
+                                  bgColor: Colors.redAccent
                                 );
                               }
                             },

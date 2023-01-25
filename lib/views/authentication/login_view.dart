@@ -292,10 +292,10 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
           ),
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
-            backgroundColor: AppTheme().primaryColorDark,
-            fixedSize: Size(140.sp, 50.sp),
-            shadowColor: AppTheme().primaryColorExtraDark,
-            elevation: 10.sp,
+                  backgroundColor: AppTheme().primaryColorDark,
+                  fixedSize: Size(140.sp, 50.sp),
+                  shadowColor: AppTheme().primaryColorExtraDark,
+                  elevation: 0.sp,
           ),
         ): ElevatedButton(
           onPressed: () async {
@@ -354,7 +354,7 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
             backgroundColor: AppTheme().primaryColorDark,
             fixedSize: Size(140.sp, 50.sp),
             shadowColor: AppTheme().primaryColorExtraDark,
-            elevation: 10.sp,
+            elevation: 15.sp,
           ),
         )
     );

@@ -28,10 +28,10 @@ enum ButtonState { init, loading, done }
 class _ProfileViewState extends State<ProfileView>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  RxBool creatingTeam = false.obs;
-  RxBool sendingRequest = false.obs;
-  RxList<bool> isAcceptingRequest = <bool>[].obs;
-  RxList<bool> isRejectingRequest = <bool>[].obs;
+   RxBool creatingTeam = false.obs;
+   RxBool sendingRequest = false.obs;
+   RxList<bool> isAcceptingRequest = <bool>[].obs;
+   RxList<bool> isRejectingRequest = <bool>[].obs;
 
 
   @override
@@ -57,29 +57,29 @@ class _ProfileViewState extends State<ProfileView>
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: AppTheme().backgroundColor,
       systemNavigationBarIconBrightness:
-      selectedAppTheme.isDarkMode ? Brightness.light : Brightness.dark,
+          selectedAppTheme.isDarkMode ? Brightness.light : Brightness.dark,
     ));
 
     return Container(
-      color: AppTheme().primaryColor,
-      child: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-              image: selectedAppTheme.isDarkMode?
-              const DecorationImage(
-                  opacity: 0.95,
-                  image:AssetImage(ImagePaths.bgImage_dark),
-                  fit: BoxFit.cover
-              )
-                  :const DecorationImage(
-                  opacity: 1,
-                  image: AssetImage(ImagePaths.bgImage_light),
-                  fit: BoxFit.cover
-              )
-          ),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: NestedScrollView(
+        color: AppTheme().primaryColor,
+        child: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+                image: selectedAppTheme.isDarkMode?
+                const DecorationImage(
+                    opacity: 0.95,
+                    image:AssetImage(ImagePaths.bgImage_dark),
+                    fit: BoxFit.cover
+                )
+                    :const DecorationImage(
+                    opacity: 1,
+                    image: AssetImage(ImagePaths.bgImage_light),
+                    fit: BoxFit.cover
+                )
+            ),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: NestedScrollView(
                 physics: const BouncingScrollPhysics(),
                 headerSliverBuilder: ((context, innerBoxIsScrolled)=>[
                   SliverAppBar(
@@ -99,7 +99,7 @@ class _ProfileViewState extends State<ProfileView>
                     ),
                     title: Text("Your Profile",
                       style: AppTheme().headText1.copyWith(
-                          fontSize: 20
+                        fontSize: 20
                       ),
                     ),
                     stretch: true,
@@ -109,7 +109,7 @@ class _ProfileViewState extends State<ProfileView>
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 10
+                              horizontal: 10
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -126,8 +126,8 @@ class _ProfileViewState extends State<ProfileView>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(currentUser.name!,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
                                         style: AppTheme().headText1.copyWith(
                                           fontSize: 22,
                                         ),
@@ -187,14 +187,14 @@ class _ProfileViewState extends State<ProfileView>
                             ),
                             labelColor: AppTheme().kSecondaryColor,
                             labelStyle: AppTheme().headText2.copyWith(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700
                             ),
                             unselectedLabelStyle: AppTheme()
-                                .headText2
-                                .copyWith(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
+                                      .headText2
+                                      .copyWith(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400),
                             unselectedLabelColor: selectedAppTheme.isDarkMode?
                             Colors.white:Colors.black,
                           ),
@@ -204,106 +204,106 @@ class _ProfileViewState extends State<ProfileView>
                   )
                 ]),
                 body: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      buildEventsList(currentUser.eventsParticipated!),
-                      Stack(
-                        children: [
-                          buildTeamsList(currentUser.teams!),
-                          Positioned(
-                              bottom: 10,
-                              right: 30,
-                              child: Container(
-                                alignment: Alignment.bottomCenter,
-                                child: ElevatedButton(
-                                  onPressed: (){
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => Utils.DialogBox(
-                                            context,
-                                            'Create New Team',
-                                            'Enter Team Name',
-                                            'Create',
-                                            'assets/create_team.gif',
-                                            true)
-                                    ).then((value)async{
-                                      if(value!=null){
-                                        if(value.isEmpty){
-                                          Utils.flushBarMessage(
+                  controller: _tabController,
+                  children: [
+                    buildEventsList(currentUser.eventsParticipated!),
+                    Stack(
+                      children: [
+                        buildTeamsList(currentUser.teams!),
+                        Positioned(
+                            bottom: 10,
+                            right: 30,
+                            child: Container(
+                              alignment: Alignment.bottomCenter,
+                              child: ElevatedButton(
+                                onPressed: (){
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => Utils.DialogBox(
+                                        context,
+                                        'Create New Team',
+                                        'Enter Team Name',
+                                        'Create',
+                                        'assets/create_team.gif',
+                                        true)
+                                      ).then((value)async{
+                                        if(value!=null){
+                                          if(value.isEmpty){
+                                            Utils.flushBarMessage(
                                               context: context,
                                               bgColor: Colors.redAccent,
                                               message: "Please enter a Valid Team name!"
-                                          );
-                                          return ;
-                                        }
-                                        creatingTeam.value = true;
-                                        await ProfileViewModel().createTeam(
+                                            );
+                                            return ;
+                                          }
+                                          creatingTeam.value = true;
+                                          await ProfileViewModel().createTeam(
                                             teamName: value, userId: currentUser.sId!, context: context);
-                                        setState(() {
-
-                                        });
-                                        creatingTeam.value = false;
-                                      }
-                                    });
-                                  },
-                                  child: SizedBox(
-                                      height: 35,
-                                      width: SizeConfig.width*0.8,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 15,
-                                            height: 15,
-                                            decoration: const BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: AssetImage(ImagePaths.add),
-                                                    fit: BoxFit.cover
-                                                )
-                                            ),
+                                            setState(() {
+                                              
+                                            });
+                                          creatingTeam.value = false;
+                                        }
+                                      });
+                                },
+                                child: SizedBox(
+                                    height: 35,
+                                    width: SizeConfig.width*0.8,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 15,
+                                          height: 15,
+                                          decoration: const BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(ImagePaths.add),
+                                                  fit: BoxFit.cover
+                                              )
                                           ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Obx((){
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Obx((){
                                             return (creatingTeam.value)?
                                             const SpinKitWave(
                                               color: Colors.white,
                                               itemCount: 5,
                                               size: 15,
                                             )
-                                                :AutoSizeText(
-                                                'Create New Team',
-                                                style: AppTheme().headText2.copyWith(
-                                                )
-                                            );
-                                          })
-                                          ,
-                                        ],
-                                      )
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    backgroundColor: AppTheme().primaryColor,
-                                    fixedSize: Size(SizeConfig.width*0.8, 45),
-                                    shadowColor: AppTheme().primaryColor,
-                                    elevation: 5,
-                                  ),
+                                            :AutoSizeText(
+                                              'Create New Team',
+                                              style: AppTheme().headText2.copyWith(
+                                              )
+                                          );
+                                        })
+                                        ,
+                                      ],
+                                    )
                                 ),
-                              )
-                          )
-                        ],
-                      ),
-                      buildRequestList(currentUser.pendingRequests!)
-                    ]
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  backgroundColor: AppTheme().primaryColor,
+                                  fixedSize: Size(SizeConfig.width*0.8, 45),
+                                  shadowColor: AppTheme().primaryColor,
+                                  elevation: 5,
+                                ),
+                              ),
+                            )
+                        )
+                      ],
+                    ),
+                    buildRequestList(currentUser.pendingRequests!)
+                  ]
                 )
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget buildRequestList(List<PendingRequests> requests) {
@@ -311,7 +311,7 @@ class _ProfileViewState extends State<ProfileView>
     if(requests.isEmpty){
       return Center(
         child: Text(
-          "You have no pending requests!!",
+            "You have no pending requests!!",
           style: AppTheme().headText2.copyWith(
               fontSize: 17,
               color: selectedAppTheme.isDarkMode?
@@ -328,10 +328,10 @@ class _ProfileViewState extends State<ProfileView>
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent * 90,
-            color: Colors.grey,
-          )),
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
       itemCount: requests.length,
     );
   }
@@ -357,15 +357,15 @@ class _ProfileViewState extends State<ProfileView>
             child: Container(
               padding: const EdgeInsets.only(right: 10),
               child: AutoSizeText(
-                teamName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTheme().headText1.copyWith(
-                    color: selectedAppTheme.isDarkMode?
-                    Colors.white:Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20
-                ),),
+              teamName,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme().headText1.copyWith(
+                  color: selectedAppTheme.isDarkMode?
+                  Colors.white:Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20
+              ),),
             ),
           ),
           Row(
@@ -403,12 +403,12 @@ class _ProfileViewState extends State<ProfileView>
               itemCount: 3,
             ),
           )
-              :AutoSizeText(
+          :AutoSizeText(
             'Accept',
             style: AppTheme().headText2.copyWith(
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-            ),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
           );
         }),
       ),
@@ -425,7 +425,7 @@ class _ProfileViewState extends State<ProfileView>
   Widget RejectButton(String requestId,int index) {
     return GestureDetector(
       onTap: () async{
-        isRejectingRequest[index] = true;
+         isRejectingRequest[index] = true;
         await ProfileViewModel().rejectRequest(requestId, context);
         setState(() {});
         isRejectingRequest[index] = false;
@@ -436,16 +436,16 @@ class _ProfileViewState extends State<ProfileView>
           color: AppTheme().primaryColor,
           size: 14,
         )
-            :Container(
-          margin: const EdgeInsets.only(left: 5),
-          height: 13,
-          width: 13,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: selectedAppTheme.isDarkMode?
-                  const AssetImage(ImagePaths.cancel_dark):const AssetImage(ImagePaths.cancel_light),
-                  fit: BoxFit.cover
-              )
+        :Container(
+        margin: const EdgeInsets.only(left: 5),
+        height: 13,
+        width: 13,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: selectedAppTheme.isDarkMode?
+                const AssetImage(ImagePaths.cancel_dark):const AssetImage(ImagePaths.cancel_light),
+                fit: BoxFit.cover
+            )
           ),
         );
       }),
@@ -459,10 +459,10 @@ class _ProfileViewState extends State<ProfileView>
       child: Center(
         child: isDone
             ? const Icon(
-          Icons.done,
-          size: 30,
-          color: Colors.white,
-        )
+                Icons.done,
+                size: 30,
+                color: Colors.white,
+              )
             : const CircularProgressIndicator(color: Colors.white),
       ),
     );
@@ -490,7 +490,7 @@ class _ProfileViewState extends State<ProfileView>
           eventImage: (index%3==0)?
           ImagePaths.events:(index%3==1)?
           ImagePaths.awards:
-          ImagePaths.events,
+           ImagePaths.events,
           teamName: teamsList[index].teamName!,
           teamMembers: teamsList[index].members!,
           teamId: teamsList[index].sId!,
@@ -499,19 +499,19 @@ class _ProfileViewState extends State<ProfileView>
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent * 90,
-            color: Colors.grey,
-          )),
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
       itemCount: teamsList.length,
     );
   }
 
   Widget TeamsWidget(
       {required String eventImage,
-        required String teamName,
-        required List<Members> teamMembers,
-        required String teamId}) {
+      required String teamName,
+      required List<Members> teamMembers,
+      required String teamId}) {
     return GestureDetector(
       onTap: () {
       },
@@ -553,40 +553,40 @@ class _ProfileViewState extends State<ProfileView>
                               : Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 20
+                        ),
                       ),
-                    ),
-                    children: [
-                      Column(
-                        children: [
-                          for(var e in teamMembers)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.person_rounded,color: AppTheme().kSecondaryColor),
-                                  Flexible(
-                                    child: Container(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: Text(e.name!,
+                      children: [
+                        Column(
+                          children: [
+                            for(var e in teamMembers) 
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.person_rounded,color: AppTheme().kSecondaryColor),
+                                    Flexible(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Text(e.name!,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
-                                        style: AppTheme().headText2.copyWith(
+                                          style: AppTheme().headText2.copyWith(
                                             color: selectedAppTheme.isDarkMode?
                                             Colors.white:Colors.black,
                                             fontSize: 16
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 55,vertical: 5),
-                            child: ElevatedButton(
-                              onPressed: (){
-                                showDialog(
+                  
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 55,vertical: 5),
+                              child: ElevatedButton(
+                                  onPressed: (){
+                                      showDialog(
                                     context: context,
                                     builder: (context) => Utils.DialogBox(
                                         context,
@@ -595,97 +595,97 @@ class _ProfileViewState extends State<ProfileView>
                                         'Add',
                                         'assets/add_team.gif',
                                         false
-                                    )
-                                ).then((value)async{
-                                  if(value == null) return ;
-                                  if(value.isEmpty){
-                                    Utils.flushBarMessage(
-                                        context: context,
-                                        bgColor: Colors.redAccent,
-                                        message:
-                                        "Please enter a Valid Email Id");
-                                    return ;
-                                  }
-                                  sendingRequest.value = true;
-                                  await ProfileViewModel().sendTeamRequest(
-                                      email: value,
+                                      )
+                                  ).then((value)async{
+                                    if(value == null) return ;
+                                      if(value.isEmpty){
+                                        Utils.flushBarMessage(
+                                          context: context,
+                                          bgColor: Colors.redAccent,
+                                          message:
+                                              "Please enter a Valid Email Id");
+                                        return ;
+                                      }
+                                    sendingRequest.value = true;
+                                    await ProfileViewModel().sendTeamRequest(
+                                      email: value, 
                                       userId: currentUser.sId!,
                                       teamId: teamId,
                                       context: context);
                                   sendingRequest.value = false;
-                                });
-                              },
-                              child: SizedBox(
-                                  height: 35,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 10,
-                                        height: 10,
-                                        decoration: const BoxDecoration(
-                                            image: DecorationImage(
-                                                image: AssetImage(ImagePaths.add),
-                                                fit: BoxFit.cover
-                                            )
+                                  });
+                                },
+                                child: SizedBox(
+                                    height: 35,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 10,
+                                          height: 10,
+                                          decoration: const BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(ImagePaths.add),
+                                                  fit: BoxFit.cover
+                                              )
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Obx((){
-                                        return (sendingRequest.value)?
-                                        const SpinKitWave(
-                                          color: Colors.white,
-                                          itemCount: 5,
-                                          size: 15,
-                                        )
-                                            :Text(
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Obx((){
+                                          return (sendingRequest.value)?
+                                          const SpinKitWave(
+                                            color: Colors.white,
+                                            itemCount: 5,
+                                            size: 15,
+                                          )
+                                          :Text(
                                             'Add Member',
                                             style: AppTheme().headText2.copyWith(
-                                                fontSize: 15
+                                              fontSize: 15
                                             )
-                                        );
-                                      }),
-                                    ],
-                                  )
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(60.0),
+                                          );
+                                        }),
+                                      ],
+                                    )
                                 ),
-                                backgroundColor: AppTheme().secondaryColor,
-                                // fixedSize: Size(SizeConfig.width*0.35, 20),
-                                shadowColor: AppTheme().primaryColor,
-                                elevation: 5,
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(60.0),
+                                  ),
+                                  backgroundColor: AppTheme().secondaryColor,
+                                 // fixedSize: Size(SizeConfig.width*0.35, 20),
+                                  shadowColor: AppTheme().primaryColor,
+                                  elevation: 5,
 
-
+             
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 10,)
-                        ],
-                      ),
-                    ],
-                    //onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
+                            const SizedBox(height: 10,)
+                          ],
+                        ),
+                      ],
+                      //onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                height: SizeConfig.height*0.05,
-                width: SizeConfig.height*0.05,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(eventImage),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [BoxShadow(
-                        color: AppTheme().secondaryColor,
-                        blurRadius: 1.0,
-                        spreadRadius: 1.0,
-                        offset: const Offset(3, 3))
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  height: SizeConfig.height*0.05,
+                  width: SizeConfig.height*0.05,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(eventImage),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [BoxShadow(
+                          color: AppTheme().secondaryColor,
+                          blurRadius: 1.0,
+                          spreadRadius: 1.0,
+                          offset: const Offset(3, 3))
                     ]),
               )
             ]),
@@ -703,9 +703,9 @@ class _ProfileViewState extends State<ProfileView>
       return Center(
         child: Text("You have no registered events!!",
           style: AppTheme().headText2.copyWith(
-              fontSize: 17,
-              color: selectedAppTheme.isDarkMode?
-              Colors.white:AppTheme().primaryColor
+            fontSize: 17,
+            color: selectedAppTheme.isDarkMode?
+            Colors.white:AppTheme().primaryColor
           ),
         ),
       );
@@ -724,21 +724,21 @@ class _ProfileViewState extends State<ProfileView>
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) => Center(
           child: Container(
-            height: 0,
-            width: SizeConfig.widthPercent * 90,
-            color: Colors.grey,
-          )),
+        height: 0,
+        width: SizeConfig.widthPercent * 90,
+        color: Colors.grey,
+      )),
       itemCount: regEvents.length,
     );
   }
 
   Widget RegEvents(
       {required String eventImage,
-        required String eventName,
-        required String teamName,
-        required String stage,
-        required String score,
-        required String date}) {
+      required String eventName,
+      required String teamName,
+      required String stage,
+      required String score,
+      required String date}) {
     return GestureDetector(
       onTap: () {
       },
@@ -776,25 +776,21 @@ class _ProfileViewState extends State<ProfileView>
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                FittedBox(
-                                  child: Text(
-                                    eventName,
-                                    style: AppTheme().headText1.copyWith(
-                                        color: selectedAppTheme.isDarkMode
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w500),
-                                  ),
+                                AutoSizeText(
+                                  eventName,
+                                  style: AppTheme().headText1.copyWith(
+                                      color: selectedAppTheme.isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w500),
                                 ),
-                                FittedBox(
-                                  child: Text(
-                                    teamName,
-                                    style: AppTheme().headText2.copyWith(
-                                        fontSize: 16,
-                                        color: selectedAppTheme.isDarkMode?
-                                        Colors.white:AppTheme().primaryColor
-                                    ),
+                                AutoSizeText(
+                                  teamName,
+                                  style: AppTheme().headText2.copyWith(
+                                      fontSize: 16,
+                                      color: selectedAppTheme.isDarkMode?
+                                      Colors.white:AppTheme().primaryColor
                                   ),
                                 ),
                               ],
@@ -806,7 +802,7 @@ class _ProfileViewState extends State<ProfileView>
                               padding: const EdgeInsets.only(right: 5),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -889,5 +885,5 @@ class _ProfileViewState extends State<ProfileView>
       drawerAnimationController.forward();
     }
   }
-
+  
 }
