@@ -92,260 +92,342 @@ class _ContactUsViewState extends State<ContactUsView> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
             children: [
-              Container(
-                width: SizeConfig.width*0.95,
-                height: SizeConfig.height*0.28,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        contactWidget(
-                          convenor_images[1],
-                          convenor_names[1],
-                          'Co-Convenor',
-                          convenor_phone[1],
-                          convenor_linkedIn[1],
-                          SizeConfig.width*0.28,
-                        ),
-                      ],
-                    ),
-                    contactWidget(
-                      convenor_images[0],
-                      convenor_names[0],
-                      'Convenor',
-                      convenor_phone[0],
-                      convenor_linkedIn[0],
-                      SizeConfig.width*0.28,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        contactWidget(
-                          convenor_images[2],
-                          convenor_names[2],
-                          'Co-Convenor',
-                          convenor_phone[2],
-                          convenor_linkedIn[2],
-                          SizeConfig.width*0.28,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+              SizedBox(
+                height: 10,
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-                    child: Center(
-                      child: AutoSizeText(
-                          'TEAM LEADS',
-                          style: GoogleFonts.comicNeue(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: selectedAppTheme.isDarkMode?
-                              Colors.white:AppTheme().primaryColor
-                          )
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                Container(
+                  width: SizeConfig.width*0.95,
+                  height: SizeConfig.height*0.28,
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(
-                        width: 35,
-                        child: Transform.rotate(
-                          angle: math.pi/2,
-                          child: AnimatedSmoothIndicator(
-                            activeIndex: _currentTeam,
-                            count: (team_name.length + 1) ~/ 2,
-                            effect: WormEffect(
-                              activeDotColor: AppTheme().kSecondaryColor,
-                              dotHeight: 4.5.sp,
-                              dotWidth: 4.5.sp,
-                            ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          contactWidget(
+                            convenor_images[1],
+                            convenor_names[1],
+                            'Co-Convenor',
+                            convenor_phone[1],
+                            convenor_linkedIn[1],
+                            SizeConfig.width*0.28,
                           ),
-                        ),
+                        ],
                       ),
-                      GestureDetector(
-                        onHorizontalDragCancel: () {
-                          _timerTeam.cancel();
-                        },
-                        child: Container(
-                          height: SizeConfig.height*0.26,
-                          width: SizeConfig.width*0.8,
-                          child: PageView.builder(
-                            controller: _teamController,
-                            itemCount: (team_name.length+1)~/2,
-                            onPageChanged: (int team) {
-                              setState(() {
-                                _currentTeam = team;
-                              });
-                            },
-                            itemBuilder: (BuildContext context, int index) {
-                              return (_currentTeam != index)?Container()
-                                  : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  (2*index < team_name.length)?Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 17),
-                                    child: contactWidget(
-                                      team_leads_images[2*index],
-                                      team_leads_names[2*index],
-                                      team_name[2*index],
-                                      team_leads_phone[2*index],
-                                      team_leads_linkedIn[2*index],
-                                      SizeConfig.width*0.30,
-                                    ),
-                                  ):Container(),
-
-                                  (2*index+1 < team_name.length)?Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 17),
-                                    child: contactWidget(
-                                      team_leads_images[2*index+1],
-                                      team_leads_names[2*index+1],
-                                      team_name[2*index+1],
-                                      team_leads_phone[2 * index+1],
-                                      team_leads_linkedIn[2 * index+1],
-                                      SizeConfig.width*0.30,
-                                    ),
-                                  ):const SizedBox(width: 0,),
-                                ],
-                              );
-                            },
+                      contactWidget(
+                        convenor_images[0],
+                        convenor_names[0],
+                        'Convenor',
+                        convenor_phone[0],
+                        convenor_linkedIn[0],
+                        SizeConfig.width*0.28,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          contactWidget(
+                            convenor_images[2],
+                            convenor_names[2],
+                            'Co-Convenor',
+                            convenor_phone[2],
+                            convenor_linkedIn[2],
+                            SizeConfig.width*0.28,
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 35,
-                        child: Transform.rotate(
-                          angle: math.pi/2,
-                          child: AnimatedSmoothIndicator(
-                            activeIndex: _currentTeam,
-                            count: (team_name.length + 1) ~/ 2,
-                            effect: WormEffect(
-                              activeDotColor: Colors.transparent,
-                              dotColor: Colors.transparent,
-                              dotHeight: 6.0.sp,
-                              dotWidth: 6.0.sp,
-                            ),
-                          ),
-                        ),
-                      ),
+                        ],
+                      )
                     ],
                   ),
-
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-                    child: Center(
-                      child: AutoSizeText('EVENT HEADS',
-                          style: GoogleFonts.comicNeue(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: selectedAppTheme.isDarkMode?
-                              Colors.white:AppTheme().primaryColor
-                          )
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                      child: Center(
+                        child: AutoSizeText(
+                            'TEAM LEADS',
+                            style: GoogleFonts.comicNeue(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor
+                            )
+                        ),
                       ),
                     ),
-                  ),
-                  FittedBox(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Transform.rotate(
-                          angle: math.pi/2,
-                          child: AnimatedSmoothIndicator(
-                            activeIndex: _currentEvent,
-                            count: (event_name.length + 1) ~/ 2,
-                            effect: WormEffect(
-                              activeDotColor: AppTheme().kSecondaryColor,
-                              dotHeight: 4.5.sp,
-                              dotWidth: 4.5.sp,
+                    FittedBox(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 35,
+                            child: Transform.rotate(
+                              angle: math.pi/2,
+                              child: AnimatedSmoothIndicator(
+                                activeIndex: _currentTeam,
+                                count: (team_name.length + 1) ~/ 2,
+                                effect: WormEffect(
+                                  activeDotColor: AppTheme().kSecondaryColor,
+                                  dotHeight: 4.5.sp,
+                                  dotWidth: 4.5.sp,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        GestureDetector(
-                          onHorizontalDragCancel: () {
-                            _timerEvent.cancel();
-                          },
-                          child: Container(
-                            height: SizeConfig.height*0.26,
-                            width: SizeConfig.width*0.8,
-                            child: PageView.builder(
-                              controller: _eventController,
-                              itemCount: (event_name.length+1)~/2,
-                              onPageChanged: (int event) {
-                                setState(() {
-                                  _currentEvent = event;
-                                });
-                              },
-                              itemBuilder: (BuildContext context, int index) {
-                                return (_currentEvent != index)?Container()
-                                    : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                  
-                                    (2*index < event_name.length)?Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 17),
-                                      child: contactWidget(
-                                        event_head_images[2*index],
-                                        event_heads_names[2*index],
-                                        event_name[2*index],
-                                        event_heads_phone[2*index],
-                                        event_heads_linkedIn[2*index],
-                                        SizeConfig.width*0.30,
-                                      ),
-                                    ):const SizedBox(width: 0),
-                  
-                                    (2*index+1 < event_name.length)?Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 17),
-                                      child: contactWidget(
-                                        event_head_images[2*index+1],
-                                        event_heads_names[2*index+1],
-                                        event_name[2*index+1],
-                                        event_heads_phone[2 * index+1],
-                                        event_heads_linkedIn[2 * index+1],
-                                        SizeConfig.width*0.30,
-                                      ),
-                                    ):const SizedBox(width: 0),
-                  
-                                  ],
-                                );
-                              },
+                          GestureDetector(
+                            onHorizontalDragCancel: () {
+                              _timerTeam.cancel();
+                            },
+                            child: Container(
+                              height: SizeConfig.height*0.27,
+                              width: SizeConfig.width*0.8,
+                              child: PageView.builder(
+                                controller: _teamController,
+                                itemCount: (team_name.length+1)~/2,
+                                onPageChanged: (int team) {
+                                  setState(() {
+                                    _currentTeam = team;
+                                  });
+                                },
+                                itemBuilder: (BuildContext context, int index) {
+                                  return (_currentTeam != index)?Container()
+                                      : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      (2*index < team_name.length)?Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 17),
+                                        child: contactWidget(
+                                          team_leads_images[2*index],
+                                          team_leads_names[2*index],
+                                          team_name[2*index],
+                                          team_leads_phone[2*index],
+                                          team_leads_linkedIn[2*index],
+                                          SizeConfig.width*0.30,
+                                        ),
+                                      ):Container(),
+
+                                      (2*index+1 < team_name.length)?Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 17),
+                                        child: contactWidget(
+                                          team_leads_images[2*index+1],
+                                          team_leads_names[2*index+1],
+                                          team_name[2*index+1],
+                                          team_leads_phone[2 * index+1],
+                                          team_leads_linkedIn[2 * index+1],
+                                          SizeConfig.width*0.30,
+                                        ),
+                                      ):const SizedBox(width: 0,),
+                                    ],
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        Transform.rotate(
-                          angle: math.pi/2,
-                          child: AnimatedSmoothIndicator(
-                            activeIndex: _currentEvent,
-                            count: (event_name.length + 1) ~/ 2,
-                            effect: WormEffect(
-                              activeDotColor: Colors.transparent,
-                              dotColor: Colors.transparent,
-                              dotHeight: 4.5.sp,
-                              dotWidth: 4.5.sp,
+                          SizedBox(
+                            width: 35,
+                            child: Transform.rotate(
+                              angle: math.pi/2,
+                              child: AnimatedSmoothIndicator(
+                                activeIndex: _currentTeam,
+                                count: (team_name.length + 1) ~/ 2,
+                                effect: WormEffect(
+                                  activeDotColor: Colors.transparent,
+                                  dotColor: Colors.transparent,
+                                  dotHeight: 6.0.sp,
+                                  dotWidth: 6.0.sp,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                      child: Center(
+                        child: AutoSizeText('EVENT HEADS',
+                            style: GoogleFonts.comicNeue(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor
+                            )
+                        ),
+                      ),
+                    ),
+
+                    FittedBox(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Transform.rotate(
+                            angle: math.pi/2,
+                            child: AnimatedSmoothIndicator(
+                              activeIndex: _currentEvent,
+                              count: (event_name.length + 1) ~/ 2,
+                              effect: WormEffect(
+                                activeDotColor: AppTheme().kSecondaryColor,
+                                dotHeight: 4.5.sp,
+                                dotWidth: 4.5.sp,
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onHorizontalDragCancel: () {
+                              _timerEvent.cancel();
+                            },
+                            child: Container(
+                              height: SizeConfig.height*0.27,
+                              width: SizeConfig.width*0.8,
+                              child: PageView.builder(
+                                controller: _eventController,
+                                itemCount: (event_name.length+1)~/2,
+                                onPageChanged: (int event) {
+                                  setState(() {
+                                    _currentEvent = event;
+                                  });
+                                },
+                                itemBuilder: (BuildContext context, int index) {
+                                  return (_currentEvent != index)?Container()
+                                      : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+
+                                      (2*index < event_name.length)?Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 17),
+                                        child: contactWidget(
+                                          event_head_images[2*index],
+                                          event_heads_names[2*index],
+                                          event_name[2*index],
+                                          event_heads_phone[2*index],
+                                          event_heads_linkedIn[2*index],
+                                          SizeConfig.width*0.30,
+                                        ),
+                                      ):const SizedBox(width: 0),
+
+                                      (2*index+1 < event_name.length)?Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 17),
+                                        child: contactWidget(
+                                          event_head_images[2*index+1],
+                                          event_heads_names[2*index+1],
+                                          event_name[2*index+1],
+                                          event_heads_phone[2 * index+1],
+                                          event_heads_linkedIn[2 * index+1],
+                                          SizeConfig.width*0.30,
+                                        ),
+                                      ):const SizedBox(width: 0),
+
+                                    ],
+                                  );
+                                },
+                              ),
+
+                            ),
+                          ),
+                          Transform.rotate(
+                            angle: math.pi/2,
+                            child: AnimatedSmoothIndicator(
+                              activeIndex: _currentEvent,
+                              count: (event_name.length + 1) ~/ 2,
+                              effect: WormEffect(
+                                activeDotColor: Colors.transparent,
+                                dotColor: Colors.transparent,
+                                dotHeight: 4.5.sp,
+                                dotWidth: 4.5.sp,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                      child: Center(
+                        child: AutoSizeText(
+                            'DEVELOPERS CONTACT',
+                            style: GoogleFonts.comicNeue(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: selectedAppTheme.isDarkMode?
+                                Colors.white:AppTheme().primaryColor
+                            )
+                        ),
+                      ),
+                    ),
+
+                    Container(
+                      width: SizeConfig.width*0.95,
+                      height: SizeConfig.height*0.28,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              contactWidget(
+                                developers_images[1],
+                                developers_names[1],
+                                'Contributor',
+                                developers_phone[1],
+                                developers_linkedIn[1],
+                                SizeConfig.width*0.28,
+                              ),
+                            ],
+                          ),
+                          contactWidget(
+                            developers_images[0],
+                            developers_names[0],
+                            'Head',
+                            developers_phone[0],
+                            developers_linkedIn[0],
+                            SizeConfig.width*0.28,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              contactWidget(
+                                developers_images[2],
+                                developers_names[2],
+                                'Contributor',
+                                developers_phone[2],
+                                developers_linkedIn[2],
+                                SizeConfig.width*0.28,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                   ],
-              ),
-            ],
+                ),
+              ],
+            )],
+
+
           ),
         ),
       ),

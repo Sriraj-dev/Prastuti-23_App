@@ -338,11 +338,13 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
               Container(
                 width: 10.sp,
               ),
-              Text(
-                "Log In",
-                style: AppTheme().headText2.copyWith(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
+              FittedBox(
+                child: Text(
+                  "Log In",
+                  style: AppTheme().headText2.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               )
             ],
