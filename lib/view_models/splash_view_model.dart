@@ -1,13 +1,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:new_version/new_version.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:prastuti_23/config/env.dart';
 import 'package:prastuti_23/repositories/splash_repository.dart';
 import 'package:prastuti_23/utils/routes/route_names.dart';
-import 'package:prastuti_23/utils/utils.dart';
 import 'package:prastuti_23/view_models/auth_view_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashViewModel{
 
@@ -17,8 +17,30 @@ class SplashViewModel{
     checkNotificationPermission();
 
     //await Future.delayed(const Duration(seconds: 3));
+    //_checkVersion(context);
     checkUserSession(context);
   }
+
+  // void _checkVersion(context) async {
+  //   final newVersion = NewVersion(
+  //     androidId: "com.prastuti.prastuti_23",
+  //   );
+  //   final status = await newVersion.getVersionStatus();
+  //   newVersion.showUpdateDialog(
+  //     context: context,
+  //     versionStatus: status!,
+  //     dialogTitle: "Update Available 🎊",
+  //     dismissButtonText: "Close",
+  //     dialogText: "PLease update the app from" +
+  //         "${status.localVersion}" +
+  //         "to" +
+  //         "${status.storeVersion}",
+  //     dismissAction: () {
+  //       SystemNavigator.pop();
+  //     },
+  //     updateButtonText: "Update 🤞",
+  //   );
+  // }
 
   checkUserSession(BuildContext context)async{
     String? userId = await SecureStorage().getToken();

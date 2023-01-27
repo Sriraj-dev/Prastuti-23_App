@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:new_version/new_version.dart';
 import 'package:prastuti_23/animations/login_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
@@ -22,6 +23,7 @@ class LoginView extends StatefulWidget {
 
   @override
   _LoginViewState createState() => _LoginViewState();
+
 }
 
 class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
@@ -40,8 +42,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
     loginAnimation.initiatePageAnimation(this);
     _pageController = PageController(initialPage: 0);
     _startTimer();
-  }
 
+  }
   @override
   void dispose() {
     _pageController.dispose();
@@ -363,8 +365,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
   Future<bool> _onWillPop() async {
     DateTime currentTime = DateTime.now();
 
-    bool backButtonHasBeenPressedTwice = backButtonPressTime != null &&
-        currentTime.difference(backButtonPressTime) > const Duration(seconds: 2);
+    bool backButtonHasBeenPressedTwice = currentTime.difference(backButtonPressTime) > const Duration(seconds: 2) &&
+            currentTime.difference(backButtonPressTime) < const Duration(seconds: 5);
 
     if (backButtonHasBeenPressedTwice) {
       SystemNavigator.pop();
