@@ -43,24 +43,6 @@ class _EventsViewState extends State<EventsView>
   void initState() {
     super.initState();
     eventsViewAnimation.initiatePageAnimation(this);
-    _checkVersion();
-  }
-  void _checkVersion() async {
-    final newVersion =NewVersion(
-      androidId: "com.prastuti.prastuti_23",
-    );
-    final status = await newVersion.getVersionStatus();
-    newVersion.showUpdateDialog(
-      context: context,
-      versionStatus: status!,
-      dialogTitle: "Update Available 🎊",
-      dismissButtonText: "Close",
-      dialogText: "PLease update the app from" + "${status.localVersion}" + "to" + "${status.storeVersion}",
-      dismissAction: () {
-        SystemNavigator.pop();
-      },
-      updateButtonText: "Update 🤞",
-    );
   }
 
 

@@ -41,26 +41,8 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
     animationController = Get.put(loginAnimation);
     loginAnimation.initiatePageAnimation(this);
     _pageController = PageController(initialPage: 0);
-    _checkVersion();
     _startTimer();
 
-  }
-  void _checkVersion() async {
-    final newVersion =NewVersion(
-      androidId: "com.prastuti.prastuti_23",
-    );
-    final status = await newVersion.getVersionStatus();
-    newVersion.showUpdateDialog(
-        context: context,
-        versionStatus: status!,
-      dialogTitle: "Update Available 🎊",
-      dismissButtonText: "Close",
-      dialogText: "PLease update the app from" + "${status.localVersion}" + "to" + "${status.storeVersion}",
-      dismissAction: () {
-          SystemNavigator.pop();
-    },
-    updateButtonText: "Update 🤞",
-    );
   }
   @override
   void dispose() {
