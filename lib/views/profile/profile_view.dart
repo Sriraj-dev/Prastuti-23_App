@@ -807,21 +807,25 @@ class _ProfileViewState extends State<ProfileView>
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AutoSizeText(
-                                  eventName,
-                                  style: AppTheme().headText1.copyWith(
-                                      color: selectedAppTheme.isDarkMode
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w500),
+                                FittedBox(
+                                  child: Text(
+                                    eventName,
+                                    style: AppTheme().headText1.copyWith(
+                                        color: selectedAppTheme.isDarkMode
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ),
-                                AutoSizeText(
-                                  teamName,
-                                  style: AppTheme().headText2.copyWith(
-                                      fontSize: 16,
-                                      color: selectedAppTheme.isDarkMode?
-                                      Colors.white:AppTheme().primaryColor
+                                FittedBox(
+                                  child: Text(
+                                    teamName,
+                                    style: AppTheme().headText2.copyWith(
+                                        fontSize: 16,
+                                        color: selectedAppTheme.isDarkMode?
+                                        Colors.white:AppTheme().primaryColor
+                                    ),
                                   ),
                                 ),
                               ],

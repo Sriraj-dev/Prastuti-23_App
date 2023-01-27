@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:new_version/new_version.dart';
 import 'package:prastuti_23/animations/login_view_animation.dart';
 import 'package:prastuti_23/config/appTheme.dart';
 import 'package:prastuti_23/config/image_paths.dart';
@@ -22,6 +23,7 @@ class LoginView extends StatefulWidget {
 
   @override
   _LoginViewState createState() => _LoginViewState();
+
 }
 
 class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
@@ -39,9 +41,27 @@ class _LoginViewState extends State<LoginView> with TickerProviderStateMixin {
     animationController = Get.put(loginAnimation);
     loginAnimation.initiatePageAnimation(this);
     _pageController = PageController(initialPage: 0);
+    _checkVersion();
     _startTimer();
-  }
 
+  }
+  void _checkVersion() async {
+    final newVersion =NewVersion(
+      androidId: "com.prastuti.prastuti_23",
+    );
+    final status = await newVersion.getVersionStatus();
+    newVersion.showUpdateDialog(
+        context: context,
+        versionStatus: status!,
+      dialogTitle: "Update Available 🎊",
+      dismissButtonText: "Close",
+      dialogText: "PLease update the app from" + "${status.localVersion}" + "to" + "${status.storeVersion}",
+      dismissAction: () {
+          SystemNavigator.pop();
+    },
+    updateButtonText: "Update 🤞",
+    );
+  }
   @override
   void dispose() {
     _pageController.dispose();
